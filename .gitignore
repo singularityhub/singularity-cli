@@ -1,0 +1,6 @@
+singularity.egg-info
+__pycache__
+pypi.sh
+dist
+*.pyc
+OLD

@@ -1,0 +1,7 @@
+include README.md LICENSE
+recursive-include spython *
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc
+recursive-exclude * *.pyo
+recursive-exclude * *.simg
+recursive-exclude * *.img
