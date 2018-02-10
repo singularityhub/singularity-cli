@@ -37,10 +37,6 @@ def get_parser():
                         help="use verbose logging to debug.", 
                         default=False, action='store_true')
 
-    parser.add_argument('--silent','-s', dest="silent", 
-                        help="only print errors", 
-                        default=False, action='store_true')
-
 
     parser.add_argument('--quiet','-q', dest="quiet", 
                         help="suppress all normal output", 
@@ -56,6 +52,10 @@ def get_parser():
 
     parser.add_argument('--sh-debug','-x', dest="shdebug", 
                         help="full shell wrapper debugging information", 
+                        default=False, action='store_true')
+
+    parser.add_argument('--silent','-s', dest="silent", 
+                        help="suppress all normal and debug output", 
                         default=False, action='store_true')
 
 
@@ -130,14 +130,17 @@ def set_verbosity(args):
         level = "QUIET"
 
     os.environ['MESSAGELEVEL'] = level
+    os.putenv('MESSAGELEVEL', level)
     os.environ['SINGULARITY_MESSAGELEVEL'] = level
-       
+    os.putenv('SINGULARITY_MESSAGELEVEL', level)
+    
     # Import logger to set
     from spython.logger import bot
+    print(bot.level)
     bot.debug('Logging level %s' %level)
     import spython
 
-    bot.info("Singularity Python Version: %s" % spython.__version__)
+    bot.debug("Singularity Python Version: %s" % spython.__version__)
 
     
 def main():
@@ -178,6 +181,9 @@ def main():
     #QUIET = '--quiet'
     #VERBOSE = '-vvvv'
 
+    # if environment logging variable not set, make silent
+    set_verbosity(args)
+
     # Does the user want help for a subcommand?
     if args.command == 'help': from .help import main 
 
@@ -208,9 +214,6 @@ def main():
         if main is None:
             help()
     
-    # if environment logging variable not set, make silent
-    set_verbosity(args)
-
     # Pass on to the correct parser
     if args.command is not None:
         main(args=args, options=options)

@@ -295,37 +295,35 @@ class SingularityMessage:
 
 
 def get_logging_level():
-    '''get_logging_level will configure a logging to standard out based on the user's
+    '''configure a logging to standard out based on the user's
     selected level, which should be in an environment variable called
-    MESSAGELEVEL. if MESSAGELEVEL is not set, the maximum level
-    (5) is assumed (all messages).
+    MESSAGELEVEL. if MESSAGELEVEL is not set, the info level
+    (1) is assumed (all informational messages).
     '''
-    try:
-        level = int(os.environ.get("MESSAGELEVEL", INFO))
+    level = os.environ.get("MESSAGELEVEL", "1") # INFO
 
-    except ValueError:
-
-        level = os.environ.get("MESSAGELEVEL", INFO)
-        if level == "CRITICAL":
-            return CRITICAL
-        elif level == "ABORT":
-            return ABORT
-        elif level == "ERROR":
-            return ERROR
-        elif level == "WARNING":
-            return WARNING
-        elif level == "LOG":
-            return LOG
-        elif level == "INFO":
-            return INFO
-        elif level == "QUIET":
-            return QUIET
-        elif level.startswith("VERBOSE"):
-            return VERBOSE3
-        elif level == "LOG":
-            return LOG
-        elif level == "DEBUG":
-            return DEBUG
+    if level == "CRITICAL":
+        return CRITICAL
+    elif level == "ABORT":
+        return ABORT
+    elif level == "ERROR":
+        return ERROR
+    elif level == "WARNING":
+        return WARNING
+    elif level == "LOG":
+        return LOG
+    elif level == "INFO":
+        return INFO
+    elif level == "QUIET":
+        return QUIET
+    elif level.startswith("VERBOSE"):
+        return VERBOSE3
+    elif level == "LOG":
+        return LOG
+    elif level == "DEBUG":
+        return DEBUG
+    else:
+        level = int(level)
 
     return level
 

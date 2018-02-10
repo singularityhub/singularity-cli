@@ -25,8 +25,10 @@ import sys
 import os
 
 
-def main(args, parser, subparser):
+def main(args, options):
 
-    if check_install() is not True:
-        bot.error("Cannot find Singularity! Is it installed?")
-        sys.exit(1)
+    from spython.main import Client
+    if len(options) > 0:
+        image = options.pop(0)
+        if os.path.exists(image):
+            Client.apps(image)
