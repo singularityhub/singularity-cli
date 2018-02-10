@@ -25,8 +25,7 @@ import sys
 import os
 
 
-def main(args, parser, subparser):
-
-    if check_install() is not True:
-        bot.error("Cannot find Singularity! Is it installed?")
-        sys.exit(1)
+def main(args, options):
+    '''main function for instances'''
+    from spython.main import Client
+    Client.check_install()

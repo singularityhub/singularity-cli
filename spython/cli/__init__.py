@@ -72,6 +72,7 @@ def get_parser():
 
     # Container Usage Commands
     subparsers.add_parser("exec", help="Execute a command within container")
+    subparsers.add_parser("pyshell", help="Interact with singularity python")
     subparsers.add_parser("run", help="Launch a runscript within container")                           
     subparsers.add_parser("shell", help="Run a Bourne shell within container")
     subparsers.add_parser("test", help='''Launch a testscript within container
@@ -133,6 +134,7 @@ def set_verbosity(args):
        
     # Import logger to set
     from spython.logger import bot
+    bot.debug('Logging level %s' %level)
     import spython
 
     bot.info("Singularity Python Version: %s" % spython.__version__)
@@ -155,15 +157,26 @@ def main():
         sys.exit(return_code)
     
     # If the user didn't provide any arguments, show the full help
-    if len(sys.argv) == 1:
-        help()
-    try:
-        args, options = parser.parse_known_args()
-    except:
-        sys.exit(0)
+    #if len(sys.argv) == 1:
+    #    help()
+    #try:
+        # We capture all primary arguments, and take secondary to pass on
+    args, options = parser.parse_known_args()
+    #except:
+    #    sys.exit(0)
 
     # The main function
     main = None
+
+    print("ARGS: %s" %args)
+    print("OPTS: %s" %options)
+
+    #TODO: --debug, --verbose, -vvv should be passed as options
+    # need to figure out where they appear relative to cmd, and how to include
+    # with other (cmd-specific options)
+    #DEBUG = '--debug'
+    #QUIET = '--quiet'
+    #VERBOSE = '-vvvv'
 
     # Does the user want help for a subcommand?
     if args.command == 'help': from .help import main 
@@ -178,6 +191,7 @@ def main():
     elif args.command == 'instance': from .instance import main 
     elif args.command == 'mount': from .mount import main 
     elif args.command == 'pull': from .pull import main 
+    elif args.command == 'pyshell': from .pyshell import main 
     elif args.command == 'run': from .run import main 
     elif args.command == 'selftest': from .selftest import main 
     elif args.command == 'shell': from .shell import main 
@@ -189,22 +203,17 @@ def main():
     wants_help = False
     if "help" or "--help" in options:
         wants_help = True
-        
+
         # No command, show general help
         if main is None:
             help()
-
-    print(options)
     
     # if environment logging variable not set, make silent
     set_verbosity(args)
 
-    sys.exit(0)
     # Pass on to the correct parser
     if args.command is not None:
-        main(args=args,
-             parser=parser,
-             subparser=subparsers[args.command])
+        main(args=args, options=options)
 
 
 if __name__ == '__main__':

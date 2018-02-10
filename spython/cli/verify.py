@@ -25,7 +25,7 @@ import sys
 import os
 
 
-def main(args, parser, subparser):
+def main(args, options):
 
     if check_install() is not True:
         bot.error("Cannot find Singularity! Is it installed?")

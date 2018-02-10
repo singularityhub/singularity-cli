@@ -26,7 +26,22 @@ import os
 
 
 def main(args, options):
+    '''call the client to print Singularity help. If a command is provided,
+       print help specific to it and exit.
+    
+       Parameters
+       ==========
+       args.command: one of the main entry point commands to print, to show help
+
+    '''
+    # If the command isn't help, it's what help is needed for
+    command = args.command
+    if command == 'help':
+        command=None
+
+        # Given the help command, the action is from options
+        if len(options) > 0:
+            command=options[0]
+
     from spython.main import Client
-    print('RUN')
-    print(args)
-    print(options)
+    return Client.help(command=command, stdout=True)
