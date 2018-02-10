@@ -1,6 +1,7 @@
-singularity.egg-info
+spython.egg-info
 __pycache__
 pypi.sh
+build
 dist
 *.pyc
 OLD

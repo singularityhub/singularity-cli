@@ -20,7 +20,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
 from spython.logger import bot
-from spython.utils import check_install
 import sys
 import os
 

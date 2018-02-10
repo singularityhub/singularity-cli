@@ -19,5 +19,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 '''
 
-from .instance import Instance
-from .binary import Image
+from .base import ImageBase
+
+
+class Instance(ImageBase):
+
+    def __init__(self, image=None):
+       '''An instance is an image running as an instance with services.
+
+          Parameters
+          ==========
+          image: the image uri to parse (required)
+
+       '''
+       super(ImageBase, self).__init__()
+       self.parse_image_name(image)
+

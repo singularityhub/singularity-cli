@@ -27,6 +27,19 @@ import os
 
 def main(args, options):
     from spython.main import Client
+
+    verbostiy = Client._parse_verbosity(args)  # list of verbosity flags
+    options = Client._parse(options)
+
+
+def run(self, 
+        image_path,
+        args = None,
+        sudo = False,
+        writable = False,
+        contain = False):
+
+
     print('RUN')
     print(args)
     print(options)
