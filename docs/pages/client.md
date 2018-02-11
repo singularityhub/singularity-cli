@@ -9,7 +9,6 @@ toc: false
 # Singularity Python Command Line
 This walkthrough will show interaction with the Singularity Python command line tool, `spython`. You can likely accomplish most of these examples using Singularity alone, but there are a few extra tidbits that `spython offers`.
 
-
 **under development** 
 
 <div>
