@@ -36,7 +36,8 @@ class RobotNamer:
         'goodbye', 'milky', 'purple', 'rainbow', 'bricky', 'muffled', 'anxious',
         'misunderstood', 'eccentric', 'quirky', 'lovable', 'reclusive', 'faux',
         'evasive', 'confused', 'crunchy', 'expensive', 'ornery', 'fat', 'phat',
-        'joyous', 'expressive', 'psycho', 'chocolate', 'salted', 'gassy'
+        'joyous', 'expressive', 'psycho', 'chocolate', 'salted', 'gassy', 'red',
+        'blue'
     ]
 
     _nouns = [
