@@ -27,13 +27,12 @@ import sys
 import os
 
 
-def help(self, command=None, stdout=False):
+def help(self, command=None):
     '''help prints the general function help, or help for a specific command
 
         Parameters
         ==========   
         command: the command to get help for, if none, prints general help
-        stdout: if True, print help to the standard output before returning.
 
     '''
     self.check_install()
@@ -41,9 +40,5 @@ def help(self, command=None, stdout=False):
     cmd = ['singularity','--help']
     if command != None:
         cmd.append(command)
-    help = self.run_command(cmd)
-
-    # Print to console, or return string to user
-    if stdout is True:
-        print(help)
+    help = self._run_command(cmd)
     return help

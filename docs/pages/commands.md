@@ -377,6 +377,80 @@ GodloveD-lolcow-master-latest.simg
 $ client
 [Singularity-Python][GodloveD-lolcow-master-latest.simg]
 ```
+
+## Help
+If you are working in the console and desperate for some help, just ask for it:
+
+```
+$ help = client.help()
+2.4.2-development.g706e90e
+USAGE: singularity [global options...] <command> [command options...] ...
+
+GLOBAL OPTIONS:
+    -d|--debug    Print debugging information
+    -h|--help     Display usage summary
+    -s|--silent   Only print errors
+    -q|--quiet    Suppress all normal output
+       --version  Show application version
+    -v|--verbose  Increase verbosity +1
+    -x|--sh-debug Print shell wrapper debugging information
+
+GENERAL COMMANDS:
+    help       Show additional help for a command or container                  
+    selftest   Run some self tests for singularity install                      
+
+CONTAINER USAGE COMMANDS:
+    exec       Execute a command within container                               
+    run        Launch a runscript within container                              
+    shell      Run a Bourne shell within container                              
+    test       Launch a testscript within container                             
+
+CONTAINER MANAGEMENT COMMANDS:
+    apps       List available apps within a container                           
+    bootstrap  *Deprecated* use build instead                                   
+    build      Build a new Singularity container                                
+    check      Perform container lint checks                                    
+    inspect    Display container's metadata                                     
+    mount      Mount a Singularity container image                              
+    pull       Pull a Singularity/Docker container to $PWD                      
+    siflist    list data object descriptors of a SIF container image            
+    sign       Sign a group of data objects in container                        
+    verify     Verify the crypto signature of group of data objects in container
+
+COMMAND GROUPS:
+    capability User's capabilities management command group                     
+    image      Container image command group                                    
+    instance   Persistent instance command group                                
+
+
+CONTAINER USAGE OPTIONS:
+    see singularity help <command>
+
+For any additional help or support visit the Singularity
+website: http://singularity.lbl.gov/
+
+```
+
+or ask for a specific command:
+
+```
+$ help = client.help('bootstrap')
+2.4.2-development.g706e90e
+USAGE: singularity [...] bootstrap <container path> <definition file>
+******************************************************************************
+NOTICE: The bootstrap command is deprecated and will be removed in a later 
+        release. bootstrap now uses the build command to create a writable 
+        container via the following syntax:
+
+$ singularity build -w container.img recipe.def
+
+        You should update your usage accordingly. 
+******************************************************************************
+
+```
+
+Good to know!
+
 <div>
     <a href="/singularity-cli/d"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
     <a href="/sregistry-cli/client"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
