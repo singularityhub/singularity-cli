@@ -73,6 +73,8 @@ def run_command(self, cmd, sudo=False, quiet=False, capture=True):
     return_code = result['return_code']
         
     if result['return_code'] == 0:
+        if len(message) == 1:
+            message = message[0]
         return message
 
     if quiet is False:

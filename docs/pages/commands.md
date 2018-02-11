@@ -19,6 +19,7 @@ your Python applications. We wrote you a client to do that!
  - [Pull](#pull) an image using Singularity
  - [Apps](#apps) list the [Scientific Filesystem](https://sci-f.github.io) apps in your image
  - [Inspect](#inspect) metadata about your image.
+ - [Run](#run) execute the runscript for your image.
 
 
 ## Scripts
@@ -234,6 +235,12 @@ In [1]: result = client.inspect()
     }
 }
 ```
+You can inspect a single app:
+
+```
+$ output = client.inspect('/home/vanessa/Desktop/image.simg', app='foo')
+```
+
 We could also ask for non-json "human friendly" output:
 
 ```
@@ -284,6 +291,49 @@ or a different image all together!
 ```
 client.inspect('/home/vanessa/Desktop/image.simg')
 ```
+
+## Run
+Running is pretty intuitive. Just load an image into the client:
+
+```
+spython pyshell GodloveD-lolcow-master-latest.simg 
+```
+and then run it!
+
+```
+$ output = client.run()
+2.4.2-development.g706e90e
+ _________________________________________
+/ Behold, the fool saith, "Put not all    \
+| thine eggs in the one basket"--which is |
+| but a manner of saying, "Scatter your   |
+| money and your attention;" but the wise |
+| man saith, "Put all your eggs in the    |
+| one basket and--WATCH THAT BASKET."     |
+|                                         |
+| -- Mark Twain, "Pudd'nhead Wilson's     |
+\ Calendar"                               /
+ -----------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+```
+
+You can also specify to run an app in an image:
+
+```
+$ client.load('/home/vanessa/Desktop/image.simg')
+/home/vanessa/Desktop/image.simg
+
+$ output = client.run(app='foo')
+
+2.4.2-development.g706e90e
+RUNNING FOO
+```
+
 
 <div>
     <a href="/singularity-cli/d"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
