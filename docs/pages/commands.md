@@ -12,6 +12,7 @@ Singularity images. Python is strong in the world of scientific programming, and
 are reading these notes it's likely that you want to integrate Singularity containers into
 your Python applications. We wrote you a client to do that!
 
+**under development** 
 
 ## Scripts
 In most scripts, you can just import the client and go from there:
