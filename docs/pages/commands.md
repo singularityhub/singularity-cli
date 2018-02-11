@@ -154,6 +154,43 @@ Building Singularity FS image...
 ```
 
 Cool!
+
+## Apps
+We can inspect an image for a list of [SCIF](https://sci-f.github.io) apps that are installed within.
+First, let's open a python shell with the client pre-loaded:
+
+```
+spython pyshell
+```
+
+and ask to see applications in an image:
+```
+
+In [1]: apps=client.apps('/home/vanessa/Desktop/image.simg')
+2.4.2-development.g706e90e
+bar
+cat
+dog
+foo
+
+$ apps
+$ ['bar', 'cat', 'dog', 'foo']
+```
+
+We get a flat list of the application names. We can also get the full path to
+their bases:
+
+```
+$ apps=client.apps('/home/vanessa/Desktop/image.simg', full_path=True)
+2.4.2-development.g706e90e
+bar
+cat
+dog
+foo
+
+$ ['/scif/apps/bar', '/scif/apps/cat', '/scif/apps/dog', '/scif/apps/foo']
+```
+
 <div>
     <a href="/singularity-cli/d"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
     <a href="/sregistry-cli/client"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
