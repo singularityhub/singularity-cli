@@ -136,7 +136,6 @@ def set_verbosity(args):
     
     # Import logger to set
     from spython.logger import bot
-    print(bot.level)
     bot.debug('Logging level %s' %level)
     import spython
 
@@ -171,8 +170,8 @@ def main():
     # The main function
     main = None
 
-    print("ARGS: %s" %args)
-    print("OPTS: %s" %options)
+    #print("ARGS: %s" %args)
+    #print("OPTS: %s" %options)
 
     #TODO: --debug, --verbose, -vvv should be passed as options
     # need to figure out where they appear relative to cmd, and how to include
