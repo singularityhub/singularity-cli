@@ -28,8 +28,6 @@ def pull(self,
          image=None,
          name=None,
          pull_folder='',
-         name_by_hash=False,
-         name_by_commit=False,
          ext="simg"):
 
     '''pull will pull a singularity hub or Docker image
@@ -44,11 +42,6 @@ def pull(self,
        ---------------------------------
        name: a custom name to use, to override default
        ext: if no name specified, the default extension to use.
-
-       Singularity Hub Naming:
-       ----------------------
-       name_by_commit: name the image based on its commit
-       name_by_hash: can be one of commit or hash, default is by image name
 
     ''' 
     self.check_install()
@@ -72,19 +65,8 @@ def pull(self,
     if pull_folder:
         self.setenv('SINGULARITY_PULLFOLDER', pull_folder)
 
-    # Singularity Hub can name by commit or hash
-    if image.startswith('shub://'):
-        if name_by_commit is True:
-            bot.debug("commit specified for image name")
-            cmd.append("--commit")
-        elif name_by_hash is True:
-            bot.debug("file hash specified for image name")
-            cmd.append("--hash")
-        
-    no_name = name_by_commit is False and name_by_hash is False
-
     # If we still don't have a custom name, base off of image uri.
-    if name is None and no_name:
+    if name is None:
         name = "%s.%s" %(re.sub('^.*://','',image).replace('/','-'),ext)
 
     cmd = cmd + ["--name", name]
