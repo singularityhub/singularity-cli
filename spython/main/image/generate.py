@@ -25,14 +25,25 @@ from random import Random
 
 class RobotNamer:
 
-    _adjectives = [
+    _descriptors = [
         'chunky', 'buttery', 'delicious', 'scruptious', 'dinosaur', 'boopy',
-        'lovely', 'carniverous', 'hanky', 'loopy', 'doopy', 'astute'
+        'lovely', 'carniverous', 'hanky', 'loopy', 'doopy', 'astute', 'gloopy',
+        'outstanding', 'stinky', 'conspicuous', 'fugly', 'frigid', 'angry',
+        'adorable', 'sticky', 'moolicious', 'cowy', 'spicy', 'grated', 'crusty',
+        'stanky', 'blank', 'bumfuzzled', 'fuzzy', 'hairy', 'peachy', 'tart',
+        'creamy', 'arid', 'strawberry', 'butterscotch', 'wobbly', 'persnickety',
+        'nerdy', 'dirty', 'placid', 'bloated', 'swampy', 'pusheena', 'hello',
+        'goodbye'
     ]
 
     _nouns = [
         'squidward', 'hippo', 'butter', 'animal', 'peas', 'lettuce', 'carrot',
-        'onion', 'peanut', 'cupcake', 'muffin', 'buttface'
+        'onion', 'peanut', 'cupcake', 'muffin', 'buttface', 'leopard', 'parrot',
+        'parsnip', 'poodle', 'itch', 'punk', 'kerfuffle', 'soup', 'noodle',
+        'avocado', 'peanut-butter', 'latke', 'milkshake', 'banana', 'lizard',
+        'lemur', 'lentil', 'bits', 'house', 'leader', 'toaster', 'signal',
+        'pancake', 'kitty', 'cat', 'cattywampus', 'poo', 'malarkey',
+        'general', 'rabbit', 'chair', 'staircase', 'underoos', 'snack', 'lamp'
     ]
 
     def __init__(self):
@@ -53,7 +64,7 @@ class RobotNamer:
         chars: TokenChars
         '''
 
-        adjective = self._select(self._adjectives)
+        descriptor = self._select(self._descriptors)
         noun = self._select(self._nouns)
         numbers = ''.join((self._select(chars) for _ in range(length)))
         return delim.join([adjective, noun, numbers])
