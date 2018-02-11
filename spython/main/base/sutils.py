@@ -25,6 +25,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from spython.image import ( Image, Instance )
 from spython.logger import bot
 import os
+import re
 
 def load(self, image=None):
     '''load an image, either an actual path on the filesystem or a uri.
@@ -56,7 +57,18 @@ def setenv(self, variable, value):
     bot.debug('%s set to %s' % (variable, value))
 
 
+def get_filename(self, image=None, ext='simg'):
+    '''return an image filename based on the image uri. If an image uri is
+       not specified, we look for the loaded image.
+ 
+       Parameters
+       ==========
+       image: the uri to base off of
+       ext: the extension to use
+    '''
+    return "%s.%s" %(re.sub('^.*://','',image).replace('/','-'), ext)
     
+
 
 def get_uri(self):
     ''' check if the loaded image object (self.simage) has an associated uri

@@ -54,9 +54,10 @@ def get_client(quiet=False, debug=False):
     Client.pull = pull
 
     # Command Grooups
-    from .image import image_group
+    from .image import ( image_group, RobotNamer )
     Client.image = image_group
     Client.image.check_install = Client.check_install 
+    Client.RobotNamer = RobotNamer()
 
     # Initialize
     cli = Client()

@@ -30,7 +30,7 @@ import re
 
 from .command import ( init_command, run_command )
 from .flags import parse_verbosity
-from .sutils import ( get_uri, load, setenv )
+from .sutils import ( get_uri, load, setenv, get_filename )
 from .logger import ( println,  init_level )
 
 class Client:
@@ -76,6 +76,7 @@ class Client:
 
 # Image Utils
 Client.load = load
+Client._get_filename = get_filename
 Client._get_uri = get_uri
 Client.setenv = setenv
 

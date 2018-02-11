@@ -67,7 +67,7 @@ def pull(self,
 
     # If we still don't have a custom name, base off of image uri.
     if name is None:
-        name = "%s.%s" %(re.sub('^.*://','',image).replace('/','-'),ext)
+        name = self._get_filename(image, ext)
 
     cmd = cmd + ["--name", name]
     

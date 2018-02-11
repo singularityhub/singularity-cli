@@ -21,16 +21,16 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from spython.logger import bot
 
-def build(self, image=None, spec_path=None, isolated=False, sandbox=False):
+def build(self, recipe=None, image=None, isolated=False, sandbox=False):
     '''build a singularity image, optionally for an isolated build
        (requires sudo).
 
        Parameters
        ==========
 
-       image_path: the full path to the image to be built
-       spec_path: the path to the recipe file (or source to build from). If not
+       recipe: the path to the recipe file (or source to build from). If not
                   defined, we look for "Singularity" file in $PWD
+       image: the image to build (if None, will use default name)
        isolated: if True, run build with --isolated flag
        sandbox: if True, create a writable sandbox
        writable: if True, use writable ext3 (sandbox takes preference)
@@ -40,15 +40,20 @@ def build(self, image=None, spec_path=None, isolated=False, sandbox=False):
     cmd = self._init_command('build')
 
     # No image provided, default to use the client's loaded image
+    if recipe is None:
+        recipe = self._get_uri()
+
+    # If it's still None, try default build recipe
+    if recipe is None:
+        recipe = 'Singularity'
+
+        if not os.path.exists(recipe):
+            bot.error('Cannot find %s, exiting.' %image)
+            sys.exit(1)
+
     if image is None:
-        image = self._get_uri()
+        image = self._get_filename(image, ext)
 
-    if spec_path is None:
-        spec_path = 'Singularity'
-
-    if not os.path.exists(spec_path):
-        bot.error('Cannot find %s, exiting.' %spec_file)
-        sys.exit(1)
 
     if isolated is True:
         cmd.append('--isolated')
