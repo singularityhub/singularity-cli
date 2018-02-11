@@ -33,7 +33,7 @@ def generate_image_commands():
     class ImageClient:
         group = "image"
 
-    from .utils import ( compress, decompress, name_generator )
+    from .utils import ( compress, decompress )
     from .create import create
     from .importcmd import importcmd
     from .export import export

@@ -99,7 +99,14 @@ def set_verbosity(args):
 
     bot.debug("Singularity Python Version: %s" % spython.__version__)
 
+
+def version():
+    '''version prints the version, both for the user and help output
+    '''
+    import spython
+    return spython.__version__
     
+
 def main():
 
     parser = get_parser()
@@ -109,10 +116,8 @@ def main():
         '''print help, including the software version and active client 
            and exit with return code.
         '''
-        import spython
-        version = spython.__version__
-
-        print("\nSingularity Python [v%s]\n" %(version))
+        v = version()
+        print("\nSingularity Python [v%s]\n" %(v))
         parser.print_help()
         sys.exit(return_code)
     
@@ -127,12 +132,18 @@ def main():
     # The main function
     main = None
 
+    # If the user wants the version
+    if args.version is True:
+        print(version())
+        sys.exit(0)
+
     # if environment logging variable not set, make silent
     set_verbosity(args)
 
     # Does the user want help for a subcommand?
     if args.command == 'shell': from .shell import main 
     elif args.command == 'test': from .test import main 
+    else: help()
 
     # Pass on to the correct parser
     if args.command is not None:

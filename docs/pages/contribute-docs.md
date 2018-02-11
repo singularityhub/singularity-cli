@@ -86,5 +86,6 @@ jekyll serve
 And the site will be viewable at <a href="http://127.0.0.1:4000/singularity-cli/" target="_blank">http://127.0.0.1:4000/singularity-cli/</a>. You can edit the markdown files in various folders to see changes in your browser, and push to your fork and then pull request to make changes. If you have a minor change, you can also do a patch directly in your browser from Github.
 
 <div>
-    <a href="/singularity-cli/"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
+    <a href="/singularity-cli/commands"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
+    <a href="/singularity-cli"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
 </div><br>
