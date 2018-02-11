@@ -98,7 +98,8 @@ And this is most logically the easiest entrypoint!
 
 ### Pull
 If you are using Singularity to pull (and not the Singularity Global Client) the Singularity Python
-provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go!
+provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go! 
+[Here is a video](https://asciinema.org/a/162164?speed=2) of the example below if you want to watch instead of read.
 
 ```
 spython shell docker://ubuntu
