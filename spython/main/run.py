@@ -48,15 +48,6 @@ def run(self,
     if image is None:
         image = self._get_uri()
 
-        # TODO: flags / commands should be parsed separately and give here
-        #       (and removed from input args above
-
-        # STOPPED HERE - finish going through commands to update, come up with
-        # a strategy to handle this command (before?) or still after?
-
-    #cmd = self.add_flags(cmd,writable=writable,
-    #                         contain=contain)
-
     # Does the user want to run an app?
     if app is not None:
         cmd = cmd + ['--app', app]
@@ -68,7 +59,7 @@ def run(self,
         sudo = True
         
     if args is not None:        
-        if not isinstance(args,list):
+        if not isinstance(args, list):
             args = args.split(' ')
         cmd = cmd + args
 

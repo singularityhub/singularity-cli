@@ -334,7 +334,49 @@ $ output = client.run(app='foo')
 RUNNING FOO
 ```
 
+## Exec
+An `exec` is like a run, but with a specific executable or entry point defined for the container.
+Again, let's start with an image loaded in the client Python shell.
 
+```
+spython pyshell /home/vanessa/Desktop/image.simg 
+/home/vanessa/Desktop/image.simg
+```
+Now let's try a basic `ls`. Note that the command is given as a list.
+
+```
+$ output = client.execute(['ls'])
+2.4.2-development.g706e90e
+CHANGELOG.md
+CONTRIBUTING.md
+...
+vsoch-hello-world.simg
+```
+Now let's give more than one word in the command to demonstrate the list fully. Here we want
+to echo "Hello!" to the console.
+
+```
+$ output = client.execute(['echo','"hello!"'])
+2.4.2-development.g706e90e
+"hello!"
+```
+and do the same, but with a different image specified.
+
+```
+$ client.execute('GodloveD-lolcow-master-latest.simg',['echo','"hello!"'])
+2.4.2-development.g706e90e
+"hello!"
+```
+Note that when you specify a new image, the old one isn't unloaded to replace it. If you
+want this to happen, you would need to load it.
+
+```
+$ client.load('GodloveD-lolcow-master-latest.simg')
+GodloveD-lolcow-master-latest.simg
+
+$ client
+[Singularity-Python][GodloveD-lolcow-master-latest.simg]
+```
 <div>
     <a href="/singularity-cli/d"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
     <a href="/sregistry-cli/client"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
