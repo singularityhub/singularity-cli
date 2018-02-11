@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 '''
 
-from random import Random
+from random import choice
 
 class RobotNamer:
 
@@ -56,11 +56,6 @@ class RobotNamer:
         'chip'
     ]
 
-    def __init__(self):
-        ''' set a random seed for choosing the name parts
-        '''
-        self.random = Random()
-
 
     def generate(self, delim='-', length=4, chars='0123456789'):
         '''
@@ -79,6 +74,7 @@ class RobotNamer:
         numbers = ''.join((self._select(chars) for _ in range(length)))
         return delim.join([descriptor, noun, numbers])
 
+
     def _select(self, select_from):
         ''' select an element from a list using random.choice
         
@@ -89,7 +85,7 @@ class RobotNamer:
         if len(select_from) <= 0:
             return ''
 
-        return self.random.choice(select_from)
+        return choice(select_from)
 
 
 def main():

@@ -12,3 +12,20 @@ or build locally first, with the present working directory as this folder.
 ```
 docker build -t vanessa/robotname .
 ```
+
+```
+for i in `seq 1 10`;
+     do
+     docker run vanessa/robotname
+done
+boopy-peanut-butter-7311
+blank-snack-0334
+hello-buttface-6320
+chocolate-bicycle-9982
+frigid-frito-9511
+doopy-soup-7712
+phat-pancake-4952
+wobbly-kitty-3213
+lovely-mango-1987
+milky-poo-7960  
+```
