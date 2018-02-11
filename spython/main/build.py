@@ -1,27 +1,30 @@
-'''
 
-Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-University.
-Copyright (C) 2018 Vanessa Sochat.
+# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
+# University.
+# Copyright (C) 2017-2018 Vanessa Sochat.
 
-This program is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
-License for more details.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+# License for more details.
 
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-'''
 
 from spython.logger import bot
 
-def build(self, recipe=None, image=None, isolated=False, sandbox=False):
+def build(self, recipe=None, 
+                image=None, 
+                isolated=False,
+                sandbox=False,
+                sudo=True):
+
     '''build a singularity image, optionally for an isolated build
        (requires sudo).
 
@@ -30,11 +33,12 @@ def build(self, recipe=None, image=None, isolated=False, sandbox=False):
 
        recipe: the path to the recipe file (or source to build from). If not
                   defined, we look for "Singularity" file in $PWD
-       image: the image to build (if None, will use default name)
+       image: the image to build (if None, will use arbitary name
        isolated: if True, run build with --isolated flag
        sandbox: if True, create a writable sandbox
        writable: if True, use writable ext3 (sandbox takes preference)
-   
+       sudo: give sudo to the command (or not) default is True for build
+    
     '''
     self.check_install()
     cmd = self._init_command('build')
@@ -52,8 +56,10 @@ def build(self, recipe=None, image=None, isolated=False, sandbox=False):
             sys.exit(1)
 
     if image is None:
-        image = self._get_filename(image, ext)
-
+        if 'docker' or 'shub' in recipe:
+            image = self._get_filename(recipe, ext)
+        else:
+            image = self.RobotNamer.generate()
 
     if isolated is True:
         cmd.append('--isolated')
@@ -62,6 +68,6 @@ def build(self, recipe=None, image=None, isolated=False, sandbox=False):
 
     cmd = cmd + [image_path, spec_path]
 
-    output = self.run_command(cmd,sudo=True)
+    output = self.run_command(cmd, sudo=sudo)
     self.println(output)     
     return image_path

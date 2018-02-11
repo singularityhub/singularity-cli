@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.utils.terminal &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for spython.utils.terminal</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior</span>
+<span class="sd">University.</span>
+<span class="sd">Copyright (C) 2016-2017 Vanessa Sochat.</span>
+
+<span class="sd">This program is free software: you can redistribute it and/or modify it</span>
+<span class="sd">under the terms of the GNU Affero General Public License as published by</span>
+<span class="sd">the Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="sd">option) any later version.</span>
+
+<span class="sd">This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="sd">ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
+<span class="sd">License for more details.</span>
+
+<span class="sd">You should have received a copy of the GNU Affero General Public License</span>
+<span class="sd">along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="c1">##########################################################################</span>
+<span class="c1"># Local commands and requests</span>
+<span class="c1">##########################################################################</span>
+
+
+<div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;check_install will attempt to run the singularity command, and</span>
+<span class="sd">       return True if installed. The command line utils will not run </span>
+<span class="sd">       without this check.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">software</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">]</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span> <span class="c1"># FileNotFoundError</span>
+        <span class="k">return</span> <span class="n">found</span>
+
+    <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Found </span><span class="si">%s</span><span class="s2"> version </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">software</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">version</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">found</span></div>
+
+
+<div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;get_installdir returns the installation directory of the application</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;run_command uses subprocess to send a command to the terminal. If</span>
+<span class="sd">       capture is True, we use the parent stdout, so the progress bar (and</span>
+<span class="sd">       other commands of interest) are piped to the user. This means we </span>
+<span class="sd">       don&#39;t return the output to parse.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       cmd: the command to send, should be a list for subprocess</span>
+<span class="sd">       sudo: if needed, add to start of command</span>
+<span class="sd">       no_newline_regexp: the regular expression to determine skipping a</span>
+<span class="sd">                          newline. Defaults to finding Progress</span>
+<span class="sd">       capture: if True, don&#39;t set stdout and have it go to console. This</span>
+<span class="sd">                option can print a progress bar, but won&#39;t return the lines</span>
+<span class="sd">                as output.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">sudo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sudo&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
+
+    <span class="n">stdout</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">capture</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span>
+
+    <span class="c1"># Use the parent stdout and stderr</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
+                               <span class="n">stderr</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> 
+                               <span class="n">stdout</span> <span class="o">=</span> <span class="n">stdout</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span> <span class="o">+</span> <span class="p">(</span><span class="n">line</span><span class="p">,)</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="ow">and</span> <span class="n">found_match</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">found_match</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="p">,</span>
+              <span class="s1">&#39;return_code&#39;</span><span class="p">:</span> <span class="n">process</span><span class="o">.</span><span class="n">returncode</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="format_container_name"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.format_container_name">[docs]</a><span class="k">def</span> <span class="nf">format_container_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">special_characters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;format_container_name will take a name supplied by the user,</span>
+<span class="sd">    remove all special characters (except for those defined by &quot;special-characters&quot;</span>
+<span class="sd">    and return the new image name.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">special_characters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">special_characters</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                   <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">special_characters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;remove_uri will remove docker:// or shub:// from the uri</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;docker://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;shub://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

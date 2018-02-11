@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.main.base.flags &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../../../../index.html" />
+    <link rel="up" title="spython.main.base" href="../base.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for spython.main.base.flags</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
+<span class="c1"># University.</span>
+<span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
+
+<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
+<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="c1"># option) any later version.</span>
+
+<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
+<span class="c1"># License for more details.</span>
+
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+
+
+<div class="viewcode-block" id="parse_verbosity"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.flags.parse_verbosity">[docs]</a><span class="k">def</span> <span class="nf">parse_verbosity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;parse_verbosity will take an argument object, and return the args</span>
+<span class="sd">       passed (from a dictionary) to a list</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       args: the argparse argument objects</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">silent</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--silent&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">debug</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="s1">&#39;v&#39;</span> <span class="o">*</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">flags</span></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">GLOBAL OPTIONS:</span>
+<span class="sd">    -d|--debug    Print debugging information</span>
+<span class="sd">    -h|--help     Display usage summary</span>
+<span class="sd">    -s|--silent   Only print errors</span>
+<span class="sd">    -q|--quiet    Suppress all normal output</span>
+<span class="sd">       --version  Show application version</span>
+<span class="sd">    -v|--verbose  Increase verbosity +1</span>
+<span class="sd">    -x|--sh-debug Print shell wrapper debugging information</span>
+
+<span class="sd">GENERAL COMMANDS:</span>
+<span class="sd">    help       Show additional help for a command or container                  </span>
+<span class="sd">    selftest   Run some self tests for singularity install                      </span>
+
+<span class="sd">CONTAINER USAGE COMMANDS:</span>
+<span class="sd">    exec       Execute a command within container                               </span>
+<span class="sd">    run        Launch a runscript within container                              </span>
+<span class="sd">    shell      Run a Bourne shell within container                              </span>
+<span class="sd">    test       Launch a testscript within container                             </span>
+
+<span class="sd">CONTAINER MANAGEMENT COMMANDS:</span>
+<span class="sd">    apps       List available apps within a container                           </span>
+<span class="sd">    bootstrap  *Deprecated* use build instead                                   </span>
+<span class="sd">    build      Build a new Singularity container                                </span>
+<span class="sd">    check      Perform container lint checks                                    </span>
+<span class="sd">    inspect    Display container&#39;s metadata                                     </span>
+<span class="sd">    mount      Mount a Singularity container image                              </span>
+<span class="sd">    pull       Pull a Singularity/Docker container to $PWD                      </span>
+<span class="sd">    siflist    list data object descriptors of a SIF container image            </span>
+<span class="sd">    sign       Sign a group of data objects in container                        </span>
+<span class="sd">    verify     Verify the crypto signature of group of data objects in container</span>
+
+<span class="sd">COMMAND GROUPS:</span>
+<span class="sd">    capability User&#39;s capabilities management command group                     </span>
+<span class="sd">    image      Container image command group                                    </span>
+<span class="sd">    instance   Persistent instance command group                                </span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../main.html">spython.main</a><ul>
+  <li><a href="../base.html">spython.main.base</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

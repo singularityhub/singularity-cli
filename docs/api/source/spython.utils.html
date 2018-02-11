@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.utils package &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="spython-utils-package">
+<h1>spython.utils package<a class="headerlink" href="#spython-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.utils.fileio">
+<span id="spython-utils-fileio-module"></span><h2>spython.utils.fileio module<a class="headerlink" href="#module-spython.utils.fileio" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
+University.
+Copyright (C) 2016-2017 Vanessa Sochat.</p>
+<p>This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+License for more details.</p>
+<p>You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+<dl class="function">
+<dt id="spython.utils.fileio.mkdir_p">
+<code class="descclassname">spython.utils.fileio.</code><code class="descname">mkdir_p</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/fileio.html#mkdir_p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.mkdir_p" title="Permalink to this definition">¶</a></dt>
+<dd><p>mkdir_p attempts to get the same functionality as mkdir -p
+:param path: the path to create.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.fileio.read_file">
+<code class="descclassname">spython.utils.fileio.</code><code class="descname">read_file</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='r'</em>, <em>readlines=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/fileio.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>write_file will open a file, &#8220;filename&#8221; and write content, &#8220;content&#8221;
+and properly close the file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.fileio.read_json">
+<code class="descclassname">spython.utils.fileio.</code><code class="descname">read_json</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='r'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/fileio.html#read_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>read_json reads in a json file and returns
+the data structure as dict.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.fileio.write_file">
+<code class="descclassname">spython.utils.fileio.</code><code class="descname">write_file</code><span class="sig-paren">(</span><em>filename</em>, <em>content</em>, <em>mode='w'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/fileio.html#write_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>write_file will open a file, &#8220;filename&#8221; and write content, &#8220;content&#8221;
+and properly close the file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.fileio.write_json">
+<code class="descclassname">spython.utils.fileio.</code><code class="descname">write_json</code><span class="sig-paren">(</span><em>json_obj</em>, <em>filename</em>, <em>mode='w'</em>, <em>print_pretty=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/fileio.html#write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>write_json will (optionally,pretty print) a json object to file
+:param json_obj: the dict to print to json
+:param filename: the output file to write to
+:param pretty_print: if True, will use nicer formatting</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.utils.terminal">
+<span id="spython-utils-terminal-module"></span><h2>spython.utils.terminal module<a class="headerlink" href="#module-spython.utils.terminal" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
+University.
+Copyright (C) 2016-2017 Vanessa Sochat.</p>
+<p>This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+License for more details.</p>
+<p>You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+<dl class="function">
+<dt id="spython.utils.terminal.check_install">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">check_install</code><span class="sig-paren">(</span><em>software='singularity'</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/terminal.html#check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.check_install" title="Permalink to this definition">¶</a></dt>
+<dd><p>check_install will attempt to run the singularity command, and
+return True if installed. The command line utils will not run
+without this check.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.format_container_name">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">format_container_name</code><span class="sig-paren">(</span><em>name</em>, <em>special_characters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/terminal.html#format_container_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.format_container_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>format_container_name will take a name supplied by the user,
+remove all special characters (except for those defined by &#8220;special-characters&#8221;
+and return the new image name.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.get_installdir">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">get_installdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/terminal.html#get_installdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_installdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_installdir returns the installation directory of the application</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.remove_uri">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">remove_uri</code><span class="sig-paren">(</span><em>container</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/terminal.html#remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.remove_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove_uri will remove docker:// or shub:// from the uri</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.run_command">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em>, <em>no_newline_regexp='Progess'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>run_command uses subprocess to send a command to the terminal. If
+capture is True, we use the parent stdout, so the progress bar (and
+other commands of interest) are piped to the user. This means we
+don&#8217;t return the output to parse.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
+<li><strong>sudo</strong> (<em>if needed, add to start of command</em>)</li>
+<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) &#8211; newline. Defaults to finding Progress</li>
+<li><strong>capture</strong> (<em>if True, don&#8217;t set stdout and have it go to console. This</em>) &#8211; option can print a progress bar, but won&#8217;t return the lines
+as output.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">spython.utils package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-spython.utils.fileio">spython.utils.fileio module</a></li>
+<li><a class="reference internal" href="#module-spython.utils.terminal">spython.utils.terminal module</a></li>
+<li><a class="reference internal" href="#module-spython.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/spython.utils.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/source/spython.utils.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
-'''
-clint.textui.progress
-~~~~~~~~~~~~~~~~~
+# clint.textui.progress
+# ~~~~~~~~~~~~~~~~~~~~~
 
-A derivation of clint version, to not introduce a dependency and add custom functionality.
-Credit to base code goes to https://github.com/kennethreitz/clint/blob/master/clint/textui/progress.py
+# A derivation of clint version, to not introduce a dependency and add custom functionality.
+# Credit to base code goes to https://github.com/kennethreitz/clint/blob/master/clint/textui/progress.py
 
-'''
 
 from __future__ import absolute_import
 

@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.main.base package &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html" />
+    <link rel="up" title="spython.main package" href="spython.main.html" />
+    <link rel="next" title="spython.main.image package" href="spython.main.image.html" />
+    <link rel="prev" title="spython.main package" href="spython.main.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="spython-main-base-package">
+<h1>spython.main.base package<a class="headerlink" href="#spython-main-base-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.main.base.command">
+<span id="spython-main-base-command-module"></span><h2>spython.main.base.command module<a class="headerlink" href="#module-spython.main.base.command" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.command.init_command">
+<code class="descclassname">spython.main.base.command.</code><code class="descname">init_command</code><span class="sig-paren">(</span><em>self</em>, <em>action</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the initial Singularity command with any added flags.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> (<em>the main action to perform (e.g., build)</em>)</li>
+<li><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) &#8211; not implemented yet.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.command.run_command">
+<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>quiet=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>run_command is a wrapper for the global run_command, checking first
+for sudo and exiting on error if needed. The message is returned as
+a list of lines for the calling function to parse, and stdout uses
+the parent process so it appears for the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the command to run</em>)</li>
+<li><strong>sudo</strong> (<em>does the command require sudo?</em>)</li>
+<li><strong>On success, returns result. Otherwise, exists on error</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.base.flags">
+<span id="spython-main-base-flags-module"></span><h2>spython.main.base.flags module<a class="headerlink" href="#module-spython.main.base.flags" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.flags.parse_verbosity">
+<code class="descclassname">spython.main.base.flags.</code><code class="descname">parse_verbosity</code><span class="sig-paren">(</span><em>self</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse_verbosity will take an argument object, and return the args
+passed (from a dictionary) to a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>the argparse argument objects</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.base.logger">
+<span id="spython-main-base-logger-module"></span><h2>spython.main.base.logger module<a class="headerlink" href="#module-spython.main.base.logger" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.logger.init_level">
+<code class="descclassname">spython.main.base.logger.</code><code class="descname">init_level</code><span class="sig-paren">(</span><em>self</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the logging level based on the environment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>quiet</strong> (<em>boolean if True, set to quiet. Gets overriden by environment</em>) &#8211; setting, and only exists to define default</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.logger.println">
+<code class="descclassname">spython.main.base.logger.</code><code class="descname">println</code><span class="sig-paren">(</span><em>self</em>, <em>output</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
+<dd><p>print will print the output, given that quiet is not True. This
+function also serves to convert output in bytes to utf-8</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>the string to print</em>)</li>
+<li><strong>quiet</strong> (<em>a runtime variable to over-ride the default.</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.base.sutils">
+<span id="spython-main-base-sutils-module"></span><h2>spython.main.base.sutils module<a class="headerlink" href="#module-spython.main.base.sutils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.sutils.get_filename">
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an image filename based on the image uri. If an image uri is
+not specified, we look for the loaded image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image</strong> (<em>the uri to base off of</em>)</li>
+<li><strong>ext</strong> (<em>the extension to use</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.sutils.get_uri">
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_uri</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if the loaded image object (self.simage) has an associated uri
+return if yes, None if not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.sutils.load">
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">load</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load an image, either an actual path on the filesystem or a uri.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.sutils.setenv">
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">setenv</code><span class="sig-paren">(</span><em>self</em>, <em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>set an environment variable for Singularity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>variable</strong> (<em>the variable to set</em>)</li>
+<li><strong>value</strong> (<em>the value to set</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.base">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.main.base.Client">
+<em class="property">class </em><code class="descclassname">spython.main.base.</code><code class="descname">Client</code><a class="reference internal" href="../_modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="spython.main.base.Client.RobotNamer">
+<code class="descname">RobotNamer</code><em class="property"> = &lt;spython.main.image.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.apps">
+<code class="descname">apps</code><span class="sig-paren">(</span><em>image=None</em>, <em>full_path=False</em>, <em>root=''</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.apps" title="Permalink to this definition">¶</a></dt>
+<dd><p>return list of SCIF apps in image. The Singularity software serves
+a scientific filesystem integration that will install apps to
+/scif/apps and associated data to /scif/data. For more information
+about SCIF, see <a class="reference external" href="https://sci-f.github.io">https://sci-f.github.io</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>full_path</strong> (<em>if True, return relative to scif base folder</em>)</li>
+<li><strong>image_path</strong> (<em>full path to the image</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>sudo=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>build a singularity image, optionally for an isolated build
+(requires sudo).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) &#8211; defined, we look for &#8220;Singularity&#8221; file in $PWD</li>
+<li><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</li>
+<li><strong>isolated</strong> (<em>if True, run build with &#8211;isolated flag</em>)</li>
+<li><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</li>
+<li><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</li>
+<li><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.check_install">
+<code class="descname">check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base.html#Client.check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.check_install" title="Permalink to this definition">¶</a></dt>
+<dd><p>ensure that singularity is installed, and exit if not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="spython.main.base.Client.debug">
+<code class="descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#spython.main.base.Client.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>execute: send a command to a container</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
+<li><strong>command</strong> (<em>command to send to container</em>)</li>
+<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
+<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
+<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) &#8211; filesystems on your host</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.help">
+<code class="descname">help</code><span class="sig-paren">(</span><em>command=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>help prints the general function help, or help for a specific command</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<em>the command to get help for, if none, prints general help</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="spython.main.base.Client.image">
+<code class="descname">image</code><em class="property"> = &lt;spython.main.image.generate_image_commands.&lt;locals&gt;.ImageClient object&gt;</em><a class="headerlink" href="#spython.main.base.Client.image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.inspect">
+<code class="descname">inspect</code><span class="sig-paren">(</span><em>image=None</em>, <em>json=True</em>, <em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
+<dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image_path</strong> (<em>path of image to inspect</em>)</li>
+<li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
+<li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load an image, either an actual path on the filesystem or a uri.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.pull">
+<code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
+<dd><p>pull will pull a singularity hub or Docker image</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</li>
+<li><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (&#8216;&#8217;). If defined, pulls to</em>) &#8211; user specified location instead.</li>
+<li><strong>Docker and Singularity Hub Naming</strong></li>
+<li><strong>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</strong></li>
+<li><strong>name</strong> (<em>a custom name to use, to override default</em>)</li>
+<li><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="spython.main.base.Client.quiet">
+<code class="descname">quiet</code><em class="property"> = False</em><a class="headerlink" href="#spython.main.base.Client.quiet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>run will run the container, with or withour arguments (which
+should be provided in a list)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
+<li><strong>args</strong> (<em>args to include with the run</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.setenv">
+<code class="descname">setenv</code><span class="sig-paren">(</span><em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.setenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>set an environment variable for Singularity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>variable</strong> (<em>the variable to set</em>)</li>
+<li><strong>value</strong> (<em>the value to set</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.version">
+<code class="descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base.html#Client.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the version of singularity</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">spython.main.base package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-spython.main.base.command">spython.main.base.command module</a></li>
+<li><a class="reference internal" href="#module-spython.main.base.flags">spython.main.base.flags module</a></li>
+<li><a class="reference internal" href="#module-spython.main.base.logger">spython.main.base.logger module</a></li>
+<li><a class="reference internal" href="#module-spython.main.base.sutils">spython.main.base.sutils module</a></li>
+<li><a class="reference internal" href="#module-spython.main.base">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="spython.main.html">spython.main package</a><ul>
+      <li>Previous: <a href="spython.main.html" title="previous chapter">spython.main package</a></li>
+      <li>Next: <a href="spython.main.image.html" title="next chapter">spython.main.image package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/spython.main.base.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/source/spython.main.base.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.image package &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="spython-image-package">
+<h1>spython.image package<a class="headerlink" href="#spython-image-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.image.base">
+<span id="spython-image-base-module"></span><h2>spython.image.base module<a class="headerlink" href="#module-spython.image.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.image.base.ImageBase">
+<em class="property">class </em><code class="descclassname">spython.image.base.</code><code class="descname">ImageBase</code><a class="reference internal" href="../_modules/spython/image/base.html#ImageBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.base.ImageBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="spython.image.base.ImageBase.get_uri">
+<code class="descname">get_uri</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/base.html#ImageBase.get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.base.ImageBase.get_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the uri of an image, or the string (optional) that appears before
+://. Optional. If none found, returns &#8216;&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.image.base.ImageBase.parse_image_name">
+<code class="descname">parse_image_name</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/base.html#ImageBase.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.base.ImageBase.parse_image_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>simply split the uri from the image. Singularity handles
+parsing of registry, namespace, image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the complete image uri to load (e.g., docker://ubuntu)</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.image.base.ImageBase.remove_uri">
+<code class="descname">remove_uri</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/base.html#ImageBase.remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.base.ImageBase.remove_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove_image_uri will return just the image name.
+this will also remove all spaces from the uri.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.image.binary">
+<span id="spython-image-binary-module"></span><h2>spython.image.binary module<a class="headerlink" href="#module-spython.image.binary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.image.binary.Image">
+<em class="property">class </em><code class="descclassname">spython.image.binary.</code><code class="descname">Image</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/binary.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.binary.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spython.image.base.ImageBase" title="spython.image.base.ImageBase"><code class="xref py py-class docutils literal"><span class="pre">spython.image.base.ImageBase</span></code></a></p>
+<dl class="method">
+<dt id="spython.image.binary.Image.get_hash">
+<code class="descname">get_hash</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/binary.html#Image.get_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.binary.Image.get_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an md5 hash of the file based on a criteria level. This
+is intended to give the file a reasonable version. This only is
+useful for actual image files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path to get hash for (first priority). Second</em>) &#8211; priority is image path saved with image object, if exists.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.image.instance">
+<span id="spython-image-instance-module"></span><h2>spython.image.instance module<a class="headerlink" href="#module-spython.image.instance" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.image.instance.Instance">
+<em class="property">class </em><code class="descclassname">spython.image.instance.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/image/instance.html#Instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.instance.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spython.image.base.ImageBase" title="spython.image.base.ImageBase"><code class="xref py py-class docutils literal"><span class="pre">spython.image.base.ImageBase</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.image.regexp">
+<span id="spython-image-regexp-module"></span><h2>spython.image.regexp module<a class="headerlink" href="#module-spython.image.regexp" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.image">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.image" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">spython.image package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-spython.image.base">spython.image.base module</a></li>
+<li><a class="reference internal" href="#module-spython.image.binary">spython.image.binary module</a></li>
+<li><a class="reference internal" href="#module-spython.image.instance">spython.image.instance module</a></li>
+<li><a class="reference internal" href="#module-spython.image.regexp">spython.image.regexp module</a></li>
+<li><a class="reference internal" href="#module-spython.image">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/spython.image.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../_sources/source/spython.image.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

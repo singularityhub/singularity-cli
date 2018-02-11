@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spython.main.base.sutils &#8212; Singularity Python API 1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Singularity Python API 1 documentation" href="../../../../index.html" />
+    <link rel="up" title="spython.main.base" href="../base.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for spython.main.base.sutils</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Singularity Image utils for interacting with the Image/Instance </span>
+<span class="c1">#           classes from the client</span>
+
+
+<span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
+<span class="c1"># University.</span>
+<span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
+
+<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
+<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="c1"># option) any later version.</span>
+
+<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
+<span class="c1"># License for more details.</span>
+
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+
+<span class="kn">from</span> <span class="nn">spython.image</span> <span class="k">import</span> <span class="p">(</span> <span class="n">Image</span><span class="p">,</span> <span class="n">Instance</span> <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;load an image, either an actual path on the filesystem or a uri.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       image: the image path or uri to load (e.g., docker://ubuntu </span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;instance://&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="setenv"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.setenv">[docs]</a><span class="k">def</span> <span class="nf">setenv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;set an environment variable for Singularity</span>
+<span class="sd">    </span>
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       variable: the variable to set</span>
+<span class="sd">       value: the value to set</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">putenv</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> set to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;simg&#39;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;return an image filename based on the image uri. If an image uri is</span>
+<span class="sd">       not specified, we look for the loaded image.</span>
+<span class="sd"> </span>
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       image: the uri to base off of</span>
+<span class="sd">       ext: the extension to use</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^.*://&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">),</span> <span class="n">ext</span><span class="p">)</span></div>
+    
+
+
+<div class="viewcode-block" id="get_uri"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_uri">[docs]</a><span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; check if the loaded image object (self.simage) has an associated uri</span>
+<span class="sd">        return if yes, None if not.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;simage&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="o">.</span><span class="n">image</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="c1"># Concatenates the &lt;uri&gt;://&lt;image&gt;</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  <li><a href="../../main.html">spython.main</a><ul>
+  <li><a href="../base.html">spython.main.base</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vanessa Sochat.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
