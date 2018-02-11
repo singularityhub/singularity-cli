@@ -1,8 +1,8 @@
 '''
 
-Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
+Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
 University.
-Copyright (C) 2017-2018 Vanessa Sochat.
+Copyright (C) 2018 Vanessa Sochat.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
@@ -20,19 +20,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
 from spython.logger import bot
-import sys
-import os
 
+def export(self,image_path, tmptar=None):
+    '''export will export an image, sudo must be used.
 
-def main(args, parser, subparser):
+       Parameters
+       ==========
+   
+       image_path: full path to image
+       tmptar: if defined, use custom temporary path for tar export
 
-    if args.image is None:
-        subparser.print_help()
-        bot.newline()
-        print("Please specify creating a recipe with --recipe")
-        sys.exit(0)
+    '''
+    self.check_install()
 
-    # Output folder will be pwd if not specified
-    output_folder = os.getcwd()
-    if args.outfolder is not None:
-        output_folder = os.getcwd()
+    if tmptar is None:
+        tmptar = "/%s/tmptar.tar" %(tempfile.mkdtemp())
+    cmd = ['singularity', 'image.export', '-f',tmptar, image_path]
+    output = self.run_command(cmd,sudo=False)
+    return tmptar

@@ -1,5 +1,7 @@
 spython.egg-info
 __pycache__
+*.img
+*.simg
 pypi.sh
 _site
 build

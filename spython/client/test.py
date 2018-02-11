@@ -26,7 +26,4 @@ import os
 
 
 def main(args, parser, subparser):
-
-    if check_install() is not True:
-        bot.error("Cannot find Singularity! Is it installed?")
-        sys.exit(1)
+    print('TBA, additional tests for Singularity containers.')

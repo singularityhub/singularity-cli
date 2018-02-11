@@ -55,7 +55,6 @@ def ipython(image):
     from IPython import embed
     embed()
 
-
 def bpython(image):
     import bpython
     from spython.main import get_client

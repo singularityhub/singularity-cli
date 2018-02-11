@@ -46,4 +46,3 @@ or pull from Docker Hub :)
 singularity pull --name robotname docker://vanessa/robotname
 sregistry pull docker://vanessa/robotname
 ```
-

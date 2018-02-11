@@ -12,17 +12,21 @@ Singularity images. Python is strong in the world of scientific programming, and
 are reading these notes it's likely that you want to integrate Singularity containers into
 your Python applications. We wrote you a client to do that!
 
-**under development** 
 
  - [Scripts](#scripts) how to load the client from scratch in your Python script
- - [Pyshell](#pyshell) gives you an interactive python shell with a client 
+ - [Shell](#shell) gives you an interactive python shell with a client 
+
+
+## Functions
+From within python, you can then use the following functions to control Singularity:
+
  - [Pull](#pull) an image using Singularity
  - [Apps](#apps) list the [Scientific Filesystem](https://sci-f.github.io) apps in your image
  - [Inspect](#inspect) metadata about your image.
  - [Run](#run) execute the runscript for your image.
 
 
-## Scripts
+### Scripts
 In most scripts, you can just import the client and go from there:
 
 ```
@@ -50,11 +54,11 @@ docker://vsoch/hello-world
 But who wants to do this every time? I certainly don't. If you want an easier way to
 interact with the client, just use the python shell, discussed next. 
 
-## Pyshell
-If you want to jump right in you can start a python shell (`pyshell`) to have a client ready to go!
+### Shell
+If you want to jump right in you can start a python shell (`shell`) to have a client ready to go!
 
 ```
-$ spython pyshell
+$ spython shell
 Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
 Type "copyright", "credits" or "license" for more information.
 
@@ -87,7 +91,7 @@ Notice about how the client shows the image is present.
 You can also shell in with an image "preloaded" and ready to interact with.
 
 ```
-spython pyshell docker://ubuntu
+spython shell docker://ubuntu
 Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
 Type "copyright", "credits" or "license" for more information.
 
@@ -168,7 +172,7 @@ We can inspect an image for a list of [SCIF](https://sci-f.github.io) apps that 
 First, let's open a python shell with the client pre-loaded:
 
 ```
-spython pyshell
+spython shell
 ```
 
 and ask to see applications in an image:
@@ -200,11 +204,11 @@ $ ['/scif/apps/bar', '/scif/apps/cat', '/scif/apps/dog', '/scif/apps/foo']
 ```
 
 ## Inspect
-Inspect will give us a json output of an image metadata. Let's load the pyshell with a client,
+Inspect will give us a json output of an image metadata. Let's load the shell with a client,
 and also give it an image.
 
 ```
-spython pyshell GodloveD-lolcow-master-latest.simg 
+spython shell GodloveD-lolcow-master-latest.simg 
 GodloveD-lolcow-master-latest.simg
 ```
 
@@ -296,7 +300,7 @@ client.inspect('/home/vanessa/Desktop/image.simg')
 Running is pretty intuitive. Just load an image into the client:
 
 ```
-spython pyshell GodloveD-lolcow-master-latest.simg 
+spython shell GodloveD-lolcow-master-latest.simg 
 ```
 and then run it!
 
@@ -339,7 +343,7 @@ An `exec` is like a run, but with a specific executable or entry point defined f
 Again, let's start with an image loaded in the client Python shell.
 
 ```
-spython pyshell /home/vanessa/Desktop/image.simg 
+spython shell /home/vanessa/Desktop/image.simg 
 /home/vanessa/Desktop/image.simg
 ```
 Now let's try a basic `ls`. Note that the command is given as a list.
@@ -452,6 +456,6 @@ $ singularity build -w container.img recipe.def
 Good to know!
 
 <div>
-    <a href="/singularity-cli/d"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
-    <a href="/sregistry-cli/client"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
+    <a href="/singularity-cli/install"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
+    <a href="/singularity-cli/contribute"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>
 </div><br>

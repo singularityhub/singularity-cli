@@ -1,8 +1,8 @@
 '''
 
-Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
+Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
 University.
-Copyright (C) 2017-2018 Vanessa Sochat.
+Copyright (C) 2018 Vanessa Sochat.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
@@ -20,19 +20,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 '''
 
 from spython.logger import bot
-import sys
-import os
 
+def importcmd(self, image_path, input_source):
+    '''import will import (stdin) to the image
 
-def main(args, parser, subparser):
+       Parameters
+       ==========
+       image_path: path to image to import to. 
+       input_source: input source or file
+       import_type: if not specified, imports whatever function is given
+       
+    '''
+    self.check_install()
 
-    if args.image is None:
-        subparser.print_help()
-        bot.newline()
-        print("Please specify creating a recipe with --recipe")
-        sys.exit(0)
+    cmd = ['singularity','image.import',image_path,input_source]
+    output = self.run_command(cmd,sudo=False)
+    self.println(output)        
+    return image_path
 
-    # Output folder will be pwd if not specified
-    output_folder = os.getcwd()
-    if args.outfolder is not None:
-        output_folder = os.getcwd()
