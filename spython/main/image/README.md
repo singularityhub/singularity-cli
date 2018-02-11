@@ -1,7 +1,9 @@
 # Robot Generator
 
-This folder contains a (sub application) for a robot name generator. It's
-built on Docker Hub, so you can run as:
+This folder contains a (sub-application) for a robot name generator. 
+
+## Docker
+It's built on Docker Hub, so you can run as:
 
 ```
 docker run vanessa/robotname
@@ -29,3 +31,19 @@ wobbly-kitty-3213
 lovely-mango-1987
 milky-poo-7960  
 ```
+
+## Singularity
+
+To build your image:
+
+```
+sudo singularity build robotname Singularity
+```
+
+or pull from Docker Hub :)
+
+```
+singularity pull --name robotname docker://vanessa/robotname
+sregistry pull docker://vanessa/robotname
+```
+
