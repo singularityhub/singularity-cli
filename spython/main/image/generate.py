@@ -33,7 +33,10 @@ class RobotNamer:
         'stanky', 'blank', 'bumfuzzled', 'fuzzy', 'hairy', 'peachy', 'tart',
         'creamy', 'arid', 'strawberry', 'butterscotch', 'wobbly', 'persnickety',
         'nerdy', 'dirty', 'placid', 'bloated', 'swampy', 'pusheena', 'hello',
-        'goodbye'
+        'goodbye', 'milky', 'purple', 'rainbow', 'bricky', 'muffled', 'anxious',
+        'misunderstood', 'eccentric', 'quirky', 'lovable', 'reclusive', 'faux',
+        'evasive', 'confused', 'crunchy', 'expensive', 'ornery', 'fat', 'phat',
+        'joyous', 'expressive', 'psycho', 'chocolate', 'salted', 'gassy'
     ]
 
     _nouns = [
@@ -43,7 +46,14 @@ class RobotNamer:
         'avocado', 'peanut-butter', 'latke', 'milkshake', 'banana', 'lizard',
         'lemur', 'lentil', 'bits', 'house', 'leader', 'toaster', 'signal',
         'pancake', 'kitty', 'cat', 'cattywampus', 'poo', 'malarkey',
-        'general', 'rabbit', 'chair', 'staircase', 'underoos', 'snack', 'lamp'
+        'general', 'rabbit', 'chair', 'staircase', 'underoos', 'snack', 'lamp',
+        'eagle', 'hobbit', 'diablo', 'earthworm', 'pot', 'plant', 'leg', 'arm',
+        'bike', 'citrus', 'dog', 'puppy', 'blackbean', 'ricecake', 'gato',
+        'nalgas', 'lemon', 'caramel', 'fudge', 'cherry', 'sundae', 'truffle',
+        'cinnamonbun', 'pastry', 'egg', 'omelette', 'fork', 'knife', 'spoon',
+        'salad', 'train', 'car', 'motorcycle', 'bicycle', 'platanos', 'mango',
+        'taco', 'pedo', 'nunchucks', 'destiny', 'hope', 'despacito', 'frito',
+        'chip'
     ]
 
     def __init__(self):
