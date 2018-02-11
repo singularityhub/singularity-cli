@@ -7,6 +7,23 @@
   - title: "Python API"
     url: "/singularity-cli/commands"
     slug: commands
+    sections:
+      - title: Shell
+        slug: shell
+      - title: Build
+        slug: build
+      - title: Pull
+        slug: pull
+      - title: Apps
+        slug: apps
+      - title: Inspect
+        slug: inspect
+      - title: Run
+        slug: run
+      - title: Execute
+        slug: execute
+      - title: Help
+        slug: help
   - title: "Python API Docstring"
     url: "https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base"
     slug: docstring

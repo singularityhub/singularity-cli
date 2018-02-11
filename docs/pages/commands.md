@@ -25,7 +25,8 @@ From within python, you can then use the following functions to control Singular
  - [Apps](#apps) list the [Scientific Filesystem](https://sci-f.github.io) apps in your image
  - [Inspect](#inspect) metadata about your image.
  - [Run](#run) execute the runscript for your image.
-
+ - [Execute](#execute) execute a command to the container
+ - [Help](#help) easily show help documentation for commands
 
 <hr>
 
