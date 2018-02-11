@@ -2,9 +2,9 @@
 
 **under development!**
 
-Singularity Python is a python module and command line tool for working with <a href="https://singularityware.github.io" target="_blank">Singularity</a> containers. The module is under development and *not yet ready for use!*
+Singularity Python is the Python API for working with <a href="https://singularityware.github.io" target="_blank">Singularity</a> containers. The module is under development and *not yet ready for use!*
 
-We provide a [Singularity](Singularity) for you to use if more convenient.
+We provide a [Singularity](Singularity) recipe for you to use if more convenient.
 
 ## License
 This code is licensed under the Affero GPL, version 3.0 or later [LICENSE](LICENSE).
