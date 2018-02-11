@@ -6,6 +6,8 @@
 Welcome to Singularity Python API's documentation!
 ==================================================
 
+Singularity Python is the Python API for working with Singularity containers. The module is under development and *not yet ready for use!* This code is licensed under the Affero GPL, version 3.0 or later LICENSE.
+
 Contents:
 
 .. toctree::
@@ -15,11 +17,7 @@ Contents:
    changelog.md
 
 
-Singularity Python is the Python API for working with Singularity containers. The module is under development and *not yet ready for use!* This code is licensed under the Affero GPL, version 3.0 or later LICENSE.
-
 Indices and tables
-==================
+------------------
 
-* :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
