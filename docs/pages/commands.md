@@ -26,6 +26,8 @@ From within python, you can then use the following functions to control Singular
  - [Run](#run) execute the runscript for your image.
 
 
+<hr>
+
 ### Scripts
 In most scripts, you can just import the client and go from there:
 
@@ -53,6 +55,8 @@ docker://vsoch/hello-world
 
 But who wants to do this every time? I certainly don't. If you want an easier way to
 interact with the client, just use the python shell, discussed next. 
+
+<hr>
 
 ### Shell
 If you want to jump right in you can start a python shell (`shell`) to have a client ready to go!
@@ -107,6 +111,8 @@ $ client
 
 And this is most logically the easiest entrypoint!
 
+
+<hr>
 
 ### Pull
 If you are using Singularity to pull (and not the Singularity Global Client) the Singularity Python
@@ -167,6 +173,9 @@ Building Singularity FS image...
 
 Cool!
 
+<hr>
+
+
 ## Apps
 We can inspect an image for a list of [SCIF](https://sci-f.github.io) apps that are installed within.
 First, let's open a python shell with the client pre-loaded:
@@ -202,6 +211,9 @@ foo
 
 $ ['/scif/apps/bar', '/scif/apps/cat', '/scif/apps/dog', '/scif/apps/foo']
 ```
+
+<hr>
+
 
 ## Inspect
 Inspect will give us a json output of an image metadata. Let's load the shell with a client,
@@ -296,6 +308,8 @@ or a different image all together!
 client.inspect('/home/vanessa/Desktop/image.simg')
 ```
 
+<hr>
+
 ## Run
 Running is pretty intuitive. Just load an image into the client:
 
@@ -338,8 +352,10 @@ $ output = client.run(app='foo')
 RUNNING FOO
 ```
 
-## Exec
-An `exec` is like a run, but with a specific executable or entry point defined for the container.
+<hr>
+
+## Execute
+An `execute` maps to the Singularity `exec` and is like a run, but with a specific executable or entry point defined for the container.
 Again, let's start with an image loaded in the client Python shell.
 
 ```
@@ -381,6 +397,9 @@ GodloveD-lolcow-master-latest.simg
 $ client
 [Singularity-Python][GodloveD-lolcow-master-latest.simg]
 ```
+
+<hr>
+
 
 ## Help
 If you are working in the console and desperate for some help, just ask for it:
