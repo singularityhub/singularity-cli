@@ -14,6 +14,13 @@ your Python applications. We wrote you a client to do that!
 
 **under development** 
 
+ - [Scripts](#scripts) how to load the client from scratch in your Python script
+ - [Pyshell](#pyshell) gives you an interactive python shell with a client 
+ - [Pull](#pull) an image using Singularity
+ - [Apps](#apps) list the [Scientific Filesystem](https://sci-f.github.io) apps in your image
+ - [Inspect](#inspect) metadata about your image.
+
+
 ## Scripts
 In most scripts, you can just import the client and go from there:
 
@@ -189,6 +196,93 @@ dog
 foo
 
 $ ['/scif/apps/bar', '/scif/apps/cat', '/scif/apps/dog', '/scif/apps/foo']
+```
+
+## Inspect
+Inspect will give us a json output of an image metadata. Let's load the pyshell with a client,
+and also give it an image.
+
+```
+spython pyshell GodloveD-lolcow-master-latest.simg 
+GodloveD-lolcow-master-latest.simg
+```
+
+Now inspect!
+
+```
+In [1]: result = client.inspect()
+2.4.2-development.g706e90e
+{
+    "data": {
+        "attributes": {
+            "deffile": "BootStrap: docker\nFrom: ubuntu:16.04\n\n%post\n    apt-get -y update\n    apt-get -y install fortune cowsay lolcat\n\n%environment\n    export LC_ALL=C\n    export PATH=/usr/games:$PATH\n\n%runscript\n    fortune | cowsay | lolcat\n",
+            "help": null,
+            "labels": {
+                "org.label-schema.usage.singularity.deffile.bootstrap": "docker",
+                "org.label-schema.usage.singularity.deffile": "Singularity",
+                "org.label-schema.schema-version": "1.0",
+                "org.label-schema.usage.singularity.deffile.from": "ubuntu:16.04",
+                "org.label-schema.build-date": "2017-10-17T19:23:53+00:00",
+                "org.label-schema.usage.singularity.version": "2.4-feature-squashbuild-secbuild.g217367c",
+                "org.label-schema.build-size": "336MB"
+            },
+            "environment": "# Custom environment shell code should follow\n\n    export LC_ALL=C\n    export PATH=/usr/games:$PATH\n\n",
+            "runscript": "#!/bin/sh \n\n    fortune | cowsay | lolcat\n",
+            "test": null
+        },
+        "type": "container"
+    }
+}
+```
+We could also ask for non-json "human friendly" output:
+
+```
+BootStrap: docker
+From: ubuntu:16.04
+
+%post
+    apt-get -y update
+    apt-get -y install fortune cowsay lolcat
+
+%environment
+    export LC_ALL=C
+    export PATH=/usr/games:$PATH
+
+%runscript
+    fortune | cowsay | lolcat
+{
+    "status": 404,
+    "detail": "This container does not have a helpfile",
+    "title": "Help Undefined"
+}
+{
+    "org.label-schema.usage.singularity.deffile.bootstrap": "docker",
+    "org.label-schema.usage.singularity.deffile": "Singularity",
+    "org.label-schema.schema-version": "1.0",
+    "org.label-schema.usage.singularity.deffile.from": "ubuntu:16.04",
+    "org.label-schema.build-date": "2017-10-17T19:23:53+00:00",
+    "org.label-schema.usage.singularity.version": "2.4-feature-squashbuild-secbuild.g217367c",
+    "org.label-schema.build-size": "336MB"
+}
+# Custom environment shell code should follow
+
+    export LC_ALL=C
+    export PATH=/usr/games:$PATH
+
+#!/bin/sh 
+
+    fortune | cowsay | lolcat
+{
+    "status": 404,
+    "detail": "This container does not have any tests defined",
+    "title": "Tests Undefined"
+}
+```
+
+or a different image all together!
+
+```
+client.inspect('/home/vanessa/Desktop/image.simg')
 ```
 
 <div>
