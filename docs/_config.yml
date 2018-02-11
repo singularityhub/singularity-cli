@@ -1,0 +1,22 @@
+# Setup
+title:        Singularity Python
+tagline:      ""
+baseurl:      "/singularity-cli"
+github:       "https://www.github.com/singularityhub/singularity-cli"
+
+# About/contact
+author:
+  name:       Vanessa Sochat
+  url:        https://singularityhub.github.io/singularity-cli
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+#Others
+markdown: kramdown

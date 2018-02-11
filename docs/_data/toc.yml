@@ -1,0 +1,9 @@
+  - title: "Home"
+    url: "/singularity-cli/"
+    slug: singularity-cli
+  - title: "Installation"
+    url: "/singularity-cli/install"
+    slug: install
+  - title: "Python API"
+    url: "/singularity-cli/commands"
+    slug: commands
