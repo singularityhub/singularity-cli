@@ -1,5 +1,5 @@
-spython.utils package
-=====================
+spython.utils Module
+====================
 
 Submodules
 ----------

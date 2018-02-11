@@ -11,9 +11,9 @@ Singularity Python is the Python API for working with Singularity containers. Th
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 3
 
-   source/spython.main.rst
+   source/spython.rst
    changelog.md
 
 

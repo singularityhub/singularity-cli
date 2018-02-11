@@ -1,5 +1,5 @@
-spython.main.base package
-=========================
+Singularity Python API Main
+===========================
 
 Submodules
 ----------
@@ -8,14 +8,6 @@ spython.main.base.command module
 --------------------------------
 
 .. automodule:: spython.main.base.command
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-spython.main.base.flags module
-------------------------------
-
-.. automodule:: spython.main.base.flags
     :members:
     :undoc-members:
     :show-inheritance:

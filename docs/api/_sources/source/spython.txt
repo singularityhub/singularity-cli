@@ -6,23 +6,11 @@ Subpackages
 
 .. toctree::
 
+    spython.main
     spython.client
     spython.image
     spython.logger
-    spython.main
-    spython.tests
     spython.utils
-
-Submodules
-----------
-
-spython.version module
-----------------------
-
-.. automodule:: spython.version
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 
 Module contents
