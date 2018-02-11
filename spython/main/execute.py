@@ -65,4 +65,3 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
         return self._run_command(cmd,sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')
-

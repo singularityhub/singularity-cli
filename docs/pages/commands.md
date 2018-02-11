@@ -20,6 +20,7 @@ your Python applications. We wrote you a client to do that!
 ## Functions
 From within python, you can then use the following functions to control Singularity:
 
+ - [Build](#build) an image from a recipe.
  - [Pull](#pull) an image using Singularity
  - [Apps](#apps) list the [Scientific Filesystem](https://sci-f.github.io) apps in your image
  - [Inspect](#inspect) metadata about your image.
@@ -111,6 +112,86 @@ $ client
 
 And this is most logically the easiest entrypoint!
 
+
+<hr>
+
+### Build
+You likely want to build images, but from within Python. The Singularity Python API allows
+you to do this. You can customize the recipe, container name, and location.
+
+
+|variable      | example                                  | default        |description  |
+|--------------|------------------------------------------|----------|----------------|------------|
+| recipe       | `docker://ubuntu:latest`, `Singularity`  | None     | the base for the build. If not defined, we look for a Singularity recipe in the `$PWD` |
+| image        | /opt/dinosaur.simg                       | None     | the image to build. If not defined, for shub/docker, we derive from the recipe name. Otherwise, we generate a funny robot name   |
+| isolated     |  singularity build --isolated ...        | False    | create an isolated build environment |
+| sandbox      |  singularity build --sandbox ...         | False    | build a sandbox image |
+| writable     |  singularity build --writable ...        | False    | build a writable image  |
+|--------------|------------------------------------------|----------|----------------|------------|
+| build_folder | /tmp                                     | None     | if set, build in folder instead of `$PWD` |
+| ext          | `simg`                                   | `simg`   | The extension to use for the image, if name not provided |
+| robot_name   | boolean                                  | False    | If True, generate a robot name for the image instead of default based on uri |
+| sudo         |                                          | True     | use sudo to run the command |
+
+
+First, let's open up an interactive shell with a client and docker uri already loaded.
+
+```
+$ spython shell docker://busybox:latest
+docker://busybox:latest
+```
+
+Now let's build it. We are going to not provide any image name, or even input the
+docker uri again.
+
+```
+client.build()
+2.4.2-development.g706e90e
+Building into existing container: busybox:latest.simg
+Docker image path: index.docker.io/library/busybox:latest
+Cache folder set to /root/.singularity/docker
+Importing: base Singularity environment
+Building Singularity FS image...
+Building Singularity SIF container image...
+Singularity container built: busybox:latest.simg
+Cleaning up...
+ 'busybox:latest.simg'
+```
+
+Ask for a robot name.
+
+```
+$ client.build(robot_name=True)
+2.4.2-development.g706e90e
+Docker image path: index.docker.io/library/busybox:latest
+Cache folder set to /root/.singularity/docker
+Importing: base Singularity environment
+Building Singularity FS image...
+Building Singularity SIF container image...
+Singularity container built: chunky-toaster-8054.simg
+Cleaning up...
+ 'chunky-toaster-8054.simg'
+```
+
+Build with your own name:
+
+```
+$ client.build(image="meatballs.simg")
+...
+Singularity container built: meatballs.simg
+Cleaning up...
+ 'meatballs.simg'
+```
+
+Ask for a custom build folder:
+
+```
+client.build(build_folder='/tmp',robot_name=True)
+...
+Singularity container built: /tmp/crusty-peas-9436.simg
+Cleaning up...
+$ '/tmp/crusty-peas-9436.simg'
+```
 
 <hr>
 

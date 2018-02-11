@@ -51,13 +51,11 @@ def pull(self,
 
     # If it's still None, no go!
     if image is None:
-        bot.error('You must provide an image uri, or use client.load() first.')
-        sys.exit(1)
+        bot.exit('You must provide an image uri, or use client.load() first.')
 
     # Singularity Only supports shub and Docker pull
     if not re.search('^(shub|docker)://', image):
-        bot.error("pull only valid for docker and shub. Use sregistry client.")
-        sys.exit(1)           
+        bot.exit("pull only valid for docker and shub. Use sregistry client.")
 
     # Did the user ask for a custom pull folder?
     if pull_folder:

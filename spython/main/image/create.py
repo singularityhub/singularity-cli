@@ -37,8 +37,7 @@ def create(self,image_path, size=1024, sudo=False):
     self.println(output)
 
     if not os.path.exists(image_path):
-        bot.error("Could not create image %s" %image_path)
-        sys.exit(1)
+        bot.exit("Could not create image %s" %image_path)
 
     return image_path
 
