@@ -21,13 +21,14 @@ Welcome to the Singularity Python documentation!
 This code base is still being developed!
 
 ## What is Singularity Python
-Singularity Python is a Python API to work with the <a href="https://singularityware.github.io" target="_blank">Singularity</a> open source software. Are you a scientist or developer? You likely will be most interested in the ability to interact with Singularity containers from your own Python scripts. See <a href="https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base" target="_blank">here</a> for the core module docstrings.
+Singularity Python is a Python API to work with the <a href="https://singularityware.github.io" target="_blank">Singularity</a> open source software. Are you a scientist or developer? You likely will be most interested in the ability to interact with Singularity containers from your own Python scripts. See <a href="https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html" target="_blank">here</a> for the core module docstrings.
 
 
 ## Getting Started
 
  - [Installation](/singularity-cli/install): to your system with the python package manager pip, or use the client in a container that we provide.
- - [Python API](/singularity-cli/commands): Learn how to interact with Singularity using functions from the spython module.
+ - [Commands](/singularity-cli/commands): Learn how to interact with Singularity using functions from the spython module.
+ - [Developers](https://singularityhub.github.io/singularity-cli/api/source/spython.main.html): The readthedocs documentation for the Singularity Python API.
 
 
 ## Getting Help
