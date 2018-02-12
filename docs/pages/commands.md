@@ -16,8 +16,6 @@ your Python applications. We wrote you a client to do that!
  - [Scripts](#scripts) how to load the client from scratch in your Python script
  - [Shell](#shell) gives you an interactive python shell with a client 
 
-
-## Functions
 From within python, you can then use the following functions to control Singularity:
 
  - [Build](#build) an image from a recipe.
@@ -27,10 +25,12 @@ From within python, you can then use the following functions to control Singular
  - [Run](#run) execute the runscript for your image.
  - [Execute](#execute) execute a command to the container
  - [Help](#help) easily show help documentation for commands
+ - [Fun](#fun) Want to have a little fun? The robots got your back :)
+
 
 <hr>
 
-### Scripts
+## Scripts
 In most scripts, you can just import the client and go from there:
 
 ```
@@ -60,7 +60,7 @@ interact with the client, just use the python shell, discussed next.
 
 <hr>
 
-### Shell
+## Shell
 If you want to jump right in you can start a python shell (`shell`) to have a client ready to go!
 
 ```
@@ -116,7 +116,7 @@ And this is most logically the easiest entrypoint!
 
 <hr>
 
-### Build
+## Build
 You likely want to build images, but from within Python. The Singularity Python API allows
 you to do this. You can customize the recipe, container name, and location.
 
@@ -196,7 +196,7 @@ $ '/tmp/crusty-peas-9436.simg'
 
 <hr>
 
-### Pull
+## Pull
 If you are using Singularity to pull (and not the Singularity Global Client) the Singularity Python
 provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go! 
 [Here is a video](https://asciinema.org/a/162164?speed=2) of the example below if you want to watch instead of read.
@@ -555,6 +555,34 @@ $ singularity build -w container.img recipe.def
 ```
 
 Good to know!
+
+
+<hr>
+
+
+## Fun
+Want to have a little fun?
+
+```
+spython shell
+```
+```
+for i in range(10):
+    print(client.RobotNamer.generate())
+
+phat-truffle-5574
+chunky-leg-2481
+bricky-omelette-4994
+frigid-cat-1600
+boopy-gato-5761
+rainbow-milkshake-7724
+cowy-puppy-5847
+chocolate-lamp-6383
+quirky-leopard-1958
+scruptious-egg-4612
+```
+
+Or <a href="https://asciinema.org/a/162228" target="_blank">view and use the Docker and Singularity images.</a>
 
 <div>
     <a href="/singularity-cli/install"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
