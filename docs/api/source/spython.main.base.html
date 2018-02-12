@@ -52,7 +52,7 @@
 <span id="spython-main-base-command-module"></span><h2>spython.main.base.command module<a class="headerlink" href="#module-spython.main.base.command" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.base.command.init_command">
-<code class="descclassname">spython.main.base.command.</code><code class="descname">init_command</code><span class="sig-paren">(</span><em>self</em>, <em>action</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.command.</code><code class="descname">init_command</code><span class="sig-paren">(</span><em>self</em>, <em>action</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the initial Singularity command with any added flags.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -70,7 +70,7 @@
 
 <dl class="function">
 <dt id="spython.main.base.command.run_command">
-<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>quiet=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>quiet=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command is a wrapper for the global run_command, checking first
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
@@ -95,7 +95,7 @@ the parent process so it appears for the user.</p>
 <span id="spython-main-base-logger-module"></span><h2>spython.main.base.logger module<a class="headerlink" href="#module-spython.main.base.logger" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.base.logger.init_level">
-<code class="descclassname">spython.main.base.logger.</code><code class="descname">init_level</code><span class="sig-paren">(</span><em>self</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.logger.</code><code class="descname">init_level</code><span class="sig-paren">(</span><em>self</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the logging level based on the environment</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -109,7 +109,7 @@ the parent process so it appears for the user.</p>
 
 <dl class="function">
 <dt id="spython.main.base.logger.println">
-<code class="descclassname">spython.main.base.logger.</code><code class="descname">println</code><span class="sig-paren">(</span><em>self</em>, <em>output</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.logger.</code><code class="descname">println</code><span class="sig-paren">(</span><em>self</em>, <em>output</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
 <dd><p>print will print the output, given that quiet is not True. This
 function also serves to convert output in bytes to utf-8</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -131,7 +131,7 @@ function also serves to convert output in bytes to utf-8</p>
 <span id="spython-main-base-sutils-module"></span><h2>spython.main.base.sutils module<a class="headerlink" href="#module-spython.main.base.sutils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.base.sutils.get_filename">
-<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an image filename based on the image uri. If an image uri is
 not specified, we look for the loaded image.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -150,14 +150,14 @@ not specified, we look for the loaded image.</p>
 
 <dl class="function">
 <dt id="spython.main.base.sutils.get_uri">
-<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_uri</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_uri" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_uri</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_uri" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if the loaded image object (self.simage) has an associated uri
 return if yes, None if not.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.base.sutils.load">
-<code class="descclassname">spython.main.base.sutils.</code><code class="descname">load</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">load</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load an image, either an actual path on the filesystem or a uri.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -171,7 +171,7 @@ return if yes, None if not.</p>
 
 <dl class="function">
 <dt id="spython.main.base.sutils.setenv">
-<code class="descclassname">spython.main.base.sutils.</code><code class="descname">setenv</code><span class="sig-paren">(</span><em>self</em>, <em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">setenv</code><span class="sig-paren">(</span><em>self</em>, <em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
 <dd><p>set an environment variable for Singularity</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -192,7 +192,7 @@ return if yes, None if not.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="spython.main.base.Client">
-<em class="property">class </em><code class="descclassname">spython.main.base.</code><code class="descname">Client</code><a class="reference internal" href="../_modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">spython.main.base.</code><code class="descname">Client</code><a class="reference internal" href="../modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="spython.main.base.Client.RobotNamer">
@@ -249,7 +249,7 @@ instead. Highly recommended :)</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.check_install">
-<code class="descname">check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base.html#Client.check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.check_install" title="Permalink to this definition">¶</a></dt>
+<code class="descname">check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.check_install" title="Permalink to this definition">¶</a></dt>
 <dd><p>ensure that singularity is installed, and exit if not.</p>
 </dd></dl>
 
@@ -397,7 +397,7 @@ should be provided in a list)</p>
 
 <dl class="method">
 <dt id="spython.main.base.Client.version">
-<code class="descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/base.html#Client.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the version of singularity</p>
 </dd></dl>
 
