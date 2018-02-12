@@ -95,13 +95,11 @@
 
     <span class="c1"># If it&#39;s still None, no go!</span>
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;You must provide an image uri, or use client.load() first.&#39;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;You must provide an image uri, or use client.load() first.&#39;</span><span class="p">)</span>
 
     <span class="c1"># Singularity Only supports shub and Docker pull</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;^(shub|docker)://&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;pull only valid for docker and shub. Use sregistry client.&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>           
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;pull only valid for docker and shub. Use sregistry client.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Did the user ask for a custom pull folder?</span>
     <span class="k">if</span> <span class="n">pull_folder</span><span class="p">:</span>

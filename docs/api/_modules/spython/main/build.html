@@ -62,11 +62,17 @@
 
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="build"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.build.build">[docs]</a><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                 <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                 <span class="n">isolated</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">sandbox</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">build_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">robot_name</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;simg&#39;</span><span class="p">,</span>
                 <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
     <span class="sd">&#39;&#39;&#39;build a singularity image, optionally for an isolated build</span>
@@ -81,6 +87,11 @@
 <span class="sd">       isolated: if True, run build with --isolated flag</span>
 <span class="sd">       sandbox: if True, create a writable sandbox</span>
 <span class="sd">       writable: if True, use writable ext3 (sandbox takes preference)</span>
+<span class="sd">       build_folder: where the container should be built.</span>
+<span class="sd">       ext: the image extension to use.</span>
+<span class="sd">       robot_name: boolean, default False. if you don&#39;t give your image a </span>
+<span class="sd">                   name (with &quot;image&quot;) then a fun robot name will be generated</span>
+<span class="sd">                   instead. Highly recommended :) </span>
 <span class="sd">       sudo: give sudo to the command (or not) default is True for build</span>
 <span class="sd">    </span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -96,25 +107,36 @@
         <span class="n">recipe</span> <span class="o">=</span> <span class="s1">&#39;Singularity&#39;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">recipe</span><span class="p">):</span>
-            <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Cannot find </span><span class="si">%s</span><span class="s1">, exiting.&#39;</span> <span class="o">%</span><span class="n">image</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Cannot find </span><span class="si">%s</span><span class="s1">, exiting.&#39;</span> <span class="o">%</span><span class="n">image</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s1">&#39;docker&#39;</span> <span class="ow">or</span> <span class="s1">&#39;shub&#39;</span> <span class="ow">in</span> <span class="n">recipe</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(docker|shub)://&#39;</span><span class="p">,</span> <span class="n">recipe</span><span class="p">)</span> <span class="ow">and</span> <span class="n">robot_name</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filename</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RobotNamer</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RobotNamer</span><span class="o">.</span><span class="n">generate</span><span class="p">(),</span><span class="n">ext</span><span class="p">)</span>
+
+    <span class="c1"># Does the user want a custom build folder?</span>
+    <span class="k">if</span> <span class="n">build_folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">build_folder</span><span class="p">):</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not exist!&#39;</span> <span class="o">%</span><span class="n">build_folder</span><span class="p">)</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+        
 
     <span class="k">if</span> <span class="n">isolated</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--isolated&#39;</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">sandbox</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--sandbox&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sandbox</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--writable&#39;</span><span class="p">)</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image_path</span><span class="p">,</span> <span class="n">spec_path</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">,</span> <span class="n">recipe</span><span class="p">]</span>
 
-    <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>     
-    <span class="k">return</span> <span class="n">image_path</span></div>
+    <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">image</span></div>
 </pre></div>
 
           </div>

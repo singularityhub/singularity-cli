@@ -14,8 +14,10 @@ Critical items to know are:
  - migration guidance (how to convert images?)
  - changed behaviour (recipe sections work differently)
 
-The client here will eventually be released as "singularity" on pypi, and 
-the versions here will coincide with these releases.
+The client here will eventually be released as "spython" (and eventually to
+singularity on pypi), and the versions here will coincide with these releases.
+**This package is not yet available on pypy!**
 
-## [0.0.x](https://github.com/singularityhub/singularity-cli/tree/master) (0.0.x)
+## [0.0.1](https://github.com/singularityhub/singularity-cli/tree/master) (0.0.1)
+ - generating basic api documentation (sphinx)
  - adding changelog, and original code for client

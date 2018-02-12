@@ -101,7 +101,7 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 <span id="spython-main-build-module"></span><h2>spython.main.build module<a class="headerlink" href="#module-spython.main.build" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.build.build">
-<code class="descclassname">spython.main.build.</code><code class="descname">build</code><span class="sig-paren">(</span><em>self</em>, <em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>sudo=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.build.</code><code class="descname">build</code><span class="sig-paren">(</span><em>self</em>, <em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
 (requires sudo).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -114,6 +114,10 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 <li><strong>isolated</strong> (<em>if True, run build with &#8211;isolated flag</em>)</li>
 <li><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</li>
 <li><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</li>
+<li><strong>build_folder</strong> (<em>where the container should be built.</em>)</li>
+<li><strong>ext</strong> (<em>the image extension to use.</em>)</li>
+<li><strong>robot_name</strong> (<em>boolean, default False. if you don&#8217;t give your image a</em>) &#8211; name (with &#8220;image&#8221;) then a fun robot name will be generated
+instead. Highly recommended :)</li>
 <li><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</li>
 </ul>
 </td>
