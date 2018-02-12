@@ -16,8 +16,6 @@ permalink: /
 # Singularity Python
 Welcome to the Singularity Python documentation!
 
-**under development** 
-
 This code base is still being developed!
 
 ## What is Singularity Python
