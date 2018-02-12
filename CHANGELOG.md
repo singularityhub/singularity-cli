@@ -16,8 +16,7 @@ Critical items to know are:
 
 The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
-**This package is not yet available on pypy!**
 
-## [0.0.1](https://github.com/singularityhub/singularity-cli/tree/master) (0.0.1)
- - generating basic api documentation (sphinx)
- - adding changelog, and original code for client
+## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - generating basic api documentation (sphinx) (0.0.2)
+ - adding changelog, and original code for client  (0.0.1)
