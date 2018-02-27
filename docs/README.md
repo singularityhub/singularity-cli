@@ -29,7 +29,10 @@ Singularity Python is a Python API to work with the <a href="https://singularity
 
 
 ## Getting Help
-This is an open source project. Please contribute to the package, or post feedback and questions as <a href="https://github.com/singularityhub/singularity-cli" target="_blank">issues</a>.
+This is an open source project. Please contribute to the package, or post feedback and questions as <a href="https://github.com/singularityhub/singularity-cli" target="_blank">issues</a>. You'll notice a little eliipsis (<i class="fa fa-ellipsis-h"></i>) next to each header section. If you click this, you can open an issue relevant to the section, grab a permalink, or suggest a change. You can also talk to us directly on Gitter.
+
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/singularityhub/lobby)
+
 
 ## Contributing
 We welcome any kind of contribution, whether a suggestion, a bug fix, feature request, or new feature. See our  [contributing docs](/singularity-cli/contribute-docs) for more information.
