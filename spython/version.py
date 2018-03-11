@@ -18,13 +18,13 @@
 
 
 
-__version__ = "0.0.2"
+__version__ = "0.0.21"
 AUTHOR = 'Vanessa Sochat'
 AUTHOR_EMAIL = 'vsochat@stanford.edu'
 NAME = 'spython'
 PACKAGE_URL = "http://www.github.com/singularityhug/singularity-cli"
 KEYWORDS = 'singularity python client (spython)'
-DESCRIPTION = "Command line tool for working with singularity containers."
+DESCRIPTION = "Command line python tool for working with singularity."
 LICENSE = "LICENSE"
 
 INSTALL_REQUIRES = (
