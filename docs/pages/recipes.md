@@ -12,7 +12,7 @@ We will here discuss the Singularity Python converters that will help you
 to convert between recipe files. What kind of things might you want to do?
 
  - convert a Dockerfile to a Singularity Recipe
- - convert a Singularity Recipe to a Dockerfile (not implemented fully)
+ - convert a Singularity Recipe to a Dockerfile (TBA)
  - read in a recipe of either type, and modify it before doing the above
 
 
@@ -61,7 +61,7 @@ optional arguments:
                         define custom entry point and prevent discovery
 ```
 
-We can generate a Singularity recipe printed to the console by just providing 
+We can generate a *Singularity recipe* printed to the console by just providing 
 the input Dockerfile
 
 ```
