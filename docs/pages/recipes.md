@@ -46,21 +46,6 @@ actions:
     test         Container testing (TBD)
 ```
 
-Let's ask for help for the "recipe" command:
-
-```
-$ spython recipe --help
-usage: spython recipe [-h] [--entrypoint ENTRYPOINT] [files [files ...]]
-
-positional arguments:
-  files                 the recipe input file and [optional] output file
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --entrypoint ENTRYPOINT
-                        define custom entry point and prevent discovery
-```
-
 We can generate a *Singularity recipe* printed to the console by just providing 
 the input Dockerfile
 
@@ -87,7 +72,38 @@ WARNING /code/ doesn't exist, ensure exists for build
 Saving to Singularity.snowflake
 ```
 
-If you need more verbosity, ask for `--debug`
+## Custom Generation
+What else can we do, other than giving an input file and optional output file?
+Let's ask for help for the "recipe" command:
+
+```
+$ spython recipe --help
+usage: spython recipe [-h] [--entrypoint ENTRYPOINT] [files [files ...]]
+
+positional arguments:
+  files                 the recipe input file and [optional] output file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --entrypoint ENTRYPOINT
+                        define custom entry point and prevent discovery
+```
+
+See the `--entrypoint` argument? If you **don't** specify it, the recipe will be
+written and use the Dockerfile `ENTRYPOINT` and then `CMD`, in that order. If 
+neither of these exist, it defaults to `/bin/bash`. If you **do** specify it,
+then your custom entrypoint will be used instead. For example, if I instead 
+want to change the shell:
+
+```
+$ spython recipe --entrypoint /bin/sh Dockerfile
+...
+%runscript
+exec /bin/sh "$@"
+```
+
+Notice that the last line (which usually defaults to `/bin/bash`) is what I 
+specified. Finally, you can ask for help and print with more verbosity! Just ask for `--debug`
 
 ```
 $ spython --debug recipe Dockerfile 
@@ -110,6 +126,7 @@ or less, ask for `--quiet`
 ```
 $ spython --quiet recipe Dockerfile
 ```
+
 
 # Python API
 
