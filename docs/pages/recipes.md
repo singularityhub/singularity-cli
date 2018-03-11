@@ -3,7 +3,7 @@ layout: default
 title: Recipes
 pdf: true
 permalink: /recipes
-toc: true
+toc: false
 ---
 
 # Singularity Python Converters
@@ -61,7 +61,8 @@ optional arguments:
                         define custom entry point and prevent discovery
 ```
 
-We can generate a recipe to the console by just providing the input Dockerfile
+We can generate a Singularity recipe printed to the console by just providing 
+the input Dockerfile
 
 ```
 $ spython recipe Dockerfile
