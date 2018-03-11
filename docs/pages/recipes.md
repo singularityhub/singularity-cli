@@ -278,6 +278,35 @@ recipe.convert(convert_to='docker')         # convert to Docker
 recipe.convert(convert_to='singularity')    # convert to Singularity
 ```
 
+## Python Shell
+You can also interact with the above functions most quickly via `spython shell`.
+
+```
+$ spython shell
+Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.1.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+```
+
+The parser is added to the client, and you can use it just like before!
+
+```
+In [1]: parser = client.DockerRecipe('Dockerfile')
+WARNING /tmp/requirements.txt doesn't exist, ensure exists for build
+WARNING requirements.txt doesn't exist, ensure exists for build
+WARNING /code/ doesn't exist, ensure exists for build
+```
+```
+recipe = parser.convert()
+print(recipe)
+```
+
 ### Save to Singularity Recipe
 if you want to save to file, the same logic applies as above, except you can
 use the "save" function. If you don't specify an output file, one will
