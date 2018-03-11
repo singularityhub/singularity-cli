@@ -7,9 +7,11 @@ toc: false
 ---
 
 # Singularity Python Command Line
-This walkthrough will show interaction with the Singularity Python command line tool, `spython`. You can likely accomplish most of these examples using Singularity alone, but there are a few extra tidbits that `spython offers`.
+Welcome to the Singularity Python command line tool, `spython` documentation! Follow the links to the documentation that is of interest to you.
 
-**under development** 
+ - [Client](/singularity-cli/commands): Walk through the basic client commands to push, pull, build, and otherwise interact with images from Python
+ - [Recipes](/singularity-cli/recipes): Convert and interact with Dockerfile and Singularity Recipes
+
 
 <div>
     <a href="/singularity-cli/"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>

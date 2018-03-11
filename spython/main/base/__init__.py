@@ -34,7 +34,7 @@ from .logger import ( println,  init_level )
 class Client:
 
     def __str__(self):
-        base = "[Singularity-Python]"
+        base = "[singularity-python]"
         if hasattr(self, 'simage'):
             if self.simage.image not in [None,'']:
                 base = "%s[%s]" %(base, self.simage)

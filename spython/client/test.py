@@ -23,7 +23,7 @@ import sys
 import os
 
 
-def main(args, options):
+def main(args, options, parser):
     print('TBA, additional tests for Singularity containers.')
     print('What would you like to see? Let us know!')
     print('https://www.github.com/singularityhub/singularity-cli/issues')

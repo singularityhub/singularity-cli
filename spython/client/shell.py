@@ -19,7 +19,7 @@
 
 import sys
 
-def main(args, options):
+def main(args, options, parser):
 
     from spython.main import Client as cli
 
