@@ -19,6 +19,7 @@
 
 from spython.logger import bot
 import json
+from itertools import chain
 
 def run(self, 
         image=None,
@@ -27,7 +28,7 @@ def run(self,
         sudo = False,
         writable = False,
         contain = False,
-        bind = ""):
+        bind = None):
 
     '''
     run will run the container, with or withour arguments (which
@@ -48,8 +49,8 @@ def run(self,
         image = self._get_uri()
 
     # Does the user want to use bind paths option?
-    if bind is not "":
-        cmd = cmd + ["--bind",bind]
+    if bind is not None:
+        cmd = bind_string(cmd,bind)
 
     # Does the user want to run an app?
     if app is not None:
@@ -73,3 +74,13 @@ def run(self,
     except:
         pass
     return result
+
+def bind_string(cmd,bind):
+    if isinstance(bind,list):
+        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
+    elif isinstance(bind,str):
+        bind = [x.strip() for x in bind.split(" ")]
+        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
+    else:
+        bot.error('The type of bind must be a list or str.')
+    return cmd

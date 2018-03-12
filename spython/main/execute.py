@@ -20,8 +20,10 @@
 from spython.logger import bot
 import os
 import sys
+from itertools import chain
 
-def execute(self, image=None, command=None, app=None, writable=False, contain=False, bind=""):
+
+def execute(self, image=None, command=None, app=None, writable=False, contain=False, bind=None):
     '''execute: send a command to a container
     
        Parameters
@@ -54,8 +56,8 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
             image = self._get_uri()
 
         # Does the user want to use bind paths option?
-        if bind is not "":
-            cmd = cmd + ["--bind",bind]
+        if bind is not None:
+            cmd = bind_string(cmd,bind)
 
         # Does the user want to run an app?
         if app is not None:
@@ -72,3 +74,13 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
         return self._run_command(cmd,sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')
+
+def bind_string(cmd,bind):
+    if isinstance(bind,list):
+        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
+    elif isinstance(bind,str):
+        bind = [x.strip() for x in bind.split(" ")]
+        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
+    else:
+        bot.error('The type of bind must be a list or str.')
+    return cmd
