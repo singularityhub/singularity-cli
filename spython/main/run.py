@@ -26,7 +26,8 @@ def run(self,
         app = None,
         sudo = False,
         writable = False,
-        contain = False):
+        contain = False,
+        bind = ""):
 
     '''
     run will run the container, with or withour arguments (which
@@ -45,6 +46,10 @@ def run(self,
     # No image provided, default to use the client's loaded image
     if image is None:
         image = self._get_uri()
+
+    # Does the user want to use bind paths option?
+    if bind is not "":
+        cmd = cmd + ["--bind",bind]
 
     # Does the user want to run an app?
     if app is not None:
