@@ -20,24 +20,30 @@
 from spython.logger import bot
 import os
 import sys
-from itertools import chain
 
 
-def execute(self, image=None, command=None, app=None, writable=False, contain=False, bind=None):
-    '''execute: send a command to a container
+def execute(self, 
+            image=None, 
+            command=None,
+            app=None,
+            writable=False,
+            contain=False,
+            bind=None):
+
+    ''' execute: send a command to a container
     
-       Parameters
-       ==========
+        Parameters
+        ==========
 
-       image: full path to singularity image
-       command: command to send to container
-       app: if not None, execute a command in context of an app
-       writable: This option makes the file system accessible as read/write
-       contain: This option disables the automatic sharing of writable
-                        filesystems on your host
-       bind: full path to bind paths
-                        This option allows you to map directories on your host system to
-                        directories within your container using bind mounts
+        image: full path to singularity image
+        command: command to send to container
+        app: if not None, execute a command in context of an app
+        writable: This option makes the file system accessible as read/write
+        contain: This option disables the automatic sharing of writable
+                 filesystems on your host
+        bind: list or single string of bind paths.
+             This option allows you to map directories on your host system to
+             directories within your container using bind mounts
 
     '''
 
@@ -57,7 +63,7 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
 
         # Does the user want to use bind paths option?
         if bind is not None:
-            cmd = bind_string(cmd,bind)
+            cmd += self._generate_bind_list(bind)
 
         # Does the user want to run an app?
         if app is not None:
@@ -74,13 +80,3 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
         return self._run_command(cmd,sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')
-
-def bind_string(cmd,bind):
-    if isinstance(bind,list):
-        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
-    elif isinstance(bind,str):
-        bind = [x.strip() for x in bind.split(" ")]
-        cmd = cmd + list(chain.from_iterable(zip(["--bind"]*len(bind),bind)))
-    else:
-        bot.error('The type of bind must be a list or str.')
-    return cmd

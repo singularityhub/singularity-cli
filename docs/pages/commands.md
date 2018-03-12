@@ -111,7 +111,9 @@ $ client
  [Singularity-Python][docker://ubuntu]
 ```
 
-And this is most logically the easiest entrypoint!
+And this is most logically the easiest entrypoint!  Note that this is **not**
+ the Singularity shell, so it doesn't have custom binds, etc. You would
+specify them from the shell using the client.
 
 
 <hr>
@@ -121,14 +123,13 @@ You likely want to build images, but from within Python. The Singularity Python 
 you to do this. You can customize the recipe, container name, and location.
 
 
-|variable      | example                                  | default        |description  |
+| variable      | example                                  | default        |description  |
 |--------------|------------------------------------------|----------|----------------|------------|
 | recipe       | `docker://ubuntu:latest`, `Singularity`  | None     | the base for the build. If not defined, we look for a Singularity recipe in the `$PWD` |
-| image        | /opt/dinosaur.simg                       | None     | the image to build. If not defined, for shub/docker, we derive from the recipe name. Otherwise, we generate a funny robot name   |
+| image        | /opt/dinosaur.simg                       | None     | the image to build. If None, derive from recipe, or robot name  |
 | isolated     |  singularity build --isolated ...        | False    | create an isolated build environment |
 | sandbox      |  singularity build --sandbox ...         | False    | build a sandbox image |
 | writable     |  singularity build --writable ...        | False    | build a writable image  |
-|--------------|------------------------------------------|----------|----------------|------------|
 | build_folder | /tmp                                     | None     | if set, build in folder instead of `$PWD` |
 | ext          | `simg`                                   | `simg`   | The extension to use for the image, if name not provided |
 | robot_name   | boolean                                  | False    | If True, generate a robot name for the image instead of default based on uri |
@@ -422,6 +423,7 @@ $ output = client.run()
 
 ```
 
+### Run an App
 You can also specify to run an app in an image:
 
 ```
@@ -481,6 +483,46 @@ $ client
 ```
 
 <hr>
+
+## Run and Exec Options
+The commands that you can specify are as you would expect, coinciding with Singularity.
+Here are many different ways you can specify binds:
+
+```
+mkdir -p /tmp/avocado
+touch /tmp/avocado/seed.txt
+
+$ client.load('/home/vanessa/Desktop/image.simg')
+/home/vanessa/Desktop/image.simg
+
+# Without the bind, opt is empty
+$ client.execute(['ls', '/opt'])
+()
+
+# Create the bind
+$ client.execute(['ls', '/opt'], bind='/tmp/avocado:/opt')
+seed.txt
+```
+Note that the bind argument can take the form of any of the following, either
+list or string:
+
+
+```
+['/host:/container', '/both'] --> ["--bind", "/host:/container","--bind","/both" ]
+['/both']                     --> ["--bind", "/both"]
+'/host:container'             --> ["--bind", "/host:container"]
+None                         --> []
+```
+
+
+| variable     | example                                    | default  |           description       |
+|--------------|------------------------------------------  |----------|----------------------------|
+| bind         |  add one or more --bind as a list or string| None     | one or more bind mounts |
+| contain      |  add the --contain flag                    | False    | contain the environment and mounts |
+| writable     |  singularity build --writable              | False    | build a writable image  |
+
+Note that these are also provided for `exec` below.
+
 
 
 ## Help

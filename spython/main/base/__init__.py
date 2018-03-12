@@ -26,7 +26,7 @@ import os
 import re
 
 
-from .command import ( init_command, run_command )
+from .command import ( generate_bind_list, init_command, run_command )
 from .flags import parse_verbosity
 from .sutils import ( get_uri, load, setenv, get_filename )
 from .logger import ( println,  init_level )
@@ -79,6 +79,7 @@ Client._get_uri = get_uri
 Client.setenv = setenv
 
 # Commands
+Client._generate_bind_list = generate_bind_list
 Client._init_command = init_command
 Client._run_command = run_command
 
