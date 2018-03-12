@@ -123,8 +123,8 @@ You likely want to build images, but from within Python. The Singularity Python 
 you to do this. You can customize the recipe, container name, and location.
 
 
-| variable      | example                                  | default        |description  |
-|--------------|------------------------------------------|----------|----------------|------------|
+| variable     |  example                                 |  default |               description  |
+|--------------|------------------------------------------|----------|----------------------------|
 | recipe       | `docker://ubuntu:latest`, `Singularity`  | None     | the base for the build. If not defined, we look for a Singularity recipe in the `$PWD` |
 | image        | /opt/dinosaur.simg                       | None     | the image to build. If None, derive from recipe, or robot name  |
 | isolated     |  singularity build --isolated ...        | False    | create an isolated build environment |
