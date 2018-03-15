@@ -37,8 +37,18 @@ def main(args, options, parser):
     if len(args.files) > 1:
         outfile = args.files[1]
 
-    # Create the recipe parser
-    parser = DockerRecipe(args.files[0])
+    # Choose the recipe parser
+    parser = SingularityRecipe
+    if args.input == "docker":
+        parser = DockerRecipe
+    elif args.input == "singularity":
+        parser = SingularityRecipe(args.files[0])
+    else:
+        if "dockerfile" in args.files[0].lower():
+            parser = DockerRecipe
+
+    # Initialize the chosen parser
+    parser = parser(args.files[0])
 
     # By default, discover entrypoint / cmd from Dockerfile
     entrypoint = "/bin/bash"

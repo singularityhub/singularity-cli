@@ -24,10 +24,46 @@ import sys
 # Singularity to Dockerfile
 # Easier, parsed line by line
 
-def singularity2docker(self):
+def singularity2docker(self, runscript="/bin/bash", force=False):
     '''convert a Singularity recipe to a (best estimated) Dockerfile'''
-    print('Vanessasaur is writing me!')
 
+    recipe = [ "FROM %s" %self.fromHeader ]
+
+    # Comments go up front!
+    recipe += self.comments  
+
+    # First add files, labels
+    recipe += write_lines('ADD', self.files)
+    recipe += write_lines('LABEL', self.labels)
+    recipe += write_lines('ENV', self.environ)
+
+    # Install routine is added as RUN commands
+    recipe += write_lines('RUN', self.install)
+
+    # Take preference for user, entrypoint, command, then default
+    runscript = self._create_runscript(runscript, force)
+    recipe.append('CMD %s' %runscript)
+
+    if self.test is not None:
+        recipe.append(write_lines('HEALTHCHECK', self.test))
+
+    # Clean up extra white spaces
+    return '\n'.join(recipe).replace('\n\n','\n')
+
+
+
+def write_lines(label, lines):
+    '''write a list of lines with a header for a section.
+    
+       Parameters
+       ==========
+       lines: one or more lines to write, with header appended
+
+    '''
+    result = []
+    for line in lines:
+        result.append('%s %s' %(label, line))
+    return result
 
 
 # Dockerfile to Singularity
@@ -54,7 +90,15 @@ def create_runscript(self, default="/bin/bash", force=False):
             entrypoint = ''.join(self.entrypoint)
         elif self.cmd is not None:
             entrypoint = ''.join(self.cmd)
-    return 'exec %s "$@"' %entrypoint
+
+    # Entrypoint should use exec
+    if not entrypoint.startswith('exec'):
+        entrypoint = "exec %s" %entrypoint
+
+    # Should take input arguments into account
+    if not re.search('"?[$]@"?', entrypoint):
+        entrypoint = '%s "$@"' %entrypoint
+    return entrypoint
 
 
 def create_section(self, attribute, name=None):
