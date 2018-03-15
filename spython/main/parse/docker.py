@@ -273,7 +273,7 @@ class DockerRecipe(Recipe):
 
         '''
         label = self._setup('LABEL', line)
-        self.labels += label
+        self.labels += [ label ]
 
 
 # Main Parsing Functions
