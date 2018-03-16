@@ -127,6 +127,10 @@ def create_section(self, attribute, name=None):
         bot.debug('Recipe does not have section for %s' %attribute)
         return section
 
+    # if the section is empty, don't print it
+    if len(section) == 0:
+        return section
+
     # Files or Labels
     if attribute in ['labels', 'files']:
         return create_keyval_section(section, name)
@@ -168,7 +172,7 @@ def create_keyval_section(pairs, name):
     '''
     section = ['%' + name ]
     for pair in pairs:
-        section.append(' '.join(pair))
+        section.append(' '.join(pair).strip().strip('\\'))
     return section
 
 

@@ -264,6 +264,22 @@ class Recipe:
         return [x.strip() for x in line.split(' ', 1)]
 
 
+    def _clean_line(self, line):
+        '''clean line will remove comments, and strip the line of newlines 
+           or spaces.
+
+           Parameters
+           ==========
+           line: the string to parse into parts
+
+           Returns
+           =======
+           line: a cleaned line
+
+        '''
+        return line.split('#')[0].strip()
+
+
     def _write_script(path, lines, chmod=True):
         '''write a script with some lines content to path in the image. This
            is done by way of adding echo statements to the install section.

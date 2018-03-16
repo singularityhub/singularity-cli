@@ -297,7 +297,7 @@ class DockerRecipe(Recipe):
         
 
 
-    def _get_mapping(self, line):
+    def _get_mapping(self, line, parser=None, previous=None):
         '''mapping will take the command from a Dockerfile and return a map
            function to add it to the appropriate place. Any lines that don't
            cleanly map are assumed to be comments.
@@ -305,7 +305,8 @@ class DockerRecipe(Recipe):
            Parameters
            ==========
            line: the list that has been parsed into parts with _split_line
-    
+           parser: the previously used parser, for context    
+
            Returns
            =======
            function: to map a line to its command group
@@ -336,8 +337,18 @@ class DockerRecipe(Recipe):
                    "VOLUME": self._volume,
                    "LABEL": self._label}
 
+        # If it's a command line, return correct functoin
         if cmd in mapping:
             return mapping[cmd]
+
+        # If it's a continued line, return previous
+        cleaned = self._clean_line(line[-1])
+        previous = self._clean_line(previous)
+
+        # if we are continuing from last
+        if cleaned.endswith('\\') and parser or previous.endswith('\\'):
+            return parser
+
         return self._default
  
 
@@ -356,12 +367,16 @@ class DockerRecipe(Recipe):
            Add/Copy: are treated the same
 
         '''
+        parser = None
+        previous = None
 
         for line in self.lines:
 
-            # Get the correct parsing function
-            parser = self._get_mapping(line)
-           
+            parser = self._get_mapping(line, parser, previous)
+
+
             # Parse it, if appropriate
             if parser:
                 parser(line)
+
+            previous = line
