@@ -18,6 +18,7 @@
 
 import os
 import re
+import sys
 
 from .environment import parse_env
 from .recipe import Recipe
@@ -65,6 +66,8 @@ class DockerRecipe(Recipe):
 
         '''
         self.fromHeader = self._setup('FROM', line)
+        if "scratch" in self.fromHeader:
+            bot.warning('scratch is no longer available on Docker Hub.')
         bot.debug('FROM %s' %self.fromHeader) 
 
 
