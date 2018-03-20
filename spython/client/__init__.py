@@ -50,9 +50,26 @@ def get_parser():
                                        dest="command", metavar='general usage')
 
           
+    # Recipes
+
+    recipe = subparsers.add_parser("recipe",
+                                   help="Recipe conversion and parsing")
+
+    recipe.add_argument('--entrypoint', dest="entrypoint",
+                         help="define custom entry point and prevent discovery", 
+                         default=None, type=str)
+
+    recipe.add_argument("files", nargs='*',
+                        help="the recipe input file and [optional] output file", 
+                        type=str)
+
+    parser.add_argument("-i", "--input", type=str, 
+                        default="auto", dest="input",
+                        choices=["auto", "docker", "singularity"],
+                        help="Is the input a Dockerfile or Singularity recipe?")
+
     # General Commands
 
-    # Container Usage Commands
     subparsers.add_parser("shell", help="Interact with singularity python")
     subparsers.add_parser("test", help='''Container testing (TBD)''')
 
@@ -140,13 +157,14 @@ def main():
     set_verbosity(args)
 
     # Does the user want help for a subcommand?
-    if args.command == 'shell': from .shell import main 
+    if args.command == 'recipe': from .recipe import main 
+    elif args.command == 'shell': from .shell import main 
     elif args.command == 'test': from .test import main 
     else: help()
 
     # Pass on to the correct parser
     if args.command is not None:
-        main(args=args, options=options)
+        main(args=args, options=options, parser=parser)
 
 
 if __name__ == '__main__':

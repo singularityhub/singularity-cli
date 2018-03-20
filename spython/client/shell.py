@@ -19,7 +19,7 @@
 
 import sys
 
-def main(args, options):
+def main(args, options, parser):
 
     from spython.main import Client as cli
 
@@ -48,21 +48,43 @@ def ipython(image):
 
     # The client will announce itself (backend/database) unless it's get
     from spython.main import get_client
+    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
+
     client = get_client()
     client.load(image)
+
+    # Add recipe parsers
+    client.DockerRecipe = DockerRecipe
+    client.SingularityRecipe = SingularityRecipe
+
     from IPython import embed
     embed()
 
 def bpython(image):
+
     import bpython
     from spython.main import get_client
+    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
+
     client = get_client()
     client.load(image)
+   
+    # Add recipe parsers
+    client.DockerRecipe = DockerRecipe
+    client.SingularityRecipe = SingularityRecipe
+
     bpython.embed(locals_={'client': cli})
 
 def python(image):
     import code
     from spython.main import get_client
+    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
+
     client = get_client()
     client.load(image)
+
+    # Add recipe parsers
+    client.DockerRecipe = DockerRecipe
+    client.SingularityRecipe = SingularityRecipe
+
     code.interact(local={"client":cli})

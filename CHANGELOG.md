@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - addition of docker and singularity recipe parsers (0.0.22)
  - adding bind argument to exec and run (0.0.21)
  - generating basic api documentation (sphinx) (0.0.2)
  - adding changelog, and original code for client  (0.0.1)

@@ -24,6 +24,7 @@ Singularity Python is a Python API to work with the <a href="https://singularity
 ## Getting Started
 
  - [Installation](/singularity-cli/install): to your system with the python package manager pip, or use the client in a container that we provide.
+ - [Recipes](/singularity-cli/recipes): Interact with and convert Dockerfile and Singularity Recipes
  - [Commands](/singularity-cli/commands): Learn how to interact with Singularity using functions from the spython module.
  - [Developers](https://singularityhub.github.io/singularity-cli/api/source/spython.main.html): The readthedocs documentation for the Singularity Python API.
 
