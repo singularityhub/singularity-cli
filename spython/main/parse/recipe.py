@@ -69,7 +69,7 @@ class Recipe:
 
 
     def _run_checks(self):
-        '''basic sanity checks for the file name (and others if needed) before
+        '''basic sanity checks for the file existence before
            attempting parsing.
         '''
  

@@ -30,8 +30,9 @@ from .environment import parse_env
 class SingularityRecipe(Recipe):
 
     def __init__(self, recipe=None):
-        '''a Docker recipe parses a Docker Recipe into the expected fields of
-           labels, environment, and install/runtime commands
+        '''a Singularity recipe parses a Singularity Recipe into expected
+           sections, for ease of conversion back into Dockerfile. This
+           conversion is harder because we don't have an ordering.
 
            Parameters
            ==========
@@ -42,6 +43,73 @@ class SingularityRecipe(Recipe):
         self.name = 'singularity'
         self.filename = "Singularity"
         super().__init__(recipe)
+
+
+# Main parser
+
+    def _parse(self):
+        '''parse is the base function for parsing the Singularity recipe, 
+           and extracting elements into the correct data structures.
+           Everything is parsed into lists to be assembled again on demand. 
+
+           files: we use COPY for Docker
+
+        '''
+
+        for line in self.lines:
+
+            # Get the correct parsing function
+            parser = self._get_mapping(line)
+           
+            # Parse it
+            parser(line)
+
+
+
+    def _get_mapping(self, line):
+        '''mapping will take the command from a Dockerfile and return a map
+           function to add it to the appropriate place. Any lines that don't
+           cleanly map are assumed to be comments.
+
+           Parameters
+           ==========
+           line: the list that has been parsed into parts with _split_line
+    
+           Returns
+           =======
+           function: to map a line to its command group
+
+        '''
+
+        # Split the command into cleanly the command and rest
+        if not isinstance(line, list):
+            line = self._split_line(line)
+
+        # No line we will give function to handle empty line
+        if len(line) == 0:
+            return self._comment
+
+        cmd = line[0].upper()
+
+        mapping = {"ADD": self._add,
+                   "COPY": self._copy,
+                   "CMD": self._cmd,
+                   "ENTRYPOINT": self._entry,
+                   "ENV": self._env,
+                   "FROM": self._from,
+                   "HEALTHCHECK": self._test,
+                   "RUN": self._run,
+                   "WORKDIR": self._workdir,
+                   "MAINTAINER": self._label,
+                   "VOLUME": self._comment,
+                   "PORT": self._comment,
+                   "LABEL": self._label}
+
+        if cmd in mapping:
+            return mapping[cmd]
+        return self._comment
+
+
 
 
 # Setup for each Parser
@@ -254,73 +322,7 @@ class SingularityRecipe(Recipe):
         
 
 
-    def _get_mapping(self, line):
-        '''mapping will take the command from a Dockerfile and return a map
-           function to add it to the appropriate place. Any lines that don't
-           cleanly map are assumed to be comments.
-
-           Parameters
-           ==========
-           line: the list that has been parsed into parts with _split_line
-    
-           Returns
-           =======
-           function: to map a line to its command group
-
-        '''
-
-        # Split the command into cleanly the command and rest
-        if not isinstance(line, list):
-            line = self._split_line(line)
-
-        # No line we will give function to handle empty line
-        if len(line) == 0:
-            return self._comment
-
-        cmd = line[0].upper()
-
-        mapping = {"ADD": self._add,
-                   "COPY": self._copy,
-                   "CMD": self._cmd,
-                   "ENTRYPOINT": self._entry,
-                   "ENV": self._env,
-                   "FROM": self._from,
-                   "HEALTHCHECK": self._test,
-                   "RUN": self._run,
-                   "WORKDIR": self._workdir,
-                   "MAINTAINER": self._label,
-                   "VOLUME": self._comment,
-                   "PORT": self._comment,
-                   "LABEL": self._label}
-
-        if cmd in mapping:
-            return mapping[cmd]
-        return self._comment
  
-
-    def _parse(self):
-        '''parse is the base function for parsing the Dockerfile, and extracting
-           elements into the correct data structures. Everything is parsed into
-           lists or dictionaries that can be assembled again on demand. 
-
-           Environment: Since Docker also exports environment as we go, 
-                        we add environment to the environment section and 
-                        install
-
-           Labels: include anything that is a LABEL, ARG, or (deprecated)
-                   maintainer.
-
-           Add/Copy: are treated the same
-
-        '''
-
-        for line in self.lines:
-
-            # Get the correct parsing function
-            parser = self._get_mapping(line)
-           
-            # Parse it
-            parser(line)
 
 
 
