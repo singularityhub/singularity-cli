@@ -64,7 +64,7 @@ def get_filename(self, image=None, ext='simg'):
        image: the uri to base off of
        ext: the extension to use
     '''
-    return "%s.%s" %(re.sub('^.*://','',image).replace('/','-'), ext).strip('-')
+    return "%s.%s" %(re.sub('^.*://','',image).replace('/','-'), ext)
     
 
 
