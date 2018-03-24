@@ -26,7 +26,8 @@ def pull(self,
          image=None,
          name=None,
          pull_folder='',
-         ext="simg"):
+         ext="simg",
+         capture=False):
 
     '''pull will pull a singularity hub or Docker image
         
@@ -69,7 +70,7 @@ def pull(self,
     
     cmd.append(image)
     bot.info(' '.join(cmd))
-    self._run_command(cmd, capture=False)
+    self._run_command(cmd, capture=capture)
     final_image = os.path.join(pull_folder, name)
 
     if os.path.exists(final_image):
