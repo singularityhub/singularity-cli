@@ -21,18 +21,29 @@ from spython.logger import bot
 import os
 import sys
 
-def execute(self, image=None, command=None, app=None, writable=False, contain=False):
-    '''execute: send a command to a container
-    
-       Parameters
-       ==========
 
-       image: full path to singularity image
-       command: command to send to container
-       app: if not None, execute a command in context of an app
-       writable: This option makes the file system accessible as read/write
-       contain: This option disables the automatic sharing of writable
-                        filesystems on your host
+def execute(self, 
+            image=None, 
+            command=None,
+            app=None,
+            writable=False,
+            contain=False,
+            bind=None):
+
+    ''' execute: send a command to a container
+    
+        Parameters
+        ==========
+
+        image: full path to singularity image
+        command: command to send to container
+        app: if not None, execute a command in context of an app
+        writable: This option makes the file system accessible as read/write
+        contain: This option disables the automatic sharing of writable
+                 filesystems on your host
+        bind: list or single string of bind paths.
+             This option allows you to map directories on your host system to
+             directories within your container using bind mounts
 
     '''
 
@@ -49,6 +60,10 @@ def execute(self, image=None, command=None, app=None, writable=False, contain=Fa
         # No image provided, default to use the client's loaded image
         if image is None:
             image = self._get_uri()
+
+        # Does the user want to use bind paths option?
+        if bind is not None:
+            cmd += self._generate_bind_list(bind)
 
         # Does the user want to run an app?
         if app is not None:

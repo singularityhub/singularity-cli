@@ -52,6 +52,53 @@ def init_command(self, action, flags=None):
     return cmd
 
 
+def generate_bind_list(self, bindlist=None):
+    '''generate bind string will take a single string or list of binds, and
+       return a list that can be added to an exec or run command. For example,
+       the following map as follows:
+
+      ['/host:/container', '/both'] --> ["--bind", "/host:/container","--bind","/both" ]
+      ['/both']                     --> ["--bind", "/both"]
+      '/host:container'             --> ["--bind", "/host:container"]
+       None                         --> []
+ 
+       An empty bind or otherwise value of None should return an empty list.
+       The binds are also checked on the host.
+
+       Parameters
+       ==========
+       bindlist: a string or list of bind mounts
+
+    '''
+    binds = []
+    
+    # Case 1: No binds provided
+    if not bindlist:
+        return binds
+
+    # Case 2: provides a long string or non list, and must be split
+    if not isinstance(bindlist, list):
+        bindlist = bindlist.split(' ')
+
+    for bind in bindlist:
+
+        # Still cannot be None
+        if bind:
+            bot.debug('Adding bind %s' %bind)
+            binds += ['--bind', bind]
+
+            # Check that exists on host
+            host = bind.split(':')[0]
+            if not os.path.exists(host):
+                bot.error('%s does not exist on host.' %bind)
+                sys.exit(1)
+
+    return binds
+
+
+
+
+
 def run_command(self, cmd, sudo=False, quiet=False, capture=True):
     '''run_command is a wrapper for the global run_command, checking first
        for sudo and exiting on error if needed. The message is returned as

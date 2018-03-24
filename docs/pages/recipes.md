@@ -72,6 +72,19 @@ WARNING /code/ doesn't exist, ensure exists for build
 Saving to Singularity.snowflake
 ```
 
+The same can be done for converting a Dockerfile to Singularity
+
+```
+$ spython recipe Singularity >> Dockerfile
+```
+
+And don't forget you can interact with Docker images natively with Singularity!
+
+```
+$ singularity pull docker://ubuntu:latest
+```
+
+
 ## Custom Generation
 What else can we do, other than giving an input file and optional output file?
 Let's ask for help for the "recipe" command:
@@ -296,6 +309,111 @@ recipe.convert(convert_to='docker')         # convert to Docker
 recipe.convert(convert_to='singularity')    # convert to Singularity
 ```
 
+
+### Save to Singularity Recipe
+if you want to save to file, the same logic applies as above, except you can
+use the "save" function. If you don't specify an output file, one will
+be generated for you in the present working directory, a Singularity or 
+Dockerfile with a randomly generated extension.
+
+```
+$ recipe.save()
+Saving to Singularity.8q5lkg1n
+```
+
+And you can also name it whatever you like :)
+
+```
+$ recipe.save('Singularity.special-snowflake')
+Saving to Singularity.special-snowflake
+```
+
+<hr>
+
+
+## Singularity Conversion
+We will do the same action, but in the opposite direction, convering a Singularity recipe
+to a Dockerfile! This is a harder direction because we have to convert each line
+from `%post` into a Dockerfile, and we are going from a "chunk" representation to
+a "lines" one that warrants more detail. We do our best estimate of ordering by
+doing the following:
+
+ - files and labels come first, assuming that content should be added to the container at the beginning.
+ - any change of directory (cd) at the beginning of a line is replaced with `WORKDIR`
+
+
+### Load the Singularity Recipe
+
+
+```
+from spython.main.parse import SingularityRecipe
+recipe = SingularityRecipe('Singularity')
+
+FROM willmclaren/ensembl-vep
+```
+
+We know we have read in a Singularity file!
+
+```
+$ recipe.name
+'singularity'
+```
+
+If you peek at the loaded configuration, you will see that it gets parsed into
+the Singularity sections.
+
+```
+$ recipe.config 
+{'comments': ['# sudo singularity build ensembl-vep Singularity'],
+ 'environment': ['LANGUAGE=en_US',
+  'LANG="en_US.UTF-8"',
+  'LC_ALL=C',
+  'export LANGUAGE LANG LC_ALL',
+  ''],
+ 'from': 'willmclaren/ensembl-vep',
+ 'help': ['This is a singularity file for VEP docker (v1)', ''],
+ 'labels': ['DARTH VADER', 'QUASI MODO', 'LizardLips NoThankYou', ''],
+ 'post': ['mkdir /.vep;',
+  'mkdir /vep_genomes;',
+  'git clone https://github.com/Ensembl/VEP_plugins.git;',
+  'git clone https://github.com/griffithlab/pVAC-Seq.git;',
+  'cp /pVAC-Seq/pvacseq/VEP_plugins/Wildtype.pm /VEP_plugins;',
+  'rm -r /pVAC-Seq;',
+  ''],
+ 'runscript': ['exec /home/vep/src/ensembl-vep/vep "$@"']}
+```
+
+### Convert to Dockerfile
+You can then use the same convert function to generate your Dockerfile.
+
+```
+$ dockerfile = recipe.convert()
+$ print(dockerfile)
+print(recipe.convert())
+FROM: willmclaren/ensembl-vep
+# This is a singularity file for VEP docker (v1)
+#  sudo singularity build ensembl-vep Singularity
+LABEL DARTH VADER
+LABEL QUASI MODO
+LABEL LizardLips NoThankYou
+ENV LANGUAGE=en_US
+ENV LANG="en_US.UTF-8"
+ENV LC_ALL=C
+RUN mkdir /.vep;
+RUN mkdir /vep_genomes;
+RUN git clone https://github.com/Ensembl/VEP_plugins.git;
+RUN git clone https://github.com/griffithlab/pVAC-Seq.git;
+RUN cp /pVAC-Seq/pvacseq/VEP_plugins/Wildtype.pm /VEP_plugins;
+RUN rm -r /pVAC-Seq;
+CMD exec /home/vep/src/ensembl-vep/vep "$@"
+```
+
+or instead save it to file:
+
+```
+$ recipe.save('Dockerfile')
+```
+
 ## Python Shell
 You can also interact with the above functions most quickly via `spython shell`.
 
@@ -325,33 +443,11 @@ recipe = parser.convert()
 print(recipe)
 ```
 
-### Save to Singularity Recipe
-if you want to save to file, the same logic applies as above, except you can
-use the "save" function. If you don't specify an output file, one will
-be generated for you in the present working directory, a Singularity or 
-Dockerfile with a randomly generated extension.
+or do the same for Singularity:
 
 ```
-$ recipe.save()
-Saving to Singularity.8q5lkg1n
-```
-
-And you can also name it whatever you like :)
-
-```
-$ recipe.save('Singularity.special-snowflake')
-Saving to Singularity.special-snowflake
-```
-
-<hr>
-
-
-## Singularity Conversion
-Still being written!
-
-```
-$ recipe.convert(convert_to='docker')         # convert to Docker
-Vanessasaur is writing me!
+$ parser = client.SingularityRecipe('Singularity')
+$ recipe.convert()         # convert to Docker
 ```
 
 <div>

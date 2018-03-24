@@ -63,6 +63,10 @@ def get_parser():
                         help="the recipe input file and [optional] output file", 
                         type=str)
 
+    parser.add_argument("-i", "--input", type=str, 
+                        default="auto", dest="input",
+                        choices=["auto", "docker", "singularity"],
+                        help="Is the input a Dockerfile or Singularity recipe?")
 
     # General Commands
 

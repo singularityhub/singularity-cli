@@ -69,7 +69,7 @@ class Recipe:
 
 
     def _run_checks(self):
-        '''basic sanity checks for the file existence before
+        '''basic sanity checks for the file name (and others if needed) before
            attempting parsing.
         '''
  
@@ -106,6 +106,7 @@ class Recipe:
         '''
 
         self.cmd = None
+        self.comments = []
         self.entrypoint = None
         self.environ = []
         self.files = []
@@ -262,6 +263,42 @@ class Recipe:
         '''
         return [x.strip() for x in line.split(' ', 1)]
 
+
+    def _clean_line(self, line):
+        '''clean line will remove comments, and strip the line of newlines 
+           or spaces.
+
+           Parameters
+           ==========
+           line: the string to parse into parts
+
+           Returns
+           =======
+           line: a cleaned line
+
+        '''
+        return line.split('#')[0].strip()
+
+
+    def _write_script(path, lines, chmod=True):
+        '''write a script with some lines content to path in the image. This
+           is done by way of adding echo statements to the install section.
+
+           Parameters
+           ==========
+           path: the path to the file to write
+           lines: the lines to echo to the file
+           chmod: If true, change permission to make u+x
+
+        '''
+        if len(lines) > 0:
+            lastline = lines.pop()
+        for line in lines:
+            self.install.append('echo "%s" >> %s' %path)
+        self.install.append(lastline)     
+
+        if chmod is True:
+            self.install.append('chmod u+x %s' %path)
 
 Recipe.docker2singularity = docker2singularity
 Recipe.singularity2docker = singularity2docker

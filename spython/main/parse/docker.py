@@ -18,6 +18,7 @@
 
 import os
 import re
+import sys
 
 from .environment import parse_env
 from .recipe import Recipe
@@ -65,6 +66,8 @@ class DockerRecipe(Recipe):
 
         '''
         self.fromHeader = self._setup('FROM', line)
+        if "scratch" in self.fromHeader:
+            bot.warning('scratch is no longer available on Docker Hub.')
         bot.debug('FROM %s' %self.fromHeader) 
 
 
@@ -119,45 +122,112 @@ class DockerRecipe(Recipe):
 # Add and Copy Parser
 
 
-    def _add(self, lines):
+    def _copy(self, lines):
         '''parse_add will copy multiple files from one location to another. This likely will need
            tweaking, as the files might need to be mounted from some location before adding to
            the image. The add command is done for an entire directory.
- 
+    
+        '''
+        lines = self._setup('COPY', lines)
+
+        for line in lines:
+            frompath, topath = line.split(" ")
+            self._add_files(frompath, topath)
+        
+
+
+    def _add(self, lines):
+        '''Add can also handle https, and compressed files.
+
            Parameters
            ==========
            line: the line from the recipe file to parse for ADD
-   
-        '''
 
+        '''
         lines = self._setup('ADD', lines)
-        
+
         for line in lines:
             frompath, topath = line.split(" ")
 
-            # Create data structure to iterate over for paths
-            paths = dict()
-            paths['from'] = frompath
-            paths['to'] = topath
+            # Custom parsing for frompath
+
+            # If it's a web address, add to install routine to get
+            if frompath.startswith('http'):
+                self._parse_http(frompath, topath)
+
+            # Add the file, and decompress in install
+            elif re.search("[.](gz|gzip|bz2|xz)$", frompath.strip()):
+                self._parse_archive(frompath, topath)
+
+            # Just add the files
+            else:
+                self._add_files(frompath, topath)
         
-            for pathtype, path in paths.items():
-                if path == ".":
-                    paths[pathtype] = os.getcwd()
- 
-                # Warning if doesn't exist
-                if not os.path.exists(path):
-                    bot.warning("%s doesn't exist, ensure exists for build" %path)
-
-            # The pair is added to the files as a list
-            self.files.append([paths['from'], paths['to']])
 
 
-    def _copy(self, line):
-        '''For now, there isn't significant enough difference to warrant
-           different functions. Copy is a wrapper for ADD. This will change
-           as needed.
+# File Handling
+
+    def _add_files(self, source, dest):
+        '''add files is the underlying function called to add files to the
+           list, whether originally called from the functions to parse archives,
+           or https. We make sure that any local references are changed to
+           actual file locations before adding to the files list.
+     
+           Parameters
+           ==========
+           source: the source
+           dest: the destiation
         '''
-        return self._add(line)
+
+        # Create data structure to iterate over
+
+        paths = {'source': source,
+                 'dest': dest}
+
+        for pathtype, path in paths.items():
+            if path == ".":
+                paths[pathtype] = os.getcwd()
+ 
+            # Warning if doesn't exist
+            if not os.path.exists(path):
+                bot.warning("%s doesn't exist, ensure exists for build" %path)
+
+        # The pair is added to the files as a list
+        self.files.append([paths['source'], paths['dest']])
+
+
+    def _parse_http(self, url, dest):
+        '''will get the filename of an http address, and return a statement
+           to download it to some location
+
+           Parameters
+           ==========
+           url: the source url to retrieve with curl
+           dest: the destination folder to put it in the image
+
+        '''
+        file_name = os.path.basename(url)
+        download_path = "%s/%s" %(dest, file_name)
+        command = "curl %s -o %s" %(url, download_path)
+        self.install.append(command)
+
+
+    def _parse_archive(self, targz, dest):
+        '''parse_targz will add a line to the install script to extract a 
+           targz to a location, and also add it to the files.
+
+           Parameters
+           ==========
+           targz: the targz to extract
+           dest: the location to extract it to
+
+        '''
+
+        # Add command to extract it
+        self.install.append("tar -zvf %s %s" %(targz, dest))
+
+        # Ensure added to container files
+        return self._add_files(targz, dest)
 
 
 # Comments and Default
@@ -273,7 +343,7 @@ class DockerRecipe(Recipe):
 
         '''
         label = self._setup('LABEL', line)
-        self.labels += label
+        self.labels += [ label ]
 
 
 # Main Parsing Functions
@@ -297,7 +367,7 @@ class DockerRecipe(Recipe):
         
 
 
-    def _get_mapping(self, line):
+    def _get_mapping(self, line, parser=None, previous=None):
         '''mapping will take the command from a Dockerfile and return a map
            function to add it to the appropriate place. Any lines that don't
            cleanly map are assumed to be comments.
@@ -305,7 +375,8 @@ class DockerRecipe(Recipe):
            Parameters
            ==========
            line: the list that has been parsed into parts with _split_line
-    
+           parser: the previously used parser, for context    
+
            Returns
            =======
            function: to map a line to its command group
@@ -336,8 +407,18 @@ class DockerRecipe(Recipe):
                    "VOLUME": self._volume,
                    "LABEL": self._label}
 
+        # If it's a command line, return correct functoin
         if cmd in mapping:
             return mapping[cmd]
+
+        # If it's a continued line, return previous
+        cleaned = self._clean_line(line[-1])
+        previous = self._clean_line(previous)
+
+        # if we are continuing from last
+        if cleaned.endswith('\\') and parser or previous.endswith('\\'):
+            return parser
+
         return self._default
  
 
@@ -356,12 +437,16 @@ class DockerRecipe(Recipe):
            Add/Copy: are treated the same
 
         '''
+        parser = None
+        previous = None
 
         for line in self.lines:
 
-            # Get the correct parsing function
-            parser = self._get_mapping(line)
-           
+            parser = self._get_mapping(line, parser, previous)
+
+
             # Parse it, if appropriate
             if parser:
                 parser(line)
+
+            previous = line
