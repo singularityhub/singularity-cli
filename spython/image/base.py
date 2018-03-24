@@ -43,9 +43,6 @@ class ImageBase:
         if match:
             uri = match.group('uri')
 
-        # An image without collection might have -
-        uri = uri.strip('-')
-
         return uri
 
 
@@ -55,8 +52,9 @@ class ImageBase:
         '''
         image = image or ''
         uri = self.get_uri(image) or ''
-        return image.replace('%s://' %uri,'', 1)
-
+        image = image.replace('%s://' %uri,'', 1)
+        print(image)
+        return image.strip('-').strip('/')
 
     def parse_image_name(self, image):
         '''
