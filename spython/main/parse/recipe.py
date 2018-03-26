@@ -72,14 +72,15 @@ class Recipe:
         '''basic sanity checks for the file name (and others if needed) before
            attempting parsing.
         '''
- 
-        # Does the recipe provided exist?
-        if not os.path.exists(self.recipe):
-            bot.error("Cannot find %s, is the path correct?" %self.recipe)
-            sys.exit(1)
+        if self.recipe is not None:
 
-        # Ensure we carry fullpath
-        self.recipe = os.path.abspath(self.recipe)
+            # Does the recipe provided exist?
+            if not os.path.exists(self.recipe):
+                bot.error("Cannot find %s, is the path correct?" %self.recipe)
+                sys.exit(1)
+
+            # Ensure we carry fullpath
+            self.recipe = os.path.abspath(self.recipe)
 
 
 # Parse
