@@ -37,8 +37,11 @@ def singularity2docker(self, runscript="/bin/bash", force=False):
     recipe += write_lines('LABEL', self.labels)
     recipe += write_lines('ENV', self.environ)
 
+    # Combine lines that are continued or combined
+    runsections = combine_lines(self.install)
+
     # Install routine is added as RUN commands
-    recipe += write_lines('RUN', self.install)
+    recipe += write_lines('RUN', runsections)
 
     # Take preference for user, entrypoint, command, then default
     runscript = self._create_runscript(runscript, force)
@@ -51,6 +54,31 @@ def singularity2docker(self, runscript="/bin/bash", force=False):
     return '\n'.join(recipe).replace('\n\n','\n')
 
 
+def combine_lines(lines):
+    '''combine lines will take a list of lines intended for install, and
+       given that the previous line ends with \, we would want to combine them
+       for a Docker recipe RUN
+    '''
+    # We are popping from list, make copy
+    lines = lines.copy()
+    cleaned = []
+
+    while len(lines) > 0:
+
+        line = lines.pop(0)
+        current = line
+
+        # A non continued line doesn't end with \
+        while current.endswith('\\'):  
+
+            # It shouldn't be the case that the last command is continued
+            next = lines.pop(0)            
+            current = '%s%s' %(current.replace('\\','\\\n'), next)
+
+        cleaned.append(current)
+
+    return cleaned
+
 
 def write_lines(label, lines):
     '''write a list of lines with a header for a section.
@@ -61,7 +89,9 @@ def write_lines(label, lines):
 
     '''
     result = []
+    print(lines)
     for line in lines:
+        print(line)
         result.append('%s %s' %(label, line))
     return result
 
