@@ -38,10 +38,10 @@ def singularity2docker(self, runscript="/bin/bash", force=False):
     recipe += write_lines('ENV', self.environ)
 
     # Combine lines that are continued or combined
-    runsections = combine_lines(self.install)
+    #runsections = combine_lines(self.install)
 
     # Install routine is added as RUN commands
-    recipe += write_lines('RUN', runsections)
+    recipe += write_lines('RUN', self.install)
 
     # Take preference for user, entrypoint, command, then default
     runscript = self._create_runscript(runscript, force)
@@ -69,11 +69,11 @@ def combine_lines(lines):
         current = line
 
         # A non continued line doesn't end with \
-        while current.endswith('\\'):  
+        while current.strip().endswith("\\"):  
 
             # It shouldn't be the case that the last command is continued
-            next = lines.pop(0)            
-            current = '%s%s' %(current.replace('\\','\\\n'), next)
+            next = lines.pop(0)
+            current = '%s%s' %(current, next)
 
         cleaned.append(current)
 
@@ -89,10 +89,16 @@ def write_lines(label, lines):
 
     '''
     result = []
-    print(lines)
+    continued = False
     for line in lines:
-        print(line)
-        result.append('%s %s' %(label, line))
+        if continued:
+            result.append(line)
+        else:
+            result.append('%s %s' %(label, line))
+        continued = False
+        if line.endswith('\\'):
+            continued = True
+            
     return result
 
 
