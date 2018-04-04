@@ -278,6 +278,8 @@ class Recipe(object):
            line: a cleaned line
 
         '''
+        # A line that is None should return empty string
+        line = line or ''
         return line.split('#')[0].strip()
 
 
