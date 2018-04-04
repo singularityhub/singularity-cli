@@ -19,7 +19,7 @@
 
 import re
 
-class ImageBase:
+class ImageBase(object):
 
     def __str__(self):
         if hasattr(self, 'uri'):

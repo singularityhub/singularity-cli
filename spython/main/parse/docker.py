@@ -37,7 +37,7 @@ class DockerRecipe(Recipe):
 
         '''
         self.name = "docker"
-        super().__init__(recipe)
+        super(DockerRecipe, self).__init__(recipe)
 
 
 # Setup for each Parser
