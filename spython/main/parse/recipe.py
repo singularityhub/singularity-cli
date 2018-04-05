@@ -31,7 +31,7 @@ from spython.main.parse.converters import (
 )
 
 
-class Recipe:
+class Recipe(object):
     '''a recipe includes an environment, labels, runscript or command,
        and install sequence. This object is subclassed by a Singularity or
        Docker recipe, and can be used to convert between the two. The user
@@ -278,6 +278,8 @@ class Recipe:
            line: a cleaned line
 
         '''
+        # A line that is None should return empty string
+        line = line or ''
         return line.split('#')[0].strip()
 
 

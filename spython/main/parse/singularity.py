@@ -40,7 +40,7 @@ class SingularityRecipe(Recipe):
 
         self.name = 'singularity'
         self.filename = "Singularity"
-        super().__init__(recipe)
+        super(SingularityRecipe, self).__init__(recipe)
 
 
 # Setup for each Parser

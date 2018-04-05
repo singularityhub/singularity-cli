@@ -51,7 +51,6 @@ def singularity2docker(self, runscript="/bin/bash", force=False):
     return '\n'.join(recipe).replace('\n\n','\n')
 
 
-
 def write_lines(label, lines):
     '''write a list of lines with a header for a section.
     
@@ -61,8 +60,16 @@ def write_lines(label, lines):
 
     '''
     result = []
+    continued = False
     for line in lines:
-        result.append('%s %s' %(label, line))
+        if continued:
+            result.append(line)
+        else:
+            result.append('%s %s' %(label, line))
+        continued = False
+        if line.endswith('\\'):
+            continued = True
+            
     return result
 
 
