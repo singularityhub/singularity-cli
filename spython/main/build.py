@@ -29,7 +29,8 @@ def build(self, recipe=None,
                 build_folder=None,
                 robot_name=False,
                 ext='simg',
-                sudo=True):
+                sudo=True,
+                stream=False):
 
     '''build a singularity image, optionally for an isolated build
        (requires sudo).
@@ -89,7 +90,10 @@ def build(self, recipe=None,
 
     cmd = cmd + [image, recipe]
 
-    output = self._run_command(cmd, sudo=sudo, capture=False)
+    if stream is False:
+        output = self._run_command(cmd, sudo=sudo, capture=False)
+    else:
+        self.stream_command(cmd, sudo=sudo, no_newline_regexp="Progess")
 
     if os.path.exists(image):
         return image

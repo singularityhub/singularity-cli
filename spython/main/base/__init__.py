@@ -26,7 +26,13 @@ import os
 import re
 
 
-from .command import ( generate_bind_list, init_command, run_command )
+from .command import ( 
+    generate_bind_list, 
+    init_command, 
+    run_command, 
+    stream_command
+)
+
 from .flags import parse_verbosity
 from .sutils import ( get_uri, load, setenv, get_filename )
 from .logger import ( println,  init_level )
@@ -82,6 +88,7 @@ Client.setenv = setenv
 Client._generate_bind_list = generate_bind_list
 Client._init_command = init_command
 Client._run_command = run_command
+Client._stream_command = stream_command
 
 # Flags and Logger
 Client._parse_verbosity = parse_verbosity
