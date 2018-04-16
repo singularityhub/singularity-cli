@@ -34,7 +34,10 @@ def build(self, recipe=None,
                 stream=False):
 
     '''build a singularity image, optionally for an isolated build
-       (requires sudo).
+       (requires sudo). If you specify to stream, expect the image name
+       and an iterator to be returned.
+       
+       image, builder = Client.build(...)
 
        Parameters
        ==========
@@ -94,8 +97,9 @@ def build(self, recipe=None,
     if stream is False:
         output = self._run_command(cmd, sudo=sudo, capture=False)
     else:
-        # Here we return an iterator! The caller must iterate over
-        return stream_command(cmd, sudo=sudo)
+        # Here we return the expected image, and an iterator! 
+        # The caller must iterate over
+        return image, stream_command(cmd, sudo=sudo)
 
     if os.path.exists(image):
         return image
