@@ -29,8 +29,7 @@ import re
 from .command import ( 
     generate_bind_list, 
     init_command, 
-    run_command, 
-    stream_command
+    run_command
 )
 
 from .flags import parse_verbosity
