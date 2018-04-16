@@ -93,7 +93,7 @@ def build(self, recipe=None,
     if stream is False:
         output = self._run_command(cmd, sudo=sudo, capture=False)
     else:
-        for line in yield self.stream_command(cmd, sudo=sudo):
+        for line in self.stream_command(cmd, sudo=sudo):
             yield line
 
     if os.path.exists(image):
