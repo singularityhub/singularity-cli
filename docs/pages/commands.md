@@ -28,6 +28,9 @@ From within python, you can then use the following functions to control Singular
  - [Fun](#fun) Want to have a little fun? The robots got your back :)
 
 
+Importantly, `run`, `exec`, `pull` and `build` supporting [streaming](#streaming)
+responses, meaning that they return generators that you can use in your applications.
+
 <hr>
 
 ## Scripts
@@ -233,6 +236,12 @@ Done. Container is at: /tmp/vsoch-hello-world.simg
 $ '/tmp/vsoch-hello-world.simg'
 ```
 
+You can add `force` to force an overwrite, if the file exists.
+
+```
+client.pull(pull_folder='/tmp', force=True)
+```
+
 For Singularity Hub images, you can also name by hash or commit.
 
 ```
@@ -240,7 +249,7 @@ client.pull(name_by_commit=True)
 client.pull(name_by_hash=True)
 ```
 
-Finally, you can ask to pull a different image.
+You can ask to pull a different image.
 
 ```
 client.pull('docker://ubuntu')
@@ -254,7 +263,26 @@ Building Singularity FS image...
 ...
 ```
 
-Cool!
+Finally, the pull command supports generating an iterator! This means that you
+can have a generator to return to some webby view to return the lines one by one to
+the user. 
+
+```python
+
+# Create the generator!
+image, puller = client.pull('docker://ubuntu', stream=True, pull_folder='/tmp')
+print(image)
+# /tmp/ubuntu.simg
+print(puller)
+<generator object stream_command at 0x7f140c520eb8>
+
+# Use it
+for line in puller:
+    print(line)
+
+```
+You could imagine streaming the above lines to a view, or appending to a list!
+You can use this however is appropriate for your application. Cool!
 
 <hr>
 
@@ -523,7 +551,37 @@ None                         --> []
 
 Note that these are also provided for `exec` below.
 
+### Run and Exec Streaming
+If you want to run or execute a command, right now we've shown you how to do this:
 
+```python
+spython shell
+
+# Pull a container to play with
+$ image = client.pull('docker://godlovedc/lolcow')
+# 'godlovedc-lolcow.simg'
+
+# Execute a command!
+$ client.execute(image, ['echo','hello','world'])
+2.4.5-master.g0b17e18
+hello world
+Out[1]: 'hello world\n
+```
+
+Notice how it happens immediately, and you get the response back all at once? What
+if you want to stream it? Add `stream=True`:
+
+```python
+executor = client.execute(image, ['echo','hello','world'], stream=True)
+# <generator object stream_command at 0x7f3d384e6410>
+for line in executor:
+    print(line)
+
+hello world
+```
+
+This might be useful if you want to return output line by line, or just append
+each line of output to a list, or check it in some way.
 
 ## Help
 If you are working in the console and desperate for some help, just ask for it:
@@ -601,6 +659,147 @@ Good to know!
 
 <hr>
 
+## Streaming
+Streaming is available for `run`, `exec`, `build`, and `pull`. By adding `stream=True`
+to the call you can return a generator to iterate over, and expose the result one line
+at a time.
+
+### Pull Stream
+Here is the standard way of doing it. The output prints to the console, and the function
+returns the image generated.
+
+```python
+spython shell
+
+# Pull a container to play with
+$ image = client.pull('docker://godlovedc/lolcow')
+# 'godlovedc-lolcow.simg'
+```
+
+What if you want to retrieve the output? Just make a generator! Note that when
+you use the pull generator, you will get back the expected image name along with
+the generator object.
+
+```python
+$ image, puller = client.pull('docker://godlovedc/lolcow', stream=True, force=True)
+# 'godlovedc-lolcow.simg'
+# <generator object stream_command at 0x7f3d38f73fc0>
+```
+Let's say we want to get the lines of output in a list. You could do this.
+
+```python
+lines = []
+for line in puller:
+    lines.append(line)
+```
+```
+lines
+Out[22]: 
+[...
+ 'Singularity container built: ./godlovedc-lolcow.simg\n',
+ 'Cleaning up...\n',
+ 'Done. Container is at: ./godlovedc-lolcow.simg\n']
+```
+
+### Build Stream
+The same case is true for build. We can stream the output and get it line by line.
+
+```python
+$ image, builder = client.build(recipe='docker://godlovedc/lolcow',
+                                stream=True,
+                                robot_name=True)
+
+# image (oh my)
+# 'butterscotch-leg-4205.simg'
+
+# builder
+<generator object stream_command at 0x7f3d384e60a0>
+```
+```python
+for line in builder:
+    print(line, end='')
+```
+
+### Execute Stream
+We can stream the output for execute and run just like pull.
+
+```python
+spython shell
+
+# Pull a container to play with
+$ image = client.pull('docker://godlovedc/lolcow')
+# 'godlovedc-lolcow.simg'
+
+# Execute a command!
+$ client.execute(image, ['echo','hello','world'])
+2.4.5-master.g0b17e18
+hello world
+Out[1]: 'hello world\n
+```
+
+Notice how it happens immediately, and you get the response back all at once? What
+if you want to stream it? Add `stream=True`:
+
+```python
+executor = client.execute(image, ['echo','hello','world'], stream=True)
+# <generator object stream_command at 0x7f3d384e6410>
+for line in executor:
+    print(line)
+
+hello world
+```
+
+This might be useful if you want to return output line by line, or just append
+each line of output to a list, or check it in some way.
+
+
+### Run Stream
+Finally, run is just executing the runscript, so it works the same.
+
+```python
+runner = client.run(image, stream=True)
+# <generator object stream_command at 0x7f3d38f73728>
+```
+```
+for line in runner:
+    print(line, end='')
+
+ ________________________________________
+< Your supervisor is thinking about you. >
+ ----------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+Uhoh.
+
+# Pull a container to play with
+$ image = client.pull('docker://godlovedc/lolcow')
+# 'godlovedc-lolcow.simg'
+
+# Execute a command!
+$ client.execute(image, ['echo','hello','world'])
+2.4.5-master.g0b17e18
+hello world
+Out[1]: 'hello world\n
+```
+
+Notice how it happens immediately, and you get the response back all at once? What
+if you want to stream it? Add `stream=True`:
+
+```python
+executor = client.execute(image, ['echo','hello','world'], stream=True)
+# <generator object stream_command at 0x7f3d384e6410>
+for line in executor:
+    print(line)
+
+hello world
+```
+
+
+<hr>
 
 ## Fun
 Want to have a little fun?

@@ -18,16 +18,18 @@
 
 
 from spython.logger import bot
+from spython.utils import stream_command
 import json
 
 def run(self, 
-        image=None,
+        image = None,
         args = None,
         app = None,
         sudo = False,
         writable = False,
         contain = False,
-        bind = None):
+        bind = None,
+        stream = False):
 
     '''
         run will run the container, with or withour arguments (which
@@ -44,6 +46,7 @@ def run(self,
         bind: list or single string of bind paths.
               This option allows you to map directories on your host system to
               directories within your container using bind mounts
+        stream: if True, return <generator> for the user to run
 
     '''
 
@@ -73,7 +76,11 @@ def run(self,
             args = args.split(' ')
         cmd = cmd + args
 
-    result = self._run_command(cmd, sudo=sudo)
+    if stream is False:
+        result = self._run_command(cmd, sudo=sudo)
+    else:
+        return stream_command(cmd, sudo=sudo)
+
     result = result.strip('\n')
 
     try:
