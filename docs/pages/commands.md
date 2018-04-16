@@ -36,13 +36,13 @@ responses, meaning that they return generators that you can use in your applicat
 ## Scripts
 In most scripts, you can just import the client and go from there:
 
-```
+```python
 from spython.main import Client
 ```
 
 You will find the actions that you are familiar with, along with a few extra:
 
-```
+```python
 $ Client. [TAB}                         
                 Client.apps          Client.execute       Client.load          Client.run           
                 Client.build         Client.help          Client.println       Client.version       
@@ -53,7 +53,7 @@ $ Client. [TAB}
 To get going with a Singularity image, just load it. It can be a file, or a uri to
 reference a file.
 
-```
+```python
 $ Client.load('docker://vsoch/hello-world')
 docker://vsoch/hello-world
 ```
@@ -66,7 +66,7 @@ interact with the client, just use the python shell, discussed next.
 ## Shell
 If you want to jump right in you can start a python shell (`shell`) to have a client ready to go!
 
-```
+```python
 $ spython shell
 Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
 Type "copyright", "credits" or "license" for more information.
@@ -80,15 +80,15 @@ object?   -> Details about 'object', use 'object??' for extra details.
 
 The client is imported as client
 
-```
-$client
+```python
+$ client
  [Singularity-Python]
 ```
 
 At this point, you might want to load an image. An image can be a file, or a unique 
 resource identifier (uri).
 
-```
+```python
 $ client.load('docker://vsoch/hello-world')
 docker://vsoch/hello-world
 
@@ -99,7 +99,7 @@ $ [Singularity-Python][docker://vsoch/hello-world]
 Notice about how the client shows the image is present. 
 You can also shell in with an image "preloaded" and ready to interact with.
 
-```
+```python
 spython shell docker://ubuntu
 Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
 Type "copyright", "credits" or "license" for more information.
@@ -141,7 +141,7 @@ you to do this. You can customize the recipe, container name, and location.
 
 First, let's open up an interactive shell with a client and docker uri already loaded.
 
-```
+```python
 $ spython shell docker://busybox:latest
 docker://busybox:latest
 ```
@@ -149,8 +149,8 @@ docker://busybox:latest
 Now let's build it. We are going to not provide any image name, or even input the
 docker uri again.
 
-```
-client.build()
+```python
+$ client.build()
 2.4.2-development.g706e90e
 Building into existing container: busybox:latest.simg
 Docker image path: index.docker.io/library/busybox:latest
@@ -165,7 +165,7 @@ Cleaning up...
 
 Ask for a robot name.
 
-```
+```python
 $ client.build(robot_name=True)
 2.4.2-development.g706e90e
 Docker image path: index.docker.io/library/busybox:latest
@@ -180,7 +180,7 @@ Cleaning up...
 
 Build with your own name:
 
-```
+```python
 $ client.build(image="meatballs.simg")
 ...
 Singularity container built: meatballs.simg
@@ -190,7 +190,7 @@ Cleaning up...
 
 Ask for a custom build folder:
 
-```
+```python
 client.build(build_folder='/tmp',robot_name=True)
 ...
 Singularity container built: /tmp/crusty-peas-9436.simg
@@ -205,10 +205,10 @@ If you are using Singularity to pull (and not the Singularity Global Client) the
 provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go! 
 [Here is a video](https://asciinema.org/a/162164?speed=2) of the example below if you want to watch instead of read.
 
-```
+```python
 spython shell docker://ubuntu
 ```
-```
+```python
 $ client.pull()
 2.4.2-development.g706e90e
 singularity pull --name vsoch-hello-world.simg shub://vsoch/hello-world
@@ -220,13 +220,13 @@ $ 'vsoch-hello-world.simg'
 
 You can ask for a custom name:
 
-```
+```python
 client.pull(name='meatballs.simg')
 ```
 
 and/or a custom pull folder to dump it:
 
-```
+```python
 client.pull(pull_folder='/tmp')
 2.4.2-development.g706e90e
 singularity pull --name vsoch-hello-world.simg shub://vsoch/hello-world
@@ -238,20 +238,20 @@ $ '/tmp/vsoch-hello-world.simg'
 
 You can add `force` to force an overwrite, if the file exists.
 
-```
-client.pull(pull_folder='/tmp', force=True)
+```python
+$ client.pull(pull_folder='/tmp', force=True)
 ```
 
 For Singularity Hub images, you can also name by hash or commit.
 
-```
+``` python
 client.pull(name_by_commit=True)
 client.pull(name_by_hash=True)
 ```
 
 You can ask to pull a different image.
 
-```
+```python
 client.pull('docker://ubuntu')
  client.pull('docker://ubuntu')
 2.4.2-development.g706e90e
@@ -291,7 +291,7 @@ You can use this however is appropriate for your application. Cool!
 We can inspect an image for a list of [SCIF](https://sci-f.github.io) apps that are installed within.
 First, let's open a python shell with the client pre-loaded:
 
-```
+```python
 spython shell
 ```
 
@@ -312,7 +312,7 @@ $ ['bar', 'cat', 'dog', 'foo']
 We get a flat list of the application names. We can also get the full path to
 their bases:
 
-```
+```python
 $ apps=client.apps('/home/vanessa/Desktop/image.simg', full_path=True)
 2.4.2-development.g706e90e
 bar
@@ -330,14 +330,14 @@ $ ['/scif/apps/bar', '/scif/apps/cat', '/scif/apps/dog', '/scif/apps/foo']
 Inspect will give us a json output of an image metadata. Let's load the shell with a client,
 and also give it an image.
 
-```
+```python
 spython shell GodloveD-lolcow-master-latest.simg 
 GodloveD-lolcow-master-latest.simg
 ```
 
 Now inspect!
 
-```
+```python
 In [1]: result = client.inspect()
 2.4.2-development.g706e90e
 {
@@ -364,13 +364,13 @@ In [1]: result = client.inspect()
 ```
 You can inspect a single app:
 
-```
+```python
 $ output = client.inspect('/home/vanessa/Desktop/image.simg', app='foo')
 ```
 
 We could also ask for non-json "human friendly" output:
 
-```
+```python
 BootStrap: docker
 From: ubuntu:16.04
 
@@ -415,7 +415,7 @@ From: ubuntu:16.04
 
 or a different image all together!
 
-```
+```python
 client.inspect('/home/vanessa/Desktop/image.simg')
 ```
 
@@ -424,12 +424,12 @@ client.inspect('/home/vanessa/Desktop/image.simg')
 ## Run
 Running is pretty intuitive. Just load an image into the client:
 
-```
+```bash
 spython shell GodloveD-lolcow-master-latest.simg 
 ```
 and then run it!
 
-```
+```python
 $ output = client.run()
 2.4.2-development.g706e90e
  _________________________________________
@@ -454,7 +454,7 @@ $ output = client.run()
 ### Run an App
 You can also specify to run an app in an image:
 
-```
+```python
 $ client.load('/home/vanessa/Desktop/image.simg')
 /home/vanessa/Desktop/image.simg
 
@@ -470,13 +470,13 @@ RUNNING FOO
 An `execute` maps to the Singularity `exec` and is like a run, but with a specific executable or entry point defined for the container.
 Again, let's start with an image loaded in the client Python shell.
 
-```
+```python
 spython shell /home/vanessa/Desktop/image.simg 
 /home/vanessa/Desktop/image.simg
 ```
 Now let's try a basic `ls`. Note that the command is given as a list.
 
-```
+```python
 $ output = client.execute(['ls'])
 2.4.2-development.g706e90e
 CHANGELOG.md
@@ -487,14 +487,14 @@ vsoch-hello-world.simg
 Now let's give more than one word in the command to demonstrate the list fully. Here we want
 to echo "Hello!" to the console.
 
-```
+```python
 $ output = client.execute(['echo','"hello!"'])
 2.4.2-development.g706e90e
 "hello!"
 ```
 and do the same, but with a different image specified.
 
-```
+```python
 $ client.execute('GodloveD-lolcow-master-latest.simg',['echo','"hello!"'])
 2.4.2-development.g706e90e
 "hello!"
@@ -502,7 +502,7 @@ $ client.execute('GodloveD-lolcow-master-latest.simg',['echo','"hello!"'])
 Note that when you specify a new image, the old one isn't unloaded to replace it. If you
 want this to happen, you would need to load it.
 
-```
+```python
 $ client.load('GodloveD-lolcow-master-latest.simg')
 GodloveD-lolcow-master-latest.simg
 
@@ -516,7 +516,7 @@ $ client
 The commands that you can specify are as you would expect, coinciding with Singularity.
 Here are many different ways you can specify binds:
 
-```
+```python
 mkdir -p /tmp/avocado
 touch /tmp/avocado/seed.txt
 
@@ -535,7 +535,7 @@ Note that the bind argument can take the form of any of the following, either
 list or string:
 
 
-```
+```python
 ['/host:/container', '/both'] --> ["--bind", "/host:/container","--bind","/both" ]
 ['/both']                     --> ["--bind", "/both"]
 '/host:container'             --> ["--bind", "/host:container"]
@@ -586,7 +586,7 @@ each line of output to a list, or check it in some way.
 ## Help
 If you are working in the console and desperate for some help, just ask for it:
 
-```
+```python
 $ help = client.help()
 2.4.2-development.g706e90e
 USAGE: singularity [global options...] <command> [command options...] ...
@@ -638,7 +638,7 @@ website: http://singularity.lbl.gov/
 
 or ask for a specific command:
 
-```
+```python
 $ help = client.help('bootstrap')
 2.4.2-development.g706e90e
 USAGE: singularity [...] bootstrap <container path> <definition file>
@@ -804,10 +804,10 @@ hello world
 ## Fun
 Want to have a little fun?
 
-```
+```bash
 spython shell
 ```
-```
+```python
 for i in range(10):
     print(client.RobotNamer.generate())
 
