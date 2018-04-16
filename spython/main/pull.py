@@ -28,6 +28,7 @@ def pull(self,
          name=None,
          pull_folder='',
          ext="simg",
+         force=False,
          capture=False,
          stream=False):
 
@@ -69,7 +70,10 @@ def pull(self,
         name = self._get_filename(image, ext)
 
     cmd = cmd + ["--name", name]
-    
+
+    if force is True:
+        cmd = cmd + ["--force"]
+   
     cmd.append(image)
     bot.info(' '.join(cmd))
 
