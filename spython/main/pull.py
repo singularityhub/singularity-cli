@@ -18,6 +18,7 @@
 
 
 from spython.logger import bot
+from spython.utils import stream_command
 import os
 import re
 import sys
@@ -27,7 +28,8 @@ def pull(self,
          name=None,
          pull_folder='',
          ext="simg",
-         capture=False):
+         capture=False,
+         stream=False):
 
     '''pull will pull a singularity hub or Docker image
         
@@ -70,8 +72,12 @@ def pull(self,
     
     cmd.append(image)
     bot.info(' '.join(cmd))
-    self._run_command(cmd, capture=capture)
+
     final_image = os.path.join(pull_folder, name)
+    if stream is False:
+        self._run_command(cmd, capture=capture)
+    else:
+        return final_image, stream_command(cmd, sudo=False)
 
     if os.path.exists(final_image):
         bot.info(final_image)
