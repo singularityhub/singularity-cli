@@ -64,6 +64,36 @@ def get_installdir():
     return os.path.abspath(os.path.dirname(__file__))
 
 
+def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
+    '''stream a command (yield) back to the user, as each line is available.
+
+       # Example usage:
+       results = []
+       for line in stream_command(cmd):
+           print(line, end="")
+           results.append(line)
+
+       Parameters
+       ==========
+       cmd: the command to send, should be a list for subprocess
+       no_newline_regexp: the regular expression to determine skipping a
+                          newline. Defaults to finding Progress
+
+    '''
+    if sudo is True:
+        cmd = ['sudo'] + cmd
+
+    process = subprocess.Popen(cmd, 
+                               stdout = subprocess.PIPE, 
+                               universal_newlines = True)
+    for line in iter(process.stdout.readline, ""):
+        if not re.search(no_newline_regexp, line):
+            yield line
+    process.stdout.close()
+    return_code = process.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
+
 
 def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess"):
     '''run_command uses subprocess to send a command to the terminal. If
@@ -112,6 +142,8 @@ def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess"):
               'return_code': process.returncode }
 
     return output
+
+
 
 
 def format_container_name(name, special_characters=None):

@@ -88,7 +88,6 @@ Client.setenv = setenv
 Client._generate_bind_list = generate_bind_list
 Client._init_command = init_command
 Client._run_command = run_command
-Client._stream_command = stream_command
 
 # Flags and Logger
 Client._parse_verbosity = parse_verbosity

@@ -18,6 +18,7 @@
 
 
 from spython.logger import bot
+from spython.utils import stream_command
 import re
 import os
 
@@ -94,7 +95,7 @@ def build(self, recipe=None,
         output = self._run_command(cmd, sudo=sudo, capture=False)
     else:
         # Here we return an iterator! The caller must iterate over
-        return self.stream_command(cmd, sudo=sudo)
+        return stream_command(cmd, sudo=sudo)
 
     if os.path.exists(image):
         return image
