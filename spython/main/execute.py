@@ -18,17 +18,19 @@
 
 
 from spython.logger import bot
+from spython.utils import stream_command
 import os
 import sys
 
 
 def execute(self, 
-            image=None, 
-            command=None,
-            app=None,
-            writable=False,
-            contain=False,
-            bind=None):
+            image = None, 
+            command = None,
+            app = None,
+            writable = False,
+            contain = False,
+            bind = None,
+            stream = False):
 
     ''' execute: send a command to a container
     
@@ -77,6 +79,10 @@ def execute(self,
             command = command.split(' ')
 
         cmd = cmd + [image] + command
-        return self._run_command(cmd,sudo=sudo)
+ 
+        if stream is False:
+            return self._run_command(cmd,sudo=sudo)
+        return stream_command(cmd, sudo=sudo)
+
 
     bot.error('Please include a command (list) to execute.')

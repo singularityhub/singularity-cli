@@ -24,6 +24,7 @@ from spython.utils import (
 from spython.image import Image
 from spython.logger import bot
 
+import subprocess
 import json
 import sys
 import os
@@ -94,8 +95,6 @@ def generate_bind_list(self, bindlist=None):
                 sys.exit(1)
 
     return binds
-
-
 
 
 

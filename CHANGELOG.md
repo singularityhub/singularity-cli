@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - adding ability to stream command executed to console (0.0.25)
  - fixing import bug with recipe parsers in python 2.7 (0.0.24)
  - addition of docker and singularity recipe parsers (0.0.22)
  - adding bind argument to exec and run (0.0.21)
