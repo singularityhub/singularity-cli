@@ -7,20 +7,21 @@ toc: false
 ---
 
 # Installation Local
+You need `python3` and `pip3` in order to use this API.
 
 To install from the Github repository:
 
-```
+```bash
 git clone https://www.github.com/singularityhub/singularity-cli.git
 cd singularity-cli
-python setup.py install
+python3 setup.py install
 ```
 
 And you can also install from pip:
 
-```
+```bash
 # Client and Database
-pip install spython
+pip3 install spython
 ```
 
 
