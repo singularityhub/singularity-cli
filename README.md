@@ -5,6 +5,14 @@ the [documentation](https://singularityhub.github.io/singularity-cli) for instal
 
 We provide a [Singularity](Singularity) recipe for you to use if more convenient, along with the [full modules docstring](https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base). This formatting will improve.
 
+## Install
+
+You need `python3` and `pip` in order to use this API.
+
+```
+pip3 install spython
+```
+
 ## License
 This code is licensed under the Affero GPL, version 3.0 or later [LICENSE](LICENSE).
 
