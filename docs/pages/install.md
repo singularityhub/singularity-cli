@@ -7,7 +7,7 @@ toc: false
 ---
 
 # Installation Local
-You need `python3` and `pip` in order to use this API.
+You need `python3` and `pip3` in order to use this API.
 
 To install from the Github repository:
 
