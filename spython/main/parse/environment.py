@@ -36,14 +36,15 @@ def parse_env(envlist):
 
     exports = [] 
 
-    # This will need a lot of love!
-    # Detail work not yet done here, see link above for possible cases
-
     for env in envlist:
 
-        pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
-        pieces = [p for p in pieces if p.strip()]
-        export = "=".join(pieces)
+        if "=" in env:
+            exports.append(env)
+        else:
+            pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
+            pieces = [p for p in pieces if p.strip()]
+            export = "=".join(pieces)
+
         exports.append(export)
 
     return exports
