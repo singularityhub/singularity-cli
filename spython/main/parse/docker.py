@@ -65,7 +65,11 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse for FROM
 
         '''
-        self.fromHeader = self._setup('FROM', line)
+        fromHeader = self._setup('FROM', line)
+
+        # Singularity does not support AS level
+        self.fromHeader = re.sub("AS level", "", fromHeader, flags=re.I)
+
         if "scratch" in self.fromHeader:
             bot.warning('scratch is no longer available on Docker Hub.')
         bot.debug('FROM %s' %self.fromHeader) 
