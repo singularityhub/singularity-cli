@@ -39,12 +39,10 @@ def parse_env(envlist):
     for env in envlist:
 
         if "=" in env:
-            exports.append(env)
+            exports = exports + re.split(' ', env)
         else:
             pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
             pieces = [p for p in pieces if p.strip()]
-            export = "=".join(pieces)
-
-        exports.append(export)
+            exports.append("=".join(pieces))
 
     return exports
