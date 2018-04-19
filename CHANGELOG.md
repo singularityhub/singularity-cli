@@ -17,7 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
- - Dockerfile from "as level" removed (0.0.27)
+ - Dockerfile from "as level" removed (0.0.26)
  - fixed ENV parser to handle statements like A=B C=D
  - adding ability to stream command executed to console (0.0.25)
  - fixing import bug with recipe parsers in python 2.7 (0.0.24)
