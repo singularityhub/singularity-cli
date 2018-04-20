@@ -20,7 +20,6 @@
 import re
 
 
-
 def parse_env(envlist):
     '''parse_env will parse a single line (with prefix like ENV removed) to
     a list of commands in the format KEY=VALUE For example:
@@ -36,14 +35,31 @@ def parse_env(envlist):
 
     exports = [] 
 
-    # This will need a lot of love!
-    # Detail work not yet done here, see link above for possible cases
-
     for env in envlist:
 
         pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
         pieces = [p for p in pieces if p.strip()]
-        export = "=".join(pieces)
-        exports.append(export)
+
+        while len(pieces) > 0:
+
+            current = pieces.pop(0)
+
+            # Case 1: ['A=', '"1 2"'] --> A=1 2
+
+            if current.endswith('='):
+                next = pieces.pop(0)
+                exports.append("%s%s" %(current, next))
+
+            # Case 2: ['A=B']     --> A=B
+
+            elif '=' in current:
+                exports.append(current)
+
+            # Case 1: ['A', 'B']  --> A=B
+
+            else:
+
+                next = pieces.pop(0)
+                exports.append("%s=%s" %(current, next))
 
     return exports
