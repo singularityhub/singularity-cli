@@ -207,7 +207,7 @@ def docker2singularity(self, runscript="/bin/bash", force=False):
     '''
 
     recipe = ['Bootstrap: docker']
-    recipe += [ "From: %s" %self.fromHeader[0] ]
+    recipe += [ "From: %s" %self.fromHeader ]
   
     # Sections with key value pairs
     recipe += self._create_section('files')

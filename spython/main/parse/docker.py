@@ -68,7 +68,7 @@ class DockerRecipe(Recipe):
         fromHeader = self._setup('FROM', line)
 
         # Singularity does not support AS level
-        self.fromHeader = re.sub("AS .+", "", fromHeader, flags=re.I)
+        self.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
 
         if "scratch" in self.fromHeader:
             bot.warning('scratch is no longer available on Docker Hub.')
