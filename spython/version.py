@@ -1,7 +1,7 @@
 
+# Copyright (C) 2017-2018 Vanessa Sochat.
 # Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
 # University.
-# Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
 
 
 
-__version__ = "0.0.29"
+__version__ = "0.0.30"
 AUTHOR = 'Vanessa Sochat'
 AUTHOR_EMAIL = 'vsochat@stanford.edu'
 NAME = 'spython'

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+sudo apt-get update && sudo apt-get install -y wget git build-essential squashfs-tools \
+                                                    libtool \
+                                                    autotools-dev \
+                                                    automake \
+                                                    autoconf \
+                                                    uuid-dev \
+                                                    libssl-dev
+
+
+sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
+
+if [ "${PYTHON_VERSION}" == "2" ];
+then
+    wget https://repo.continuum.io/archive/Anaconda2-5.0.0.1-Linux-x86_64.sh
+    sudo bash Anaconda2-5.0.0.1-Linux-x86_64.sh -b -p /opt/anaconda2 && sudo chown -R 0755 /opt/anaconda2
+    PATH=/opt/anaconda3/bin:$PATH
+    rm Anaconda2-5.0.0.1-Linux-x86_64.sh 
+    export PATH
+else
+    wget https://repo.continuum.io/archive/Anaconda3-5.0.0.1-Linux-x86_64.sh
+    sudo bash Anaconda3-5.0.0.1-Linux-x86_64.sh -b -p /opt/anaconda3 && sudo chown -R 0755 /opt/anaconda3
+    PATH=/opt/anaconda3/bin:$PATH
+    rm Anaconda3-5.0.0.1-Linux-x86_64.sh
+    export PATH
+fi
+
+# Install python dependencies
+which python
+
+python setup.py sdist && python setup.py install
+
+# Install Singularity (development)
+cd /tmp && git clone https://github.com/singularityware/singularity.git && cd singularity && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
+

@@ -1,0 +1,21 @@
+language: python
+
+sudo: true
+
+os: linux
+
+language: python
+
+matrix:
+  include:
+    - os: linux
+      env: PYTHON_VERSION=2
+    - os: linux
+      env: PYTHON_VERSION=3
+
+before_install:
+  - sudo chmod u+x .travis/*
+  - .travis/before_install
+
+script:
+  - .travis/script

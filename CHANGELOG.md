@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - adding tests for client (0.0.30)
  - bug in Dockerfile fromHeader variable fix (0.0.29)
  - Dockerfile from "as level" removed (0.0.28)
  - fixed ENV parser to handle statements like A=B C=D
