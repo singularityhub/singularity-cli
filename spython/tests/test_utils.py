@@ -17,13 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from singularity.utils import get_installdir
-from numpy.testing import (
-    assert_array_equal, 
-    assert_almost_equal, 
-    assert_equal
-)
-
+from spython.utils import get_installdir
 import unittest
 import tempfile
 import shutil
@@ -37,7 +31,6 @@ class TestUtils(unittest.TestCase):
     def setUp(self):
         self.pwd = get_installdir()
         self.tmpdir = tempfile.mkdtemp()
-        self.spec = "%s/tests/data/Singularity" %(self.pwd)
         
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
