@@ -15,7 +15,7 @@ matrix:
 
 before_install:
   - sudo chmod u+x .travis/*
-  - .travis/before_install
+  - /bin/bash .travis/before_install
 
 script:
-  - .travis/script
+  - /bin/bash .travis/script
