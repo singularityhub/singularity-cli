@@ -29,10 +29,11 @@ def importcmd(self, image_path, input_source):
        import_type: if not specified, imports whatever function is given
        
     '''
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
 
-    cmd = ['singularity','image.import',image_path,input_source]
-    output = self.run_command(cmd,sudo=False)
+    cmd = ['singularity', 'image.import', image_path, input_source]
+    output = self.run_command(cmd, sudo=False)
     self.println(output)        
     return image_path
 

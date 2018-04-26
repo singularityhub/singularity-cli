@@ -29,7 +29,10 @@ def create(self,image_path, size=1024, sudo=False):
         filesystem: supported file systems ext3/ext4 (ext[2/3]: default ext3
 
     '''        
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
+
+
     cmd = self.init_command('image.create')
     cmd = cmd + ['--size', str(size), image_path ]
 
@@ -40,5 +43,3 @@ def create(self,image_path, size=1024, sudo=False):
         bot.exit("Could not create image %s" %image_path)
 
     return image_path
-
-
