@@ -19,9 +19,7 @@
 
 from spython.logger import bot
 
-
-
-def compress(self,image_path):
+def compress(self, image_path):
     '''compress will (properly) compress an image'''
     if os.path.exists(image_path):
         compressed_image = "%s.gz" %image_path
@@ -31,7 +29,7 @@ def compress(self,image_path):
     bot.exit("Cannot find image %s" %image_path)
 
 
-def decompress(self,image_path,quiet=True):
+def decompress(self, image_path, quiet=True):
     '''decompress will (properly) decompress an image'''
 
     if not os.path.exists(image_path):

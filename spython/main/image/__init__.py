@@ -31,6 +31,9 @@ def generate_image_commands():
     class ImageClient:
         group = "image"
 
+    from spython.main.base.logger import println
+    from spython.main.base.command import ( init_command, run_command )
+
     from .utils import ( compress, decompress )
     from .create import create
     from .importcmd import importcmd
@@ -41,6 +44,10 @@ def generate_image_commands():
     ImageClient.export = export
     ImageClient.decompress = decompress
     ImageClient.compress = compress
+
+    ImageClient.println = println
+    ImageClient.init_command = init_command
+    ImageClient.run_command = run_command
  
     cli = ImageClient()
     return cli

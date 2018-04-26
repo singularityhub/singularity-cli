@@ -19,7 +19,7 @@
 
 from spython.logger import bot
 
-def export(self,image_path, tmptar=None):
+def export(self, image_path, tmptar=None):
     '''export will export an image, sudo must be used.
 
        Parameters
@@ -29,10 +29,12 @@ def export(self,image_path, tmptar=None):
        tmptar: if defined, use custom temporary path for tar export
 
     '''
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
 
     if tmptar is None:
         tmptar = "/%s/tmptar.tar" %(tempfile.mkdtemp())
-    cmd = ['singularity', 'image.export', '-f',tmptar, image_path]
-    output = self.run_command(cmd,sudo=False)
+    cmd = ['singularity', 'image.export', '-f', tmptar, image_path]
+
+    output = self.run_command(cmd, sudo=False)
     return tmptar
