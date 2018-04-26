@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo apt-get install -y squashfs-tools
+python -m unittest discover -s $TRAVIS_BUILD_DIR/spython/tests/ -p '[t|T]est*.py'
+
