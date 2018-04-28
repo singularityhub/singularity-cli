@@ -59,7 +59,7 @@ class Client:
             bot.warning("Singularity version not found, so it's likely not installed.")
         else:
             cmd = ['singularity','--version']
-            version = self.run_command(cmd).strip('\n')
+            version = self._run_command(cmd).strip('\n')
             bot.debug("Singularity %s being used." % version)  
             return version
 
