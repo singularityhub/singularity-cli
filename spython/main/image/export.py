@@ -18,6 +18,7 @@
 
 
 from spython.logger import bot
+import tempfile
 
 def export(self, image_path, tmptar=None):
     '''export will export an image, sudo must be used.
