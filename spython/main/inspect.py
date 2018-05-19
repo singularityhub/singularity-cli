@@ -47,6 +47,6 @@ def inspect(self,image=None, json=True, app=None):
         cmd.append('--json')
 
     cmd.append(image)
-    output = self._run_command(cmd, quiet=self.quiet)
+    output = self._run_command(cmd)
     #self.println(output,quiet=self.quiet)    
     return output

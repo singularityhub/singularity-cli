@@ -98,7 +98,7 @@ def generate_bind_list(self, bindlist=None):
 
 
 
-def run_command(self, cmd, sudo=False, quiet=False, capture=True):
+def run_command(self, cmd, sudo=False, capture=True):
     '''run_command is a wrapper for the global run_command, checking first
        for sudo and exiting on error if needed. The message is returned as
        a list of lines for the calling function to parse, and stdout uses
@@ -109,10 +109,9 @@ def run_command(self, cmd, sudo=False, quiet=False, capture=True):
        cmd: the command to run
        sudo: does the command require sudo?
        On success, returns result. Otherwise, exists on error
-       quiet: suppress printing to the console
 
     '''
-    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)
+    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=self.quiet)
     message = result['message']
     return_code = result['return_code']
         
