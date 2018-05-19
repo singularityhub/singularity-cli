@@ -120,6 +120,6 @@ def run_command(self, cmd, sudo=False, capture=True):
             message = message[0]
         return message
 
-    if quiet is False:
+    if self.quiet is False:
         bot.error("Return Code %s: %s" %(return_code,
                                          message))
