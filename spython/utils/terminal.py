@@ -43,7 +43,7 @@ def check_install(software='singularity', quiet=True):
     found = False
 
     try:
-        version = run_command(cmd)
+        version = run_command(cmd, quiet=True)
     except: # FileNotFoundError
         return found
 
@@ -95,7 +95,7 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
-def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess"):
+def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess", quiet=False):
     '''run_command uses subprocess to send a command to the terminal. If
        capture is True, we use the parent stdout, so the progress bar (and
        other commands of interest) are piped to the user. This means we 
@@ -132,10 +132,13 @@ def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess"):
                 line = line.decode('utf-8')
             lines = lines + (line,)
             if re.search(no_newline_regexp, line) and found_match is True:
-                sys.stdout.write(line)
+                if quiet is False:
+                    sys.stdout.write(line)
                 found_match = True
             else:
-                print(line.rstrip())
+                if quiet is False:
+                    sys.stdout.write(line)
+                    print(line.rstrip())
                 found_match = False
 
     output = {'message': lines,

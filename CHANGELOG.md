@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - respecting Client "quiet" attribute in run_command  (0.0.34)
  - adding missing import of tempfile in image.export (0.0.33)
  - bug with Client.version() (0.0.32)
  - fixing bugs with import, export, image commands (0.0.31)
