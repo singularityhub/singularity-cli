@@ -115,8 +115,6 @@ class DockerRecipe(Recipe):
         line = self._setup('ARG', line)
         bot.warning("ARG is not supported for Singularity! To get %s" %line[0])
         bot.warning("in the container, on host export SINGULARITY_%s" %line[0])
-        self.install.append(line[0])
-
 
 # Env Parser
 
