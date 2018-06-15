@@ -55,7 +55,12 @@ def parse_env(envlist):
             elif '=' in current:
                 exports.append(current)
 
-            # Case 1: ['A', 'B']  --> A=B
+            # Case 3: ENV \\
+
+            elif current.endswith('\\'):
+                continue
+
+            # Case 4: ['A', 'B']  --> A=B
 
             else:
 

@@ -98,7 +98,23 @@ class DockerRecipe(Recipe):
 
         '''
         self.test  = self._setup('HEALTHCHECK', line)
-        
+
+
+# Arg Parser
+
+    def _arg(self, line):
+        '''singularity doesn't have support for ARG, so instead will issue
+           a warning to the console for the user to export the variable
+           with SINGULARITY prefixed at build.
+ 
+           Parameters
+           ==========
+           line: the line from the recipe file to parse for ARG
+   
+        '''
+        line = self._setup('ARG', line)
+        bot.warning("ARG is not supported for Singularity! To get %s" %line[0])
+        bot.warning("in the container, on host export SINGULARITY_%s" %line[0])
 
 # Env Parser
 
@@ -398,6 +414,7 @@ class DockerRecipe(Recipe):
         cmd = line[0].upper()
 
         mapping = {"ADD": self._add,
+                   "ARG": self._arg,
                    "COPY": self._copy,
                    "CMD": self._cmd,
                    "ENTRYPOINT": self._entry,
@@ -411,7 +428,7 @@ class DockerRecipe(Recipe):
                    "VOLUME": self._volume,
                    "LABEL": self._label}
 
-        # If it's a command line, return correct functoin
+        # If it's a command line, return correct function
         if cmd in mapping:
             return mapping[cmd]
 
@@ -447,7 +464,6 @@ class DockerRecipe(Recipe):
         for line in self.lines:
 
             parser = self._get_mapping(line, parser, previous)
-
 
             # Parse it, if appropriate
             if parser:

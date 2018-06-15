@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - fixing bug with recipe Dockerfile conversion (0.0.37)
  - typo in pypi PACKAGE_URL (0.0.36)
  - respecting Client "quiet" attribute in run_command  (0.0.34/0.0.35)
  - adding missing import of tempfile in image.export (0.0.33)
