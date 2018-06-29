@@ -18,7 +18,7 @@
 
 
 
-__version__ = "0.0.37"
+__version__ = "0.0.38"
 AUTHOR = 'Vanessa Sochat'
 AUTHOR_EMAIL = 'vsochat@stanford.edu'
 NAME = 'spython'

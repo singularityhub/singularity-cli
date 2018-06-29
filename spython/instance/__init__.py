@@ -1,4 +1,3 @@
-
 # Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
 # University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
@@ -17,8 +16,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from .base import ImageBase
-
+from spython.image import ImageBase
+from spython.instance.cmd import *
 
 class Instance(ImageBase):
 
@@ -32,4 +31,3 @@ class Instance(ImageBase):
        '''
        super(ImageBase, self).__init__()
        self.parse_image_name(image)
-

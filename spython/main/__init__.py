@@ -39,6 +39,7 @@ def get_client(quiet=False, debug=False):
     from .execute import execute 
     from .help import help
     from .inspect import inspect
+    from .instances import instances
     from .run import run
     from .pull import pull
 
@@ -48,14 +49,16 @@ def get_client(quiet=False, debug=False):
     Client.execute = execute
     Client.help = help
     Client.inspect = inspect
+    Client.instances = instances
     Client.run = run
     Client.pull = pull
 
-    # Command Grooups
-    from .image import ( image_group, RobotNamer )
+    # Command Groups
+    from spython.image.cmd import image_group  # deprecated image commands
+    from spython.instance import Instance      # returns Instance objects
     Client.image = image_group
-    Client.image.check_install = Client.check_install 
-    Client.RobotNamer = RobotNamer()
+    Client.image.check_install = Client.check_install
+    Client.instance = Instance
 
     # Initialize
     cli = Client()
@@ -63,6 +66,8 @@ def get_client(quiet=False, debug=False):
     # Pass on verbosity
     cli.image.debug = cli.debug
     cli.image.quiet = cli.quiet
+    cli.instance.debug = cli.debug
+    cli.instance.quiet = cli.quiet
 
     return cli
 

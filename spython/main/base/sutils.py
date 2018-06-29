@@ -21,7 +21,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from spython.image import ( Image, Instance )
 from spython.logger import bot
 import os
 import re
@@ -34,6 +33,9 @@ def load(self, image=None):
        image: the image path or uri to load (e.g., docker://ubuntu 
 
     '''
+    from spython.image import Image
+    from spython.instance import Instance
+
     self.simage = Image(image)
 
     if image is not None:
