@@ -17,17 +17,25 @@
 
 
 from spython.image import ImageBase
-from spython.instance.cmd import *
 
 class Instance(ImageBase):
 
-    def __init__(self, image=None):
+    def __init__(self, image, start=True, **kwargs):
        '''An instance is an image running as an instance with services.
+          This class has functions appended under cmd/__init__ and is
+          instantiated when the user calls Client.
 
           Parameters
           ==========
-          image: the image uri to parse (required)
+          image: the Singularity image uri to parse (required)
+          start: boolean to start the instance (default is True)
 
        '''
        super(ImageBase, self).__init__()
        self.parse_image_name(image)
+       self.status = 'stopped'
+
+       # Start the instance
+       if start is True:
+           self.start(**kwargs)
+

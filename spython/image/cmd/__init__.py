@@ -38,7 +38,7 @@ def generate_image_commands():
         group = "image"
 
     from spython.main.base.logger import println
-    from spython.main.base.commands import ( init_command, run_command )
+    from spython.main.base.command import ( init_command, run_command )
     from .utils import ( compress, decompress )
     from .create import create
     from .importcmd import importcmd

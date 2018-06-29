@@ -95,7 +95,12 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
-def run_command(cmd, sudo=False, capture=True, no_newline_regexp="Progess", quiet=False):
+def run_command(cmd, 
+                sudo=False,
+                capture=True,
+                no_newline_regexp="Progess",
+                quiet=False):
+
     '''run_command uses subprocess to send a command to the terminal. If
        capture is True, we use the parent stdout, so the progress bar (and
        other commands of interest) are piped to the user. This means we 

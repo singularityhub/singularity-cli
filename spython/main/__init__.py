@@ -54,11 +54,11 @@ def get_client(quiet=False, debug=False):
     Client.pull = pull
 
     # Command Groups
-    from spython.image.cmd import image_group  # deprecated image commands
-    from spython.instance import Instance      # returns Instance objects
+    from spython.image.cmd import image_group        # deprecated image commands
+    from spython.instance.cmd import instance_group  # returns Instance objects
     Client.image = image_group
     Client.image.check_install = Client.check_install
-    Client.instance = Instance
+    Client.instance = instance_group
 
     # Initialize
     cli = Client()
