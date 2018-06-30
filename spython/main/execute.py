@@ -48,8 +48,10 @@ def execute(self,
              directories within your container using bind mounts
 
     '''
+    from spython.utils import check_install
+    check_install()
+
     cmd = self._init_command('exec')
-    self._check_install()
 
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):

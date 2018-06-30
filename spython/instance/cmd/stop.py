@@ -33,7 +33,7 @@ def stop(self, name=None, sudo=False):
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import check_install, run_command
+    from spython.utils import ( check_install, run_command )
     check_install()
 
     cmd = self._init_command('instance.stop')

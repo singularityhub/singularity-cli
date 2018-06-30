@@ -41,7 +41,9 @@ def instances(self, name=None, return_json=False, quiet=False):
 
     '''
     from spython.instance.cmd.iutils import parse_table
-    self._check_install()
+    from spython.utils import check_install
+    check_install()
+
     cmd = self._init_command('instance.list')
 
     # If the user has provided a name, we want to see a particular instance

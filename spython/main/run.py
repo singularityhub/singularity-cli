@@ -49,8 +49,9 @@ def run(self,
         stream: if True, return <generator> for the user to run
 
     '''
+    from spython.utils import check_install
+    check_install()
 
-    self._check_install()
     cmd = self._init_command('run')
 
     # No image provided, default to use the client's loaded image

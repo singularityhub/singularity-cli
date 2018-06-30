@@ -46,7 +46,9 @@ def pull(self,
        ext: if no name specified, the default extension to use.
 
     ''' 
-    self._check_install()
+    from spython.utils import check_install
+    check_install()
+
     cmd = self._init_command('pull')
 
     # No image provided, default to use the client's loaded image

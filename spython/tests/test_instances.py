@@ -68,6 +68,18 @@ class TestInstances(unittest.TestCase):
         self.assertTrue('hello\n' == result)
         result = self.cli.run(myinstance)
 
+        print("...Case 4: Stop instances")
+        myinstance.stop()
+        instances = self.cli.instances()
+        self.assertEqual(instances, None)
+        myinstance1 = self.cli.instance(image)
+        myinstance2 = self.cli.instance(image)
+        instances = self.cli.instances()
+        self.assertEqual(len(instances), 2)
+        self.cli.instance_stopall()
+        instances = self.cli.instances()
+        self.assertEqual(instances, None)
+
 
 if __name__ == '__main__':
     unittest.main()

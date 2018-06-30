@@ -34,8 +34,8 @@ def start(self, image=None, name=None, sudo=False, options=[]):
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import run_command
-    self._check_install()
+    from spython.utils import ( run_command, check_install )
+    check_install()
 
     # If no name provided, give it an excellent one!
     if name is None:

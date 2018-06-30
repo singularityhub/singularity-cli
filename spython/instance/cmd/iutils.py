@@ -47,7 +47,9 @@ def get(self, name, return_json=False, quiet=False):
     '''get is a list for a single instance. It is assumed to be running,
        and we need to look up the PID, etc.
     '''
-    self._check_install()
+    from spython.utils import check_install
+    check_install()
+
     cmd = self._init_command('instance.list')
     cmd.append(name)
     output = run_command(cmd, quiet=True)
