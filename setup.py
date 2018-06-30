@@ -103,6 +103,8 @@ if __name__ == "__main__":
           description=DESCRIPTION,
           long_description=LONG_DESCRIPTION,
           keywords=KEYWORDS,
+          setup_requires=["pytest-runner"],
+          tests_require=["pytest"],
           install_requires = INSTALL_REQUIRES,
           classifiers=[
               'Intended Audience :: Science/Research',
