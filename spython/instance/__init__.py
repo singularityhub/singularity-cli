@@ -17,6 +17,7 @@
 
 
 from spython.image import ImageBase
+import os
 
 class Instance(ImageBase):
 
@@ -33,9 +34,66 @@ class Instance(ImageBase):
        '''
        super(ImageBase, self).__init__()
        self.parse_image_name(image)
-       self.status = 'stopped'
+
+       # Update metadats from arguments
+       self._update_metadata(kwargs)
+       self.options = []
+       self.cmd = []
 
        # Start the instance
        if start is True:
-           self.start(**kwargs)
+           self._start(**kwargs)
 
+# Unique resource identifier
+
+    def parse_image_name(self, image):
+        '''
+            simply split the uri from the image. Singularity handles
+            parsing of registry, namespace, image.
+            
+            Parameters
+            ==========
+            image: the complete image uri to load (e.g., docker://ubuntu) 
+
+        '''
+        self._image = image
+        self.uri = 'instance://'
+
+
+    def get_uri(self):
+        '''return the image uri (instance://) along with it's name
+        '''
+        return self.__str__()
+
+# Metadata
+
+    def _update_metadata(self, kwargs=None):
+        '''Extract any additional attributes to hold with the instance
+           from kwargs
+        '''
+
+        # If not given metadata, use instance.list to get it for container
+        if kwargs is None:
+            kwargs = self._list(self.name, quiet=True, return_json=True)
+
+        # Add acceptable arguments
+        for arg in ['pid', 'name']:
+
+           # Skip over non-iterables:
+           if arg in kwargs:
+               setattr(self, arg, kwargs[arg])
+       
+        if "image" in kwargs:
+            self._image = kwargs['image']
+        elif "container_image" in kwargs:
+            self._image = kwargs['container_image']
+
+
+    def __str__(self):
+        if hasattr(self, 'uri'):
+            if self.uri:
+                return "%s%s" %(self.uri, self.name)
+        return os.path.basename(self._image)
+
+    def __repr__(self):
+        return self.__str__()

@@ -33,7 +33,7 @@ def help(self, command=None):
         command: the command to get help for, if none, prints general help
 
     '''
-    self.check_install()
+    self._check_install()
 
     cmd = ['singularity','--help']
     if command != None:

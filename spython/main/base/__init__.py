@@ -65,7 +65,7 @@ class Client:
             return version
 
 
-    def check_install(self):
+    def _check_install(self):
         '''ensure that singularity is installed, and exit if not.
         '''
         if check_install() is not True:

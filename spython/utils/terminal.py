@@ -28,9 +28,9 @@ import subprocess
 import sys
 
 
-##########################################################################
+################################################################################
 # Local commands and requests
-##########################################################################
+################################################################################
 
 
 def check_install(software='singularity', quiet=True):
@@ -152,7 +152,12 @@ def run_command(cmd,
     return output
 
 
+################################################################################
+# Parsing and Formatting
+################################################################################
 
+
+         
 
 def format_container_name(name, special_characters=None):
     '''format_container_name will take a name supplied by the user,

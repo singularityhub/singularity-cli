@@ -56,7 +56,6 @@ class ImageBase(object):
         image = image or ''
         uri = self.get_uri(image) or ''
         image = image.replace('%s://' %uri,'', 1)
-        print(image)
         return image.strip('-').strip('/')
 
 

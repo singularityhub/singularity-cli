@@ -39,7 +39,7 @@ def get_client(quiet=False, debug=False):
     from .execute import execute 
     from .help import help
     from .inspect import inspect
-    from .instances import instances
+    from .instances import ( instances, stopall ) # global instance commands
     from .run import run
     from .pull import pull
 
@@ -53,12 +53,16 @@ def get_client(quiet=False, debug=False):
     Client.run = run
     Client.pull = pull
 
-    # Command Groups
+    # Command Groups, Images
     from spython.image.cmd import image_group        # deprecated image commands
-    from spython.instance.cmd import instance_group  # returns Instance objects
     Client.image = image_group
-    Client.image.check_install = Client.check_install
+    Client.image._check_install = Client._check_install
+
+    # Commands Groups, Instances
+    from spython.instance.cmd import instance_group  # instance level commands
     Client.instance = instance_group
+    Client.instance._check_install = Client._check_install
+    Client.instance_stopall = stopall
 
     # Initialize
     cli = Client()

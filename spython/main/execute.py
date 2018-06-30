@@ -48,9 +48,8 @@ def execute(self,
              directories within your container using bind mounts
 
     '''
-
     cmd = self._init_command('exec')
-    self.check_install()
+    self._check_install()
 
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):
@@ -62,6 +61,11 @@ def execute(self,
         # No image provided, default to use the client's loaded image
         if image is None:
             image = self._get_uri()
+            self.quiet = True
+
+        # If an instance is provided, grab it's name
+        if isinstance(image, self.instance):
+            image = image.get_uri()
 
         # Does the user want to use bind paths option?
         if bind is not None:

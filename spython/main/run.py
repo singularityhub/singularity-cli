@@ -50,12 +50,16 @@ def run(self,
 
     '''
 
-    self.check_install()
+    self._check_install()
     cmd = self._init_command('run')
 
     # No image provided, default to use the client's loaded image
     if image is None:
         image = self._get_uri()
+
+    # If an instance is provided, grab it's name
+    if isinstance(image, self.instance):
+        image = image.get_uri()
 
     # Does the user want to use bind paths option?
     if bind is not None:
