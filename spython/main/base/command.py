@@ -17,11 +17,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+from spython.main.base.logger import println
 from spython.utils import ( 
     run_command as run_cmd, 
     check_install 
 )
-from spython.image import Image
+
 from spython.logger import bot
 
 import subprocess
@@ -29,6 +30,7 @@ import json
 import sys
 import os
 import re
+
 
 
 def init_command(self, action, flags=None):
@@ -123,3 +125,4 @@ def run_command(self, cmd, sudo=False, capture=True):
     if self.quiet is False:
         bot.error("Return Code %s: %s" %(return_code,
                                          message))
+

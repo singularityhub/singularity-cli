@@ -30,7 +30,8 @@ def inspect(self,image=None, json=True, app=None):
        app: if defined, return help in context of an app
 
     '''
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
 
     # No image provided, default to use the client's loaded image
     if image is None:

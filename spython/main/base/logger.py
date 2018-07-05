@@ -1,4 +1,3 @@
-
 # Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
 # University.
 # Copyright (C) 2017-2018 Vanessa Sochat.

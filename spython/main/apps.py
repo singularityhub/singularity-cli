@@ -32,7 +32,8 @@ def apps(self, image=None, full_path=False, root=''):
        image_path: full path to the image
 
     '''
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
 
     # No image provided, default to use the client's loaded image
     if image is None:

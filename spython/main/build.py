@@ -56,7 +56,9 @@ def build(self, recipe=None,
        sudo: give sudo to the command (or not) default is True for build
     
     '''
-    self.check_install()
+    from spython.utils import check_install
+    check_install()
+
     cmd = self._init_command('build')
 
     # No image provided, default to use the client's loaded image
