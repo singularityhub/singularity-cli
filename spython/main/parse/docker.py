@@ -273,12 +273,15 @@ class DockerRecipe(Recipe):
            ==========
            line: the line from the recipe file to parse to INSTALL
         '''
+        # If the line starts with # we have a comment
         if line.strip().startswith('#'):
             return self._comment(line)
+
+        # Otherwise append as command
         self.install.append(line)
         
 
-# Ports and Volumes
+# Not Supported (Ports, Volumes, User)
 
     def _volume(self, line):
         '''We don't have logic for volume for Singularity, so we add as
@@ -308,6 +311,21 @@ class DockerRecipe(Recipe):
         if len(ports) > 0:
             self.ports += ports
         return self._comment("# %s" %line)
+
+
+    def _user(self, line):
+        '''The user directive. As with Docker, it is assumed that the User
+           is first created before this is called. The USER is replaced with
+           su.
+
+           Parameters
+           ==========
+           line: the line from the recipe file to parse to USER
+
+        '''
+        username = self._setup('USER', line)
+        line = "su %s" % ' '.join(username)
+        self._default(line)
 
 
 # Working Directory
@@ -417,6 +435,7 @@ class DockerRecipe(Recipe):
                    "ARG": self._arg,
                    "COPY": self._copy,
                    "CMD": self._cmd,
+                   "USER": self._user,
                    "ENTRYPOINT": self._entry,
                    "ENV": self._env,
                    "EXPOSE": self._expose,
