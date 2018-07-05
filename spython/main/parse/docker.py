@@ -323,8 +323,9 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse to USER
 
         '''
-        username = self._setup('USER', line)
-        line = "su %s" % ' '.join(username)
+        user = ' '.join(self._setup('USER', line))
+        line = "su %s" % user
+        bot.warning('"USER %s" -> "%s"' % (user,line))
         self._default(line)
 
 
