@@ -281,7 +281,7 @@ class DockerRecipe(Recipe):
         self.install.append(line)
         
 
-# Not Supported (Ports, Volumes, User)
+# Ports, Volumes, User
 
     def _volume(self, line):
         '''We don't have logic for volume for Singularity, so we add as
