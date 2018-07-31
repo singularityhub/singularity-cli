@@ -8,3 +8,15 @@ build
 dist
 *.pyc
 OLD
+.eggs
+
+# Editors/IDEs
+.idea
+*~
+
+# Environments
+venv/
+
+# mypy
+.mypy_cache/
+mypy_test_errors.txt
