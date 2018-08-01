@@ -16,15 +16,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from typing import Any, List, Optional
+
+from spython.image import Image
+from spython.main import Client as cli
 
 import sys
 
-def main(args, options, parser):
-
-    from spython.main import Client as cli
+def main(args: List[Any], options: List[Any]) -> None:
 
     # If we have options, first is image
-    image = None
+    image: Optional[Image] = None
     if len(options) > 0:
         image = options.pop(0)
  
@@ -34,15 +36,16 @@ def main(args, options, parser):
 
     shells = ['ipython', 'python', 'bpython']
 
-    # Otherwise present order of liklihood to have on system
-    for shell in shells:
-        try:
-            return lookup[shell](image)
-        except ImportError:
-            pass
-    
+    # Otherwise present order of likelihood to have on system
+    if image is not None:
+        for shell in shells:
+            try:
+                return lookup[shell](image)
+            except ImportError:
+                pass
 
-def ipython(image):
+
+def ipython(image: Image) -> None:
     '''give the user an ipython shell
     '''
 
@@ -60,7 +63,7 @@ def ipython(image):
     from IPython import embed
     embed()
 
-def bpython(image):
+def bpython(image: Image) -> None:
 
     import bpython
     from spython.main import get_client
@@ -75,7 +78,7 @@ def bpython(image):
 
     bpython.embed(locals_={'client': cli})
 
-def python(image):
+def python(image: Image) -> None:
     import code
     from spython.main import get_client
     from spython.main.parse import ( DockerRecipe, SingularityRecipe )
