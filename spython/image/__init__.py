@@ -56,7 +56,7 @@ class ImageBase(object):
         image = image or ''
         uri = self.get_uri(image) or ''
         image = image.replace('%s://' %uri,'', 1)
-        return image.strip('-').strip('/')
+        return image.strip('-').rstrip('/')
 
 
     def parse_image_name(self, image):
