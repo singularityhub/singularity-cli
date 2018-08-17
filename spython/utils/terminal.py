@@ -124,7 +124,7 @@ def run_command(cmd,
     if capture is True:
         stdout = subprocess.PIPE
 
-    if "instance.start" in cmd: 
+    if "instance.start" in cmd:
         stdout = None
 
     # Use the parent stdout and stderr
