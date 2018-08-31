@@ -25,6 +25,7 @@ import os
 def build(self, recipe=None, 
                 image=None, 
                 isolated=False,
+                isolated_root=None,
                 sandbox=False,
                 writable=False,
                 build_folder=None,
@@ -46,6 +47,7 @@ def build(self, recipe=None,
                   defined, we look for "Singularity" file in $PWD
        image: the image to build (if None, will use arbitary name
        isolated: if True, run build with --isolated flag
+       isolated_root: if isolated is True, allowed to set a root
        sandbox: if True, create a writable sandbox
        writable: if True, use writable ext3 (sandbox takes preference)
        build_folder: where the container should be built.
@@ -76,18 +78,23 @@ def build(self, recipe=None,
         if re.search('(docker|shub)://', recipe) and robot_name is False:
             image = self._get_filename(recipe, ext)
         else:
-            image = "%s.%s" %(self.RobotNamer.generate(),ext)
+            image = "%s.%s" %(self.RobotNamer.generate(), ext)
 
     # Does the user want a custom build folder?
     if build_folder is not None:
         if not os.path.exists(build_folder):
-            bot.exit('%s does not exist!' %build_folder)
+            bot.exit('%s does not exist!' % build_folder)
 
         image = "%s/%s" %(build_folder, image)
         
 
+    # The user wants to run an isolated build
     if isolated is True:
         cmd.append('--isolated')
+
+        # And change the default root folder for isolation
+        if isolated_root is not None:
+            cmd = cmd + ['--isolated-root', isolated_root ]
 
     if sandbox is True:
         cmd.append('--sandbox')

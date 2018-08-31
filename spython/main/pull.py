@@ -30,6 +30,8 @@ def pull(self,
          ext="simg",
          force=False,
          capture=False,
+         name_by_commit=False,
+         name_by_hash=False,
          stream=False):
 
     '''pull will pull a singularity hub or Docker image
@@ -68,10 +70,17 @@ def pull(self,
         self.setenv('SINGULARITY_PULLFOLDER', pull_folder)
 
     # If we still don't have a custom name, base off of image uri.
+    # Determine how to tell client to name the image, preference to hash
+
     if name is None:
         name = self._get_filename(image, ext)
+        cmd = cmd + ["--name", name]
 
-    cmd = cmd + ["--name", name]
+    elif name_by_hash is True:
+        cmd.append('--hash')
+
+    elif name_by_commit is True:
+        cmd.append('--commit')
 
     if force is True:
         cmd = cmd + ["--force"]
@@ -80,8 +89,17 @@ def pull(self,
     bot.info(' '.join(cmd))
 
     final_image = os.path.join(pull_folder, name)
-    if stream is False:
+
+    # Option 1: For hash or commit, need return value to get final_image
+    if name_by_commit or name_by_hash:
+        output = self._run_command(cmd, capture=True)
+        final_image = output.split('Container is at:')[-1].strip('\n').strip()
+
+    # Option 2: Streaming we just run to show user
+    elif stream is False:
         self._run_command(cmd, capture=capture)
+
+    # Option 3: A custom name we can predict (not commit/hash) and can also show
     else:
         return final_image, stream_command(cmd, sudo=False)
 
