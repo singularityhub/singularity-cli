@@ -25,7 +25,6 @@ import os
 def build(self, recipe=None, 
                 image=None, 
                 isolated=False,
-                isolated_root=None,
                 sandbox=False,
                 writable=False,
                 build_folder=None,
@@ -47,7 +46,6 @@ def build(self, recipe=None,
                   defined, we look for "Singularity" file in $PWD
        image: the image to build (if None, will use arbitary name
        isolated: if True, run build with --isolated flag
-       isolated_root: if isolated is True, allowed to set a root
        sandbox: if True, create a writable sandbox
        writable: if True, use writable ext3 (sandbox takes preference)
        build_folder: where the container should be built.
@@ -91,10 +89,6 @@ def build(self, recipe=None,
     # The user wants to run an isolated build
     if isolated is True:
         cmd.append('--isolated')
-
-        # And change the default root folder for isolation
-        if isolated_root is not None:
-            cmd = cmd + ['--isolated-root', isolated_root ]
 
     if sandbox is True:
         cmd.append('--sandbox')
