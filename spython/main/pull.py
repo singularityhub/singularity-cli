@@ -72,15 +72,18 @@ def pull(self,
     # If we still don't have a custom name, base off of image uri.
     # Determine how to tell client to name the image, preference to hash
 
-    if name is None:
-        name = self._get_filename(image, ext)
-        cmd = cmd + ["--name", name]
-
-    elif name_by_hash is True:
+    if name_by_hash is True:
         cmd.append('--hash')
 
     elif name_by_commit is True:
         cmd.append('--commit')
+
+    elif name is None:
+        name = self._get_filename(image, ext)
+        
+    # Only add name if we aren't naming by hash or commit
+    if not name_by_commit and not name_by_hash:
+        cmd = cmd + ["--name", name]
 
     if force is True:
         cmd = cmd + ["--force"]
