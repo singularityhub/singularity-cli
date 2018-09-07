@@ -17,7 +17,9 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
- - adding name_by_commit and name_by_hash to pull (0.0.40)
+ - adding name_by_commit and name_by_hash to pull (0.0.42)
+ - adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)
+ - fixing bug in shell.py, cli should be client (0.0.40)
  - remove uri function should only right strip to support relative paths (0.0.39)
  - adjusting container build to use correct Github branch (vault/release-2.5)
  - adding support and documentation for container instances (0.0.38)

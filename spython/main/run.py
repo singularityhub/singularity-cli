@@ -29,7 +29,8 @@ def run(self,
         writable = False,
         contain = False,
         bind = None,
-        stream = False):
+        stream = False,
+        nv = False):
 
     '''
         run will run the container, with or withour arguments (which
@@ -47,12 +48,16 @@ def run(self,
               This option allows you to map directories on your host system to
               directories within your container using bind mounts
         stream: if True, return <generator> for the user to run
-
+        nv: if True, load Nvidia Drivers in runtime (default False)
     '''
     from spython.utils import check_install
     check_install()
 
     cmd = self._init_command('run')
+   
+    # nv option leverages any GPU cards
+    if nv is True:
+        cmd += ['--nv']
 
     # No image provided, default to use the client's loaded image
     if image is None:
