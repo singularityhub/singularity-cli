@@ -30,7 +30,8 @@ def execute(self,
             writable = False,
             contain = False,
             bind = None,
-            stream = False):
+            stream=False,
+            nv=False):
 
     ''' execute: send a command to a container
     
@@ -46,6 +47,7 @@ def execute(self,
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
+        nv: if True, load Nvidia Drivers in Runtime.
 
     '''
     from spython.utils import check_install
@@ -53,6 +55,10 @@ def execute(self,
 
     cmd = self._init_command('exec')
 
+    # It option leverage the GPU card
+    if nv is True:
+        cmd += ['--nv']
+    
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):
         command = image
