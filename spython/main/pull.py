@@ -91,6 +91,10 @@ def pull(self,
     cmd.append(image)
     bot.info(' '.join(cmd))
 
+    # If name is still None, make empty string
+    if name is None:
+        name = ''
+
     final_image = os.path.join(pull_folder, name)
 
     # Option 1: For hash or commit, need return value to get final_image
