@@ -73,7 +73,7 @@ def bpython(image):
     client.DockerRecipe = DockerRecipe
     client.SingularityRecipe = SingularityRecipe
 
-    bpython.embed(locals_={'client': cli})
+    bpython.embed(locals_={'client': client})
 
 def python(image):
     import code
@@ -87,4 +87,4 @@ def python(image):
     client.DockerRecipe = DockerRecipe
     client.SingularityRecipe = SingularityRecipe
 
-    code.interact(local={"client":cli})
+    code.interact(local={"client":client})
