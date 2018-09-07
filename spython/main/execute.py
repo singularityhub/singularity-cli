@@ -57,7 +57,7 @@ def execute(self,
     
     # If the host system has an NVIDIA GPU card and a driver installed, it option leverage the card with the --nv option    
     if nv is True:
-        cmd += '--nv'
+        cmd += ['--nv']
 
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):
