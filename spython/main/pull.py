@@ -21,7 +21,9 @@ from spython.logger import bot
 from spython.utils import stream_command
 import os
 import re
+import shutil
 import sys
+import tempfile
 
 def pull(self, 
          image=None,
@@ -99,8 +101,20 @@ def pull(self,
 
     # Option 1: For hash or commit, need return value to get final_image
     if name_by_commit or name_by_hash:
-        output = self._run_command(cmd, capture=True)
-        final_image = output.split('Container is at:')[-1].strip('\n').strip()
+
+        # Set pull to temporary location
+        tmp_folder = tempfile.mkdtemp()
+        self.setenv('SINGULARITY_PULLFOLDER', tmp_folder)
+        self._run_command(cmd, capture=capture)
+
+        try:
+            tmp_image = os.path.join(tmp_folder, os.listdir(tmp_folder)[0])
+            final_image = os.path.join(pull_folder, os.path.basename(tmp_image))
+            shutil.move(tmp_image, final_image)
+            shutil.rmtree(tmp_folder)
+
+        except:
+            bot.error('Issue pulling image with commit or hash, try without?')
 
     # Option 2: Streaming we just run to show user
     elif stream is False:
