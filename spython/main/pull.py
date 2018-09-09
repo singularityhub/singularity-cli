@@ -21,7 +21,9 @@ from spython.logger import bot
 from spython.utils import stream_command
 import os
 import re
+import shutil
 import sys
+import tempfile
 
 def pull(self, 
          image=None,
@@ -30,6 +32,8 @@ def pull(self,
          ext="simg",
          force=False,
          capture=False,
+         name_by_commit=False,
+         name_by_hash=False,
          stream=False):
 
     '''pull will pull a singularity hub or Docker image
@@ -68,10 +72,20 @@ def pull(self,
         self.setenv('SINGULARITY_PULLFOLDER', pull_folder)
 
     # If we still don't have a custom name, base off of image uri.
-    if name is None:
-        name = self._get_filename(image, ext)
+    # Determine how to tell client to name the image, preference to hash
 
-    cmd = cmd + ["--name", name]
+    if name_by_hash is True:
+        cmd.append('--hash')
+
+    elif name_by_commit is True:
+        cmd.append('--commit')
+
+    elif name is None:
+        name = self._get_filename(image, ext)
+        
+    # Only add name if we aren't naming by hash or commit
+    if not name_by_commit and not name_by_hash:
+        cmd = cmd + ["--name", name]
 
     if force is True:
         cmd = cmd + ["--force"]
@@ -79,9 +93,34 @@ def pull(self,
     cmd.append(image)
     bot.info(' '.join(cmd))
 
+    # If name is still None, make empty string
+    if name is None:
+        name = ''
+
     final_image = os.path.join(pull_folder, name)
-    if stream is False:
+
+    # Option 1: For hash or commit, need return value to get final_image
+    if name_by_commit or name_by_hash:
+
+        # Set pull to temporary location
+        tmp_folder = tempfile.mkdtemp()
+        self.setenv('SINGULARITY_PULLFOLDER', tmp_folder)
         self._run_command(cmd, capture=capture)
+
+        try:
+            tmp_image = os.path.join(tmp_folder, os.listdir(tmp_folder)[0])
+            final_image = os.path.join(pull_folder, os.path.basename(tmp_image))
+            shutil.move(tmp_image, final_image)
+            shutil.rmtree(tmp_folder)
+
+        except:
+            bot.error('Issue pulling image with commit or hash, try without?')
+
+    # Option 2: Streaming we just run to show user
+    elif stream is False:
+        self._run_command(cmd, capture=capture)
+
+    # Option 3: A custom name we can predict (not commit/hash) and can also show
     else:
         return final_image, stream_command(cmd, sudo=False)
 
