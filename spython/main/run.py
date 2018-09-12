@@ -91,10 +91,11 @@ def run(self,
     else:
         return stream_command(cmd, sudo=sudo)
 
-    result = result.strip('\n')
+    if result:
+        result = result.strip('\n')
 
-    try:
-        result = json.loads(result)
-    except:
-        pass
-    return result
+        try:
+            result = json.loads(result)
+        except:
+            pass
+        return result

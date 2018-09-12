@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - flexible error printing given command to terminal fails (0.0.43)
  - adding name_by_commit and name_by_hash to pull (0.0.42)
  - adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)
  - fixing bug in shell.py, cli should be client (0.0.40)
