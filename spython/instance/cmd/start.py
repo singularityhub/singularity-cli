@@ -19,7 +19,7 @@
 from spython.logger import bot
 import sys
 
-def start(self, image=None, name=None, sudo=False, options=[]):
+def start(self, image=None, name=None, sudo=False, options=[], capture=False):
     '''start an instance. This is done by default when an instance is created.
 
        Parameters
@@ -27,6 +27,7 @@ def start(self, image=None, name=None, sudo=False, options=[]):
        image: optionally, an image uri (if called as a command from Client)
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
+       capture: capture output, default is False. With True likely to hang.
        options: a list of tuples, each an option to give to the start command
                 [("--bind", "/tmp"),...]
 
@@ -65,7 +66,7 @@ def start(self, image=None, name=None, sudo=False, options=[]):
     self.options = options
     self.cmd = cmd
 
-    output = run_command(cmd, sudo=sudo, quiet=True)
+    output = run_command(cmd, sudo=sudo, quiet=True, capture=capture)
 
     if output['return_code'] == 0:
         self._update_metadata()
