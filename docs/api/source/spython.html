@@ -24,24 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html"/>
-        <link rel="next" title="spython.main package" href="spython.main.html"/>
-        <link rel="prev" title="Welcome to Singularity Python API’s documentation!" href="../index.html"/> 
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="spython.client package" href="spython.client.html" />
+    <link rel="prev" title="Welcome to Singularity Python API’s documentation!" href="../index.html" /> 
 
   
   <script src="../assets/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -90,13 +85,16 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">spython package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="spython.main.html">spython.main package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.client.html">spython.client package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.image.html">spython.image package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.instance.html">spython.instance package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.logger.html">spython.logger package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="spython.utils.html">spython.utils Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.main.html">spython.main package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.utils.html">spython.utils package</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-spython.version">spython.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-spython">Module contents</a></li>
 </ul>
 </li>
@@ -112,7 +110,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Singularity Python API</a>
@@ -120,9 +118,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -151,7 +150,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/spython.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/spython.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,53 +169,43 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="spython.main.html">spython.main package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="spython.main.base.html">Singularity Python API Main</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.command">spython.main.base.command module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.logger">spython.main.base.logger module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.sutils">spython.main.base.sutils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="spython.main.image.html">spython.main.image package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image.create">spython.main.image.create module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image.export">spython.main.image.export module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image.generate">spython.main.image.generate module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image.importcmd">spython.main.image.importcmd module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image.utils">spython.main.image.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="spython.main.image.html#module-spython.main.image">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.apps">spython.main.apps module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.build">spython.main.build module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.execute">spython.main.execute module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.help">spython.main.help module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.inspect">spython.main.inspect module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.pull">spython.main.pull module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.run">spython.main.run module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main">Module contents</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="spython.client.html">spython.client package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="spython.client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.client.html#module-spython.client.recipe">spython.client.recipe module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.client.html#module-spython.client.shell">spython.client.shell module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.client.html#module-spython.client.test">spython.client.test module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.client.html#module-spython.client">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="spython.image.html">spython.image package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="spython.image.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.image.html#module-spython.image.base">spython.image.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.image.html#module-spython.image.binary">spython.image.binary module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.image.html#module-spython.image.instance">spython.image.instance module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="spython.image.html#module-spython.image.regexp">spython.image.regexp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.image.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spython.image.cmd.html">spython.image.cmd package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#spython-image-cmd-create-module">spython.image.cmd.create module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#module-spython.image.cmd.export">spython.image.cmd.export module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#module-spython.image.cmd.importcmd">spython.image.cmd.importcmd module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#module-spython.image.cmd.utils">spython.image.cmd.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.image.cmd.html#module-spython.image.cmd">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="spython.image.html#module-spython.image">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spython.instance.html">spython.instance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spython.instance.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spython.instance.cmd.html">spython.instance.cmd package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spython.instance.cmd.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.instance.cmd.html#module-spython.instance.cmd.iutils">spython.instance.cmd.iutils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.instance.cmd.html#module-spython.instance.cmd.start">spython.instance.cmd.start module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.instance.cmd.html#module-spython.instance.cmd.stop">spython.instance.cmd.stop module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.instance.cmd.html#module-spython.instance.cmd">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spython.instance.html#module-spython.instance">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="spython.logger.html">spython.logger package</a><ul>
@@ -227,7 +216,43 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.logger.html#module-spython.logger">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="spython.utils.html">spython.utils Module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="spython.main.html">spython.main package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spython.main.base.html">spython.main.base package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.command">spython.main.base.command module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.flags">spython.main.base.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.generate">spython.main.base.generate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.logger">spython.main.base.logger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base.sutils">spython.main.base.sutils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.base.html#module-spython.main.base">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="spython.main.parse.html">spython.main.parse package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse.converters">spython.main.parse.converters module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse.docker">spython.main.parse.docker module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse.environment">spython.main.parse.environment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse.recipe">spython.main.parse.recipe module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse.singularity">spython.main.parse.singularity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.parse.html#module-spython.main.parse">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.apps">spython.main.apps module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.build">spython.main.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.execute">spython.main.execute module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.help">spython.main.help module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.inspect">spython.main.inspect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.instances">spython.main.instances module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.pull">spython.main.pull module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main.run">spython.main.run module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.main.html#module-spython.main">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="spython.utils.html">spython.utils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="spython.utils.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.utils.html#module-spython.utils.fileio">spython.utils.fileio module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.utils.html#module-spython.utils.terminal">spython.utils.terminal module</a></li>
@@ -236,6 +261,12 @@
 </li>
 </ul>
 </div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.version">
+<span id="spython-version-module"></span><h2>spython.version module<a class="headerlink" href="#module-spython.version" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-spython">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython" title="Permalink to this headline">¶</a></h2>
@@ -257,15 +288,13 @@ along with this program.  If not, see &lt;<a class="reference external" href="ht
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="spython.main.html" class="btn btn-neutral float-right" title="spython.main package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="spython.client.html" class="btn btn-neutral float-right" title="spython.client package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral" title="Welcome to Singularity Python API’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -281,7 +310,7 @@ along with this program.  If not, see &lt;<a class="reference external" href="ht
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -300,32 +329,27 @@ along with this program.  If not, see &lt;<a class="reference external" href="ht
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="../assets/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

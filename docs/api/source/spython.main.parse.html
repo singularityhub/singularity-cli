@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spython.main.parse package &mdash; Singularity Python API 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="spython.utils package" href="spython.utils.html" />
+    <link rel="prev" title="spython.main.base package" href="spython.main.base.html" /> 
+
+  
+  <script src="../assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Singularity Python API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="spython.html">spython package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="spython.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spython.client.html">spython.client package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.image.html">spython.image package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.instance.html">spython.instance package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.logger.html">spython.logger package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="spython.main.html">spython.main package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="spython.main.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.apps">spython.main.apps module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.build">spython.main.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.execute">spython.main.execute module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.help">spython.main.help module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.inspect">spython.main.inspect module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.instances">spython.main.instances module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.pull">spython.main.pull module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.run">spython.main.run module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="spython.utils.html">spython.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython.version">spython.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Singularity Python API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="spython.html">spython package</a> &raquo;</li>
+        
+          <li><a href="spython.main.html">spython.main package</a> &raquo;</li>
+        
+      <li>spython.main.parse package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/spython.main.parse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spython-main-parse-package">
+<h1>spython.main.parse package<a class="headerlink" href="#spython-main-parse-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-spython.main.parse.converters">
+<span id="spython-main-parse-converters-module"></span><h2>spython.main.parse.converters module<a class="headerlink" href="#module-spython.main.parse.converters" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.parse.converters.create_env_section">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_env_section</code><span class="sig-paren">(</span><em>pairs</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_env_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_env_section" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>environment key value pairs need to be joined by an equal, and</dt>
+<dd>exported at the end.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</li>
+<li><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.create_keyval_section">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_keyval_section</code><span class="sig-paren">(</span><em>pairs</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_keyval_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_keyval_section" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>create a section based on key, value recipe pairs,</dt>
+<dd>This is used for files or label</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</li>
+<li><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.create_runscript">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_runscript</code><span class="sig-paren">(</span><em>self</em>, <em>default='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_runscript"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_runscript" title="Permalink to this definition">¶</a></dt>
+<dd><p>create_entrypoint is intended to create a singularity runscript
+based on a Docker entrypoint or command. We first use the Docker
+ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
+we use function default.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>default</strong> (<em>set a default entrypoint, if the container does not have</em>) – an entrypoint or cmd.</li>
+<li><strong>force</strong> (<em>If true, use default and ignore Dockerfile settings</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.create_section">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_section</code><span class="sig-paren">(</span><em>self</em>, <em>attribute</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_section" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>create a section based on key, value recipe pairs,</dt>
+<dd>This is used for files or label</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>attribute</strong> (<em>the name of the data section, either labels or files</em>)</li>
+<li><strong>name</strong> (<em>the name to write to the recipe file (e.g., %name).</em>) – if not defined, the attribute name is used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.docker2singularity">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">docker2singularity</code><span class="sig-paren">(</span><em>self</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#docker2singularity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.docker2singularity" title="Permalink to this definition">¶</a></dt>
+<dd><p>docker2singularity will return a Singularity build recipe based on
+a the loaded recipe object. It doesn’t take any arguments as the
+recipe object contains the sections, and the calling function
+determines saving / output logic.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.finish_section">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">finish_section</code><span class="sig-paren">(</span><em>section</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#finish_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.finish_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>finish_section will add the header to a section, to finish the recipe
+take a custom command or list and return a section.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>section</strong> (<em>the section content, without a header</em>)</li>
+<li><strong>name</strong> (<em>the name of the section for the header</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.singularity2docker">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">singularity2docker</code><span class="sig-paren">(</span><em>self</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#singularity2docker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.singularity2docker" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert a Singularity recipe to a (best estimated) Dockerfile</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.parse.converters.write_lines">
+<code class="descclassname">spython.main.parse.converters.</code><code class="descname">write_lines</code><span class="sig-paren">(</span><em>label</em>, <em>lines</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.write_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>write a list of lines with a header for a section.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lines</strong> (<em>one or more lines to write, with header appended</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.parse.docker">
+<span id="spython-main-parse-docker-module"></span><h2>spython.main.parse.docker module<a class="headerlink" href="#module-spython.main.parse.docker" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.main.parse.docker.DockerRecipe">
+<em class="property">class </em><code class="descclassname">spython.main.parse.docker.</code><code class="descname">DockerRecipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/docker.html#DockerRecipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.docker.DockerRecipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.parse.environment">
+<span id="spython-main-parse-environment-module"></span><h2>spython.main.parse.environment module<a class="headerlink" href="#module-spython.main.parse.environment" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.parse.environment.parse_env">
+<code class="descclassname">spython.main.parse.environment.</code><code class="descname">parse_env</code><span class="sig-paren">(</span><em>envlist</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/environment.html#parse_env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.environment.parse_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse_env will parse a single line (with prefix like ENV removed) to
+a list of commands in the format KEY=VALUE For example:</p>
+<blockquote>
+<div>ENV PYTHONBUFFER 1 –&gt; [PYTHONBUFFER=1]</div></blockquote>
+<dl class="docutils">
+<dt>::Notes</dt>
+<dd>Docker: <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#env">https://docs.docker.com/engine/reference/builder/#env</a></dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.parse.recipe">
+<span id="spython-main-parse-recipe-module"></span><h2>spython.main.parse.recipe module<a class="headerlink" href="#module-spython.main.parse.recipe" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.main.parse.recipe.Recipe">
+<em class="property">class </em><code class="descclassname">spython.main.parse.recipe.</code><code class="descname">Recipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>a recipe includes an environment, labels, runscript or command,
+and install sequence. This object is subclassed by a Singularity or
+Docker recipe, and can be used to convert between the two. The user
+can read in one recipe type to convert to another, or provide raw
+commands and metadata for generating a recipe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>convert_to=None</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a convenience function for the user to easily call to get
+the most likely desired result, conversion to the opposite format.
+We choose the selection based on the recipe name - meaning that we
+perform conversion with default based on recipe name. If the recipe
+object is DockerRecipe, we convert to Singularity. If the recipe
+object is SingularityRecipe, we convert to Docker. The user can
+override this by setting the variable convert_to</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</li>
+<li><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</li>
+<li><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.docker2singularity">
+<code class="descname">docker2singularity</code><span class="sig-paren">(</span><em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.parse.recipe.Recipe.docker2singularity" title="Permalink to this definition">¶</a></dt>
+<dd><p>docker2singularity will return a Singularity build recipe based on
+a the loaded recipe object. It doesn’t take any arguments as the
+recipe object contains the sections, and the calling function
+determines saving / output logic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse is the base function for parsing the recipe, whether it be
+a Dockerfile or Singularity recipe. The recipe is read in as lines,
+and saved to a list if needed for the future. If the client has
+it, the recipe type specific _parse function is called.</p>
+<p>Instructions for making a client subparser:</p>
+<blockquote>
+<div><p>It should have a main function _parse that parses a list of lines
+from some recipe text file into the appropriate sections, e.g.,</p>
+<p>self.fromHeader
+self.environ
+self.labels
+self.install
+self.files
+self.test
+self.entrypoint</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>output_file=None</em>, <em>convert_to=None</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save will convert a recipe to a specified format (defaults to the
+opposite of the recipe type originally loaded, (e.g., docker–&gt;
+singularity and singularity–&gt;docker) and write to an output file,
+if specified. If not specified, a temporary file is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output_file</strong> (<em>the file to save to, not required (estimates default)</em>)</li>
+<li><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</li>
+<li><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</li>
+<li><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.singularity2docker">
+<code class="descname">singularity2docker</code><span class="sig-paren">(</span><em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.parse.recipe.Recipe.singularity2docker" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert a Singularity recipe to a (best estimated) Dockerfile</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.parse.singularity">
+<span id="spython-main-parse-singularity-module"></span><h2>spython.main.parse.singularity module<a class="headerlink" href="#module-spython.main.parse.singularity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.main.parse.singularity.SingularityRecipe">
+<em class="property">class </em><code class="descclassname">spython.main.parse.singularity.</code><code class="descname">SingularityRecipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/singularity.html#SingularityRecipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.singularity.SingularityRecipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
+<dl class="method">
+<dt id="spython.main.parse.singularity.SingularityRecipe.load_recipe">
+<code class="descname">load_recipe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/singularity.html#SingularityRecipe.load_recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.singularity.SingularityRecipe.load_recipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>load will return a loaded in singularity recipe. The idea
+is that these sections can then be parsed into a Dockerfile,
+or printed back into their original form.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>config</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">a parsed recipe Singularity recipe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.parse">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.parse" title="Permalink to this headline">¶</a></h2>
+<p>Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
+University.
+Copyright (C) 2016-2018 Vanessa Sochat.</p>
+<p>This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
+License for more details.</p>
+<p>You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="spython.utils.html" class="btn btn-neutral float-right" title="spython.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="spython.main.base.html" class="btn btn-neutral" title="spython.main.base package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Vanessa Sochat.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../assets/jquery.js"></script>
+      <script type="text/javascript" src="../assets/underscore.js"></script>
+      <script type="text/javascript" src="../assets/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
