@@ -4,6 +4,8 @@ __pycache__
 *.simg
 pypi.sh
 _site
+.eggs
+_build
 build
 dist
 *.pyc
