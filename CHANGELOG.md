@@ -18,6 +18,7 @@ singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
  - COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
+ - Adding DockerRecipe, SingularityRecipe "load" action to load file
  - issue #64 bug with hanging instances (0.0.44)
  - flexible error printing given command to terminal fails (0.0.43)
  - adding name_by_commit and name_by_hash to pull (0.0.42)
