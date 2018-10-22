@@ -45,10 +45,21 @@ class Recipe(object):
     '''
 
     def __init__(self, recipe=None):
+        self.load(recipe)
+
+    def load(self, recipe):
+        '''load a recipe file into the client, first performing checks, and
+           then parsing the file.
+
+           Parameters
+           ==========
+           recipe: the original recipe file, parsed by the subclass either
+               DockerRecipe or SingularityRecipe
+ 
+        '''
         self.recipe = recipe           # the recipe file
         self._run_checks()             # does the recipe file exist?
         self.parse()
-
 
     def __str__(self):
         ''' show the user the recipe object, along with the type. E.g.,
