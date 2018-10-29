@@ -399,6 +399,21 @@ determines saving / output logic.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>load a recipe file into the client, first performing checks, and
+then parsing the file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="spython.main.parse.recipe.Recipe.parse">
 <code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse is the base function for parsing the recipe, whether it be
@@ -480,9 +495,7 @@ or printed back into their original form.</p>
 </div>
 <div class="section" id="module-spython.main.parse">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.parse" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-University.
-Copyright (C) 2016-2018 Vanessa Sochat.</p>
+<p>Copyright (C) 2016-2018 Vanessa Sochat.</p>
 <p>This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
