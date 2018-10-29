@@ -320,23 +320,26 @@
         <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;ADD&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">frompath</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
             <span class="c1"># Custom parsing for frompath</span>
 
             <span class="c1"># If it&#39;s a web address, add to install routine to get</span>
             <span class="k">if</span> <span class="n">frompath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parse_http</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_http</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
 
             <span class="c1"># Add the file, and decompress in install</span>
             <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;[.](gz|gzip|bz2|xz)$&quot;</span><span class="p">,</span> <span class="n">frompath</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parse_archive</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_archive</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
 
             <span class="c1"># Just add the files</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
         
-
 
 <span class="c1"># File Handling</span>
 
