@@ -148,8 +148,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.parse.recipe</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
-<span class="c1"># University.</span>
+<span></span>
 <span class="c1"># Copyright (C) 2016-2018 Vanessa Sochat.</span>
 
 <span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
@@ -196,10 +195,21 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Recipe.load"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;load a recipe file into the client, first performing checks, and</span>
+<span class="sd">           then parsing the file.</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           recipe: the original recipe file, parsed by the subclass either</span>
+<span class="sd">               DockerRecipe or SingularityRecipe</span>
+<span class="sd"> </span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span>           <span class="c1"># the recipe file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_checks</span><span class="p">()</span>             <span class="c1"># does the recipe file exist?</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; show the user the recipe object, along with the type. E.g.,</span>

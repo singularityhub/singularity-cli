@@ -148,8 +148,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.parse.docker</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
-<span class="c1"># University.</span>
+<span></span>
 <span class="c1"># Copyright (C) 2016-2018 Vanessa Sochat.</span>
 
 <span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
@@ -293,18 +292,22 @@
 
 
     <span class="k">def</span> <span class="nf">_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;parse_add will copy multiple files from one location to another. This likely will need</span>
-<span class="sd">           tweaking, as the files might need to be mounted from some location before adding to</span>
-<span class="sd">           the image. The add command is done for an entire directory.</span>
-<span class="sd">    </span>
+        <span class="sd">&#39;&#39;&#39;parse_add will copy multiple files from one location to another. </span>
+<span class="sd">           This likely will need tweaking, as the files might need to be </span>
+<span class="sd">           mounted from some location before adding to the image. </span>
+<span class="sd">           The add command is done for an entire directory. It is also</span>
+<span class="sd">           possible to have more than one file copied to a destination:</span>
+<span class="sd">           https://docs.docker.com/engine/reference/builder/#copy</span>
+<span class="sd">           e.g.: &lt;src&gt; &lt;src&gt; &lt;dest&gt;/</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;COPY&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">frompath</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
         
-
 
     <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Add can also handle https, and compressed files.</span>
@@ -317,23 +320,26 @@
         <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;ADD&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">frompath</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
             <span class="c1"># Custom parsing for frompath</span>
 
             <span class="c1"># If it&#39;s a web address, add to install routine to get</span>
             <span class="k">if</span> <span class="n">frompath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parse_http</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_http</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
 
             <span class="c1"># Add the file, and decompress in install</span>
             <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;[.](gz|gzip|bz2|xz)$&quot;</span><span class="p">,</span> <span class="n">frompath</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parse_archive</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_archive</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
 
             <span class="c1"># Just add the files</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
         
-
 
 <span class="c1"># File Handling</span>
 

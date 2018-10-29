@@ -170,23 +170,26 @@ class DockerRecipe(Recipe):
         lines = self._setup('ADD', lines)
 
         for line in lines:
-            frompath, topath = line.split(" ")
+            values = line.split(" ")
+            frompath = values.pop(0)
 
             # Custom parsing for frompath
 
             # If it's a web address, add to install routine to get
             if frompath.startswith('http'):
-                self._parse_http(frompath, topath)
+                for topath in values:
+                    self._parse_http(frompath, topath)
 
             # Add the file, and decompress in install
             elif re.search("[.](gz|gzip|bz2|xz)$", frompath.strip()):
-                self._parse_archive(frompath, topath)
+                for topath in values:
+                    self._parse_archive(frompath, topath)
 
             # Just add the files
             else:
-                self._add_files(frompath, topath)
+                for topath in values:
+                    self._add_files(frompath, topath)
         
-
 
 # File Handling
 

@@ -149,8 +149,6 @@
             
   <h1>Source code for spython.main.instances</h1><div class="highlight"><pre>
 <span></span>
-<span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
-<span class="c1"># University.</span>
 <span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
 
 <span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
@@ -170,7 +168,7 @@
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span><span class="p">,</span> <span class="n">check_install</span>
 
-<div class="viewcode-block" id="instances"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.base.instances">[docs]</a><span class="k">def</span> <span class="nf">instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="instances"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.instances">[docs]</a><span class="k">def</span> <span class="nf">instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;list instances. For Singularity, this is provided as a command sub</span>
 <span class="sd">       group.</span>
 
@@ -246,7 +244,7 @@
     <span class="k">return</span> <span class="n">instances</span></div>
 
 
-<div class="viewcode-block" id="stopall"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.base.stopall">[docs]</a><span class="k">def</span> <span class="nf">stopall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="stopall"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.stopall">[docs]</a><span class="k">def</span> <span class="nf">stopall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;stop ALL instances. This command is only added to the command group</span>
 <span class="sd">       as it doesn&#39;t make sense to call from a single instance</span>
 

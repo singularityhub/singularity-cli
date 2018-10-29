@@ -152,9 +152,6 @@
   <h1>Source code for spython.main.base.generate</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
-
-<span class="c1"># Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior</span>
-<span class="c1"># University.</span>
 <span class="c1"># Copyright (C) 2018 Vanessa Sochat.</span>
 
 <span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
@@ -173,7 +170,7 @@
 
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
 
-<div class="viewcode-block" id="RobotNamer"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.RobotNamer">[docs]</a><span class="k">class</span> <span class="nc">RobotNamer</span><span class="p">:</span>
+<div class="viewcode-block" id="RobotNamer"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.RobotNamer">[docs]</a><span class="k">class</span> <span class="nc">RobotNamer</span><span class="p">:</span>
 
     <span class="n">_descriptors</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;chunky&#39;</span><span class="p">,</span> <span class="s1">&#39;buttery&#39;</span><span class="p">,</span> <span class="s1">&#39;delicious&#39;</span><span class="p">,</span> <span class="s1">&#39;scruptious&#39;</span><span class="p">,</span> <span class="s1">&#39;dinosaur&#39;</span><span class="p">,</span> <span class="s1">&#39;boopy&#39;</span><span class="p">,</span>
@@ -208,7 +205,7 @@
     <span class="p">]</span>
 
 
-<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;0123456789&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;0123456789&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Generate a robot name. Inspiration from Haikunator, but much more</span>
 <span class="sd">                 poorly implemented ;)</span>
@@ -239,7 +236,7 @@
         <span class="k">return</span> <span class="n">choice</span><span class="p">(</span><span class="n">select_from</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">bot</span> <span class="o">=</span> <span class="n">RobotNamer</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">generate</span><span class="p">())</span></div>
 
