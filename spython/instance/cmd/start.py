@@ -34,7 +34,9 @@ def start(self, image=None, name=None, sudo=False, options=[], capture=False):
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import ( run_command, check_install )
+    from spython.utils import ( run_command, 
+                                check_install, 
+                                get_singularity_version )
     check_install()
 
     # If no name provided, give it an excellent one!
@@ -52,7 +54,12 @@ def start(self, image=None, name=None, sudo=False, options=[], capture=False):
 
         image = self._image
 
-    cmd = self._init_command('instance.start')
+    # Derive subgroup command based on singularity version
+    subgroup = 'instance.start'
+    if get_singularity_version().startswith("3"):
+        subgroup = ["instance", "start"]
+
+    cmd = self._init_command(subgroup)
 
     # Add options, if they are provided
     if not isinstance(options, list):

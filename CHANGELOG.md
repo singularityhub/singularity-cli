@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - adding support for instance list (0.0.47)
  - ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)
  - COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
  - Adding DockerRecipe, SingularityRecipe "load" action to load file
