@@ -54,5 +54,3 @@ def generate_image_commands():
  
     cli = ImageClient()
     return cli
-
-image_group = generate_image_commands()

@@ -46,10 +46,16 @@ def get(self, name, return_json=False, quiet=False):
     '''get is a list for a single instance. It is assumed to be running,
        and we need to look up the PID, etc.
     '''
-    from spython.utils import check_install
+    from spython.utils import ( check_install, get_singularity_version )
     check_install()
 
-    cmd = self._init_command('instance.list')
+    # Ensure compatible for singularity prior to 3.0, and after 3.0
+    subgroup = "instance.list"
+    if get_singularity_version().find("version 3"):
+        subgroup = ["instance", "list"]
+
+    cmd = self._init_command(subgroup)
+
     cmd.append(name)
     output = run_command(cmd, quiet=True)
 

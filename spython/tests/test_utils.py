@@ -81,6 +81,17 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(not is_not_installed)
 
 
+    def test_check_get_singularity_version(self):
+        '''check that the singularity version is found to be that installed'''
+        print("Testing utils.get_singularity_version")
+        from spython.utils import get_singularity_version
+        version = get_singularity_version()
+        self.assertTrue(version != "")
+        os.environ['SPYTHON_SINGULARITY_VERSION'] = "3.0"
+        version = get_singularity_version()
+        self.assertTrue(version == "3.0")
+
+
     def test_get_installdir(self):
         '''get install directory should return the base of where singularity
         is installed

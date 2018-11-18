@@ -46,5 +46,3 @@ def generate_instance_commands():
     Instance.instance = Instance
  
     return Instance
-
-instance_group = generate_instance_commands()
