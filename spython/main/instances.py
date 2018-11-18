@@ -43,7 +43,7 @@ def instances(self, name=None, return_json=False, quiet=False):
     check_install()
 
     subgroup = 'instance.list'
-    if get_singularity_version().startswith("3"):
+    if get_singularity_version().find("version 3"):
         subgroup = ["instance", "list"]
 
     cmd = self._init_command(subgroup)

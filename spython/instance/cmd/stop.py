@@ -38,7 +38,7 @@ def stop(self, name=None, sudo=False):
     check_install()
 
     subgroup = 'instance.stop'
-    if get_singularity_version().startswith("3"):
+    if get_singularity_version().find("version 3"):
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)
