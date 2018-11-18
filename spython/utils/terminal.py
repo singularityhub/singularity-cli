@@ -56,6 +56,25 @@ def check_install(software='singularity', quiet=True):
     return found
 
 
+def get_singularity_version():
+    '''get the singularity client version. Useful in the case that functionality
+       has changed, etc. Can be "hacked" if needed by exporting 
+       SPYTHON_SINGULARITY_VERSION, which is checked before checking on the
+       command line.
+    '''
+    version = os.environ.get('SPYTHON_SINGULARITY_VERSION', "")
+    if version == "":
+        try:
+            version = run_command(["singularity", '--version'], quiet=True)
+        except: # FileNotFoundError
+            return version
+
+        if version['return_code'] == 0:
+            if len(version['message']) > 0:
+                version = version['message'][0].strip('\n')
+
+    return version
+
 def get_installdir():
     '''get_installdir returns the installation directory of the application
     '''

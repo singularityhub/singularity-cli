@@ -10,6 +10,7 @@ This section will discuss interaction with container instances, which generally
 includes starting, stopping and running. From within python, you can instantiate
 an sphython client, and then use the following functions to control an Instance:
 
+ - [version](#singularity-version): control the instance command subgroup
  - [Shell](#shell) gives you an interactive python shell with a client
  - [Start](#create-an-instance) create a Singularity instance!
  - [Commands](#commands) how to interact with your instance (run, exec)
@@ -22,6 +23,22 @@ of instances. While this listing doesn't directly link to finding an Instance th
 have created, you can find based on the name (shown later in the documentation).
 
 <hr>
+
+## Singularity Version
+After Singularity 3.0, the instances command subgroup changed so that the original
+call to interact with instances might have looked like "instances.list". After 3.0,
+the [instances subgroup](https://github.com/sylabs/singularity/blob/master/CHANGELOG.md#v300---20181008)
+changed to be of the format "instances list." Singularity Python determines this 
+automatically by looking at your Singularity version, however if you want to control
+the final command that is used (for one reason or another) you can also export
+the environment variable:
+
+```bash
+export SPYTHON_SINGULARITY_VERSION=2.6
+```
+
+Would change behavior of the client for Singularity instances. This currently
+only has this changed behavior for the instances subgroup.
 
 ## Shell
 All of the commands below start with creating an spython client:

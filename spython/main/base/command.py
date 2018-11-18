@@ -32,18 +32,18 @@ import re
 
 
 def init_command(self, action, flags=None):
-    '''
-        return the initial Singularity command with any added flags.
+    '''return the initial Singularity command with any added flags.
         
-        Parameters
-        ==========
-        action: the main action to perform (e.g., build)
-        flags: one or more additional flags (e.g, volumes) 
-               not implemented yet.
-
+       Parameters
+       ==========
+       action: the main action to perform (e.g., build)
+       flags: one or more additional flags (e.g, volumes) 
+              not implemented yet.
     '''
 
-    cmd = ['singularity', action ]
+    if not isinstance(action, list):
+        action = [action]      
+    cmd = ['singularity'] + action
 
     if self.quiet is True:
         cmd.insert(1, '--quiet')
@@ -123,4 +123,3 @@ def run_command(self, cmd, sudo=False, capture=True):
     if self.quiet is False:
         bot.error("Return Code %s: %s" %(return_code,
                                          message))
-

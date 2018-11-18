@@ -32,10 +32,16 @@ def stop(self, name=None, sudo=False):
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import ( check_install, run_command )
+    from spython.utils import ( check_install, 
+                                run_command, 
+                                get_singularity_version )
     check_install()
 
-    cmd = self._init_command('instance.stop')
+    subgroup = 'instance.stop'
+    if get_singularity_version().find("version 3"):
+        subgroup = ["instance", "stop"]
+
+    cmd = self._init_command(subgroup)
 
     # If name is provided assume referencing an instance
     instance_name = self.name
