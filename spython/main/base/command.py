@@ -43,7 +43,7 @@ def init_command(self, action, flags=None):
 
     if not isinstance(action, list):
         action = [action]      
-    cmd = ['singularity'] + [action]
+    cmd = ['singularity'] + action
 
     if self.quiet is True:
         cmd.insert(1, '--quiet')
