@@ -154,8 +154,8 @@ class DockerRecipe(Recipe):
 
         for line in lines:
             values = line.split(" ")
-            frompath = values.pop(0)
-            for topath in values:
+            topath = values.pop()
+            for frompath in values:
                 self._add_files(frompath, topath)
         
 
