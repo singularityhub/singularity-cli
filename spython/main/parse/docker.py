@@ -321,8 +321,11 @@ class DockerRecipe(Recipe):
 
     def _user(self, line):
         '''The user directive. As with Docker, it is assumed that the User
-           is first created before this is called. The USER is replaced with
-           su.
+           is first created before this is called. The USER could be replaced
+           with su, but since for singularity a user inside the container
+           is the same as a user outside, we aren't going to honor that.
+           Instead we will give a warning, allowing the user to respond
+           appropriately.
 
            Parameters
            ==========
@@ -330,9 +333,9 @@ class DockerRecipe(Recipe):
 
         '''
         user = ' '.join(self._setup('USER', line))
-        line = "su %s" % user
-        bot.warning('"USER %s" -> "%s"' % (user,line))
-        self._default(line)
+        line = "# su %s" % user
+        bot.warning('"USER directive ignored" -> "%s"' % line)
+        return self._comment(line)
 
 
 # Working Directory
