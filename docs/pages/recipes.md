@@ -83,7 +83,7 @@ Saving to Singularity.snowflake
  - *ENTRYPOINT* and *CMD* are both honored, if both are defined. If only one is defined, it is honored. You can override at generation time (see next section)
  - *ARG* values are also not understood or respected by Singularity, so they are ignored
  - *VOLUME* and *EXPOSE* don't have meaning in Singularity containers, so they are added as comments
- - *USER* directives are also not meaningful (a user outside the container is the same as inside) so you are issued a warning.
+ - *USER* directives are ignored as Singularity containers can only be run as the invoking user, and build-time actions are run as `root` by default. (If you need multiple users at build time, you may still `RUN su <username> -c "your command"`.)
  - *COPY* and *ADD* are simply added to the `%files` section. If the relative paths aren't found in the present working directory, a warning is issued. It's not expected that you have all files when you convert the recipe, so we include them in the Singularity recipe and assume you know this
 
 
