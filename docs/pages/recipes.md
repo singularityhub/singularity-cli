@@ -12,9 +12,8 @@ We will here discuss the Singularity Python converters that will help you
 to convert between recipe files. What kind of things might you want to do?
 
  - convert a Dockerfile to a Singularity Recipe
- - convert a Singularity Recipe to a Dockerfile (TBA)
+ - convert a Singularity Recipe to a Dockerfile
  - read in a recipe of either type, and modify it before doing the above
-
 
 # Command Line Client
 You don't need to interact with Python to use the converter! It's sometimes 
@@ -46,6 +45,8 @@ actions:
     test         Container testing (TBD)
 ```
 
+### Singularity Recipe to Dockerfile
+
 We can generate a *Singularity recipe* printed to the console by just providing 
 the input Dockerfile
 
@@ -59,7 +60,7 @@ From: python:3.5.1
 We could pipe that somewhere...
 
 ```
-$ spython recipe Dockerfile >> Singularity.snowflake
+$ spython recipe Dockerfile > Singularity.snowflake
 ```
 
 Or give the filename to the function:
@@ -72,10 +73,26 @@ WARNING /code/ doesn't exist, ensure exists for build
 Saving to Singularity.snowflake
 ```
 
+#### Sections Supported
+
+ - *RUN* commands are converted to commands in `%post`
+ - *FROM* gets converted to the Singularity "From:" equivalent.
+ - *LABEL* lines are added to the Singularity `%labels` section
+ - *ENV* variables are added to the `%environment` section
+ - *WORKDIR* is respected to the extent it's converted to a cd command. During build in `%post` this should work as expected, however Singularity does not honor working directory at runtime.
+ - *ENTRYPOINT* and *CMD* are both honored, if both are defined. If only one is defined, it is honored. You can override at generation time (see next section)
+ - *ARG* values are also not understood or respected by Singularity, so they are ignored
+ - *VOLUME* and *EXPOSE* don't have meaning in Singularity containers, so they are added as comments
+ - *USER* directives are also not meaningful (a user outside the container is the same as inside) so you are issued a warning.
+ - *COPY* and *ADD* are simply added to the `%files` section. If the relative paths aren't found in the present working directory, a warning is issued. It's not expected that you have all files when you convert the recipe, so we include them in the Singularity recipe and assume you know this
+
+
+### Singularity Recipe to Dockerfile
+
 The same can be done for converting a Dockerfile to Singularity
 
 ```
-$ spython recipe Singularity >> Dockerfile
+$ spython recipe Singularity > Dockerfile
 ```
 
 And don't forget you can interact with Docker images natively with Singularity!
@@ -86,6 +103,7 @@ $ singularity pull docker://ubuntu:latest
 
 
 ## Custom Generation
+
 What else can we do, other than giving an input file and optional output file?
 Let's ask for help for the "recipe" command:
 
@@ -212,6 +230,7 @@ the variable both to the `environ` list *and* as a command for the install
 section.
 
 ### Convert to Singularity Recipe
+
 To do the conversion from the Dockerfile to a Singularity recipe, simply call 
 "convert." This function estimates your desired output based on the input (i.e.,
 a Dockerfile base is expected to be desired to convert to Singularity Recipe,

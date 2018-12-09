@@ -92,8 +92,16 @@ def create_runscript(self, default="/bin/bash", force=False):
 
     # Only look at Docker if not enforcing default
     if force is False:
-        if self.entrypoint is not None:
+
+        # First preference - add defined command to entrypoint
+        if self.entrypoint is not None and self.cmd is not None:
+            entrypoint = ''.join(self.entrypoint + self.cmd)
+
+        # Second preference - just an entrypoint
+        elif self.entrypoint is not None:
             entrypoint = ''.join(self.entrypoint)
+
+        # Third preference, just a command
         elif self.cmd is not None:
             entrypoint = ''.join(self.cmd)
 
