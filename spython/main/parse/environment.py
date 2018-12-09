@@ -1,5 +1,4 @@
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
+
 # Copyright (C) 2016-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -44,10 +43,16 @@ def parse_env(envlist):
 
             current = pieces.pop(0)
 
-            # Case 1: ['A=', '"1 2"'] --> A=1 2
-
             if current.endswith('='):
-                next = pieces.pop(0)
+
+                # Case 1: ['A='] --> A=
+
+                next = ""
+
+                # Case 2: ['A=', '"1 2"'] --> A=1 2
+
+                if len(pieces) > 0:
+                    next = pieces.pop(0)
                 exports.append("%s%s" %(current, next))
 
             # Case 2: ['A=B']     --> A=B

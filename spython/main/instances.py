@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -18,7 +16,7 @@
 
 
 from spython.logger import bot
-from spython.utils import run_command, check_install
+from spython.utils import ( run_command, check_install, get_singularity_version )
 
 def instances(self, name=None, return_json=False, quiet=False):
     '''list instances. For Singularity, this is provided as a command sub
@@ -44,7 +42,11 @@ def instances(self, name=None, return_json=False, quiet=False):
     from spython.utils import check_install
     check_install()
 
-    cmd = self._init_command('instance.list')
+    subgroup = 'instance.list'
+    if get_singularity_version().find("version 3"):
+        subgroup = ["instance", "list"]
+
+    cmd = self._init_command(subgroup)
 
     # If the user has provided a name, we want to see a particular instance
     if name is not None:

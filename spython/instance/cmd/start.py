@@ -1,5 +1,4 @@
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
+
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -19,7 +18,7 @@
 from spython.logger import bot
 import sys
 
-def start(self, image=None, name=None, sudo=False, options=[]):
+def start(self, image=None, name=None, sudo=False, options=[], capture=False):
     '''start an instance. This is done by default when an instance is created.
 
        Parameters
@@ -27,6 +26,7 @@ def start(self, image=None, name=None, sudo=False, options=[]):
        image: optionally, an image uri (if called as a command from Client)
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
+       capture: capture output, default is False. With True likely to hang.
        options: a list of tuples, each an option to give to the start command
                 [("--bind", "/tmp"),...]
 
@@ -34,7 +34,9 @@ def start(self, image=None, name=None, sudo=False, options=[]):
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import ( run_command, check_install )
+    from spython.utils import ( run_command, 
+                                check_install, 
+                                get_singularity_version )
     check_install()
 
     # If no name provided, give it an excellent one!
@@ -52,7 +54,12 @@ def start(self, image=None, name=None, sudo=False, options=[]):
 
         image = self._image
 
-    cmd = self._init_command('instance.start')
+    # Derive subgroup command based on singularity version
+    subgroup = 'instance.start'
+    if get_singularity_version().find("version 3"):
+        subgroup = ["instance", "start"]
+
+    cmd = self._init_command(subgroup)
 
     # Add options, if they are provided
     if not isinstance(options, list):
@@ -65,7 +72,7 @@ def start(self, image=None, name=None, sudo=False, options=[]):
     self.options = options
     self.cmd = cmd
 
-    output = run_command(cmd, sudo=sudo, quiet=True)
+    output = run_command(cmd, sudo=sudo, quiet=True, capture=capture)
 
     if output['return_code'] == 0:
         self._update_metadata()

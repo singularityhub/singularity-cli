@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -34,18 +32,18 @@ import re
 
 
 def init_command(self, action, flags=None):
-    '''
-        return the initial Singularity command with any added flags.
+    '''return the initial Singularity command with any added flags.
         
-        Parameters
-        ==========
-        action: the main action to perform (e.g., build)
-        flags: one or more additional flags (e.g, volumes) 
-               not implemented yet.
-
+       Parameters
+       ==========
+       action: the main action to perform (e.g., build)
+       flags: one or more additional flags (e.g, volumes) 
+              not implemented yet.
     '''
 
-    cmd = ['singularity', action ]
+    if not isinstance(action, list):
+        action = [action]      
+    cmd = ['singularity'] + action
 
     if self.quiet is True:
         cmd.insert(1, '--quiet')
@@ -116,7 +114,7 @@ def run_command(self, cmd, sudo=False, capture=True):
     result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=self.quiet)
     message = result['message']
     return_code = result['return_code']
-        
+
     if result['return_code'] == 0:
         if len(message) == 1:
             message = message[0]
@@ -125,4 +123,3 @@ def run_command(self, cmd, sudo=False, capture=True):
     if self.quiet is False:
         bot.error("Return Code %s: %s" %(return_code,
                                          message))
-

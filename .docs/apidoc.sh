@@ -4,11 +4,6 @@
 #
 # sphinx-apidoc -o source/ ../spython
 
-function rename_folder() {
-    name=$1
-
-}
-
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BASE=$(dirname $HERE)
 cd $HERE

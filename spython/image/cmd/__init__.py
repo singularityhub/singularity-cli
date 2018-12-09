@@ -1,5 +1,4 @@
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
+
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -55,5 +54,3 @@ def generate_image_commands():
  
     cli = ImageClient()
     return cli
-
-image_group = generate_image_commands()

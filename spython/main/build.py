@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -76,16 +74,17 @@ def build(self, recipe=None,
         if re.search('(docker|shub)://', recipe) and robot_name is False:
             image = self._get_filename(recipe, ext)
         else:
-            image = "%s.%s" %(self.RobotNamer.generate(),ext)
+            image = "%s.%s" %(self.RobotNamer.generate(), ext)
 
     # Does the user want a custom build folder?
     if build_folder is not None:
         if not os.path.exists(build_folder):
-            bot.exit('%s does not exist!' %build_folder)
+            bot.exit('%s does not exist!' % build_folder)
 
         image = "%s/%s" %(build_folder, image)
         
 
+    # The user wants to run an isolated build
     if isolated is True:
         cmd.append('--isolated')
 

@@ -1,5 +1,4 @@
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
+
 # Copyright (C) 2016-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -143,18 +142,22 @@ class DockerRecipe(Recipe):
 
 
     def _copy(self, lines):
-        '''parse_add will copy multiple files from one location to another. This likely will need
-           tweaking, as the files might need to be mounted from some location before adding to
-           the image. The add command is done for an entire directory.
-    
+        '''parse_add will copy multiple files from one location to another. 
+           This likely will need tweaking, as the files might need to be 
+           mounted from some location before adding to the image. 
+           The add command is done for an entire directory. It is also
+           possible to have more than one file copied to a destination:
+           https://docs.docker.com/engine/reference/builder/#copy
+           e.g.: <src> <src> <dest>/
         '''
         lines = self._setup('COPY', lines)
 
         for line in lines:
-            frompath, topath = line.split(" ")
-            self._add_files(frompath, topath)
+            values = line.split(" ")
+            topath = values.pop()
+            for frompath in values:
+                self._add_files(frompath, topath)
         
-
 
     def _add(self, lines):
         '''Add can also handle https, and compressed files.
@@ -167,23 +170,26 @@ class DockerRecipe(Recipe):
         lines = self._setup('ADD', lines)
 
         for line in lines:
-            frompath, topath = line.split(" ")
+            values = line.split(" ")
+            frompath = values.pop(0)
 
             # Custom parsing for frompath
 
             # If it's a web address, add to install routine to get
             if frompath.startswith('http'):
-                self._parse_http(frompath, topath)
+                for topath in values:
+                    self._parse_http(frompath, topath)
 
             # Add the file, and decompress in install
             elif re.search("[.](gz|gzip|bz2|xz)$", frompath.strip()):
-                self._parse_archive(frompath, topath)
+                for topath in values:
+                    self._parse_archive(frompath, topath)
 
             # Just add the files
             else:
-                self._add_files(frompath, topath)
+                for topath in values:
+                    self._add_files(frompath, topath)
         
-
 
 # File Handling
 

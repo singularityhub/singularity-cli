@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spython.main.parse.singularity &mdash; Singularity Python API 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/spython.html">spython package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">CHANGELOG</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Singularity Python API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../main.html">spython.main</a> &raquo;</li>
+        
+      <li>spython.main.parse.singularity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for spython.main.parse.singularity</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Copyright (C) 2016-2018 Vanessa Sochat.</span>
+
+<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
+<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="c1"># option) any later version.</span>
+
+<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
+<span class="c1"># License for more details.</span>
+
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">read_file</span>
+<span class="kn">from</span> <span class="nn">spython.main.parse.recipe</span> <span class="k">import</span> <span class="n">Recipe</span>
+
+
+<div class="viewcode-block" id="SingularityRecipe"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.singularity.SingularityRecipe">[docs]</a><span class="k">class</span> <span class="nc">SingularityRecipe</span><span class="p">(</span><span class="n">Recipe</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;a Docker recipe parses a Docker Recipe into the expected fields of</span>
+<span class="sd">           labels, environment, and install/runtime commands</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           recipe: the recipe file (Dockerfile) to parse</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;singularity&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Singularity&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SingularityRecipe</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
+
+
+<span class="c1"># Setup for each Parser</span>
+
+    <span class="k">def</span> <span class="nf">_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;setup required adding content from the host to the rootfs,</span>
+<span class="sd">           so we try to capture with with ADD.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;SETUP is error prone, please check output.&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+
+            <span class="c1"># For all lines, replace rootfs with actual root /</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[$]{?SINGULARITY_ROOTFS}?&#39;</span><span class="p">,</span> 
+                          <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;$SINGULARITY_ROOTFS&#39;</span><span class="p">)</span>
+
+            <span class="c1"># If we have nothing left, don&#39;t continue</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># If the line starts with copy or move, assume is file from host</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(^cp|^mv)&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;(^cp|^mv)&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+            <span class="c1"># If it&#39;s a general command, add to install routine</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>            
+
+
+<span class="c1"># From Parser</span>
+
+    <span class="k">def</span> <span class="nf">_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; get the FROM container image name from a FROM line!</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           line: the line from the recipe file to parse for FROM</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromHeader</span> <span class="o">=</span> <span class="n">line</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;FROM </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">fromHeader</span><span class="p">)</span> 
+
+
+<span class="c1"># Run and Test Parser</span>
+
+
+
+    <span class="k">def</span> <span class="nf">_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; A healthcheck is generally a test command</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           line: the line from the recipe file to parse for FROM</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_script</span><span class="p">(</span><span class="s1">&#39;/tests.sh&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
+        <span class="n">testrun</span> <span class="o">=</span> <span class="s2">&quot;/bin/bash /tests.sh&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="s2">&quot;/bin/bash /tests.sh&quot;</span>
+        
+
+<span class="c1"># Env Parser</span>
+
+    <span class="k">def</span> <span class="nf">_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;env will parse a list of environment lines and simply remove any</span>
+<span class="sd">           blank lines, or those with export. Dockerfiles don&#39;t usually</span>
+<span class="sd">           have exports.</span>
+<span class="sd"> </span>
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           lines: A list of environment pair lines.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">environ</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;export&#39;</span><span class="p">)]</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">environ</span> <span class="o">+=</span> <span class="n">environ</span>
+
+
+<span class="c1"># Files for container</span>
+
+
+    <span class="k">def</span> <span class="nf">_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;parse_files will simply add the list of files to the correct object</span>
+<span class="sd"> </span>
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           lines: pairs of files, one pair per line</span>
+<span class="sd">   </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">+=</span> <span class="n">lines</span>
+
+
+<span class="c1"># Comments and Help</span>
+
+    <span class="k">def</span> <span class="nf">_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+         <span class="sd">&#39;&#39;&#39; comments is a wrapper for comment, intended to be given a list</span>
+<span class="sd">             of comments.</span>
+
+<span class="sd">             Parameters</span>
+<span class="sd">             ==========</span>
+<span class="sd">             lines: the list of lines to parse</span>
+
+<span class="sd">         &#39;&#39;&#39;</span> 
+         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+             <span class="n">comment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comment</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Simply add the line to the install as a comment. Add an extra # to be</span>
+<span class="sd">           extra careful. </span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           line: the line from the recipe file to parse to INSTALL</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="s2">&quot;# </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Runscript Command</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;_parse the runscript to be the Docker CMD. If we have one line,</span>
+<span class="sd">           call it directly. If not, write the entrypoint into a script. </span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           lines: the line from the recipe file to parse for CMD</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>
+
+        <span class="c1"># Default runscript is first index</span>
+        <span class="n">runscript</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Multiple line runscript needs multiple lines written to script</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;More than one line detected for runscript!&#39;</span><span class="p">)</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;These will be echoed into a single script to call.&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_script</span><span class="p">(</span><span class="s1">&#39;/entrypoint.sh&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">)</span>
+            <span class="n">runscript</span> <span class="o">=</span> <span class="s2">&quot;/bin/bash /entrypoint.sh&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">runscript</span>
+
+
+<span class="c1"># Labels</span>
+
+    <span class="k">def</span> <span class="nf">_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;_labels simply adds the labels to the list to save.</span>
+<span class="sd">           </span>
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           lines: the lines from the recipe with key,value pairs</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">+=</span> <span class="n">lines</span>
+
+
+    <span class="k">def</span> <span class="nf">_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;the main core of commands, to be added to the install section</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           lines: the lines from the recipe with install commands</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">install</span> <span class="o">+=</span> <span class="n">lines</span>
+
+
+<span class="c1"># Main Parsing Functions</span>
+
+
+    <span class="k">def</span> <span class="nf">_get_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;mapping will take the section name from a Singularity recipe </span>
+<span class="sd">           and return a map function to add it to the appropriate place. </span>
+<span class="sd">           Any lines that don&#39;t cleanly map are assumed to be comments.</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           section: the name of the Singularity recipe section</span>
+<span class="sd">    </span>
+<span class="sd">           Returns</span>
+<span class="sd">           =======</span>
+<span class="sd">           function: to map a line to its command group (e.g., install)</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Ensure section is lowercase</span>
+        <span class="n">section</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;environment&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_env</span><span class="p">,</span>
+                   <span class="s2">&quot;comments&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comments</span><span class="p">,</span>
+                   <span class="s2">&quot;runscript&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">,</span>
+                   <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">,</span>
+                   <span class="s2">&quot;setup&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">,</span>
+                   <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_files</span><span class="p">,</span>
+                   <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from</span><span class="p">,</span>
+                   <span class="s2">&quot;post&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">,</span>
+                   <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_test</span><span class="p">,</span>
+                   <span class="s2">&quot;help&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comments</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mapping</span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comments</span>
+ 
+
+    <span class="k">def</span> <span class="nf">_parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;parse is the base function for parsing the recipe, and extracting</span>
+<span class="sd">           elements into the correct data structures. Everything is parsed into</span>
+<span class="sd">           lists or dictionaries that can be assembled again on demand. </span>
+<span class="sd">    </span>
+<span class="sd">           Singularity: we parse files/labels first, then install. </span>
+<span class="sd">                        cd first in a line is parsed as WORKDIR</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># If the recipe isn&#39;t loaded, load it</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_recipe</span><span class="p">()</span>
+
+        <span class="c1"># Parse each section</span>
+        <span class="k">for</span> <span class="n">section</span><span class="p">,</span> <span class="n">lines</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+
+            <span class="c1"># Get the correct parsing function</span>
+            <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mapping</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+           
+            <span class="c1"># Parse it, if appropriate</span>
+            <span class="k">if</span> <span class="n">parser</span><span class="p">:</span>
+                <span class="n">parser</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+
+
+<span class="c1"># Loading Functions</span>
+
+    <span class="k">def</span> <span class="nf">_load_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;load the From section of the recipe for the Dockerfile.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Remove any comments</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>        
+        <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;(F|f)(R|r)(O|o)(M|m):&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;FROM </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;from&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
+
+
+    <span class="k">def</span> <span class="nf">_load_bootstrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;load bootstrap checks that the bootstrap is Docker, otherwise we</span>
+<span class="sd">           exit on fail (there is no other option to convert to Dockerfile!</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="s1">&#39;docker&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;docker not detected as Bootstrap!&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_load_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;read in a section to a list, and stop when we hit the next section</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">members</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">next_line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                
+
+            <span class="c1"># The end of a section</span>
+            <span class="k">if</span> <span class="n">next_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">):</span>
+                <span class="k">break</span>
+
+            <span class="c1"># Still in current section!</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_member</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">new_member</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                    <span class="n">members</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_member</span><span class="p">)</span>
+
+        <span class="c1"># Add the list to the config</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">section</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">+=</span> <span class="n">members</span>
+
+
+<div class="viewcode-block" id="SingularityRecipe.load_recipe"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.singularity.SingularityRecipe.load_recipe">[docs]</a>    <span class="k">def</span> <span class="nf">load_recipe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;load will return a loaded in singularity recipe. The idea</span>
+<span class="sd">           is that these sections can then be parsed into a Dockerfile,</span>
+<span class="sd">           or printed back into their original form.</span>
+
+<span class="sd">           Returns</span>
+<span class="sd">           =======</span>
+<span class="sd">           config: a parsed recipe Singularity recipe</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Comments between sections, add to top of file</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">comments</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Start with a fresh config!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+     
+        <span class="n">section</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="c1"># Clean up white trailing/leading space</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">stripped</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="c1"># Bootstrap Line</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(b|B)(o|O)</span><span class="si">{2}</span><span class="s1">(t|T)(s|S)(t|T)(r|R)(a|A)(p|P)&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_bootstrap</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+
+            <span class="c1"># From Line</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(f|F)(r|R)(O|o)(m|M)&#39;</span><span class="p">,</span> <span class="n">stripped</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_from</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+
+            <span class="c1"># Comment</span>
+            <span class="k">if</span> <span class="n">stripped</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                <span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Section</span>
+            <span class="k">elif</span> <span class="n">stripped</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">):</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_section</span><span class="p">(</span><span class="n">stripped</span><span class="p">)</span>
+                <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Adding section title </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">section</span><span class="p">)</span>
+
+            <span class="c1"># If we have a section, and are adding it</span>
+            <span class="k">elif</span> <span class="n">section</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">+</span> <span class="n">lines</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_load_section</span><span class="p">(</span><span class="n">lines</span><span class="o">=</span><span class="n">lines</span><span class="p">,</span>
+                                   <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_add_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;parse a line for a section, and return the parsed section (if not</span>
+<span class="sd">           None)</span>
+
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           line: the line to parse</span>
+<span class="sd">           section: the current (or previous) section</span>
+
+<span class="sd">           Resulting data structure is:</span>
+<span class="sd">           config[&#39;post&#39;] (in lowercase)</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Remove any comments</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># Is there a section name?</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>          
+        <span class="n">section</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[%]|(\s+)&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">section</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Adding section </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">section</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">section</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Vanessa Sochat.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../assets/jquery.js"></script>
+      <script type="text/javascript" src="../../../../assets/underscore.js"></script>
+      <script type="text/javascript" src="../../../../assets/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

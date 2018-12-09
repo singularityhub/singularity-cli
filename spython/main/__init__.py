@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -54,12 +52,12 @@ def get_client(quiet=False, debug=False):
     Client.pull = pull
 
     # Command Groups, Images
-    from spython.image.cmd import image_group        # deprecated image commands
-    Client.image = image_group
+    from spython.image.cmd import generate_image_commands  # deprecated
+    Client.image = generate_image_commands()
 
     # Commands Groups, Instances
-    from spython.instance.cmd import instance_group  # instance level commands
-    Client.instance = instance_group
+    from spython.instance.cmd import generate_instance_commands  # instance level commands
+    Client.instance = generate_instance_commands()
     Client.instance_stopall = stopall
 
     # Initialize

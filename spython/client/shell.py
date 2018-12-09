@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -73,7 +71,7 @@ def bpython(image):
     client.DockerRecipe = DockerRecipe
     client.SingularityRecipe = SingularityRecipe
 
-    bpython.embed(locals_={'client': cli})
+    bpython.embed(locals_={'client': client})
 
 def python(image):
     import code
@@ -87,4 +85,4 @@ def python(image):
     client.DockerRecipe = DockerRecipe
     client.SingularityRecipe = SingularityRecipe
 
-    code.interact(local={"client":cli})
+    code.interact(local={"client":client})

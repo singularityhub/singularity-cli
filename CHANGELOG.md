@@ -17,6 +17,18 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - COPY command should honor src src dest (and not reverse) (0.0.48)
+ - adding support for instance list (0.0.47)
+ - ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)
+ - COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
+ - Adding DockerRecipe, SingularityRecipe "load" action to load file
+ - issue #64 bug with hanging instances (0.0.44)
+ - flexible error printing given command to terminal fails (0.0.43)
+ - adding name_by_commit and name_by_hash to pull (0.0.42)
+ - adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)
+ - fixing bug in shell.py, cli should be client (0.0.40)
+ - remove uri function should only right strip to support relative paths (0.0.39)
+ - adjusting container build to use correct Github branch (vault/release-2.5)
  - adding support and documentation for container instances (0.0.38)
  - fixing bug with recipe Dockerfile conversion (0.0.37)
  - typo in pypi PACKAGE_URL (0.0.36)

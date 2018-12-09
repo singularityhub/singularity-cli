@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Singularity Python API Main &mdash; Singularity Python API 1 documentation</title>
+  <title>spython.main.base package &mdash; Singularity Python API 1 documentation</title>
   
 
   
@@ -24,25 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html"/>
-        <link rel="up" title="spython.main package" href="spython.main.html"/>
-        <link rel="next" title="spython.main.image package" href="spython.main.image.html"/>
-        <link rel="prev" title="spython.main package" href="spython.main.html"/> 
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="spython.main.parse package" href="spython.main.parse.html" />
+    <link rel="prev" title="spython.main package" href="spython.main.html" /> 
 
   
   <script src="../assets/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -91,6 +85,10 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="spython.html">spython package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="spython.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="spython.client.html">spython.client package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.image.html">spython.image package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.instance.html">spython.instance package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.logger.html">spython.logger package</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="spython.main.html">spython.main package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="spython.main.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#submodules">Submodules</a></li>
@@ -99,17 +97,17 @@
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.execute">spython.main.execute module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.help">spython.main.help module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.inspect">spython.main.inspect module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.instances">spython.main.instances module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.pull">spython.main.pull module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main.run">spython.main.run module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="spython.main.html#module-spython.main">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="spython.client.html">spython.client package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="spython.image.html">spython.image package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="spython.logger.html">spython.logger package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="spython.utils.html">spython.utils Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.utils.html">spython.utils package</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython.version">spython.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
@@ -125,7 +123,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Singularity Python API</a>
@@ -133,9 +131,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -162,13 +161,13 @@
         
           <li><a href="spython.main.html">spython.main package</a> &raquo;</li>
         
-      <li>Singularity Python API Main</li>
+      <li>spython.main.base package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/spython.main.base.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/spython.main.base.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -181,13 +180,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="singularity-python-api-main">
-<h1>Singularity Python API Main<a class="headerlink" href="#singularity-python-api-main" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spython-main-base-package">
+<h1>spython.main.base package<a class="headerlink" href="#spython-main-base-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-spython.main.base.command">
 <span id="spython-main-base-command-module"></span><h2>spython.main.base.command module<a class="headerlink" href="#module-spython.main.base.command" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.command.generate_bind_list">
+<code class="descclassname">spython.main.base.command.</code><code class="descname">generate_bind_list</code><span class="sig-paren">(</span><em>self</em>, <em>bindlist=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#generate_bind_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.generate_bind_list" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>generate bind string will take a single string or list of binds, and</dt>
+<dd>return a list that can be added to an exec or run command. For example,
+the following map as follows:</dd>
+</dl>
+<p>[‘/host:/container’, ‘/both’] –&gt; [“–bind”, “/host:/container”,”–bind”,”/both” ]
+[‘/both’]                     –&gt; [“–bind”, “/both”]
+‘/host:container’             –&gt; [“–bind”, “/host:container”]</p>
+<blockquote>
+<div><p>None                         –&gt; []</p>
+<p>An empty bind or otherwise value of None should return an empty list.
+The binds are also checked on the host.</p>
+<p>bindlist: a string or list of bind mounts</p>
+</div></blockquote>
+</dd></dl>
+
 <dl class="function">
 <dt id="spython.main.base.command.init_command">
 <code class="descclassname">spython.main.base.command.</code><code class="descname">init_command</code><span class="sig-paren">(</span><em>self</em>, <em>action</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
@@ -198,7 +216,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>action</strong> (<em>the main action to perform (e.g., build)</em>)</li>
-<li><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) &#8211; not implemented yet.</li>
+<li><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) – not implemented yet.</li>
 </ul>
 </td>
 </tr>
@@ -208,7 +226,7 @@
 
 <dl class="function">
 <dt id="spython.main.base.command.run_command">
-<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>quiet=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command is a wrapper for the global run_command, checking first
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
@@ -229,6 +247,60 @@ the parent process so it appears for the user.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-spython.main.base.flags">
+<span id="spython-main-base-flags-module"></span><h2>spython.main.base.flags module<a class="headerlink" href="#module-spython.main.base.flags" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="spython.main.base.flags.parse_verbosity">
+<code class="descclassname">spython.main.base.flags.</code><code class="descname">parse_verbosity</code><span class="sig-paren">(</span><em>self</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse_verbosity will take an argument object, and return the args
+passed (from a dictionary) to a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>the argparse argument objects</em>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-spython.main.base.generate">
+<span id="spython-main-base-generate-module"></span><h2>spython.main.base.generate module<a class="headerlink" href="#module-spython.main.base.generate" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="spython.main.base.generate.RobotNamer">
+<em class="property">class </em><code class="descclassname">spython.main.base.generate.</code><code class="descname">RobotNamer</code><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="spython.main.base.generate.RobotNamer.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>delim='-'</em>, <em>length=4</em>, <em>chars='0123456789'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer.generate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Generate a robot name. Inspiration from Haikunator, but much more</dt>
+<dd>poorly implemented ;)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delim</strong> (<em>Delimiter</em>)</li>
+<li><strong>length</strong> (<em>TokenLength</em>)</li>
+<li><strong>chars</strong> (<em>TokenChars</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.generate.main">
+<code class="descclassname">spython.main.base.generate.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-spython.main.base.logger">
 <span id="spython-main-base-logger-module"></span><h2>spython.main.base.logger module<a class="headerlink" href="#module-spython.main.base.logger" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -239,7 +311,7 @@ the parent process so it appears for the user.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>quiet</strong> (<em>boolean if True, set to quiet. Gets overriden by environment</em>) &#8211; setting, and only exists to define default</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>quiet</strong> (<em>boolean if True, set to quiet. Gets overriden by environment</em>) – setting, and only exists to define default</td>
 </tr>
 </tbody>
 </table>
@@ -331,10 +403,10 @@ return if yes, None if not.</p>
 <dl class="class">
 <dt id="spython.main.base.Client">
 <em class="property">class </em><code class="descclassname">spython.main.base.</code><code class="descname">Client</code><a class="reference internal" href="../modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="spython.main.base.Client.RobotNamer">
-<code class="descname">RobotNamer</code><em class="property"> = &lt;spython.main.image.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RobotNamer</code><em class="property"> = &lt;spython.main.base.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -360,22 +432,24 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 
 <dl class="method">
 <dt id="spython.main.base.Client.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build</code><span class="sig-paren">(</span><em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
-(requires sudo).</p>
+(requires sudo). If you specify to stream, expect the image name
+and an iterator to be returned.</p>
+<p>image, builder = Client.build(…)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) &#8211; defined, we look for &#8220;Singularity&#8221; file in $PWD</li>
+<li><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) – defined, we look for “Singularity” file in $PWD</li>
 <li><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</li>
-<li><strong>isolated</strong> (<em>if True, run build with &#8211;isolated flag</em>)</li>
+<li><strong>isolated</strong> (<em>if True, run build with –isolated flag</em>)</li>
 <li><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</li>
 <li><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</li>
 <li><strong>build_folder</strong> (<em>where the container should be built.</em>)</li>
 <li><strong>ext</strong> (<em>the image extension to use.</em>)</li>
-<li><strong>robot_name</strong> (<em>boolean, default False. if you don&#8217;t give your image a</em>) &#8211; name (with &#8220;image&#8221;) then a fun robot name will be generated
+<li><strong>robot_name</strong> (<em>boolean, default False. if you don’t give your image a</em>) – name (with “image”) then a fun robot name will be generated
 instead. Highly recommended :)</li>
 <li><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</li>
 </ul>
@@ -385,12 +459,6 @@ instead. Highly recommended :)</li>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="spython.main.base.Client.check_install">
-<code class="descname">check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.check_install" title="Permalink to this definition">¶</a></dt>
-<dd><p>ensure that singularity is installed, and exit if not.</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="spython.main.base.Client.debug">
 <code class="descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#spython.main.base.Client.debug" title="Permalink to this definition">¶</a></dt>
@@ -398,7 +466,7 @@ instead. Highly recommended :)</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">execute</code><span class="sig-paren">(</span><em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>execute: send a command to a container</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -409,7 +477,10 @@ instead. Highly recommended :)</li>
 <li><strong>command</strong> (<em>command to send to container</em>)</li>
 <li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
 <li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) &#8211; filesystems on your host</li>
+<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
+<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</li>
+<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
 </ul>
 </td>
 </tr>
@@ -433,7 +504,7 @@ instead. Highly recommended :)</li>
 
 <dl class="attribute">
 <dt id="spython.main.base.Client.image">
-<code class="descname">image</code><em class="property"> = &lt;spython.main.image.generate_image_commands.&lt;locals&gt;.ImageClient object&gt;</em><a class="headerlink" href="#spython.main.base.Client.image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">image</code><em class="property"> = &lt;spython.image.cmd.generate_image_commands.&lt;locals&gt;.ImageClient object&gt;</em><a class="headerlink" href="#spython.main.base.Client.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -448,6 +519,53 @@ instead. Highly recommended :)</li>
 <li><strong>image_path</strong> (<em>path of image to inspect</em>)</li>
 <li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
 <li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="spython.main.base.Client.instance">
+<code class="descname">instance</code><a class="headerlink" href="#spython.main.base.Client.instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Instance</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.instance_stopall">
+<code class="descname">instance_stopall</code><span class="sig-paren">(</span><em>sudo=False</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instance_stopall" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop ALL instances. This command is only added to the command group
+as it doesn’t make sense to call from a single instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sudo</strong> (<em>if the command should be done with sudo (exposes different set of</em>) – instances)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.instances">
+<code class="descname">instances</code><span class="sig-paren">(</span><em>name=None</em>, <em>return_json=False</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>list instances. For Singularity, this is provided as a command sub
+group.</p>
+<p>singularity instance.list</p>
+<p>Return codes provided are different from standard linux:
+see <a class="reference external" href="https://github.com/singularityware/singularity/issues/1706">https://github.com/singularityware/singularity/issues/1706</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</li>
+<li><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</li>
+<li><strong>Return Code  –   Reason</strong></li>
+<li><strong>0 – Instances Found</strong></li>
+<li><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></li>
+<li><strong>255 – Couldn’t get UID</strong></li>
 </ul>
 </td>
 </tr>
@@ -471,7 +589,7 @@ instead. Highly recommended :)</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.pull">
-<code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>name_by_commit=False</em>, <em>name_by_hash=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -479,9 +597,9 @@ instead. Highly recommended :)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</li>
-<li><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (&#8216;&#8217;). If defined, pulls to</em>) &#8211; user specified location instead.</li>
+<li><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</li>
 <li><strong>Docker and Singularity Hub Naming</strong></li>
-<li><strong>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;</strong></li>
+<li><strong>———————————</strong></li>
 <li><strong>name</strong> (<em>a custom name to use, to override default</em>)</li>
 <li><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</li>
 </ul>
@@ -498,7 +616,7 @@ instead. Highly recommended :)</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run will run the container, with or withour arguments (which
 should be provided in a list)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -508,6 +626,13 @@ should be provided in a list)</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>image</strong> (<em>full path to singularity image</em>)</li>
 <li><strong>args</strong> (<em>args to include with the run</em>)</li>
+<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
+<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
+<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
+<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</li>
+<li><strong>stream</strong> (<em>if True, return &lt;generator&gt; for the user to run</em>)</li>
+<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
 </ul>
 </td>
 </tr>
@@ -546,15 +671,13 @@ should be provided in a list)</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="spython.main.image.html" class="btn btn-neutral float-right" title="spython.main.image package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="spython.main.parse.html" class="btn btn-neutral float-right" title="spython.main.parse package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="spython.main.html" class="btn btn-neutral" title="spython.main package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -570,7 +693,7 @@ should be provided in a list)</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -589,32 +712,27 @@ should be provided in a list)</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="../assets/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

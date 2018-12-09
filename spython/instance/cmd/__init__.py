@@ -1,5 +1,4 @@
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
+
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -47,5 +46,3 @@ def generate_instance_commands():
     Instance.instance = Instance
  
     return Instance
-
-instance_group = generate_instance_commands()

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>spython.utils Module &mdash; Singularity Python API 1 documentation</title>
+  <title>spython.utils package &mdash; Singularity Python API 1 documentation</title>
   
 
   
@@ -24,25 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-    <link rel="top" title="Singularity Python API 1 documentation" href="../index.html"/>
-        <link rel="up" title="spython package" href="spython.html"/>
-        <link rel="next" title="CHANGELOG" href="../changelog.html"/>
-        <link rel="prev" title="spython.logger package" href="spython.logger.html"/> 
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CHANGELOG" href="../changelog.html" />
+    <link rel="prev" title="spython.main.parse package" href="spython.main.parse.html" /> 
 
   
   <script src="../assets/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -91,11 +85,12 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="spython.html">spython package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="spython.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="spython.main.html">spython.main package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.client.html">spython.client package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.image.html">spython.image package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spython.instance.html">spython.instance package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="spython.logger.html">spython.logger package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">spython.utils Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="spython.main.html">spython.main package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">spython.utils package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-spython.utils.fileio">spython.utils.fileio module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-spython.utils.terminal">spython.utils.terminal module</a></li>
@@ -104,6 +99,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython.version">spython.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
@@ -119,7 +116,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Singularity Python API</a>
@@ -127,9 +124,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -154,13 +152,13 @@
         
           <li><a href="spython.html">spython package</a> &raquo;</li>
         
-      <li>spython.utils Module</li>
+      <li>spython.utils package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/source/spython.utils.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/spython.utils.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,16 +171,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="spython-utils-module">
-<h1>spython.utils Module<a class="headerlink" href="#spython-utils-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spython-utils-package">
+<h1>spython.utils package<a class="headerlink" href="#spython-utils-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-spython.utils.fileio">
 <span id="spython-utils-fileio-module"></span><h2>spython.utils.fileio module<a class="headerlink" href="#module-spython.utils.fileio" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
-University.
-Copyright (C) 2016-2017 Vanessa Sochat.</p>
+<p>Copyright (C) 2016-2017 Vanessa Sochat.</p>
 <p>This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
@@ -203,7 +199,7 @@ along with this program.  If not, see &lt;<a class="reference external" href="ht
 <dl class="function">
 <dt id="spython.utils.fileio.read_file">
 <code class="descclassname">spython.utils.fileio.</code><code class="descname">read_file</code><span class="sig-paren">(</span><em>filename</em>, <em>mode='r'</em>, <em>readlines=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>write_file will open a file, &#8220;filename&#8221; and write content, &#8220;content&#8221;
+<dd><p>write_file will open a file, “filename” and write content, “content”
 and properly close the file</p>
 </dd></dl>
 
@@ -217,7 +213,7 @@ the data structure as dict.</p>
 <dl class="function">
 <dt id="spython.utils.fileio.write_file">
 <code class="descclassname">spython.utils.fileio.</code><code class="descname">write_file</code><span class="sig-paren">(</span><em>filename</em>, <em>content</em>, <em>mode='w'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#write_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>write_file will open a file, &#8220;filename&#8221; and write content, &#8220;content&#8221;
+<dd><p>write_file will open a file, “filename” and write content, “content”
 and properly close the file</p>
 </dd></dl>
 
@@ -233,9 +229,7 @@ and properly close the file</p>
 </div>
 <div class="section" id="module-spython.utils.terminal">
 <span id="spython-utils-terminal-module"></span><h2>spython.utils.terminal module<a class="headerlink" href="#module-spython.utils.terminal" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017 The Board of Trustees of the Leland Stanford Junior
-University.
-Copyright (C) 2016-2017 Vanessa Sochat.</p>
+<p>Copyright (C) 2016-2017 Vanessa Sochat.</p>
 <p>This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
@@ -258,7 +252,7 @@ without this check.</p>
 <dt id="spython.utils.terminal.format_container_name">
 <code class="descclassname">spython.utils.terminal.</code><code class="descname">format_container_name</code><span class="sig-paren">(</span><em>name</em>, <em>special_characters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#format_container_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.format_container_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>format_container_name will take a name supplied by the user,
-remove all special characters (except for those defined by &#8220;special-characters&#8221;
+remove all special characters (except for those defined by “special-characters”
 and return the new image name.</p>
 </dd></dl>
 
@@ -276,11 +270,11 @@ and return the new image name.</p>
 
 <dl class="function">
 <dt id="spython.utils.terminal.run_command">
-<code class="descclassname">spython.utils.terminal.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em>, <em>no_newline_regexp='Progess'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em>, <em>no_newline_regexp='Progess'</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal. If
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
-don&#8217;t return the output to parse.</p>
+don’t return the output to parse.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -288,9 +282,33 @@ don&#8217;t return the output to parse.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
 <li><strong>sudo</strong> (<em>if needed, add to start of command</em>)</li>
-<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) &#8211; newline. Defaults to finding Progress</li>
-<li><strong>capture</strong> (<em>if True, don&#8217;t set stdout and have it go to console. This</em>) &#8211; option can print a progress bar, but won&#8217;t return the lines
+<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
+<li><strong>capture</strong> (<em>if True, don’t set stdout and have it go to console. This</em>) – option can print a progress bar, but won’t return the lines
 as output.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.stream_command">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">stream_command</code><span class="sig-paren">(</span><em>cmd</em>, <em>no_newline_regexp='Progess'</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#stream_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.stream_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>stream a command (yield) back to the user, as each line is available.</p>
+<p># Example usage:
+results = []
+for line in stream_command(cmd):</p>
+<blockquote>
+<div>print(line, end=”“)
+results.append(line)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
+<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
 </ul>
 </td>
 </tr>
@@ -306,9 +324,7 @@ as output.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -317,7 +333,7 @@ as output.</li>
         <a href="../changelog.html" class="btn btn-neutral float-right" title="CHANGELOG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="spython.logger.html" class="btn btn-neutral" title="spython.logger package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="spython.main.parse.html" class="btn btn-neutral" title="spython.main.parse package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -330,7 +346,7 @@ as output.</li>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -349,32 +365,27 @@ as output.</li>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
             VERSION:'1',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  
-  
-    <script type="text/javascript" src="../assets/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

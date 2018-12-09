@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -30,7 +28,8 @@ def execute(self,
             writable = False,
             contain = False,
             bind = None,
-            stream = False):
+            stream = False,
+            nv = False):
 
     ''' execute: send a command to a container
     
@@ -46,13 +45,17 @@ def execute(self,
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
-
+        nv: if True, load Nvidia Drivers in runtime (default False)
     '''
     from spython.utils import check_install
     check_install()
 
     cmd = self._init_command('exec')
 
+    # nv option leverages any GPU cards
+    if nv is True:
+        cmd += ['--nv']
+    
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):
         command = image

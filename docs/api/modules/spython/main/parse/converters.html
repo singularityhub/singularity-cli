@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spython.main.parse.converters &mdash; Singularity Python API 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/spython.html">spython package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">CHANGELOG</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Singularity Python API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../main.html">spython.main</a> &raquo;</li>
+        
+      <li>spython.main.parse.converters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for spython.main.parse.converters</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Copyright (C) 2016-2018 Vanessa Sochat.</span>
+
+<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
+<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
+<span class="c1"># option) any later version.</span>
+
+<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
+<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
+<span class="c1"># License for more details.</span>
+
+<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Singularity to Dockerfile</span>
+<span class="c1"># Easier, parsed line by line</span>
+
+<div class="viewcode-block" id="singularity2docker"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.singularity2docker">[docs]</a><span class="k">def</span> <span class="nf">singularity2docker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runscript</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a Singularity recipe to a (best estimated) Dockerfile&#39;&#39;&#39;</span>
+
+    <span class="n">recipe</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;FROM </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">fromHeader</span> <span class="p">]</span>
+
+    <span class="c1"># Comments go up front!</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span>  
+
+    <span class="c1"># First add files, labels</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="n">write_lines</span><span class="p">(</span><span class="s1">&#39;ADD&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="n">write_lines</span><span class="p">(</span><span class="s1">&#39;LABEL&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="n">write_lines</span><span class="p">(</span><span class="s1">&#39;ENV&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
+
+    <span class="c1"># Install routine is added as RUN commands</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="n">write_lines</span><span class="p">(</span><span class="s1">&#39;RUN&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">)</span>
+
+    <span class="c1"># Take preference for user, entrypoint, command, then default</span>
+    <span class="n">runscript</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_runscript</span><span class="p">(</span><span class="n">runscript</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;CMD </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">runscript</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">recipe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">write_lines</span><span class="p">(</span><span class="s1">&#39;HEALTHCHECK&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">))</span>
+
+    <span class="c1"># Clean up extra white spaces</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="write_lines"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.write_lines">[docs]</a><span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;write a list of lines with a header for a section.</span>
+<span class="sd">    </span>
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       lines: one or more lines to write, with header appended</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">continued</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">continued</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+        <span class="n">continued</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">continued</span> <span class="o">=</span> <span class="kc">True</span>
+            
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<span class="c1"># Dockerfile to Singularity</span>
+<span class="c1"># Here we deal with &quot;sections&quot; and not individual lines</span>
+
+<div class="viewcode-block" id="create_runscript"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.create_runscript">[docs]</a><span class="k">def</span> <span class="nf">create_runscript</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;create_entrypoint is intended to create a singularity runscript</span>
+<span class="sd">       based on a Docker entrypoint or command. We first use the Docker</span>
+<span class="sd">       ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,</span>
+<span class="sd">       we use function default.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       default: set a default entrypoint, if the container does not have</span>
+<span class="sd">                an entrypoint or cmd.</span>
+<span class="sd">       force: If true, use default and ignore Dockerfile settings</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">entrypoint</span> <span class="o">=</span> <span class="n">default</span>
+
+    <span class="c1"># Only look at Docker if not enforcing default</span>
+    <span class="k">if</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">entrypoint</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">entrypoint</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">)</span>
+
+    <span class="c1"># Entrypoint should use exec</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entrypoint</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;exec&#39;</span><span class="p">):</span>
+        <span class="n">entrypoint</span> <span class="o">=</span> <span class="s2">&quot;exec </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">entrypoint</span>
+
+    <span class="c1"># Should take input arguments into account</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;&quot;?[$]@&quot;?&#39;</span><span class="p">,</span> <span class="n">entrypoint</span><span class="p">):</span>
+        <span class="n">entrypoint</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &quot;$@&quot;&#39;</span> <span class="o">%</span><span class="n">entrypoint</span>
+    <span class="k">return</span> <span class="n">entrypoint</span></div>
+
+
+<div class="viewcode-block" id="create_section"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.create_section">[docs]</a><span class="k">def</span> <span class="nf">create_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;create a section based on key, value recipe pairs, </span>
+<span class="sd">       This is used for files or label</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ==========</span>
+<span class="sd">      attribute: the name of the data section, either labels or files</span>
+<span class="sd">      name: the name to write to the recipe file (e.g., %name).</span>
+<span class="sd">            if not defined, the attribute name is used.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># Default section name is the same as attribute</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">attribute</span> 
+
+    <span class="c1"># Put a space between sections</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Only continue if we have the section and it&#39;s not empty</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">section</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Recipe does not have section for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">attribute</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">section</span>
+
+    <span class="c1"># if the section is empty, don&#39;t print it</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">section</span>
+
+    <span class="c1"># Files or Labels</span>
+    <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="s1">&#39;files&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">create_keyval_section</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># An environment section needs exports</span>
+    <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;environ&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">create_env_section</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># Post, Setup</span>
+    <span class="k">return</span> <span class="n">finish_section</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="finish_section"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.finish_section">[docs]</a><span class="k">def</span> <span class="nf">finish_section</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;finish_section will add the header to a section, to finish the recipe</span>
+<span class="sd">       take a custom command or list and return a section.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       section: the section content, without a header</span>
+<span class="sd">       name: the name of the section for the header</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>   
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">section</span> <span class="o">=</span> <span class="p">[</span><span class="n">section</span><span class="p">]</span>
+
+    <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;%&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="n">header</span> <span class="o">+</span> <span class="n">section</span></div>
+
+
+<div class="viewcode-block" id="create_keyval_section"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.create_keyval_section">[docs]</a><span class="k">def</span> <span class="nf">create_keyval_section</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;create a section based on key, value recipe pairs, </span>
+<span class="sd">       This is used for files or label</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ==========</span>
+<span class="sd">      section: the list of values to return as a parsed list of lines</span>
+<span class="sd">      name: the name of the section to write (e.g., files)</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;%&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="p">]</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+        <span class="n">section</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">section</span></div>
+
+
+<div class="viewcode-block" id="create_env_section"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.create_env_section">[docs]</a><span class="k">def</span> <span class="nf">create_env_section</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;environment key value pairs need to be joined by an equal, and </span>
+<span class="sd">       exported at the end.</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ==========</span>
+<span class="sd">      section: the list of values to return as a parsed list of lines</span>
+<span class="sd">      name: the name of the section to write (e.g., files)</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;%&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="p">]</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+        <span class="n">section</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;export </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">pair</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">section</span></div>
+
+
+<div class="viewcode-block" id="docker2singularity"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.converters.docker2singularity">[docs]</a><span class="k">def</span> <span class="nf">docker2singularity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runscript</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;docker2singularity will return a Singularity build recipe based on</span>
+<span class="sd">       a the loaded recipe object. It doesn&#39;t take any arguments as the</span>
+<span class="sd">       recipe object contains the sections, and the calling function </span>
+<span class="sd">       determines saving / output logic.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">recipe</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Bootstrap: docker&#39;</span><span class="p">]</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="p">[</span> <span class="s2">&quot;From: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">fromHeader</span> <span class="p">]</span>
+  
+    <span class="c1"># Sections with key value pairs</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_section</span><span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_section</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_section</span><span class="p">(</span><span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_section</span><span class="p">(</span><span class="s1">&#39;environ&#39;</span><span class="p">,</span> <span class="s1">&#39;environment&#39;</span><span class="p">)</span>    
+
+    <span class="c1"># Take preference for user, entrypoint, command, then default</span>
+    <span class="n">runscript</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_runscript</span><span class="p">(</span><span class="n">runscript</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">+=</span> <span class="n">finish_section</span><span class="p">(</span><span class="n">runscript</span><span class="p">,</span> <span class="s1">&#39;runscript&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">recipe</span> <span class="o">+=</span> <span class="n">finish_section</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Clean up extra white spaces</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Vanessa Sochat.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../assets/jquery.js"></script>
+      <script type="text/javascript" src="../../../../assets/underscore.js"></script>
+      <script type="text/javascript" src="../../../../assets/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

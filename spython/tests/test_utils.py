@@ -1,8 +1,6 @@
 #!/usr/bin/python
 
 # Copyright (C) 2017-2018 Vanessa Sochat.
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Affero General Public License as published by
@@ -81,6 +79,17 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(is_installed)
         is_not_installed = check_install('fakesoftwarename')
         self.assertTrue(not is_not_installed)
+
+
+    def test_check_get_singularity_version(self):
+        '''check that the singularity version is found to be that installed'''
+        print("Testing utils.get_singularity_version")
+        from spython.utils import get_singularity_version
+        version = get_singularity_version()
+        self.assertTrue(version != "")
+        os.environ['SPYTHON_SINGULARITY_VERSION'] = "3.0"
+        version = get_singularity_version()
+        self.assertTrue(version == "3.0")
 
 
     def test_get_installdir(self):

@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -56,7 +54,7 @@ class ImageBase(object):
         image = image or ''
         uri = self.get_uri(image) or ''
         image = image.replace('%s://' %uri,'', 1)
-        return image.strip('-').strip('/')
+        return image.strip('-').rstrip('/')
 
 
     def parse_image_name(self, image):

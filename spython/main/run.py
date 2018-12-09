@@ -1,6 +1,4 @@
 
-# Copyright (C) 2018 The Board of Trustees of the Leland Stanford Junior
-# University.
 # Copyright (C) 2017-2018 Vanessa Sochat.
 
 # This program is free software: you can redistribute it and/or modify it
@@ -29,7 +27,8 @@ def run(self,
         writable = False,
         contain = False,
         bind = None,
-        stream = False):
+        stream = False,
+        nv = False):
 
     '''
         run will run the container, with or withour arguments (which
@@ -47,12 +46,16 @@ def run(self,
               This option allows you to map directories on your host system to
               directories within your container using bind mounts
         stream: if True, return <generator> for the user to run
-
+        nv: if True, load Nvidia Drivers in runtime (default False)
     '''
     from spython.utils import check_install
     check_install()
 
     cmd = self._init_command('run')
+   
+    # nv option leverages any GPU cards
+    if nv is True:
+        cmd += ['--nv']
 
     # No image provided, default to use the client's loaded image
     if image is None:
@@ -86,10 +89,11 @@ def run(self,
     else:
         return stream_command(cmd, sudo=sudo)
 
-    result = result.strip('\n')
+    if result:
+        result = result.strip('\n')
 
-    try:
-        result = json.loads(result)
-    except:
-        pass
-    return result
+        try:
+            result = json.loads(result)
+        except:
+            pass
+        return result
