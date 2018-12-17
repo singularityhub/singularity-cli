@@ -428,7 +428,7 @@ class DockerRecipe(Recipe):
         previous = self._clean_line(previous)
 
         # if we are continuing from last
-        if cleaned.endswith('\\') and parser or previous.endswith('\\'): #or previous.endswith('\\\n'):
+        if cleaned.endswith('\\') and parser or previous.endswith('\\'):
             return parser
 
         return self._default
