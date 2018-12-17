@@ -48,7 +48,10 @@ class DockerRecipe(Recipe):
         bot.debug('[in]  %s' % line)
 
         # Replace ACTION at beginning
-        line = re.sub('^%s' %action, '', line)
+        line = re.sub('^%s' % action, '', line)
+
+        # Handle continuation lines without ACTION by padding with leading space
+        line = " " + line
 
         # Split into components
         return [x for x in self._split_line(line) if x not in ['', None]]
@@ -372,25 +375,7 @@ class DockerRecipe(Recipe):
         self.labels += [ label ]
 
 
-# Main Parsing Functions
-
-
-    def _split_line(self, line):
-        '''clean a line to prepare it for parsing, meaning separation
-           of the Docker command (e.g., RUN) from the remainder. We remove
-           newlines (from ends) along with extra spaces.
-
-           Parameters
-           ==========
-           line: the string to parse into parts
-    
-           Returns
-           =======
-           parts: a list of line pieces, the command is likely first
-
-        '''
-        return [x.strip() for x in line.split(' ', 1)]
-        
+# Main Parsing Functions        
 
 
     def _get_mapping(self, line, parser=None, previous=None):
