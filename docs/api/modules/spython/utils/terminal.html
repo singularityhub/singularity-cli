@@ -148,20 +148,11 @@
   <h1>Source code for spython.utils.terminal</h1><div class="highlight"><pre>
 <span></span><span class="sd">&#39;&#39;&#39;</span>
 
-<span class="sd">Copyright (C) 2016-2017 Vanessa Sochat.</span>
+<span class="sd">Copyright (C) 2017-2019 Vanessa Sochat.</span>
 
-<span class="sd">This program is free software: you can redistribute it and/or modify it</span>
-<span class="sd">under the terms of the GNU Affero General Public License as published by</span>
-<span class="sd">the Free Software Foundation, either version 3 of the License, or (at your</span>
-<span class="sd">option) any later version.</span>
-
-<span class="sd">This program is distributed in the hope that it will be useful, but WITHOUT</span>
-<span class="sd">ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
-<span class="sd">FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
-<span class="sd">License for more details.</span>
-
-<span class="sd">You should have received a copy of the GNU Affero General Public License</span>
-<span class="sd">along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="sd">This Source Code Form is subject to the terms of the</span>
+<span class="sd">Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
+<span class="sd">with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -203,6 +194,25 @@
 
     <span class="k">return</span> <span class="n">found</span></div>
 
+
+<div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;get the singularity client version. Useful in the case that functionality</span>
+<span class="sd">       has changed, etc. Can be &quot;hacked&quot; if needed by exporting </span>
+<span class="sd">       SPYTHON_SINGULARITY_VERSION, which is checked before checking on the</span>
+<span class="sd">       command line.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">([</span><span class="s2">&quot;singularity&quot;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">],</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span> <span class="c1"># FileNotFoundError</span>
+            <span class="k">return</span> <span class="n">version</span>
+
+        <span class="k">if</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">version</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">version</span></div>
 
 <div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;get_installdir returns the installation directory of the application</span>

@@ -151,20 +151,11 @@
             
   <h1>Source code for spython.main.base.command</h1><div class="highlight"><pre>
 <span></span>
-<span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
 
-<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
-<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
-<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
-<span class="c1"># option) any later version.</span>
-
-<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
-<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
-<span class="c1"># License for more details.</span>
-
-<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
-<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># This Source Code Form is subject to the terms of the</span>
+<span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
+<span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
 <span class="kn">from</span> <span class="nn">spython.main.base.logger</span> <span class="k">import</span> <span class="n">println</span>
@@ -184,18 +175,18 @@
 
 
 <div class="viewcode-block" id="init_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.init_command">[docs]</a><span class="k">def</span> <span class="nf">init_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        return the initial Singularity command with any added flags.</span>
+    <span class="sd">&#39;&#39;&#39;return the initial Singularity command with any added flags.</span>
 <span class="sd">        </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ==========</span>
-<span class="sd">        action: the main action to perform (e.g., build)</span>
-<span class="sd">        flags: one or more additional flags (e.g, volumes) </span>
-<span class="sd">               not implemented yet.</span>
-
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       action: the main action to perform (e.g., build)</span>
+<span class="sd">       flags: one or more additional flags (e.g, volumes) </span>
+<span class="sd">              not implemented yet.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="n">action</span> <span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>      
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;--quiet&#39;</span><span class="p">)</span>
@@ -275,7 +266,6 @@
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Return Code </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">return_code</span><span class="p">,</span>
                                          <span class="n">message</span><span class="p">))</span></div>
-
 </pre></div>
 
            </div>

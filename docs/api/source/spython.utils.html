@@ -178,17 +178,10 @@
 </div>
 <div class="section" id="module-spython.utils.fileio">
 <span id="spython-utils-fileio-module"></span><h2>spython.utils.fileio module<a class="headerlink" href="#module-spython.utils.fileio" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2016-2017 Vanessa Sochat.</p>
-<p>This program is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.</p>
-<p>This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
-License for more details.</p>
-<p>You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+<p>Copyright (C) 2017-2019 Vanessa Sochat.</p>
+<p>This Source Code Form is subject to the terms of the
+Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
 <dl class="function">
 <dt id="spython.utils.fileio.mkdir_p">
 <code class="descclassname">spython.utils.fileio.</code><code class="descname">mkdir_p</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#mkdir_p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.mkdir_p" title="Permalink to this definition">¶</a></dt>
@@ -229,17 +222,10 @@ and properly close the file</p>
 </div>
 <div class="section" id="module-spython.utils.terminal">
 <span id="spython-utils-terminal-module"></span><h2>spython.utils.terminal module<a class="headerlink" href="#module-spython.utils.terminal" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2016-2017 Vanessa Sochat.</p>
-<p>This program is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.</p>
-<p>This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public
-License for more details.</p>
-<p>You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see &lt;<a class="reference external" href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</p>
+<p>Copyright (C) 2017-2019 Vanessa Sochat.</p>
+<p>This Source Code Form is subject to the terms of the
+Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
+with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
 <dl class="function">
 <dt id="spython.utils.terminal.check_install">
 <code class="descclassname">spython.utils.terminal.</code><code class="descname">check_install</code><span class="sig-paren">(</span><em>software='singularity'</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.check_install" title="Permalink to this definition">¶</a></dt>
@@ -260,6 +246,15 @@ and return the new image name.</p>
 <dt id="spython.utils.terminal.get_installdir">
 <code class="descclassname">spython.utils.terminal.</code><code class="descname">get_installdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_installdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_installdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>get_installdir returns the installation directory of the application</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.get_singularity_version">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">get_singularity_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_singularity_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_singularity_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the singularity client version. Useful in the case that functionality
+has changed, etc. Can be “hacked” if needed by exporting
+SPYTHON_SINGULARITY_VERSION, which is checked before checking on the
+command line.</p>
 </dd></dl>
 
 <dl class="function">

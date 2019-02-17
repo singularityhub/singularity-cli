@@ -149,20 +149,11 @@
             
   <h1>Source code for spython.main.parse.docker</h1><div class="highlight"><pre>
 <span></span>
-<span class="c1"># Copyright (C) 2016-2018 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
 
-<span class="c1"># This program is free software: you can redistribute it and/or modify it</span>
-<span class="c1"># under the terms of the GNU Affero General Public License as published by</span>
-<span class="c1"># the Free Software Foundation, either version 3 of the License, or (at your</span>
-<span class="c1"># option) any later version.</span>
-
-<span class="c1"># This program is distributed in the hope that it will be useful, but WITHOUT</span>
-<span class="c1"># ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public</span>
-<span class="c1"># License for more details.</span>
-
-<span class="c1"># You should have received a copy of the GNU Affero General Public License</span>
-<span class="c1"># along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># This Source Code Form is subject to the terms of the</span>
+<span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
+<span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -198,7 +189,10 @@
         <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;[in]  </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">line</span><span class="p">)</span>
 
         <span class="c1"># Replace ACTION at beginning</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">action</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">action</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+
+        <span class="c1"># Handle continuation lines without ACTION by padding with leading space</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">line</span>
 
         <span class="c1"># Split into components</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>
@@ -304,8 +298,8 @@
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
             <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-            <span class="n">frompath</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">topath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">topath</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">frompath</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_add_files</span><span class="p">(</span><span class="n">frompath</span><span class="p">,</span> <span class="n">topath</span><span class="p">)</span>
         
 
@@ -522,25 +516,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">+=</span> <span class="p">[</span> <span class="n">label</span> <span class="p">]</span>
 
 
-<span class="c1"># Main Parsing Functions</span>
-
-
-    <span class="k">def</span> <span class="nf">_split_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;clean a line to prepare it for parsing, meaning separation</span>
-<span class="sd">           of the Docker command (e.g., RUN) from the remainder. We remove</span>
-<span class="sd">           newlines (from ends) along with extra spaces.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           line: the string to parse into parts</span>
-<span class="sd">    </span>
-<span class="sd">           Returns</span>
-<span class="sd">           =======</span>
-<span class="sd">           parts: a list of line pieces, the command is likely first</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
-        
+<span class="c1"># Main Parsing Functions        </span>
 
 
     <span class="k">def</span> <span class="nf">_get_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">previous</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

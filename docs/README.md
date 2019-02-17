@@ -39,7 +39,7 @@ This is an open source project. Please contribute to the package, or post feedba
 We welcome any kind of contribution, whether a suggestion, a bug fix, feature request, or new feature. See our  [contributing docs](/singularity-cli/contribute-docs) for more information.
 
 ## License
-This code is licensed under the Affero GPL, version 3.0 or later [LICENSE](https://github.com/singularityhub/singularity-cli/blob/master/LICENSE).
+This code is licensed under the MPL 2.0 [LICENSE](https://github.com/singularityhub/singularity-cli/blob/master/LICENSE).
 
 
 <div>
