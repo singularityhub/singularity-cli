@@ -9,7 +9,7 @@
 from spython.logger import bot
 import sys
 
-def start(self, image=None, name=None, sudo=False, options=[], capture=False):
+def start(self, image=None, name=None, args=None, sudo=False, options=[], capture=False):
     '''start an instance. This is done by default when an instance is created.
 
        Parameters
@@ -18,6 +18,7 @@ def start(self, image=None, name=None, sudo=False, options=[], capture=False):
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
        capture: capture output, default is False. With True likely to hang.
+       args: arguments to provide to the instance (supported Singularity 3.1+)
        options: a list of tuples, each an option to give to the start command
                 [("--bind", "/tmp"),...]
 
@@ -59,8 +60,15 @@ def start(self, image=None, name=None, sudo=False, options=[], capture=False):
     # Assemble the command!
     cmd = cmd + options + [image, self.name]
 
+    # If arguments are provided
+    if args != None:
+        if not isinstance(args, list):
+            args = [args]
+        cmd = cmd + args
+
     # Save the options and cmd, if the user wants to see them later
     self.options = options
+    self.args = args
     self.cmd = cmd
 
     output = run_command(cmd, sudo=sudo, quiet=True, capture=capture)
