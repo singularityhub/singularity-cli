@@ -9,7 +9,6 @@
 from spython.logger import bot
 import sys
 
-
 def stop(self, name=None, sudo=False):
     '''start an instance. This is done by default when an instance is created.
 
@@ -29,7 +28,8 @@ def stop(self, name=None, sudo=False):
     check_install()
 
     subgroup = 'instance.stop'
-    if get_singularity_version().find("version 3"):
+
+    if 'version 3' in get_singularity_version():
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)
