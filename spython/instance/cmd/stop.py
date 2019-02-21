@@ -10,7 +10,7 @@ from spython.logger import bot
 import sys
 
 def stop(self, name=None, sudo=False):
-    '''start an instance. This is done by default when an instance is created.
+    '''stop an instance. This is done by default when an instance is created.
 
        Parameters
        ==========
