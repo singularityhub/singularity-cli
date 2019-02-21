@@ -48,7 +48,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
 
     # Derive subgroup command based on singularity version
     subgroup = 'instance.start'
-    if get_singularity_version().find("version 3"):
+    if 'version 3' in get_singularity_version():
         subgroup = ["instance", "start"]
 
     cmd = self._init_command(subgroup)

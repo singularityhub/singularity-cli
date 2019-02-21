@@ -9,18 +9,16 @@
 from spython.logger import bot
 import sys
 
-
 def stop(self, name=None, sudo=False):
-    '''start an instance. This is done by default when an instance is created.
+    '''stop an instance. This is done by default when an instance is created.
 
        Parameters
        ==========
-       image: optionally, an image uri (if called as a command from Client)
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
 
        USAGE: 
-       singularity [...] instance.start [...] <container path> <instance name>
+       singularity [...] instance.stop [...] <instance name>
 
     '''        
     from spython.utils import ( check_install, 
@@ -29,7 +27,8 @@ def stop(self, name=None, sudo=False):
     check_install()
 
     subgroup = 'instance.stop'
-    if get_singularity_version().find("version 3"):
+
+    if 'version 3' in get_singularity_version():
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)

@@ -42,7 +42,8 @@ def get(self, name, return_json=False, quiet=False):
 
     # Ensure compatible for singularity prior to 3.0, and after 3.0
     subgroup = "instance.list"
-    if get_singularity_version().find("version 3"):
+
+    if 'version 3' in get_singularity_version():
         subgroup = ["instance", "list"]
 
     cmd = self._init_command(subgroup)
