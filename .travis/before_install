@@ -3,6 +3,7 @@
 SINGULARITY_VERSION="${1}"
 sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
 
+echo "Singularity Version ${SINGULARITY_VERSION}"
 echo "PYTHON VERSION"
 which python
 
@@ -12,6 +13,9 @@ python setup.py sdist && python setup.py install
 if [ "${SINGULARITY_VERSION}" == "3.1.0" ]; then
 
         export GOPATH=/go && \
+            wget https://dl.google.com/go/go1.12.src.tar.gz && \
+            tar -xzvf go1.12.src.tar.gz && \
+            cd go && make && sudo make install && \
             sudo mkdir -p /go && \
             sudo chown -R $USER /go && \ 
             sudo apt-get update && \
