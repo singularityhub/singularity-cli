@@ -15,7 +15,7 @@ if [ "${SINGULARITY_VERSION}" == "3.1.0" ]; then
             sudo apt-get update && \
             sudo apt-get install -y build-essential libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config wget && \
             go get -u github.com/golang/dep/cmd/dep && \
-            mkdir -p ${GOPATH}/src/github.com/sylabs && \
+            sudo mkdir -p ${GOPATH}/src/github.com/sylabs && \
             cd ${GOPATH}/src/github.com/sylabs && \
             wget https://github.com/sylabs/singularity/releases/download/v${singularity_version}/singularity-${singularity_version}.tar.gz && \
             tar -xzvf singularity-${singularity_version}.tar.gz && \
