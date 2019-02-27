@@ -1,51 +1,24 @@
+language: python
+
+sudo: true
+
+os: linux
+
+python:
+    - "2.7"
+    - "3.5"
+
+services:
+  - docker
+
 matrix:
-  include:
-    - language: go
-      go: 1.11.5
-      name: "Singularity 3.1.0, Python 2.7"
-      os: linux
-      sudo: true
-      python:
-        - "2.7"
-      before_install:
-          - sudo chmod u+x .travis/*
-          - /bin/bash .travis/before_install 3.1.0
-      script:
-        - /bin/bash .travis/script
+  allow_failures:
+    - python: "2.6"
+    - python: "3.5"
 
-    - language: go
-      go: 1.11.5
-      name: "Singularity 3.1.0, Python 3.5"
-      os: linux
-      sudo: true
-      python:
-        - "3.5"
-      before_install:
-          - sudo chmod u+x .travis/*
-          - /bin/bash .travis/before_install 3.1.0
-      script:
-        - /bin/bash .travis/script
+before_install:
+  - sudo chmod u+x .travis/*
+  - /bin/bash .travis/before_install
 
-    - language: python
-      name: "Singularity 2.6.0, Python 2.7"
-      os: linux
-      sudo: true
-      python:
-        - "2.7"
-      before_install:
-          - sudo chmod u+x .travis/*
-          - /bin/bash .travis/before_install 2.6.0
-      script:
-        - /bin/bash .travis/script
-
-    - language: python
-      name: "Singularity 2.6.0, Python 3.5"
-      os: linux
-      sudo: true
-      python:
-        - "3.5"
-      before_install:
-          - sudo chmod u+x .travis/*
-          - /bin/bash .travis/before_install 2.6.0
-      script:
-        - /bin/bash .travis/script
+script:
+  - /bin/bash .travis/script

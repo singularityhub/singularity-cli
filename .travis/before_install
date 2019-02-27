@@ -1,42 +1,21 @@
 #!/bin/bash
 
-SINGULARITY_VERSION="${1}"
+sudo apt-get update && sudo apt-get install -y wget git build-essential squashfs-tools \
+                                                    libtool \
+                                                    autotools-dev \
+                                                    libarchive-dev \
+                                                    automake \
+                                                    autoconf \
+                                                    uuid-dev \
+                                                    libssl-dev
+
+
 sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
 
-echo "Singularity Version ${SINGULARITY_VERSION}"
 echo "PYTHON VERSION"
 which python
 
-# Clear caches
-sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
-
-python setup.py sdist && sudo python setup.py install
+python setup.py sdist && python setup.py install
 
 # Install Singularity (development)
-if [ "${SINGULARITY_VERSION}" == "3.1.0" ]; then
-
-            sudo apt-get update && \
-            sudo apt-get install -y build-essential libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev pkg-config wget && \
-            go get -u github.com/golang/dep/cmd/dep && \
-            mkdir -p ${GOPATH}/src/github.com/sylabs && \
-            cd ${GOPATH}/src/github.com/sylabs && \
-            wget https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VERSION}/singularity-${SINGULARITY_VERSION}.tar.gz && \
-            tar -xzvf singularity-${SINGULARITY_VERSION}.tar.gz && \
-            cd singularity && \
-            ./mconfig -p /usr/local && \
-            make -C builddir && \
-            sudo make -C builddir install
-
-else
-
-    sudo apt-get update && sudo apt-get install -y wget git build-essential squashfs-tools \
-                                                        libtool \
-                                                        autotools-dev \
-                                                        libarchive-dev \
-                                                        automake \
-                                                        autoconf \
-                                                        uuid-dev \
-                                                        libssl-dev
-
-    cd /tmp && git clone -b vault/release-2.6 https://github.com/singularityware/singularity.git && cd singularity && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
-fi
+cd /tmp && git clone -b vault/release-2.6 https://github.com/singularityware/singularity.git && cd singularity && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
