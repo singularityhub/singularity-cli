@@ -7,6 +7,9 @@ echo "Singularity Version ${SINGULARITY_VERSION}"
 echo "PYTHON VERSION"
 which python
 
+# Clear caches
+sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
 python setup.py sdist && sudo python setup.py install
 
 # Install Singularity (development)
