@@ -11,6 +11,10 @@ python:
 services:
   - docker
 
+env:
+  - SINGULARITY_VERSION=3.1.0
+  - SINGULARITY_VERSION=2.6.0
+
 matrix:
   allow_failures:
     - python: "2.6"
@@ -18,7 +22,7 @@ matrix:
 
 before_install:
   - sudo chmod u+x .travis/*
-  - /bin/bash .travis/before_install
+  - /bin/bash .travis/before_install "${SINGULARITY_VERSION}"
 
 script:
   - /bin/bash .travis/script
