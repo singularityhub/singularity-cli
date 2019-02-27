@@ -5,17 +5,38 @@ matrix:
       sudo: true
       python:
         - "2.7"
+      before_install:
+          - sudo chmod u+x .travis/*
+          - /bin/bash .travis/before_install 3.1.0
+      script:
+        - /bin/bash .travis/script
+
+    - language: go
+      os: linux
+      sudo: true
+      python:
         - "3.5"
       before_install:
           - sudo chmod u+x .travis/*
           - /bin/bash .travis/before_install 3.1.0
       script:
         - /bin/bash .travis/script
+
     - language: python
       os: linux
       sudo: true
       python:
         - "2.7"
+      before_install:
+          - sudo chmod u+x .travis/*
+          - /bin/bash .travis/before_install 2.6.0
+      script:
+        - /bin/bash .travis/script
+
+    - language: python
+      os: linux
+      sudo: true
+      python:
         - "3.5"
       before_install:
           - sudo chmod u+x .travis/*
