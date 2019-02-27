@@ -14,7 +14,7 @@ if [ "${SINGULARITY_VERSION}" == "3.1.0" ]; then
 
         export GOPATH=/go && \
             wget https://dl.google.com/go/go1.12.src.tar.gz && \
-            tar -xzf https://dl.google.com/go/go1.12.linux-amd64.tar.gz && \
+            tar -xzf go1.12.linux-amd64.tar.gz && \
             export PATH=$PWD/go/bin:$PATH && \
             sudo mkdir -p /go && \
             sudo chmod -R 0777 /go && \ 
