@@ -1,6 +1,7 @@
 matrix:
   include:
     - language: go
+      name: "Singularity 3.1.0, Python 2.7"
       os: linux
       sudo: true
       python:
@@ -12,6 +13,7 @@ matrix:
         - /bin/bash .travis/script
 
     - language: go
+      name: "Singularity 3.1.0, Python 3.5"
       os: linux
       sudo: true
       python:
@@ -23,6 +25,7 @@ matrix:
         - /bin/bash .travis/script
 
     - language: python
+      name: "Singularity 2.6.0, Python 2.7"
       os: linux
       sudo: true
       python:
@@ -34,6 +37,7 @@ matrix:
         - /bin/bash .travis/script
 
     - language: python
+      name: "Singularity 2.6.0, Python 3.5"
       os: linux
       sudo: true
       python:
