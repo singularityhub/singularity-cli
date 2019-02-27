@@ -18,5 +18,4 @@ which python
 python setup.py sdist && python setup.py install
 
 # Install Singularity (development)
-cd /tmp && git clone -b vault/release-2.5 https://github.com/singularityware/singularity.git && cd singularity && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
-
+cd /tmp && git clone -b vault/release-2.6 https://github.com/singularityware/singularity.git && cd singularity && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install

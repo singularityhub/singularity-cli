@@ -109,7 +109,12 @@ def stopall(self, sudo=False, quiet=True):
     from spython.utils import run_command, check_install
     check_install()
 
-    cmd = self._init_command('instance.stop')
+    subgroup = 'instance.stop'
+
+    if 'version 3' in get_singularity_version():
+        subgroup = ["instance", "stop"]
+
+    cmd = self._init_command(subgroup)
     cmd = cmd + ['--all']
     output = run_command(cmd, sudo=sudo, quiet=quiet)
 
@@ -119,4 +124,4 @@ def stopall(self, sudo=False, quiet=True):
         bot.error(message)
         return output['return_code']
 
-    return output['return_code']    
+    return output['return_code']
