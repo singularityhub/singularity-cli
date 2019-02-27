@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - instance stop all missing check for Singularity V3.+ (0.0.52)
  - fixing bug with instances list, name not taken into account (0.0.51)
  - additional of args to instance start commands (0.0.50)
  - continued lines should not be split in docker.py recipe parser (_setup) (0.0.49)
