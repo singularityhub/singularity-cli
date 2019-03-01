@@ -71,9 +71,10 @@ install_singularity_3: &install_singularity_3
     cd /tmp
     wget https://dl.google.com/go/go1.11.5.src.tar.gz && \
     tar -xzf go1.11.5.src.tar.gz 
-    export PATH=$PATH:/tmp/go/bin && \
+    export PATH=/tmp/go/bin:$PATH && \
         sudo mkdir -p /go && \
         sudo chmod -R 7777 /go
+    which go
     export GOPATH=/go && \
         go get -u github.com/golang/dep/cmd/dep && \
         mkdir -p ${GOPATH}/src/github.com/sylabs && \
