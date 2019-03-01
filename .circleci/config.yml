@@ -74,11 +74,10 @@ install_singularity_3: &install_singularity_3
     export PATH=/tmp/go/bin:$PATH
         sudo mkdir -p /go
         sudo chmod -R 7777 /go
-    which go
-    sudo rm -rf /usr/local/go
+    echo $PATH
     which go
     export GOPATH=/go && \
-        go get -u github.com/golang/dep/cmd/dep && \
+        /tmp/go/bin/go get -u github.com/golang/dep/cmd/dep && \
         mkdir -p ${GOPATH}/src/github.com/sylabs && \
         cd ${GOPATH}/src/github.com/sylabs && \
         wget https://github.com/sylabs/singularity/releases/download/v3.1.0/singularity-3.1.0.tar.gz && \
