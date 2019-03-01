@@ -1,0 +1,195 @@
+# CircleCI build config to test different versions of Singuarity
+
+version: 2.1
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-singularity-3.1.0-python-3:
+          filters:
+            branches:
+              only: master
+      - test-singularity-3.1.0-python-2:
+          filters:
+            branches:
+              only: master
+      - test-singularity-2.6.1-python-2:
+          filters:
+            branches:
+              only: master
+      - test-singularity-2.6.1-python-3:
+          filters:
+            branches:
+              only: master
+
+
+setup: &setup
+  name: install setup
+  command: |
+     sudo apt-get update && \
+     sudo apt-get install -y wget git jq
+     sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
+
+
+install_spython: &install_spython
+  name: install spython
+  command: |
+     $HOME/conda/bin/python setup.py install
+
+
+install_singularity_2: &install_singularity_2
+  name: install Singularity 2.6.1
+  command: |
+    which singularity &> /dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "Singularity is installed."
+    else
+        sudo apt-get update && sudo apt-get -y install git \
+               build-essential \
+               libtool \
+               squashfs-tools \
+               autotools-dev \
+               libarchive-dev \
+               automake \
+               autoconf \
+               debootstrap \
+               yum \
+               uuid-dev \
+               libssl-dev \
+               python3-dev
+        wget https://github.com/sylabs/singularity/releases/download/2.6.1/singularity-2.6.1.tar.gz
+        tar -xzvf singularity-2.6.1.tar.gz
+        cd singularity-2.6.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
+
+
+install_singularity_3: &install_singularity_3
+  name: install Singularity 3.1
+  command: | 
+    which singularity &> /dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "Singularity is installed."
+        export GOPATH=/go
+        export PATH=$PATH:/usr/local/go/bin
+    else
+
+        sudo apt-get install -y build-essential \
+                                squashfs-tools \
+                                libtool \
+                                uuid-dev \
+                                libssl-dev \
+                                libgpgme11-dev \
+                                libseccomp-dev \
+                                pkg-config
+
+        # Install GoLang 
+        wget https://dl.google.com/go/go${GO_VERSION}.src.tar.gz && \
+        tar -C /usr/local -xzf go${GO_VERSION}.src.tar.gz 
+
+        export PATH=$PATH:/usr/local/go/bin && \
+            sudo mkdir -p /go && \
+            sudo chmod -R 7777 /go
+        export GOPATH=/go && \
+            go get -u github.com/golang/dep/cmd/dep && \
+            mkdir -p ${GOPATH}/src/github.com/sylabs && \
+            cd ${GOPATH}/src/github.com/sylabs && \
+            wget https://github.com/sylabs/singularity/releases/download/v${singularity_version}/singularity-${singularity_version}.tar.gz && \
+            tar -xzvf singularity-${singularity_version}.tar.gz && \
+            cd singularity && \
+            ./mconfig -p /usr/local && \
+            make -C builddir && \
+            sudo make -C builddir install
+    fi
+
+
+install_python_3: &install_python_3
+  name: install Python 3.5 dependencies
+  command: | 
+      ls $HOME
+      if [ ! -d "/home/circleci/conda" ]; then
+          wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+          /bin/bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/conda
+          export PATH=$HOME/conda/bin:$PATH
+          $HOME/conda/bin/python setup.py install
+       else
+           echo "Miniconda 3 is already installed, continuing to build."
+       fi
+
+install_python_2: &install_python_2
+  name: install Python 3.5 dependencies
+  command: | 
+      ls $HOME
+      if [ ! -d "/home/circleci/conda" ]; then
+          wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
+          /bin/bash Miniconda2-latest-Linux-x86_64.sh -b -p $HOME/conda
+          export PATH=$HOME/conda/bin:$PATH
+          $HOME/conda/bin/python setup.py install
+       else
+           echo "Miniconda 2 is already installed, continuing to build."
+       fi
+
+test_spython: &test_spython
+  name: Test Singularity Python
+  command: |
+        cd ~/repo
+        export PATH=$PATH:/opt/circleci/.pyenv/shims
+        $HOME/conda/bin/python -m unittest tests.test_client
+        $HOME/conda/bin/python -m unittest tests.test_utils
+
+
+jobs:
+  test-singularity-3.1.0-python-3:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: *setup
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_3
+      - run: *install_singularity_3
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
+
+  test-singularity-3.1.0-python-2:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: *setup
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_2
+      - run: *install_singularity_3
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
+
+  test-singularity-2.6.1-python-3:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: *setup
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_3
+      - run: *install_singularity_2
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
