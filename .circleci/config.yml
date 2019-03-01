@@ -8,19 +8,19 @@ workflows:
       - test-singularity-3.1.0-python-3:
           filters:
             branches:
-              only: master
+              ignore: master
       - test-singularity-3.1.0-python-2:
           filters:
             branches:
-              only: master
+              ignore: master
       - test-singularity-2.6.1-python-2:
           filters:
             branches:
-              only: master
+              ignore: master
       - test-singularity-2.6.1-python-3:
           filters:
             branches:
-              only: master
+              ignore: master
 
 setup: &setup
   name: install setup
@@ -59,7 +59,7 @@ install_singularity_2: &install_singularity_2
         wget https://github.com/sylabs/singularity/releases/download/2.6.1/singularity-2.6.1.tar.gz
         tar -xzvf singularity-2.6.1.tar.gz
         cd singularity-2.6.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
-
+    fi
 
 install_singularity_3: &install_singularity_3
   name: install Singularity 3.1
