@@ -58,41 +58,32 @@ install_singularity_2: &install_singularity_2
 install_singularity_3: &install_singularity_3
   name: install Singularity 3.1
   command: | 
-    which singularity &> /dev/null
+    sudo apt-get install -y build-essential \
+                            squashfs-tools \
+                            libtool \
+                            uuid-dev \
+                            libssl-dev \
+                            libgpgme11-dev \
+                            libseccomp-dev \
+                            pkg-config
 
-    if [ $? -eq 0 ]; then
-        echo "Singularity is installed."
-        export GOPATH=/go
-        export PATH=$PATH:/usr/local/go/bin
-    else
+    # Install GoLang 
+    wget https://dl.google.com/go/go${GO_VERSION}.src.tar.gz && \
+    tar -C /usr/local -xzf go${GO_VERSION}.src.tar.gz 
 
-        sudo apt-get install -y build-essential \
-                                squashfs-tools \
-                                libtool \
-                                uuid-dev \
-                                libssl-dev \
-                                libgpgme11-dev \
-                                libseccomp-dev \
-                                pkg-config
-
-        # Install GoLang 
-        wget https://dl.google.com/go/go${GO_VERSION}.src.tar.gz && \
-        tar -C /usr/local -xzf go${GO_VERSION}.src.tar.gz 
-
-        export PATH=$PATH:/usr/local/go/bin && \
-            sudo mkdir -p /go && \
-            sudo chmod -R 7777 /go
-        export GOPATH=/go && \
-            go get -u github.com/golang/dep/cmd/dep && \
-            mkdir -p ${GOPATH}/src/github.com/sylabs && \
-            cd ${GOPATH}/src/github.com/sylabs && \
-            wget https://github.com/sylabs/singularity/releases/download/v${singularity_version}/singularity-${singularity_version}.tar.gz && \
-            tar -xzvf singularity-${singularity_version}.tar.gz && \
-            cd singularity && \
-            ./mconfig -p /usr/local && \
-            make -C builddir && \
-            sudo make -C builddir install
-    fi
+    export PATH=$PATH:/usr/local/go/bin && \
+        sudo mkdir -p /go && \
+        sudo chmod -R 7777 /go
+    export GOPATH=/go && \
+        go get -u github.com/golang/dep/cmd/dep && \
+        mkdir -p ${GOPATH}/src/github.com/sylabs && \
+        cd ${GOPATH}/src/github.com/sylabs && \
+        wget https://github.com/sylabs/singularity/releases/download/v${singularity_version}/singularity-${singularity_version}.tar.gz && \
+        tar -xzvf singularity-${singularity_version}.tar.gz && \
+        cd singularity && \
+        ./mconfig -p /usr/local && \
+        make -C builddir && \
+        sudo make -C builddir install
 
 
 install_python_3: &install_python_3
