@@ -38,28 +38,22 @@ install_spython: &install_spython
 install_singularity_2: &install_singularity_2
   name: install Singularity 2.6.1
   command: |
-    which singularity &> /dev/null
-
-    if [ $? -eq 0 ]; then
-        echo "Singularity is installed."
-    else
-        sudo apt-get update && sudo apt-get -y install git \
-               build-essential \
-               libtool \
-               squashfs-tools \
-               autotools-dev \
-               libarchive-dev \
-               automake \
-               autoconf \
-               debootstrap \
-               yum \
-               uuid-dev \
-               libssl-dev \
-               python3-dev
-        wget https://github.com/sylabs/singularity/releases/download/2.6.1/singularity-2.6.1.tar.gz
-        tar -xzvf singularity-2.6.1.tar.gz
-        cd singularity-2.6.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
-    fi
+    sudo apt-get update && sudo apt-get -y install git \
+           build-essential \
+           libtool \
+           squashfs-tools \
+           autotools-dev \
+           libarchive-dev \
+           automake \
+           autoconf \
+           debootstrap \
+           yum \
+           uuid-dev \
+           libssl-dev \
+           python3-dev
+    wget https://github.com/sylabs/singularity/releases/download/2.6.1/singularity-2.6.1.tar.gz
+    tar -xzvf singularity-2.6.1.tar.gz
+    cd singularity-2.6.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
 
 install_singularity_3: &install_singularity_3
   name: install Singularity 3.1
