@@ -116,6 +116,7 @@ test_spython: &test_spython
   name: Test Singularity Python
   command: |
         cd ~/repo
+        ls
         export PATH=$PATH:/opt/circleci/.pyenv/shims
         $HOME/conda/bin/python -m unittest tests.test_client
         $HOME/conda/bin/python -m unittest tests.test_utils
