@@ -5,19 +5,19 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-singularity-3.1.0-python-3:
+      - test-singularity-3-python-3:
           filters:
             branches:
               ignore: master
-      - test-singularity-3.1.0-python-2:
+      - test-singularity-3-python-2:
           filters:
             branches:
               ignore: master
-      - test-singularity-2.6.1-python-2:
+      - test-singularity-2-python-2:
           filters:
             branches:
               ignore: master
-      - test-singularity-2.6.1-python-3:
+      - test-singularity-2-python-3:
           filters:
             branches:
               ignore: master
@@ -137,7 +137,7 @@ test_spython: &test_spython
 
 
 jobs:
-  test-singularity-3.1.0-python-3:
+  test-singularity-3-python-3:
     machine: true
     working_directory: ~/repo
     steps:
@@ -155,7 +155,7 @@ jobs:
           key: v1-dependencies        
       - run: *test_spython
 
-  test-singularity-3.1.0-python-2:
+  test-singularity-3-python-2:
     machine: true
     working_directory: ~/repo
     steps:
@@ -173,7 +173,7 @@ jobs:
           key: v1-dependencies        
       - run: *test_spython
 
-  test-singularity-2.6.1-python-3:
+  test-singularity-2-python-3:
     machine: true
     working_directory: ~/repo
     steps:
