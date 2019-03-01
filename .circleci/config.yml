@@ -23,7 +23,6 @@ workflows:
             branches:
               only: master
 
-
 setup: &setup
   name: install setup
   command: |
