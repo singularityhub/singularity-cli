@@ -1,5 +1,4 @@
 # CircleCI build config to test different versions of Singuarity
-
 version: 2.1
 
 workflows:
