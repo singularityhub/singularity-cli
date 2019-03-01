@@ -70,7 +70,7 @@ install_singularity_3: &install_singularity_3
     # Install GoLang 
     wget https://dl.google.com/go/go1.11.5.src.tar.gz && \
     sudo mkdir -p /usr/local/go
-    cmhod -R 7777 /usr/local/go
+    chmod -R 7777 /usr/local/go
     tar -C /usr/local -xzf go1.11.5.src.tar.gz 
 
     export PATH=$PATH:/usr/local/go/bin && \
