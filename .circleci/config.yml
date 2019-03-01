@@ -190,3 +190,21 @@ jobs:
             - /home/circleci/conda
           key: v1-dependencies        
       - run: *test_spython
+
+  test-singularity-2-python-2:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: *setup
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_2
+      - run: *install_singularity_2
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
