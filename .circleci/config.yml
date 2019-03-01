@@ -2,7 +2,6 @@
 version: 2.1
 
 workflows:
-  version: 2
   test:
     jobs:
       - test-singularity-3.1.0-python-3:
