@@ -50,18 +50,14 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     cmd.append(image)
     result = run_command(cmd, quiet=False)
 
-    print('RESULT')
-    print(result['message'])
-    print(len(result['message']))
-
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
 
         if "data" in result:
-            labels = result['data']['attributes'].get('labels', {})
+            labels = result['data']['attributes'].get('labels') or {}
 
         elif 'attributes' in result:
-            labels = result['attributes'].get('labels', {})
+            labels = result['attributes'].get('labels') or {}
 
         # If labels included, try parsing to json
 
