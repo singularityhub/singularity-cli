@@ -66,7 +66,7 @@ class TestClient(unittest.TestCase):
         print('Testing client.execute command')
         result = self.cli.execute(container,'ls /')
         print(result)
-        self.assertTrue('bin\nboot\ndev' in result)
+        self.assertTrue('tmp\nusr\nvar' in result)
 
         print("Testing client.inspect command")
         labels = self.cli.inspect(container)
