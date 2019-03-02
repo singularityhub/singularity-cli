@@ -54,10 +54,13 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
         result = jsonp.loads(result['message'][0])
 
         # If labels included, try parsing to json
+        if "data" in result:
+            labels = result['data']['attributes'].get('labels', {})
 
-        if 'labels' in result['attributes']:
-            labels = jsonp.loads(result['attributes']['labels'])
-            result['attributes']['labels'] = labels
+        elif 'attributes' in result:
+            labels = result['attributes'].get('labels', {})
+
+        result['attributes']['labels'] = jsonp.loads(labels)
 
         if not quiet:
             print(jsonp.dumps(result, indent=4))
