@@ -48,7 +48,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
         cmd.append('--json')
 
     cmd.append(image)
-    result = run_command(cmd, quiet=True)
+    result = run_command(cmd, quiet=False)
 
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
