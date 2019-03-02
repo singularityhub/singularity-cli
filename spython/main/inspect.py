@@ -5,21 +5,26 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import json
 
 from spython.logger import bot
+from spython.utils import ( 
+    check_install, 
+    get_singularity_version, 
+    run_command
+)
 
-def inspect(self,image=None, json=True, app=None):
+def inspect(self, image=None, json=True, app=None, quiet=True):
     '''inspect will show labels, defile, runscript, and tests for an image
     
-
        Parameters
        ==========
-       image_path: path of image to inspect
+       image: path of image to inspect
        json: print json instead of raw text (default True)
+       quiet: Don't print result to the screen (default True)
        app: if defined, return help in context of an app
 
     '''
-    from spython.utils import check_install
     check_install()
 
     # No image provided, default to use the client's loaded image
@@ -31,12 +36,30 @@ def inspect(self,image=None, json=True, app=None):
         cmd = cmd + ['--app', app]
 
     options = ['e','d','l','r','hf','t']
+
+    # After Singularity 3.0, helpfile was changed to H from
+
+    if "version 3" in get_singularity_version():
+        options = ['e','d','l','r','H','t']
+
     [cmd.append('-%s' % x) for x in options]
 
     if json is True:
         cmd.append('--json')
 
     cmd.append(image)
-    output = self._run_command(cmd)
-    #self.println(output,quiet=self.quiet)    
-    return output
+    result = run_command(cmd, quiet=True)
+
+    if result['return_code'] == 0:
+        result = json.loads(result['message'][0])
+
+        # If labels included, try parsing to json
+
+        if 'labels' in result['attributes']:
+            labels = json.loads(result['attributes']['labels'])
+            result['attributes']['labels'] = labels
+
+        if not quiet:
+            print(json.dumps(result, indent=4))
+
+    return result

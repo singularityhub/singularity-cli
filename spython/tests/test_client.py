@@ -56,9 +56,9 @@ class TestClient(unittest.TestCase):
         os.remove(image)
 
         print("...Case 2: Testing docker pull")
-        container = self.cli.pull("docker://ubuntu:14.04",
+        container = self.cli.pull("docker://busybox:1.30.1",
                                    pull_folder=self.tmpdir)
-        self.assertTrue("ubuntu:14.04" in container)
+        self.assertTrue("busybox:1.30.1" in container)
 
         print(container)
         self.assertTrue(os.path.exists(container))
@@ -69,11 +69,9 @@ class TestClient(unittest.TestCase):
         self.assertTrue('bin\nboot\ndev' in result)
 
         print("Testing client.inspect command")
-        result = self.cli.inspect(container)
-        labels = json.loads(result)
-        self.assertTrue('data' in labels)     
-        os.remove(container)
+        labels = self.cli.inspect(container)
 
+        os.remove(container)
 
 
 if __name__ == '__main__':
