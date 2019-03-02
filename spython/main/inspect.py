@@ -5,7 +5,7 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import json
+import json as jsonp
 
 from spython.logger import bot
 from spython.utils import ( 
@@ -51,15 +51,15 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     result = run_command(cmd, quiet=True)
 
     if result['return_code'] == 0:
-        result = json.loads(result['message'][0])
+        result = jsonp.loads(result['message'][0])
 
         # If labels included, try parsing to json
 
         if 'labels' in result['attributes']:
-            labels = json.loads(result['attributes']['labels'])
+            labels = jsonp.loads(result['attributes']['labels'])
             result['attributes']['labels'] = labels
 
         if not quiet:
-            print(json.dumps(result, indent=4))
+            print(jsonp.dumps(result, indent=4))
 
     return result
