@@ -31,10 +31,10 @@ class TestClient(unittest.TestCase):
     def test_commands(self):
 
         print('Testing client.build command')
-        container = "%s/container.img" %(self.tmpdir)
+        container = "%s/container.sif" %(self.tmpdir)
 
         print("...Case 1: Build from docker uri")
-        created_container = self.cli.build('docker://ubuntu', 
+        created_container = self.cli.build('docker://busybox:1.30.1', 
                                            image=container,
                                            sudo=False)
         self.assertEqual(created_container, container)

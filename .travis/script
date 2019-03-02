@@ -1,4 +1,0 @@
-#!/bin/bash
-cd $TRAVIS_BUILD_DIR/spython
-python -m unittest tests.test_client
-python -m unittest tests.test_utils
