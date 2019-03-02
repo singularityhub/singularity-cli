@@ -1,6 +1,9 @@
 # CircleCI build config to test different versions of Singuarity
 version: 2.1
 
+orbs:
+  singularity: singularity/singularity@1.0.2
+
 workflows:
   version: 2
   test:
@@ -135,7 +138,9 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
-      - run: *install_singularity_3
+      - singularity/install_debian_3
+          go-version: 11.1.5
+          singularity-version: 3.1.0
       - run: *install_spython
       - save_cache:
           paths:
