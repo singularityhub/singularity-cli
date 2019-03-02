@@ -138,7 +138,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
-      - singularity/install_debian_3
+      - singularity/install_debian_3:
           go-version: 11.1.5
           singularity-version: 3.1.0
       - run: *install_spython
