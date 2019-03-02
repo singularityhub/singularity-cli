@@ -31,10 +31,10 @@ class TestClient(unittest.TestCase):
     def test_commands(self):
 
         print('Testing client.build command')
-        container = "%s/container.img" %(self.tmpdir)
+        container = "%s/container.sif" %(self.tmpdir)
 
         print("...Case 1: Build from docker uri")
-        created_container = self.cli.build('docker://ubuntu', 
+        created_container = self.cli.build('docker://busybox:1.30.1', 
                                            image=container,
                                            sudo=False)
         self.assertEqual(created_container, container)
@@ -56,9 +56,9 @@ class TestClient(unittest.TestCase):
         os.remove(image)
 
         print("...Case 2: Testing docker pull")
-        container = self.cli.pull("docker://ubuntu:14.04",
+        container = self.cli.pull("docker://busybox:1.30.1",
                                    pull_folder=self.tmpdir)
-        self.assertTrue("ubuntu:14.04" in container)
+        self.assertTrue("busybox:1.30.1" in container)
 
         print(container)
         self.assertTrue(os.path.exists(container))
@@ -66,14 +66,12 @@ class TestClient(unittest.TestCase):
         print('Testing client.execute command')
         result = self.cli.execute(container,'ls /')
         print(result)
-        self.assertTrue('bin\nboot\ndev' in result)
+        self.assertTrue('tmp\nusr\nvar' in result)
 
         print("Testing client.inspect command")
-        result = self.cli.inspect(container)
-        labels = json.loads(result)
-        self.assertTrue('data' in labels)     
-        os.remove(container)
+        labels = self.cli.inspect(container)
 
+        os.remove(container)
 
 
 if __name__ == '__main__':

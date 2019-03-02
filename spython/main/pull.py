@@ -7,7 +7,7 @@
 
 
 from spython.logger import bot
-from spython.utils import stream_command
+from spython.utils import ( stream_command, get_singularity_version )
 import os
 import re
 import shutil
@@ -44,6 +44,10 @@ def pull(self,
 
     cmd = self._init_command('pull')
 
+    # If Singularity version > 3.0, we have sif format
+    if 'version 3' in get_singularity_version():
+        ext = 'sif'
+
     # No image provided, default to use the client's loaded image
     if image is None:
         image = self._get_uri()
@@ -74,7 +78,14 @@ def pull(self,
         
     # Only add name if we aren't naming by hash or commit
     if not name_by_commit and not name_by_hash:
-        cmd = cmd + ["--name", name]
+
+        # Regression Singularity 3.* onward, PULLFOLDER not honored
+        # https://github.com/sylabs/singularity/issues/2788
+        if pull_folder and 'version 3' in get_singularity_version():
+            pull_folder_name = os.path.join(pull_folder, os.path.basename(name))
+            cmd = cmd + ["--name", pull_folder_name]          
+        else:
+            cmd = cmd + ["--name", name]
 
     if force is True:
         cmd = cmd + ["--force"]

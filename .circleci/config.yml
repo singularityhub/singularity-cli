@@ -1,0 +1,144 @@
+# CircleCI build config to test different versions of Singuarity
+version: 2.1
+
+orbs:
+  singularity: singularity/singularity@1.0.3
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-singularity-3-python-3:
+          filters:
+            branches:
+              ignore: master
+      - test-singularity-3-python-2:
+          filters:
+            branches:
+              ignore: master
+      - test-singularity-2-python-2:
+          filters:
+            branches:
+              ignore: master
+      - test-singularity-2-python-3:
+          filters:
+            branches:
+              ignore: master
+
+install_spython: &install_spython
+  name: install spython
+  command: |
+     $HOME/conda/bin/python setup.py install
+
+install_python_3: &install_python_3
+  name: install Python 3.5 dependencies
+  command: | 
+      ls $HOME
+      if [ ! -d "/home/circleci/conda" ]; then
+          wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+          /bin/bash Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/conda
+          export PATH=$HOME/conda/bin:$PATH
+          $HOME/conda/bin/python setup.py install
+       else
+           echo "Miniconda 3 is already installed, continuing to build."
+       fi
+
+install_python_2: &install_python_2
+  name: install Python 3.5 dependencies
+  command: | 
+      ls $HOME
+      if [ ! -d "/home/circleci/conda" ]; then
+          wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
+          /bin/bash Miniconda2-latest-Linux-x86_64.sh -b -p $HOME/conda
+          export PATH=$HOME/conda/bin:$PATH
+          $HOME/conda/bin/python setup.py install
+       else
+           echo "Miniconda 2 is already installed, continuing to build."
+       fi
+
+test_spython: &test_spython
+  name: Test Singularity Python
+  command: |
+        cd ~/repo/spython
+        ls
+        export PATH=$PATH:/opt/circleci/.pyenv/shims
+        $HOME/conda/bin/python -m unittest tests.test_client
+        $HOME/conda/bin/python -m unittest tests.test_utils
+
+
+jobs:
+  test-singularity-3-python-3:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_3
+      - singularity/install-go:
+          go-version: 1.11.5
+      - singularity/debian-install-3:
+          singularity-version: 3.1.0
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
+
+  test-singularity-3-python-2:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_2
+      - singularity/install-go:
+          go-version: 1.11.5
+      - singularity/debian-install-3:
+          singularity-version: 3.1.0
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
+
+  test-singularity-2-python-3:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_3
+      - singularity/debian-install-2:
+          singularity-version: 2.6.1
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
+
+  test-singularity-2-python-2:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies
+      - run: *install_python_2
+      - singularity/debian-install-2:
+          singularity-version: 2.6.1
+      - run: *install_spython
+      - save_cache:
+          paths:
+            - /home/circleci/conda
+          key: v1-dependencies        
+      - run: *test_spython
