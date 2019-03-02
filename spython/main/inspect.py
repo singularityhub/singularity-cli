@@ -53,22 +53,40 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
 
-        if "data" in result:
-            labels = result['data']['attributes'].get('labels') or {}
-
-        elif 'attributes' in result:
-            labels = result['attributes'].get('labels') or {}
-
-        # If labels included, try parsing to json
-
-        try:
-            labels = jsonp.loads(labels)
-        except:
-            pass
-
-        result['attributes']['labels'] = labels
+        # Fix up labels
+        labels = parse_labels(result)
 
         if not quiet:
             print(jsonp.dumps(result, indent=4))
+
+    return result
+
+
+def parse_labels(result):
+    '''fix up the labels, meaning parse to json if needed, and return
+       original updated object
+
+       Parameters
+       ==========
+       result: the json object to parse from inspect
+    '''
+
+    if "data" in result:
+        labels = result['data']['attributes'].get('labels') or {}
+
+    elif 'attributes' in result:
+        labels = result['attributes'].get('labels') or {}
+
+    # If labels included, try parsing to json
+
+    try:
+        labels = jsonp.loads(labels)
+    except:
+        pass
+
+    if "data" in result:
+        result['data']['attributes']['labels'] = labels
+    else:
+        result['attributes']['labels'] = labels
 
     return result
