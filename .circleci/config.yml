@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  singularity: singularity/singularity@1.0.2
+  singularity: singularity/singularity@dev:alpha
 
 workflows:
   version: 2
@@ -24,13 +24,6 @@ workflows:
           filters:
             branches:
               ignore: master
-
-setup: &setup
-  name: install setup
-  command: |
-     sudo apt-get update && \
-     sudo apt-get install -y wget git jq
-     sudo sed -i -e 's/^Defaults\tsecure_path.*$//' /etc/sudoers
 
 install_spython: &install_spython
   name: install spython
@@ -99,7 +92,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: *setup
       - restore_cache:
           keys:
           - v1-dependencies
@@ -120,7 +112,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: *setup
       - restore_cache:
           keys:
           - v1-dependencies
@@ -139,7 +130,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: *setup
       - restore_cache:
           keys:
           - v1-dependencies
