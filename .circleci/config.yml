@@ -37,60 +37,6 @@ install_spython: &install_spython
   command: |
      $HOME/conda/bin/python setup.py install
 
-
-install_singularity_2: &install_singularity_2
-  name: install Singularity 2.6.1
-  command: |
-    sudo apt-get update && sudo apt-get -y install git \
-           build-essential \
-           libtool \
-           squashfs-tools \
-           autotools-dev \
-           libarchive-dev \
-           automake \
-           autoconf \
-           debootstrap \
-           yum \
-           uuid-dev \
-           libssl-dev \
-           python3-dev
-    wget https://github.com/sylabs/singularity/releases/download/2.6.1/singularity-2.6.1.tar.gz
-    tar -xzvf singularity-2.6.1.tar.gz
-    cd singularity-2.6.1 && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install
-
-install_singularity_3: &install_singularity_3
-  name: install Singularity 3.1
-  command: | 
-    sudo apt-get install -y build-essential \
-                            squashfs-tools \
-                            libtool \
-                            uuid-dev \
-                            libssl-dev \
-                            libgpgme11-dev \
-                            libseccomp-dev \
-                            pkg-config
-
-    # Install GoLang 
-    cd /tmp
-    wget https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
-    tar -xzf go1.11.5.linux-amd64.tar.gz
-    export PATH=/tmp/go/bin:$PATH
-        sudo mkdir -p /go
-        sudo chmod -R 7777 /go
-    echo $PATH
-    which go
-    export GOPATH=/go && \
-        /tmp/go/bin/go get -u github.com/golang/dep/cmd/dep && \
-        mkdir -p ${GOPATH}/src/github.com/sylabs && \
-        cd ${GOPATH}/src/github.com/sylabs && \
-        wget https://github.com/sylabs/singularity/releases/download/v3.1.0/singularity-3.1.0.tar.gz && \
-        tar -xzvf singularity-3.1.0.tar.gz && \
-        cd singularity && \
-        ./mconfig -p /usr/local && \
-        make -C builddir && \
-        sudo make -C builddir install
-
-
 install_python_3: &install_python_3
   name: install Python 3.5 dependencies
   command: | 
@@ -133,13 +79,12 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: *setup
       - restore_cache:
           keys:
           - v1-dependencies
       - run: *install_python_3
       - singularity/install-go:
-          go-version: 11.1.5
+          go-version: 1.11.5
       - singularity/debian-install-3:
           singularity-version: 3.1.0
       - run: *install_spython
@@ -159,7 +104,10 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
-      - run: *install_singularity_3
+      - singularity/install-go:
+          go-version: 1.11.5
+      - singularity/debian-install-3:
+          singularity-version: 3.1.0
       - run: *install_spython
       - save_cache:
           paths:
@@ -177,7 +125,8 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
-      - run: *install_singularity_2
+      - singularity/debian-install-2:
+          singularity-version: 2.6.1
       - run: *install_spython
       - save_cache:
           paths:
@@ -195,7 +144,8 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
-      - run: *install_singularity_2
+      - singularity/debian-install-2:
+          singularity-version: 2.6.1
       - run: *install_spython
       - save_cache:
           paths:
