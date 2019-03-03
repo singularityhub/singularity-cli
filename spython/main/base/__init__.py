@@ -7,8 +7,8 @@
 
 
 from spython.logger import bot
-from spython.utils import check_install ( 
-    check_install, 
+from spython.utils import ( 
+    check_install,
     get_singularity_version
 )
 
