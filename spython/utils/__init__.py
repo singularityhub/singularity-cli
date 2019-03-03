@@ -10,6 +10,7 @@ from .terminal import (
     check_install, 
     get_installdir,
     get_singularity_version,
+    send_command,
     stream_command,
     run_command,
     format_container_name,

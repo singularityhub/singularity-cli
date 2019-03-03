@@ -10,7 +10,6 @@ import json as jsonp
 from spython.logger import bot
 from spython.utils import ( 
     check_install, 
-    get_singularity_version, 
     run_command
 )
 
@@ -39,7 +38,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
 
     # After Singularity 3.0, helpfile was changed to H from
 
-    if "version 3" in get_singularity_version():
+    if "version 3" in self.version():
         options = ['e','d','l','r','H','t']
 
     [cmd.append('-%s' % x) for x in options]

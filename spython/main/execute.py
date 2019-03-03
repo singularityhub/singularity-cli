@@ -84,5 +84,4 @@ def execute(self,
             return self._run_command(cmd,sudo=sudo)
         return stream_command(cmd, sudo=sudo)
 
-
     bot.error('Please include a command (list) to execute.')

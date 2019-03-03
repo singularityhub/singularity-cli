@@ -6,14 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-
-import requests
-import shutil
-import sys
-import os
-
-
 def help(self, command=None):
     '''help prints the general function help, or help for a specific command
 

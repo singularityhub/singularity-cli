@@ -7,7 +7,10 @@
 
 
 from spython.logger import bot
-from spython.utils import check_install
+from spython.utils import check_install ( 
+    check_install, 
+    get_singularity_version
+)
 
 import json
 import sys
@@ -40,26 +43,11 @@ class Client:
        '''
        self._init_level()
 
-
-    def version(self):
-        '''return the version of singularity
-        '''
-
-        if not check_install():
-            bot.warning("Singularity version not found, so it's likely not installed.")
-        else:
-            cmd = ['singularity','--version']
-            version = self._run_command(cmd).strip('\n')
-            bot.debug("Singularity %s being used." % version)  
-            return version
-
-
     def _check_install(self):
         '''ensure that singularity is installed, and exit if not.
         '''
         if check_install() is not True:
-            bot.error("Cannot find Singularity! Is it installed?")
-            sys.exit(1)
+            bot.exit("Cannot find Singularity! Is it installed?")
 
 
 
@@ -73,6 +61,7 @@ Client.setenv = setenv
 Client._generate_bind_list = generate_bind_list
 Client._init_command = init_command
 Client._run_command = run_command
+Client.version = get_singularity_version
 
 # Flags and Logger
 Client._parse_verbosity = parse_verbosity
