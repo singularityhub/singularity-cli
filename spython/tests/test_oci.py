@@ -7,6 +7,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from spython.utils import get_installdir
+from spython.main.base.generate import RobotNamer
 from spython.logger import bot
 from spython.main import Client
 import unittest
@@ -14,7 +15,6 @@ import tempfile
 import shutil
 import json
 import os
-
 
 print("############################################################## test_oci")
 
@@ -26,6 +26,7 @@ class TestOci(unittest.TestCase):
         self.tmpdir = tempfile.mkdtemp()
         shutil.rmtree(self.tmpdir) # bundle will be created here
         self.config = os.path.join(self.pwd, 'oci', 'config.json')
+        self.name = RobotNamer().generate()
 
     def _build_sandbox(self):
 
@@ -53,37 +54,37 @@ class TestOci(unittest.TestCase):
         # This will use sudo
         print("...Case 2: Create OCI image from bundle")
         result = self.cli.oci.create(bundle=image,
-                                     container_id='mycontainer')
+                                     container_id=self.name)
 
         print(result)
         self.assertEqual(result['status'], 'created')
 
         print('...Case 3. Check status of existing bundle.')
-        state = self.cli.oci.state('mycontainer', sudo=True)
+        state = self.cli.oci.state(self.name, sudo=True)
         self.assertEqual(result['status'], 'created')
 
         print('...Case 4. Start container.')
-        state = self.cli.oci.start('mycontainer', sudo=True)
+        state = self.cli.oci.start(self.name, sudo=True)
         self.assertEqual(state, None)
 
         print('...Case 5. Pause running container.')
-        state = self.cli.oci.pause('mycontainer', sudo=True)
+        state = self.cli.oci.pause(self.name, sudo=True)
         self.assertEqual(state, None)
 
         print('...Case 6. Resume paused container.')
-        state = self.cli.oci.resume('mycontainer', sudo=True)
+        state = self.cli.oci.resume(self.name, sudo=True)
         self.assertEqual(state, None)
 
         print('...Case 7. Kill should work with running container.')
-        state = self.cli.oci.kill('mycontainer', sudo=True)
+        state = self.cli.oci.kill(self.name, sudo=True)
         self.assertEqual(state, None)
 
         # Clean up the image (should still use sudo)
-        result = self.cli.oci.delete('mycontainer', sudo=True)
+        result = self.cli.oci.delete(self.name, sudo=True)
         self.assertEqual(result, None)
 
         # Try delete operation with opposite, should return 255
-        result = self.cli.oci.delete('mycontainer', sudo=True)
+        result = self.cli.oci.delete(self.name, sudo=True)
         self.assertEqual(result, 255)
 
 
