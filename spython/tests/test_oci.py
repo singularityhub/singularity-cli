@@ -41,9 +41,6 @@ class TestOci(unittest.TestCase):
         shutil.copyfile(self.config, '%s/config.json' %image)
         return image
 
-    def tearDown(self):
-        shutil.rmtree(self.tmpdir)
-
     def test_oci(self):
 
         image = self._build_sandbox()
@@ -65,11 +62,16 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.state('mycontainer', sudo=True)
         self.assertEqual(result['status'], 'created')
 
-        # Try starting and stopping
+        # Created shouldn't work, it's already running
+        print('...Case 4. Start should not work with running container.')
         state = self.cli.oci.start('mycontainer', sudo=True)
-        self.assertEqual(state, None)
+        self.assertEqual(state, 255)
+
+        print('...Case 5. Kill should work with running container.')
         state = self.cli.oci.kill('mycontainer', sudo=True)
         self.assertEqual(state, None)
+
+        print('...Case 6. Resume should work with running container.')
         state = self.cli.oci.resume('mycontainer', sudo=True)
         self.assertEqual(state, None)
 
