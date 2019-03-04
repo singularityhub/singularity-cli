@@ -21,7 +21,6 @@ print("######################################################## test_instances")
 class TestInstances(unittest.TestCase):
 
     def setUp(self):
-        self.pwd = get_installdir()
         self.cli = Client
         self.tmpdir = tempfile.mkdtemp()
 

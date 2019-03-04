@@ -7,7 +7,7 @@
 
 from spython.logger import bot
 from spython.utils import stream_command
-
+import os
 
 def run(self, bundle,
               container_id=None,
@@ -29,12 +29,10 @@ def run(self, bundle,
         pid_file: specify the pid file path to use
         log_format: defaults to kubernetes. Can also be "basic" or "json"
     '''
-    return self._run(self, bundle,
+    return self._run(bundle,
                      container_id=container_id,
-                     empty_process=False,
                      log_path=log_path,
                      pid_file=pid_file,
-                     sync_socket=None,
                      command="run",
                      log_format=log_format)
 
@@ -60,13 +58,14 @@ def create(self, bundle,
         container_id: an optional container_id. If not provided, use same
                       container_id used to generate OciImage instance
         empty_process: run container without executing container process (for
-                       example, for a pod container)
+                       example, for a pod container waiting for signals). This
+                       is a specific use case for tools like Kubernetes
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
         log_format: defaults to kubernetes. Can also be "basic" or "json"
     '''
-    return self._run(self, bundle,
+    return self._run(bundle,
                      container_id=container_id,
                      empty_process=empty_process,
                      log_path=log_path,
@@ -97,7 +96,8 @@ def _run(self, bundle,
         container_id: an optional container_id. If not provided, use same
                       container_id used to generate OciImage instance
         empty_process: run container without executing container process (for
-                       example, for a pod container)
+                       example, for a pod container waiting for signals). This
+                       is a specific use case for tools like Kubernetes
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
@@ -137,10 +137,10 @@ def _run(self, bundle,
     # Get the status to report to the user!
     # TODO: Singularity seems to create even with error, can we check and
     # delete for the user if this happens?
-    return self.oci.state(container_id, sudo, sync_socket)
+    return self.state(container_id, sudo=True, sync_socket=sync_socket)
 
 
-def delete(self, container_id=None, sudo=False):
+def delete(self, container_id=None, sudo=None):
     '''delete an instance based on container_id.
 
        Parameters
@@ -149,12 +149,14 @@ def delete(self, container_id=None, sudo=False):
        sudo: whether to issue the command with sudo (or not)
              a container started with sudo will belong to the root user
              If started by a user, the user needs to control deleting it
+             if the user doesn't set to True/False, we use client self.sudo
 
        Returns
        =======
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
     '''
+    sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
@@ -164,7 +166,7 @@ def delete(self, container_id=None, sudo=False):
     cmd.append(container_id)
 
     # Delete the container, return code goes to user (message to screen)
-    return self._run_and_return(cmd, sudo)
+    return self._run_and_return(cmd, sudo=sudo)
 
 
 
@@ -183,6 +185,7 @@ def attach(self, container_id=None, sudo=False):
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
     '''
+    sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
@@ -211,6 +214,7 @@ def execute(self, container_id=None, command=None, sudo=False):
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
     '''
+    sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
@@ -242,6 +246,7 @@ def update(self, container_id, from_file=None):
        container_id: the container_id to update cgroups for
        from_file: a path to an OCI JSON resource file to update from.
     '''
+    sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete

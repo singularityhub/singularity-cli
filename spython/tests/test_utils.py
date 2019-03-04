@@ -18,7 +18,6 @@ print("############################################################ test_utils")
 class TestUtils(unittest.TestCase):
 
     def setUp(self):
-        self.pwd = get_installdir()
         self.tmpdir = tempfile.mkdtemp()
         
     def tearDown(self):
@@ -91,7 +90,7 @@ class TestUtils(unittest.TestCase):
         from spython.utils import get_installdir
         whereami = get_installdir()
         print(whereami)
-        self.assertTrue('spython' in whereami)
+        self.assertTrue(whereami.endswith('spython'))
 
 
     def test_remove_uri(self):

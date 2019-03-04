@@ -50,6 +50,9 @@ def build(self, recipe=None,
 
     cmd = self._init_command('build')
 
+    if 'version 3' in self.version():
+        ext = 'sif'
+
     # No image provided, default to use the client's loaded image
     if recipe is None:
         recipe = self._get_uri()
@@ -71,8 +74,7 @@ def build(self, recipe=None,
     if build_folder is not None:
         if not os.path.exists(build_folder):
             bot.exit('%s does not exist!' % build_folder)
-
-        image = "%s/%s" %(build_folder, image)
+        image = os.path.join(build_folder, image)
         
 
     # The user wants to run an isolated build

@@ -36,12 +36,16 @@ class Client:
     def __repr__(self):
         return self.__str__()
 
-
     def __init__(self):
        '''the base client for singularity, will have commands added to it.
           upon init, store verbosity requested in environment MESSAGELEVEL.
        '''
        self._init_level()
+
+    def version(self):
+        '''a wrapped to get_singularity_version, takes no arguments.
+        '''
+        return get_singularity_version()
 
     def _check_install(self):
         '''ensure that singularity is installed, and exit if not.
@@ -61,7 +65,6 @@ Client.setenv = setenv
 Client._generate_bind_list = generate_bind_list
 Client._init_command = init_command
 Client._run_command = run_command
-Client.version = get_singularity_version
 
 # Flags and Logger
 Client._parse_verbosity = parse_verbosity

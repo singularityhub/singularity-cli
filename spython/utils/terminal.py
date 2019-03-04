@@ -69,7 +69,7 @@ def get_singularity_version():
 def get_installdir():
     '''get_installdir returns the installation directory of the application
     '''
-    return os.path.abspath(os.path.join('..', os.path.dirname(__file__)))
+    return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
@@ -101,26 +101,6 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
     return_code = process.wait()
     if return_code:
         raise subprocess.CalledProcessError(return_code, cmd)
-
-
-def send_command(cmd, sudo=False, stderr=None, stdout=None):
-    '''send command is a non interactive version of run_command, meaning
-       that we execute the command and return the return value, but don't
-       attempt to stream any content (text from the screen) back to the
-       user. This is useful for commands interacting with OCI bundles.
-
-       Parameters
-       ==========
-       cmd: the list of commands to send to the terminal
-       sudo: use sudo (or not)
-    '''
-
-    if sudo is True:
-        cmd = ['sudo'] + cmd
-
-    process = subprocess.Popen(cmd, stderr=stderr, stdout=stdout)
-    result = process.communicate()
-    return result
 
 
 def run_command(cmd, 

@@ -53,9 +53,10 @@ def get_client(quiet=False, debug=False):
     Client.instance_stopall = stopall
 
     # Commands Groups, OCI (Singularity version 3 and up)
-    if "version 3" in get_singularity_version:
+    if "version 3" in get_singularity_version():
         from spython.oci.cmd import generate_oci_commands
-        Client.oci = generate_oci_commands()
+        Client.oci = generate_oci_commands()()  # first () runs function, second
+                                                # initializes OciImage class
 
     # Initialize
     cli = Client()
@@ -63,6 +64,9 @@ def get_client(quiet=False, debug=False):
     # Pass on verbosity
     cli.oci.debug = cli.debug
     cli.oci.quiet = cli.quiet
+    cli.oci.OciImage.quiet = cli.quiet
+    cli.oci.OciImage.debug = cli.debug
+
     cli.image.debug = cli.debug
     cli.image.quiet = cli.quiet
     cli.instance.debug = cli.debug

@@ -17,8 +17,11 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - Added support for OCI image command group (0.0.54)
+   - client now has version() function to call get_singularity_version
+   - added return_result (boolean) to client run_command function.
  - adding testing for 3.1.0 with Singularity Orbs (0.0.53)
- - inspect returns parsed json on success, or full message / return code otherwise
+   - inspect returns parsed json on success, or full message / return code otherwise
  - instance stop all missing check for Singularity V3.+ (0.0.52)
  - fixing bug with instances list, name not taken into account (0.0.51)
  - additional of args to instance start commands (0.0.50)
@@ -27,7 +30,7 @@ singularity on pypi), and the versions here will coincide with these releases.
  - adding support for instance list (0.0.47)
  - ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)
  - COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
- - Adding DockerRecipe, SingularityRecipe "load" action to load file
+   - Adding DockerRecipe, SingularityRecipe "load" action to load file
  - issue #64 bug with hanging instances (0.0.44)
  - flexible error printing given command to terminal fails (0.0.43)
  - adding name_by_commit and name_by_hash to pull (0.0.42)
@@ -45,7 +48,7 @@ singularity on pypi), and the versions here will coincide with these releases.
  - adding tests for client (0.0.30)
  - bug in Dockerfile fromHeader variable fix (0.0.29)
  - Dockerfile from "as level" removed (0.0.28)
- - fixed ENV parser to handle statements like A=B C=D
+   - fixed ENV parser to handle statements like A=B C=D
  - adding ability to stream command executed to console (0.0.25)
  - fixing import bug with recipe parsers in python 2.7 (0.0.24)
  - addition of docker and singularity recipe parsers (0.0.22)

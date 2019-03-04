@@ -6,11 +6,19 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from spython.image import ImageBase
+from spython.logger import bot
 import os
 
 class OciImage(ImageBase):
 
-    def __init__(self, container_id, bundle=None, create=True):
+    # Default functions of client don't use sudo
+    sudo = False
+
+    def __init__(self, 
+                 container_id=None, 
+                 bundle=None,
+                 create=True, 
+                 sudo=False, **kwargs):
         ''' An Oci Image is an Image Base with OCI functions appended
 
             Parameters
@@ -19,15 +27,18 @@ class OciImage(ImageBase):
             bundle: a bundle directory to create a container from.
                     the bundle should have a config.json at the root
             create: if the bundle is provided, create a container (default True)
+            sudo: if init is called with or without sudo, keep a record and use
+                  for following commands unless sudo is provided to function.
         '''
         super(ImageBase, self).__init__()
-        self.parse_container_id(container_id)
 
-        self.options = []
-        self.cmd = []
+        # Will typically be None, unless used outside of Client
+        self.container_id = container_id
+        self.uri = 'oci://'
+        self.sudo = sudo
 
         # If bundle is provided, create it
-        if bundle != None and create:
+        if bundle != None and container_id != None and create:
             self.bundle = bundle
             self.create(bundle, container_id, **kwargs)
 
@@ -53,20 +64,6 @@ class OciImage(ImageBase):
         return container_id
 
 
-    def parse_container_id(self, container_id):
-        '''
-            simply split the uri from the image. Singularity handles
-            parsing of registry, namespace, image.
-            
-            Parameters
-            ==========
-            container_id: the complete container_id to create
-
-        '''
-        self.container_id = container_id
-        self.uri = 'oci://'
-
-
     def get_uri(self):
         '''return the image uri (oci://) along with it's name
         '''
@@ -75,10 +72,9 @@ class OciImage(ImageBase):
 # Naming
 
     def __str__(self):
-        if hasattr(self, 'uri'):
-            if self.uri:
-                return "%s%s" %(self.uri, self.name)
-        return os.path.basename(self.container_id)
+        if self.container_id != None:
+            return "[singularity-python-oci:%s]" % self.container_id
+        return "[singularity-python-oci]"
 
     def __repr__(self):
         return self.__str__()
@@ -86,7 +82,22 @@ class OciImage(ImageBase):
 
 # Commands
 
-    def _run_and_return(self, cmd, sudo=False):
+    def _get_sudo(self, sudo=None):
+        '''if the client was initialized with sudo, remember this choice for
+           later communication with the Oci Images. However, if the user provides
+           a sudo argument (True or False) and not the default None, take
+           preference to this argument.
+ 
+           Parameters
+           ==========
+           sudo: if None, use self.sudo. Otherwise return sudo.
+        '''
+        if sudo == None:
+            sudo = self.sudo
+        return sudo
+
+
+    def _run_and_return(self, cmd, sudo=None):
         ''' Run a command, show the message to the user if quiet isn't set,
             and return the return code. This is a wrapper for the OCI client
             to run a command and easily return the return code value (what
@@ -98,12 +109,19 @@ class OciImage(ImageBase):
             sudo: whether to add sudo or not.         
 
         '''
+        sudo = self._get_sudo(sudo)
+        result = self._run_command(cmd, 
+                                   sudo=sudo, 
+                                   quiet=True, 
+                                   return_result=True)
 
-        result = self._run_command(cmd, sudo=sudo, quiet=True)
+        # Successful return with no output
+        if len(result) == 0:
+            return 
 
         # Show the response to the user, only if not quiet.
-        if not self.quiet:
-            bot.print(started['message'][0])
+        elif not self.quiet:
+            bot.print(result['message'][0])
 
         # Return the state object to the user
         return result['return_code']
@@ -122,6 +140,6 @@ class OciImage(ImageBase):
         '''
         from spython.main.base.command import init_command
         if not isinstance(action, list):
-            action = [action]      
+            action = [action]
         cmd = ['oci'] + action
-        return init_command(action, flags)
+        return init_command(self, cmd, flags)
