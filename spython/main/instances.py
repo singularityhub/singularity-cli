@@ -45,7 +45,7 @@ def instances(self, name=None, return_json=False, quiet=False):
         cmd.append(name)
 
     output = run_command(cmd, quiet=True)
-    instances = None
+    instances = []
 
     # Success, we have instances
 
