@@ -62,23 +62,23 @@ class TestOci(unittest.TestCase):
         self.assertEqual(result['status'], 'created')
 
         print('...Case 3. Check status of existing bundle.')
-        state = self.cli.oci.state('mycontainer')
+        state = self.cli.oci.state('mycontainer', sudo=True)
         self.assertEqual(result['status'], 'created')
 
         # Try starting and stopping
-        state = self.cli.oci.start('mycontainer')
+        state = self.cli.oci.start('mycontainer', sudo=True)
         self.assertEqual(state, None)
-        state = self.cli.oci.kill('mycontainer')
+        state = self.cli.oci.kill('mycontainer', sudo=True)
         self.assertEqual(state, None)
-        state = self.cli.oci.resume('mycontainer')
+        state = self.cli.oci.resume('mycontainer', sudo=True)
         self.assertEqual(state, None)
 
         # Clean up the image (should still use sudo)
-        result = self.cli.oci.delete('mycontainer')
+        result = self.cli.oci.delete('mycontainer', sudo=True)
         self.assertEqual(result, None)
 
         # Try delete operation with opposite, should return 255
-        result = self.cli.oci.delete('mycontainer')
+        result = self.cli.oci.delete('mycontainer', sudo=True)
         self.assertEqual(result, 255)
 
 
