@@ -62,10 +62,9 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.state('mycontainer', sudo=True)
         self.assertEqual(result['status'], 'created')
 
-        # Created shouldn't work, it's already running
-        print('...Case 4. Start should not work with running container.')
+        print('...Case 4. Start container.')
         state = self.cli.oci.start('mycontainer', sudo=True)
-        self.assertEqual(state, 255)
+        self.assertEqual(state, None)
 
         print('...Case 5. Kill should work with running container.')
         state = self.cli.oci.kill('mycontainer', sudo=True)
