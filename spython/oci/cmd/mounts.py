@@ -7,26 +7,18 @@
 
 
 from spython.logger import bot
+from .states import _state_command
 import sys
 
 
-def mount(self, image):
+def mount(self, image, sudo=None):
     '''create an OCI bundle from SIF image
 
        Parameters
        ==========
        image: the container (sif) to mount
     '''
-    container_id = self.get_container_id(container_id)
-
-    # singularity oci delete
-    cmd = self._init_command('mount')
-
-    # Add the container_id
-    cmd.append(image)
-
-    # return code goes to user (message to screen)
-    return self._run_and_return(cmd, sudo)
+    return self._state_command(image, command="mount", sudo=sudo)
 
 
 def umount(self, image):
@@ -36,13 +28,4 @@ def umount(self, image):
        ==========
        image: the container (sif) to mount
     '''
-    container_id = self.get_container_id(container_id)
-
-    # singularity oci delete
-    cmd = self._init_command('umount')
-
-    # Add the container_id
-    cmd.append(image)
-
-    # return code goes to user (message to screen)
-    return self._run_and_return(cmd, sudo)
+    return self._state_command(image, command="umount", sudo=sudo)

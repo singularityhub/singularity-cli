@@ -17,7 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
- - Added support for OCI image command group (0.0.54)
+ - Added support and tests for OCI image command group (0.0.54)
    - client now has version() function to call get_singularity_version
    - added return_result (boolean) to client run_command function.
  - adding testing for 3.1.0 with Singularity Orbs (0.0.53)
