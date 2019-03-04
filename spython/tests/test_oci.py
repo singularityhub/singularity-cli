@@ -66,13 +66,21 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.start('mycontainer', sudo=True)
         self.assertEqual(state, None)
 
-        print('...Case 5. Kill should work with running container.')
+        print('...Case 5. Pause running container.')
+        state = self.cli.oci.pause('mycontainer', sudo=True)
+        self.assertEqual(state, None)
+
+        print('...Case 6. Resume paused container.')
+        state = self.cli.oci.resume('mycontainer', sudo=True)
+        self.assertEqual(state, None)
+
+        print('...Case 7. Kill should work with running container.')
         state = self.cli.oci.kill('mycontainer', sudo=True)
         self.assertEqual(state, None)
 
-        print('...Case 6. Resume should work with running container.')
+        print('...Case 8. Resume should not work with non running container.')
         state = self.cli.oci.resume('mycontainer', sudo=True)
-        self.assertEqual(state, None)
+        self.assertEqual(state, 255)
 
         # Clean up the image (should still use sudo)
         result = self.cli.oci.delete('mycontainer', sudo=True)
