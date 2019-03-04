@@ -85,15 +85,6 @@
 			{
 				"type": "user"
 			}
-		],
-		"maskedPaths": [
-			"/proc/kcore",
-			"/proc/latency_stats",
-			"/proc/timer_list",
-			"/proc/timer_stats",
-			"/proc/sched_debug",
-			"/sys/firmware",
-			"/proc/scsi"
 		]
 	}
 }
