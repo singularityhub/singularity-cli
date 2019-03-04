@@ -27,6 +27,7 @@ def run(self, bundle,
                       container_id used to generate OciImage instance
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
+        log_format: defaults to kubernetes. Can also be "basic" or "json"
     '''
     return self._run(self, bundle,
                      container_id=container_id,
@@ -63,6 +64,7 @@ def create(self, bundle,
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
+        log_format: defaults to kubernetes. Can also be "basic" or "json"
     '''
     return self._run(self, bundle,
                      container_id=container_id,
@@ -99,6 +101,8 @@ def _run(self, bundle,
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
+        command: the command (run or create) to use (default is run)
+        log_format: defaults to kubernetes. Can also be "basic" or "json"
     '''
     container_id = self.get_container_id(container_id)
 
