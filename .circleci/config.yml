@@ -28,6 +28,7 @@ workflows:
 install_spython: &install_spython
   name: install spython
   command: |
+     $HOME/conda/bin/pip uninstall spython --yes | echo "Not installed"
      $HOME/conda/bin/python setup.py install
 
 install_python_3: &install_python_3
