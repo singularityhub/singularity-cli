@@ -57,16 +57,16 @@ def get_client(quiet=False, debug=False):
         from spython.oci.cmd import generate_oci_commands
         Client.oci = generate_oci_commands()()  # first () runs function, second
                                                 # initializes OciImage class
+        Client.oci.debug = cli.debug
+        Client.oci.quiet = cli.quiet
+        Client.oci.OciImage.quiet = cli.quiet
+        Client.oci.OciImage.debug = cli.debug
+
 
     # Initialize
     cli = Client()
 
     # Pass on verbosity
-    cli.oci.debug = cli.debug
-    cli.oci.quiet = cli.quiet
-    cli.oci.OciImage.quiet = cli.quiet
-    cli.oci.OciImage.debug = cli.debug
-
     cli.image.debug = cli.debug
     cli.image.quiet = cli.quiet
     cli.instance.debug = cli.debug
