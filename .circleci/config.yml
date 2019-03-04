@@ -91,6 +91,7 @@ jobs:
             - /home/circleci/conda
           key: v1-dependencies        
       - run: *test_spython
+      - run: *test_spython_3
 
   test-singularity-3-python-2:
     machine: true
@@ -111,6 +112,7 @@ jobs:
             - /home/circleci/conda
           key: v1-dependencies        
       - run: *test_spython
+      - run: *test_spython_3
 
   test-singularity-2-python-3:
     machine: true
