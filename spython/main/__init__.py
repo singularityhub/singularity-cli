@@ -51,6 +51,7 @@ def get_client(quiet=False, debug=False):
     from spython.instance.cmd import generate_instance_commands  # instance level commands
     Client.instance = generate_instance_commands()
     Client.instance_stopall = stopall
+    Client.instance.version = Client.version
 
     # Commands Groups, OCI (Singularity version 3 and up)
     if "version 3" in get_singularity_version():
