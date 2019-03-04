@@ -29,6 +29,7 @@ def generate_oci_commands():
     OciImage.umount = umount
     OciImage.state = state
     OciImage.resume = resume
+    OciImage.pause = pause
     OciImage.attach = attach
     OciImage.create = create
     OciImage.delete = delete
