@@ -69,7 +69,7 @@ class TestOci(unittest.TestCase):
 
         print('...Case 4. Check status of existing bundle.')
         state = self.cli.oci.state(self.name, sudo=True)
-        self.assertEqual(result['status'], 'created')
+        self.assertEqual(state['status'], 'created')
 
         print('...Case 5. Start container.')
         state = self.cli.oci.start(self.name, sudo=True)
