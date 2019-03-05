@@ -25,6 +25,18 @@ workflows:
             branches:
               ignore: master
 
+stop_systemd: &stop_systemd
+  name: Stop Systemd so apt will work
+  command: |
+    sudo systemctl stop apt-daily.service
+    sudo systemctl kill --kill-who=all apt-daily.service
+
+    # wait until `apt-get updated` has been killed
+    while ! (systemctl list-units --all apt-daily.service | fgrep -q dead)
+      do
+        sleep 1;
+    done
+
 install_spython: &install_spython
   name: install spython
   command: |
@@ -82,6 +94,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: *stop_systemd
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -103,7 +116,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
-      - run: sleep 40
+      - run: *stop_systemd
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -125,7 +138,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
-      - run: sleep 30
+      - run: *stop_systemd
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
@@ -143,6 +156,7 @@ jobs:
       - restore_cache:
           keys:
           - v1-dependencies
+      - run: *stop_systemd
       - run: *install_python_2
       - singularity/debian-install-2:
           singularity-version: 2.6.1
