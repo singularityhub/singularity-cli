@@ -88,8 +88,32 @@ def generate_bind_list(self, bindlist=None):
     return binds
 
 
+def send_command(self, cmd, sudo=False, stderr=None, stdout=None):
+    '''send command is a non interactive version of run_command, meaning
+       that we execute the command and return the return value, but don't
+       attempt to stream any content (text from the screen) back to the
+       user. This is useful for commands interacting with OCI bundles.
 
-def run_command(self, cmd, sudo=False, capture=True):
+       Parameters
+       ==========
+       cmd: the list of commands to send to the terminal
+       sudo: use sudo (or not)
+    '''
+    
+    if sudo is True:
+        cmd = ['sudo'] + cmd
+
+    process = subprocess.Popen(cmd, stderr=stderr, stdout=stdout)
+    result = process.communicate()
+    return result
+
+
+def run_command(self, cmd, 
+                      sudo=False,
+                      capture=True,
+                      quiet=None,
+                      return_result=False):
+
     '''run_command is a wrapper for the global run_command, checking first
        for sudo and exiting on error if needed. The message is returned as
        a list of lines for the calling function to parse, and stdout uses
@@ -99,18 +123,24 @@ def run_command(self, cmd, sudo=False, capture=True):
        ==========
        cmd: the command to run
        sudo: does the command require sudo?
-       On success, returns result. Otherwise, exists on error
+       quiet: if quiet set by function, overrides client setting.
+       return_result: return the result, if not successful (default False).
+       On success, returns result.
 
     '''
-    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=self.quiet)
+    # First preference to function, then to client setting
+    if quiet == None:
+        quiet = self.quiet
+
+    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)
     message = result['message']
-    return_code = result['return_code']
 
+    # On success, return result
     if result['return_code'] == 0:
-        if len(message) == 1:
-            message = message[0]
-        return message
+        if len(result['message']) == 1:
+            result['message'] = result['message'][0]
+        return result['message']
 
-    if self.quiet is False:
-        bot.error("Return Code %s: %s" %(return_code,
-                                         message))
+    # For client (internal) calls, we want the return code
+    if return_result is True:
+        return result

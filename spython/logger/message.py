@@ -55,8 +55,9 @@ class SingularityMessage:
 
     def useColor(self):
         '''useColor will determine if color should be added
-        to a print. Will check if being run in a terminal, and
-        if has support for asci'''
+           to a print. Will check if being run in a terminal, and
+           if has support for ascii
+        '''
         COLORIZE = get_user_color_preference()
         if COLORIZE is not None:
             return COLORIZE
@@ -70,7 +71,8 @@ class SingularityMessage:
 
     def addColor(self, level, text):
         '''addColor to the prompt (usually prefix) if terminal
-        supports, and specified to do so'''
+           supports, and specified to do so
+        '''
         if self.colorize:
             if level in self.colors:
                 text = "%s%s%s" % (self.colors[level],
@@ -80,7 +82,8 @@ class SingularityMessage:
 
     def emitError(self, level):
         '''determine if a level should print to
-        stderr, includes all levels but INFO and QUIET'''
+           stderr, includes all levels but INFO and QUIET
+        '''
         if level in [ABORT,
                      ERROR,
                      WARNING,
@@ -241,6 +244,9 @@ class SingularityMessage:
 
     def verbose(self, message):
         self.emit(VERBOSE, message, "VERBOSE")
+
+    def print(self, message):
+        print(message)
 
     def verbose1(self, message):
         self.emit(VERBOSE, message, "VERBOSE1")

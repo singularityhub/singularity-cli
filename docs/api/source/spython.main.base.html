@@ -226,7 +226,7 @@ The binds are also checked on the host.</p>
 
 <dl class="function">
 <dt id="spython.main.base.command.run_command">
-<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.base.command.</code><code class="descname">run_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>capture=True</em>, <em>quiet=None</em>, <em>return_result=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command is a wrapper for the global run_command, checking first
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
@@ -238,7 +238,30 @@ the parent process so it appears for the user.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>cmd</strong> (<em>the command to run</em>)</li>
 <li><strong>sudo</strong> (<em>does the command require sudo?</em>)</li>
-<li><strong>On success, returns result. Otherwise, exists on error</strong></li>
+<li><strong>quiet</strong> (<em>if quiet set by function, overrides client setting.</em>)</li>
+<li><strong>return_result</strong> (<em>return the result, if not successful (default False).</em>)</li>
+<li><strong>On success, returns result.</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.base.command.send_command">
+<code class="descclassname">spython.main.base.command.</code><code class="descname">send_command</code><span class="sig-paren">(</span><em>self</em>, <em>cmd</em>, <em>sudo=False</em>, <em>stderr=None</em>, <em>stdout=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#send_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.send_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>send command is a non interactive version of run_command, meaning
+that we execute the command and return the return value, but don’t
+attempt to stream any content (text from the screen) back to the
+user. This is useful for commands interacting with OCI bundles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the list of commands to send to the terminal</em>)</li>
+<li><strong>sudo</strong> (<em>use sudo (or not)</em>)</li>
 </ul>
 </td>
 </tr>
@@ -509,15 +532,16 @@ directories within your container using bind mounts</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.inspect">
-<code class="descname">inspect</code><span class="sig-paren">(</span><em>image=None</em>, <em>json=True</em>, <em>app=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">inspect</code><span class="sig-paren">(</span><em>image=None</em>, <em>json=True</em>, <em>app=None</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_path</strong> (<em>path of image to inspect</em>)</li>
+<li><strong>image</strong> (<em>path of image to inspect</em>)</li>
 <li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
+<li><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</li>
 <li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
 </ul>
 </td>
@@ -586,6 +610,11 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="spython.main.base.Client.oci">
+<code class="descname">oci</code><em class="property"> = [singularity-python-oci]</em><a class="headerlink" href="#spython.main.base.Client.oci" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="spython.main.base.Client.pull">
@@ -661,7 +690,7 @@ directories within your container using bind mounts</li>
 <dl class="method">
 <dt id="spython.main.base.Client.version">
 <code class="descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the version of singularity</p>
+<dd><p>a wrapped to get_singularity_version, takes no arguments.</p>
 </dd></dl>
 
 </dd></dl>

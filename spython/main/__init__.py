@@ -17,6 +17,7 @@ def get_client(quiet=False, debug=False):
        debug: turn on debugging mode
 
     '''
+    from spython.utils import get_singularity_version
     from .base import Client
 
     Client.quiet = quiet
@@ -50,6 +51,18 @@ def get_client(quiet=False, debug=False):
     from spython.instance.cmd import generate_instance_commands  # instance level commands
     Client.instance = generate_instance_commands()
     Client.instance_stopall = stopall
+    Client.instance.version = Client.version
+
+    # Commands Groups, OCI (Singularity version 3 and up)
+    if "version 3" in get_singularity_version():
+        from spython.oci.cmd import generate_oci_commands
+        Client.oci = generate_oci_commands()()  # first () runs function, second
+                                                # initializes OciImage class
+        Client.oci.debug = Client.debug
+        Client.oci.quiet = Client.quiet
+        Client.oci.OciImage.quiet = Client.quiet
+        Client.oci.OciImage.debug = Client.debug
+
 
     # Initialize
     cli = Client()
@@ -58,7 +71,7 @@ def get_client(quiet=False, debug=False):
     cli.image.debug = cli.debug
     cli.image.quiet = cli.quiet
     cli.instance.debug = cli.debug
-    cli.instance.quiet = cli.quiet
+    cli.instance.quiet = cli.quiet 
 
     return cli
 

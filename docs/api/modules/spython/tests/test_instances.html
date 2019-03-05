@@ -169,7 +169,6 @@
 <div class="viewcode-block" id="TestInstances"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances">[docs]</a><span class="k">class</span> <span class="nc">TestInstances</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
 <div class="viewcode-block" id="TestInstances.setUp"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pwd</span> <span class="o">=</span> <span class="n">get_installdir</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cli</span> <span class="o">=</span> <span class="n">Client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span></div>
 
@@ -179,15 +178,15 @@
 <div class="viewcode-block" id="TestInstances.test_instances"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances.test_instances">[docs]</a>    <span class="k">def</span> <span class="nf">test_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Pulling testing container&#39;</span><span class="p">)</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;shub://vsoch/singularity-images&quot;</span><span class="p">,</span> 
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span> 
                               <span class="n">pull_folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;vsoch-singularity-images&#39;</span> <span class="ow">in</span> <span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;busybox:1.30.1&#39;</span> <span class="ow">in</span> <span class="n">image</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 0: No instances: objects&quot;</span><span class="p">)</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="p">[])</span>
         
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 1: Create instance&quot;</span><span class="p">)</span>
         <span class="n">myinstance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
@@ -203,19 +202,18 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 3: Commands to instances&quot;</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">==</span> <span class="n">result</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">myinstance</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 4: Stop instances&quot;</span><span class="p">)</span>
         <span class="n">myinstance</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="p">[])</span>
         <span class="n">myinstance1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="n">myinstance2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance_stopall</span><span class="p">()</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="p">[])</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

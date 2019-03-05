@@ -194,6 +194,10 @@
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;pull&#39;</span><span class="p">)</span>
 
+    <span class="c1"># If Singularity version &gt; 3.0, we have sif format</span>
+    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span>
+
     <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_uri</span><span class="p">()</span>
@@ -224,7 +228,14 @@
         
     <span class="c1"># Only add name if we aren&#39;t naming by hash or commit</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name_by_commit</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">name_by_hash</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">]</span>
+
+        <span class="c1"># Regression Singularity 3.* onward, PULLFOLDER not honored</span>
+        <span class="c1"># https://github.com/sylabs/singularity/issues/2788</span>
+        <span class="k">if</span> <span class="n">pull_folder</span> <span class="ow">and</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+            <span class="n">pull_folder_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pull_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">pull_folder_name</span><span class="p">]</span>          
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>

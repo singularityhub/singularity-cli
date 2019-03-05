@@ -25,9 +25,21 @@ workflows:
             branches:
               ignore: master
 
+waitforapt: &waitforapt
+  name: Remove cloud init lock
+  command: |
+      sudo rm -rf /var/lib/apt/lists/lock
+      while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 10; done
+      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do echo 'Waiting for autoupdates to complete...'; sleep 10; done
+      echo 'Waiting for instance to really be ready...'
+      sleep 30
+      sudo rm /var/lib/dpkg/lock && sudo dpkg --configure -a
+
+
 install_spython: &install_spython
   name: install spython
   command: |
+     $HOME/conda/bin/pip uninstall spython --yes || echo "Not installed"
      $HOME/conda/bin/python setup.py install
 
 install_python_3: &install_python_3
@@ -57,13 +69,18 @@ install_python_2: &install_python_2
        fi
 
 test_spython: &test_spython
-  name: Test Singularity Python
+  name: Test Singularity Python (Singularity Version 2 and 3)
   command: |
         cd ~/repo/spython
-        ls
-        export PATH=$PATH:/opt/circleci/.pyenv/shims
         $HOME/conda/bin/python -m unittest tests.test_client
         $HOME/conda/bin/python -m unittest tests.test_utils
+        $HOME/conda/bin/python -m unittest tests.test_instances
+
+test_spython_3: &test_spython_3
+  name: Test Singularity Python (Singularity Version 3 Only)
+  command: |
+        cd ~/repo/spython
+        $HOME/conda/bin/python -m unittest tests.test_oci
 
 
 jobs:
@@ -76,6 +93,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: *waitforapt
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -86,6 +104,7 @@ jobs:
             - /home/circleci/conda
           key: v1-dependencies        
       - run: *test_spython
+      - run: *test_spython_3
 
   test-singularity-3-python-2:
     machine: true
@@ -96,6 +115,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: *waitforapt
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -106,6 +126,7 @@ jobs:
             - /home/circleci/conda
           key: v1-dependencies        
       - run: *test_spython
+      - run: *test_spython_3
 
   test-singularity-2-python-3:
     machine: true
@@ -116,6 +137,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: *waitforapt
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
@@ -134,6 +156,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: *waitforapt
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython

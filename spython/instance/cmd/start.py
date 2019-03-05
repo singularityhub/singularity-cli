@@ -1,5 +1,5 @@
 
-# Copyright (C) 2017-2018 Vanessa Sochat.
+# Copyright (C) 2017-2019 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +7,6 @@
 
 
 from spython.logger import bot
-import sys
 
 def start(self, image=None, name=None, args=None, sudo=False, options=[], capture=False):
     '''start an instance. This is done by default when an instance is created.
@@ -27,8 +26,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
 
     '''        
     from spython.utils import ( run_command, 
-                                check_install, 
-                                get_singularity_version )
+                                check_install )
     check_install()
 
     # If no name provided, give it an excellent one!
@@ -41,14 +39,13 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
 
         # Not having this means it was called as a command, without an image
         if not hasattr(self, "_image"):
-            bot.error('Please provide an image, or create an Instance first.')
-            sys.exit(1)
+            bot.exit('Please provide an image, or create an Instance first.')
 
         image = self._image
 
     # Derive subgroup command based on singularity version
     subgroup = 'instance.start'
-    if 'version 3' in get_singularity_version():
+    if 'version 3' in self.version():
         subgroup = ["instance", "start"]
 
     cmd = self._init_command(subgroup)

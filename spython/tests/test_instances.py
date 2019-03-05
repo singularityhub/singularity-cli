@@ -21,7 +21,6 @@ print("######################################################## test_instances")
 class TestInstances(unittest.TestCase):
 
     def setUp(self):
-        self.pwd = get_installdir()
         self.cli = Client
         self.tmpdir = tempfile.mkdtemp()
 
@@ -31,15 +30,15 @@ class TestInstances(unittest.TestCase):
     def test_instances(self):
 
         print('Pulling testing container')
-        image = self.cli.pull("shub://vsoch/singularity-images", 
+        image = self.cli.pull("docker://busybox:1.30.1", 
                               pull_folder=self.tmpdir)
         self.assertTrue(os.path.exists(image))
-        self.assertTrue('vsoch-singularity-images' in image)
+        self.assertTrue('busybox:1.30.1' in image)
         print(image)
 
         print("...Case 0: No instances: objects")
         instances = self.cli.instances()
-        self.assertEqual(instances, None)
+        self.assertEqual(instances, [])
         
         print("...Case 1: Create instance")
         myinstance = self.cli.instance(image)
@@ -55,19 +54,18 @@ class TestInstances(unittest.TestCase):
         print("...Case 3: Commands to instances")
         result = self.cli.execute(myinstance, ['echo', 'hello'])
         self.assertTrue('hello\n' == result)
-        result = self.cli.run(myinstance)
 
         print("...Case 4: Stop instances")
         myinstance.stop()
         instances = self.cli.instances()
-        self.assertEqual(instances, None)
+        self.assertEqual(instances, [])
         myinstance1 = self.cli.instance(image)
         myinstance2 = self.cli.instance(image)
         instances = self.cli.instances()
         self.assertEqual(len(instances), 2)
         self.cli.instance_stopall()
         instances = self.cli.instances()
-        self.assertEqual(instances, None)
+        self.assertEqual(instances, [])
 
 
 if __name__ == '__main__':

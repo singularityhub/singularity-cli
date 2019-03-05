@@ -166,7 +166,6 @@
 <div class="viewcode-block" id="TestUtils"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.TestUtils">[docs]</a><span class="k">class</span> <span class="nc">TestUtils</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
 <div class="viewcode-block" id="TestUtils.setUp"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.TestUtils.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pwd</span> <span class="o">=</span> <span class="n">get_installdir</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span></div>
         
 <div class="viewcode-block" id="TestUtils.tearDown"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.TestUtils.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -239,7 +238,7 @@
         <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_installdir</span>
         <span class="n">whereami</span> <span class="o">=</span> <span class="n">get_installdir</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">whereami</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;spython&#39;</span> <span class="ow">in</span> <span class="n">whereami</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">whereami</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;spython&#39;</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="TestUtils.test_remove_uri"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.TestUtils.test_remove_uri">[docs]</a>    <span class="k">def</span> <span class="nf">test_remove_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

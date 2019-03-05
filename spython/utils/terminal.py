@@ -69,7 +69,7 @@ def get_singularity_version():
 def get_installdir():
     '''get_installdir returns the installation directory of the application
     '''
-    return os.path.abspath(os.path.join('..', os.path.dirname(__file__)))
+    return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 def stream_command(cmd, no_newline_regexp="Progess", sudo=False):

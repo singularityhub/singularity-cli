@@ -7,7 +7,7 @@
 
 
 from spython.logger import bot
-from spython.utils import ( run_command, check_install, get_singularity_version )
+from spython.utils import ( run_command, check_install )
 
 def instances(self, name=None, return_json=False, quiet=False):
     '''list instances. For Singularity, this is provided as a command sub
@@ -35,7 +35,7 @@ def instances(self, name=None, return_json=False, quiet=False):
 
     subgroup = 'instance.list'
 
-    if 'version 3' in get_singularity_version():
+    if 'version 3' in self.version():
         subgroup = ["instance", "list"]
 
     cmd = self._init_command(subgroup)
@@ -45,7 +45,7 @@ def instances(self, name=None, return_json=False, quiet=False):
         cmd.append(name)
 
     output = run_command(cmd, quiet=True)
-    instances = None
+    instances = []
 
     # Success, we have instances
 
@@ -111,7 +111,7 @@ def stopall(self, sudo=False, quiet=True):
 
     subgroup = 'instance.stop'
 
-    if 'version 3' in get_singularity_version():
+    if 'version 3' in self.version():
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)

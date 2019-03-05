@@ -1,5 +1,5 @@
 
-# Copyright (C) 2017-2018 Vanessa Sochat.
+# Copyright (C) 2017-2019 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +7,6 @@
 
 
 from spython.logger import bot
-import sys
 
 def stop(self, name=None, sudo=False):
     '''stop an instance. This is done by default when an instance is created.
@@ -22,13 +21,12 @@ def stop(self, name=None, sudo=False):
 
     '''        
     from spython.utils import ( check_install, 
-                                run_command, 
-                                get_singularity_version )
+                                run_command )
     check_install()
 
     subgroup = 'instance.stop'
 
-    if 'version 3' in get_singularity_version():
+    if 'version 3' in self.version():
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)

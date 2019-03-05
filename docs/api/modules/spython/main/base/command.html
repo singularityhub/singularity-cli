@@ -240,8 +240,32 @@
     <span class="k">return</span> <span class="n">binds</span></div>
 
 
+<div class="viewcode-block" id="send_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.send_command">[docs]</a><span class="k">def</span> <span class="nf">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;send command is a non interactive version of run_command, meaning</span>
+<span class="sd">       that we execute the command and return the return value, but don&#39;t</span>
+<span class="sd">       attempt to stream any content (text from the screen) back to the</span>
+<span class="sd">       user. This is useful for commands interacting with OCI bundles.</span>
 
-<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       cmd: the list of commands to send to the terminal</span>
+<span class="sd">       sudo: use sudo (or not)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="k">if</span> <span class="n">sudo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sudo&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
+
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> 
+                      <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="n">quiet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
     <span class="sd">&#39;&#39;&#39;run_command is a wrapper for the global run_command, checking first</span>
 <span class="sd">       for sudo and exiting on error if needed. The message is returned as</span>
 <span class="sd">       a list of lines for the calling function to parse, and stdout uses</span>
@@ -251,21 +275,27 @@
 <span class="sd">       ==========</span>
 <span class="sd">       cmd: the command to run</span>
 <span class="sd">       sudo: does the command require sudo?</span>
-<span class="sd">       On success, returns result. Otherwise, exists on error</span>
+<span class="sd">       quiet: if quiet set by function, overrides client setting.</span>
+<span class="sd">       return_result: return the result, if not successful (default False).</span>
+<span class="sd">       On success, returns result.</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">)</span>
+    <span class="c1"># First preference to function, then to client setting</span>
+    <span class="k">if</span> <span class="n">quiet</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">quiet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
     <span class="n">message</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
-    <span class="n">return_code</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span>
 
+    <span class="c1"># On success, return result</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">message</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Return Code </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">return_code</span><span class="p">,</span>
-                                         <span class="n">message</span><span class="p">))</span></div>
+    <span class="c1"># For client (internal) calls, we want the return code</span>
+    <span class="k">if</span> <span class="n">return_result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 </pre></div>
 
            </div>

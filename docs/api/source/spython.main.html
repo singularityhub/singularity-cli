@@ -314,18 +314,34 @@ directories within your container using bind mounts</li>
 <span id="spython-main-inspect-module"></span><h2>spython.main.inspect module<a class="headerlink" href="#module-spython.main.inspect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.inspect.inspect">
-<code class="descclassname">spython.main.inspect.</code><code class="descname">inspect</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>json=True</em>, <em>app=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#inspect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.inspect" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.inspect.</code><code class="descname">inspect</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>json=True</em>, <em>app=None</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#inspect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_path</strong> (<em>path of image to inspect</em>)</li>
+<li><strong>image</strong> (<em>path of image to inspect</em>)</li>
 <li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
+<li><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</li>
 <li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.main.inspect.parse_labels">
+<code class="descclassname">spython.main.inspect.</code><code class="descname">parse_labels</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#parse_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.parse_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>fix up the labels, meaning parse to json if needed, and return
+original updated object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> (<em>the json object to parse from inspect</em>)</td>
 </tr>
 </tbody>
 </table>
