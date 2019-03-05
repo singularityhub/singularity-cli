@@ -20,7 +20,8 @@ def execute(self,
             contain = False,
             bind = None,
             stream = False,
-            nv = False):
+            nv = False,
+            return_result=False):
 
     ''' execute: send a command to a container
     
@@ -37,6 +38,8 @@ def execute(self,
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
         nv: if True, load Nvidia Drivers in runtime (default False)
+        return_result: if True, return entire json object with return code
+                       and message result (default is False)
     '''
     from spython.utils import check_install
     check_install()
@@ -81,7 +84,9 @@ def execute(self,
         cmd = cmd + [image] + command
  
         if stream is False:
-            return self._run_command(cmd,sudo=sudo)
+            return self._run_command(cmd,
+                                     sudo=sudo,
+                                     return_result=return_result)
         return stream_command(cmd, sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')

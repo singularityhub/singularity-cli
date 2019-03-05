@@ -55,7 +55,13 @@ class TestInstances(unittest.TestCase):
         result = self.cli.execute(myinstance, ['echo', 'hello'])
         self.assertTrue('hello\n' == result)
 
-        print("...Case 4: Stop instances")
+        print('...Case 4: Return value from instance')
+        result = self.cli.execute(myinstance,'ls /', return_result=True)
+        print(result)
+        self.assertTrue('tmp\nusr\nvar' in result['message'])
+        self.assertEqual(result['return_code'], 0)
+
+        print("...Case 5: Stop instances")
         myinstance.stop()
         instances = self.cli.instances()
         self.assertEqual(instances, [])

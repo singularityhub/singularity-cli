@@ -133,14 +133,17 @@ def run_command(self, cmd,
         quiet = self.quiet
 
     result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)
-    message = result['message']
+
+    # If one line is returned, squash dimension
+    if len(result['message']) == 1:
+        result['message'] = result['message'][0]
+
+    # If the user wants to return the result, just return it
+    if return_result is True:
+        return result
 
     # On success, return result
     if result['return_code'] == 0:
-        if len(result['message']) == 1:
-            result['message'] = result['message'][0]
         return result['message']
 
-    # For client (internal) calls, we want the return code
-    if return_result is True:
-        return result
+    return result

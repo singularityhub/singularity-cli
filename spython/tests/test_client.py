@@ -68,6 +68,12 @@ class TestClient(unittest.TestCase):
         print(result)
         self.assertTrue('tmp\nusr\nvar' in result)
 
+        print('Testing client.execute command with return code')
+        result = self.cli.execute(container,'ls /', return_result=True)
+        print(result)
+        self.assertTrue('tmp\nusr\nvar' in result['message'])
+        self.assertEqual(result['return_code'], 0)
+
         print("Testing client.inspect command")
         labels = self.cli.inspect(container)
 
