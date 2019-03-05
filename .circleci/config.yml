@@ -29,7 +29,7 @@ waitforapt: &waitforapt
   name: Wait for apt to not be locked
   command: |
       sudo rm -rf /var/lib/apt/lists/lock
-      local totaltime=0
+      totaltime=0
       while [ -f "/var/lib/apt/lists/lock" ];
           do
           echo "Apt is locked, waiting... ${totaltime}"
