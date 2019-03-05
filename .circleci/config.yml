@@ -103,6 +103,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: sleep 15
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -124,6 +125,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: sleep 30
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
@@ -142,6 +144,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: sleep 40
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
