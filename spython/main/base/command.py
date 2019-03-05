@@ -135,6 +135,11 @@ def run_command(self, cmd,
     result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)
     message = result['message']
 
+    if return_result == True:
+        if len(result['message']) == 1:
+            result['message'] = result['message'][0]
+        return result
+
     # On success, return result
     if result['return_code'] == 0:
         if len(result['message']) == 1:

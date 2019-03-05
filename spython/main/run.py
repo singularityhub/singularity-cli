@@ -19,7 +19,8 @@ def run(self,
         contain = False,
         bind = None,
         stream = False,
-        nv = False):
+        nv = False,
+        return_result=False):
 
     '''
         run will run the container, with or withour arguments (which
@@ -38,6 +39,9 @@ def run(self,
               directories within your container using bind mounts
         stream: if True, return <generator> for the user to run
         nv: if True, load Nvidia Drivers in runtime (default False)
+        return_result: if True, return entire json object with return code
+             and message result (default is False)
+
     '''
     from spython.utils import check_install
     check_install()
@@ -76,10 +80,17 @@ def run(self,
         cmd = cmd + args
 
     if stream is False:
-        result = self._run_command(cmd, sudo=sudo)
+        result = self._run_command(cmd, 
+                                   sudo=sudo, 
+                                   return_result=return_result)
     else:
         return stream_command(cmd, sudo=sudo)
 
+    # If the user wants the raw result object
+    if return_result:
+        return result
+
+    # Otherwise, we parse the result if it was successful
     if result:
         result = result.strip('\n')
 
