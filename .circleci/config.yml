@@ -25,6 +25,15 @@ workflows:
             branches:
               ignore: master
 
+waitforapt: &waitforapt
+  name: Wait for apt to not be locked
+  command: |
+      while [ -f "/var/lib/apt/lists/lock" ];
+          do
+          echo "Apt is locked, waiting..."
+          sleep 3
+      done
+
 install_spython: &install_spython
   name: install spython
   command: |
@@ -82,6 +91,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: *waitforapt
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -103,6 +113,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: *waitforapt
       - singularity/install-go:
           go-version: 1.11.5
       - singularity/debian-install-3:
@@ -124,6 +135,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_3
+      - run: *waitforapt
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
@@ -142,6 +154,7 @@ jobs:
           keys:
           - v1-dependencies
       - run: *install_python_2
+      - run: *waitforapt
       - singularity/debian-install-2:
           singularity-version: 2.6.1
       - run: *install_spython
