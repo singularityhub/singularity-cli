@@ -30,7 +30,6 @@ waitforapt: &waitforapt
   command: |
       while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 10; done
       while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do echo 'Waiting for autoupdates to complete...'; sleep 10; done
-      while [ -f /var/lib/apt/lists/lock ]; do echo 'Waiting for apt updates...'; sleep 10; done
       echo 'Waiting for instance to really be ready...'
       sleep 30
       sudo rm -rf /var/lib/apt/lists/lock
