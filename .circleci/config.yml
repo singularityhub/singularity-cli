@@ -28,10 +28,13 @@ workflows:
 waitforapt: &waitforapt
   name: Wait for apt to not be locked
   command: |
+      sudo rm -rf /var/lib/apt/lists/lock
+      local totaltime=0
       while [ -f "/var/lib/apt/lists/lock" ];
           do
-          echo "Apt is locked, waiting..."
-          sleep 3
+          echo "Apt is locked, waiting... ${totaltime}"
+          totaltime=$(( totaltime + 15 ))
+          sleep 15
       done
 
 install_spython: &install_spython
