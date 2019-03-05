@@ -60,7 +60,10 @@ class TestOci(unittest.TestCase):
         self.assertEqual(result['status'], 'created')
 
         print('...Case 3. Execute command to running bundle.')
-        result = self.cli.oci.execute(self.name, sudo=True, command=['ls','/'])
+        result = self.cli.oci.execute(container_id=self.name, 
+                                      sudo=True, 
+                                      command=['ls','/'])
+
         self.assertTrue('bin\nboot\ncdrom' in result)
 
         print('...Case 4. Check status of existing bundle.')
