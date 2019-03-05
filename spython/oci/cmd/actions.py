@@ -198,7 +198,7 @@ def attach(self, container_id=None, sudo=False):
     return self._run_and_return(cmd, sudo)
 
 
-def execute(self, container_id=None, command=None, sudo=False):
+def execute(self, command=None, container_id=None, sudo=False, stream=False):
     '''execute a command to a container instance based on container_id
 
        Parameters
@@ -208,6 +208,8 @@ def execute(self, container_id=None, command=None, sudo=False):
        sudo: whether to issue the command with sudo (or not)
              a container started with sudo will belong to the root user
              If started by a user, the user needs to control deleting it
+       stream: if True, return an iterate to iterate over results of exec.
+               default is False, will return full output as string.
 
        Returns
        =======
@@ -220,18 +222,19 @@ def execute(self, container_id=None, command=None, sudo=False):
     # singularity oci delete
     cmd = self._init_command('exec')
 
+    # Add the container_id
+    cmd.append(container_id)
+
     if command != None:
         if not isinstance(command, list):
             command = [command]
 
         cmd = cmd + command
 
-        # Add the container_id
-        cmd.append(container_id)
-
         # Execute the command, return response to user
-        return stream_command(cmd, sudo=sudo)
-
+        if stream:
+            return stream_command(cmd, sudo=sudo)
+        return self._run_command(cmd, sudo=sudo, quiet=True)
 
 def update(self, container_id, from_file=None):
     '''update container cgroup resources for a specific container_id,

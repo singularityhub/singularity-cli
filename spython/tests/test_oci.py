@@ -59,23 +59,27 @@ class TestOci(unittest.TestCase):
         print(result)
         self.assertEqual(result['status'], 'created')
 
-        print('...Case 3. Check status of existing bundle.')
+        print('...Case 3. Execute command to running bundle.')
+        result = self.cli.oci.execute(self.name, sudo=True, command=['ls','/'])
+        self.assertTrue('bin\nboot\ncdrom' in result)
+
+        print('...Case 4. Check status of existing bundle.')
         state = self.cli.oci.state(self.name, sudo=True)
         self.assertEqual(result['status'], 'created')
 
-        print('...Case 4. Start container.')
+        print('...Case 5. Start container.')
         state = self.cli.oci.start(self.name, sudo=True)
         self.assertEqual(state, None)
 
-        print('...Case 5. Pause running container.')
+        print('...Case 6. Pause running container.')
         state = self.cli.oci.pause(self.name, sudo=True)
         self.assertEqual(state, None)
 
-        print('...Case 6. Resume paused container.')
+        print('...Case 7. Resume paused container.')
         state = self.cli.oci.resume(self.name, sudo=True)
         self.assertEqual(state, None)
 
-        print('...Case 7. Kill should work with running container.')
+        print('...Case 8. Kill should work with running container.')
         state = self.cli.oci.kill(self.name, sudo=True)
         self.assertEqual(state, None)
 

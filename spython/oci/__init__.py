@@ -18,7 +18,7 @@ class OciImage(ImageBase):
                  container_id=None, 
                  bundle=None,
                  create=True, 
-                 sudo=False, **kwargs):
+                 sudo=True, **kwargs):
         ''' An Oci Image is an Image Base with OCI functions appended
 
             Parameters
