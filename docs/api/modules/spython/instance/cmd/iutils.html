@@ -151,7 +151,7 @@
             
   <h1>Source code for spython.instance.cmd.iutils</h1><div class="highlight"><pre>
 <span></span>
-<span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -189,12 +189,13 @@
     <span class="sd">&#39;&#39;&#39;get is a list for a single instance. It is assumed to be running,</span>
 <span class="sd">       and we need to look up the PID, etc.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> <span class="n">check_install</span><span class="p">,</span> <span class="n">get_singularity_version</span> <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
     <span class="n">check_install</span><span class="p">()</span>
 
     <span class="c1"># Ensure compatible for singularity prior to 3.0, and after 3.0</span>
     <span class="n">subgroup</span> <span class="o">=</span> <span class="s2">&quot;instance.list&quot;</span>
-    <span class="k">if</span> <span class="n">get_singularity_version</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;version 3&quot;</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>

@@ -210,7 +210,7 @@ Return a jsonified table.</p>
 <span id="spython-instance-cmd-start-module"></span><h2>spython.instance.cmd.start module<a class="headerlink" href="#module-spython.instance.cmd.start" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.instance.cmd.start.start">
-<code class="descclassname">spython.instance.cmd.start.</code><code class="descname">start</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>sudo=False</em>, <em>options=[]</em>, <em>capture=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/start.html#start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.start.start" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.instance.cmd.start.</code><code class="descname">start</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>args=None</em>, <em>sudo=False</em>, <em>options=[]</em>, <em>capture=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/start.html#start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.start.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>start an instance. This is done by default when an instance is created.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -221,6 +221,7 @@ Return a jsonified table.</p>
 <li><strong>name</strong> (<em>a name for the instance</em>)</li>
 <li><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</li>
 <li><strong>capture</strong> (<em>capture output, default is False. With True likely to hang.</em>)</li>
+<li><strong>args</strong> (<em>arguments to provide to the instance (supported Singularity 3.1+)</em>)</li>
 <li><strong>options</strong> (<em>a list of tuples, each an option to give to the start command</em>) – [(“–bind”, “/tmp”),…]</li>
 <li><strong>USAGE</strong></li>
 <li><strong>singularity […] instance.start […] &lt;container path&gt; &lt;instance name&gt;</strong></li>
@@ -237,17 +238,16 @@ Return a jsonified table.</p>
 <dl class="function">
 <dt id="spython.instance.cmd.stop.stop">
 <code class="descclassname">spython.instance.cmd.stop.</code><code class="descname">stop</code><span class="sig-paren">(</span><em>self</em>, <em>name=None</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/stop.html#stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.stop.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>start an instance. This is done by default when an instance is created.</p>
+<dd><p>stop an instance. This is done by default when an instance is created.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>optionally, an image uri (if called as a command from Client)</em>)</li>
 <li><strong>name</strong> (<em>a name for the instance</em>)</li>
 <li><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</li>
 <li><strong>USAGE</strong></li>
-<li><strong>singularity […] instance.start […] &lt;container path&gt; &lt;instance name&gt;</strong></li>
+<li><strong>singularity […] instance.stop […] &lt;instance name&gt;</strong></li>
 </ul>
 </td>
 </tr>

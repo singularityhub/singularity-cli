@@ -179,10 +179,10 @@
 <div class="viewcode-block" id="TestClient.test_commands"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.TestClient.test_commands">[docs]</a>    <span class="k">def</span> <span class="nf">test_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.build command&#39;</span><span class="p">)</span>
-        <span class="n">container</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/container.img&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/container.sif&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 1: Build from docker uri&quot;</span><span class="p">)</span>
-        <span class="n">created_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s1">&#39;docker://ubuntu&#39;</span><span class="p">,</span> 
+        <span class="n">created_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> 
                                            <span class="n">image</span><span class="o">=</span><span class="n">container</span><span class="p">,</span>
                                            <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">created_container</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span>
@@ -204,9 +204,9 @@
         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 2: Testing docker pull&quot;</span><span class="p">)</span>
-        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;docker://ubuntu:14.04&quot;</span><span class="p">,</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span>
                                    <span class="n">pull_folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s2">&quot;ubuntu:14.04&quot;</span> <span class="ow">in</span> <span class="n">container</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s2">&quot;busybox:1.30.1&quot;</span> <span class="ow">in</span> <span class="n">container</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">container</span><span class="p">))</span>
@@ -214,14 +214,12 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.execute command&#39;</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;bin</span><span class="se">\n</span><span class="s1">boot</span><span class="se">\n</span><span class="s1">dev&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing client.inspect command&quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;data&#39;</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">)</span>     
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">container</span><span class="p">)</span></div></div>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
 
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">container</span><span class="p">)</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spython.oci &mdash; Singularity Python API 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../assets/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../assets/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Singularity Python API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/spython.html">spython package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">CHANGELOG</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Singularity Python API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>spython.oci</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for spython.oci</h1><div class="highlight"><pre>
+<span></span>
+<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+
+<span class="c1"># This Source Code Form is subject to the terms of the</span>
+<span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
+<span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
+
+<span class="kn">from</span> <span class="nn">spython.image</span> <span class="k">import</span> <span class="n">ImageBase</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">OciImage</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
+
+    <span class="c1"># Default functions of client don&#39;t use sudo</span>
+    <span class="n">sudo</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">container_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                 <span class="n">bundle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                 <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; An Oci Image is an Image Base with OCI functions appended</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ==========</span>
+<span class="sd">            container_id: image uri to parse (required)</span>
+<span class="sd">            bundle: a bundle directory to create a container from.</span>
+<span class="sd">                    the bundle should have a config.json at the root</span>
+<span class="sd">            create: if the bundle is provided, create a container (default True)</span>
+<span class="sd">            sudo: if init is called with or without sudo, keep a record and use</span>
+<span class="sd">                  for following commands unless sudo is provided to function.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Will typically be None, unless used outside of Client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">=</span> <span class="n">container_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;oci://&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sudo</span> <span class="o">=</span> <span class="n">sudo</span>
+
+        <span class="c1"># If bundle is provided, create it</span>
+        <span class="k">if</span> <span class="n">bundle</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">container_id</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">create</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">container_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="c1"># Unique resource identifier</span>
+
+    <span class="k">def</span> <span class="nf">get_container_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; a helper function shared between functions that will return a </span>
+<span class="sd">            container_id. First preference goes to a container_id provided by</span>
+<span class="sd">            the user at runtime. Second preference goes to the container_id</span>
+<span class="sd">            instantiated with the client.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ==========</span>
+<span class="sd">            container_id: image uri to parse (required)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># The user must provide a container_id, or have one with the client</span>
+        <span class="k">if</span> <span class="n">container_id</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;You must provide a container_id.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Choose whichever is not None, with preference for function provided</span>
+        <span class="n">container_id</span> <span class="o">=</span> <span class="n">container_id</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span>
+        <span class="k">return</span> <span class="n">container_id</span>
+
+
+    <span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;return the image uri (oci://) along with it&#39;s name</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+<span class="c1"># Naming</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;[singularity-python-oci:</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span>
+        <span class="k">return</span> <span class="s2">&quot;[singularity-python-oci]&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+
+<span class="c1"># Commands</span>
+
+    <span class="k">def</span> <span class="nf">_get_sudo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;if the client was initialized with sudo, remember this choice for</span>
+<span class="sd">           later communication with the Oci Images. However, if the user provides</span>
+<span class="sd">           a sudo argument (True or False) and not the default None, take</span>
+<span class="sd">           preference to this argument.</span>
+<span class="sd"> </span>
+<span class="sd">           Parameters</span>
+<span class="sd">           ==========</span>
+<span class="sd">           sudo: if None, use self.sudo. Otherwise return sudo.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">sudo</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sudo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sudo</span>
+        <span class="k">return</span> <span class="n">sudo</span>
+
+
+    <span class="k">def</span> <span class="nf">_run_and_return</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Run a command, show the message to the user if quiet isn&#39;t set,</span>
+<span class="sd">            and return the return code. This is a wrapper for the OCI client</span>
+<span class="sd">            to run a command and easily return the return code value (what</span>
+<span class="sd">            the user is ultimately interested in).</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ==========</span>
+<span class="sd">            cmd: the command (list) to run.</span>
+<span class="sd">            sudo: whether to add sudo or not.         </span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">sudo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sudo</span><span class="p">(</span><span class="n">sudo</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
+                                   <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> 
+                                   <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                                   <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Successful return with no output</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> 
+
+        <span class="c1"># Show the response to the user, only if not quiet.</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Return the state object to the user</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span>
+
+
+    <span class="k">def</span> <span class="nf">_init_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; a wrapper to the base init_command, ensuring that &quot;oci&quot; is added</span>
+<span class="sd">            to each command</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ==========</span>
+<span class="sd">            action: the main action to perform (e.g., build)</span>
+<span class="sd">            flags: one or more additional flags (e.g, volumes) </span>
+<span class="sd">                   not implemented yet.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="kn">from</span> <span class="nn">spython.main.base.command</span> <span class="k">import</span> <span class="n">init_command</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;oci&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span>
+        <span class="k">return</span> <span class="n">init_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">flags</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Vanessa Sochat.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../assets/jquery.js"></script>
+      <script type="text/javascript" src="../../assets/underscore.js"></script>
+      <script type="text/javascript" src="../../assets/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
