@@ -43,12 +43,14 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
     cmd.append(container_id)
 
     # Get the instance state
-    result = self._run_command(cmd, sudo=sudo, quiet=True, return_result=True)
+    result = self._run_command(cmd, sudo=sudo, quiet=True)
 
-    # If successful, a string is returned to parse
-    if isinstance(result, str):
-        return json.loads(result)
+    if result != None:
 
+        # If successful, a string is returned to parse
+        if isinstance(result, str):
+            return json.loads(result)
+    
 
 def _state_command(self, container_id=None, command='start', sudo=None):
 

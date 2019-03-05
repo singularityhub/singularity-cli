@@ -71,25 +71,31 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.state(self.name, sudo=True)
         self.assertEqual(state['status'], 'created')
 
-        print('...Case 5. Start container.')
+        print('...Case 5. Start container return value 0.')
         state = self.cli.oci.start(self.name, sudo=True)
-        self.assertEqual(state, None)
+        self.assertEqual(state, 0)
 
-        print('...Case 6. Pause running container.')
+        print('...Case 6. Testing that state is now running.')
+        state = self.cli.oci.state(self.name, sudo=True)
+        self.assertEqual(state['status'], 'running')
+
+        print('...Case 7. Pause running container return value 0.')
         state = self.cli.oci.pause(self.name, sudo=True)
-        self.assertEqual(state, None)
+        self.assertEqual(state, 0)
 
-        print('...Case 7. Resume paused container.')
+        print('...Case 8. Resume paused container return value 0.')
         state = self.cli.oci.resume(self.name, sudo=True)
-        self.assertEqual(state, None)
+        self.assertEqual(state, 0)
 
-        print('...Case 8. Kill should work with running container.')
+        print('...Case 9. Kill container.')
         state = self.cli.oci.kill(self.name, sudo=True)
-        self.assertTrue(state in [None, 255])
+        self.assertEqual(state, 0)
 
         # Clean up the image (should still use sudo)
+        # Bug in singularity that kill doesn't kill completely - this returns 
+        # 255. When testsupdated to 3.1.* add signal=K to run
         result = self.cli.oci.delete(self.name, sudo=True)
-        self.assertTrue(result in [None, 255])
+        self.assertTrue(result in [0,255])
 
 
 if __name__ == '__main__':
