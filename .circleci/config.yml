@@ -74,8 +74,7 @@ test_spython_3: &test_spython_3
 
 jobs:
   test-singularity-3-python-3:
-    machine: 
-     - image: circleci/classic:201808-01
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout
@@ -96,8 +95,7 @@ jobs:
       - run: *test_spython_3
 
   test-singularity-3-python-2:
-    machine: 
-     - image: circleci/classic:201808-01
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout
@@ -118,8 +116,7 @@ jobs:
       - run: *test_spython_3
 
   test-singularity-2-python-3:
-    machine: 
-     - image: circleci/classic:201808-01
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout
@@ -137,8 +134,7 @@ jobs:
       - run: *test_spython
 
   test-singularity-2-python-2:
-    machine: 
-     - image: circleci/classic:201808-01
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout
