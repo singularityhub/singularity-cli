@@ -104,7 +104,7 @@ def start(self, container_id=None, sudo=None):
     return self._state_command(container_id, sudo=sudo)
 
 
-def kill(self, container_id=None, sudo=None):
+def kill(self, container_id=None, sudo=None, signal=None):
 
     ''' stop (kill) a started OciImage container, if it exists
 
@@ -114,6 +114,7 @@ def kill(self, container_id=None, sudo=None):
         Parameters
         ==========
         container_id: the id to stop.
+        signal: signal sent to the container (default SIGTERM)
         sudo: Add sudo to the command. If the container was created by root,
               you need sudo to interact and get its state.
 
@@ -121,7 +122,21 @@ def kill(self, container_id=None, sudo=None):
         =======
         return_code: the return code to indicate if the container was killed.
     '''
-    return self._state_command(container_id, command='kill', sudo=sudo)
+    sudo = self._get_sudo(sudo)
+    container_id = self.get_container_id(container_id)
+
+    # singularity oci state
+    cmd = self._init_command('kill')
+
+    # Finally, add the container_id
+    cmd.append(container_id)
+
+    # Add the signal, if defined
+    if signal != None:
+        cmd = cmd + ['--signal', signal]
+
+    # Run the command, return return code
+    return self._run_and_return(cmd, sudo)
 
 
 def resume(self, container_id=None, sudo=None):
