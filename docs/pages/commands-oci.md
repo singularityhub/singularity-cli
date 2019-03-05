@@ -11,9 +11,9 @@ Singularity 3.1.0. If you are using versions of Singularity before this,
 you won't be able to use these functions. If you want to learn more about OCI,
 see [opencontainers.org](https://opencontainers.org).
 
- - [background](#background)
+ - [background](#background): some quick background on the OCI runtime spec
  - [setup](#setup): create a bundle folder with a config.json to drive it
- - [create object](#create-an-object): Quick start to create an OCI image object
+ - [quick start](#quick-start): Quick start to create an OCI image object
  - [create](#create): create an OCI image using the client
 
 The commands for state, kill, pause, resume, etc. will be discussed in context
@@ -42,7 +42,6 @@ practice? We can have tools and infrastructure (for example, Kubernetes, a conta
 orchestration system) that know how to interact with many different kinds of containers.
 How? Because they implement the OCI specification, and the communication is standardized.
  
-
 # Usage
 
 ## Install
@@ -106,7 +105,7 @@ Now that you have your bundle and config.json file, you can create an Oci Image
 from it.
 
 
-## Create an Object
+## Quick Start
 
 The quickest way to create a running Oci Image from a bundle is to
 instantiate an OciImage instance. If you didn't import the client, do
@@ -172,8 +171,8 @@ By default, if you don't provide a bundle directory it won't be created.
 $ image = client.oci.OciImage(container_id='figbars')
 ```
 
-This would be a good way to get a handle for an (already created) OciImage, or
-something you are otherwise not ready to create. You can also explicitly tell the function not to create the Oci Image.
+This would be a good way to get a handle for an (already created) image, or
+something you are otherwise not ready to create. You can also explicitly tell the function not to create the image.
 
 ```python
 $ image = client.oci.OciImage(bundle='/tmp/bundle',
@@ -194,10 +193,7 @@ In [39]: image.
  create()           get_container_id() OciImage           resume()    
 ```
 
-Give everything a test! This is newly added to both Singularity and Singularity
-Python, so please [let us know](https://www.github.com/singularityhub/singularity-cli/issues) right away if you find an issue. 
-
-Try executing a command to your OciImage:
+Give everything a test!  For example, try executing a command to your image:
 
 ```python
 result = image.execute(command=["ls","/"])

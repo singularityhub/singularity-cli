@@ -64,7 +64,8 @@ class TestOci(unittest.TestCase):
                                       sudo=True, 
                                       command=['ls','/'])
 
-        self.assertTrue('bin\nboot\ncdrom' in result)
+        print(result)
+        self.assertTrue('bin' in result)
 
         print('...Case 4. Check status of existing bundle.')
         state = self.cli.oci.state(self.name, sudo=True)
