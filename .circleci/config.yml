@@ -26,16 +26,15 @@ workflows:
               ignore: master
 
 waitforapt: &waitforapt
-  name: Wait for apt to not be locked
+  name: Remove cloud init lock
   command: |
       sudo rm -rf /var/lib/apt/lists/lock
-      totaltime=0
-      while [ -f "/var/lib/apt/lists/lock" ];
-          do
-          echo "Apt is locked, waiting... ${totaltime}"
-          totaltime=$(( totaltime + 15 ))
-          sleep 15
-      done
+      while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 10; done
+      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do echo 'Waiting for autoupdates to complete...'; sleep 10; done
+      echo 'Waiting for instance to really be ready...'
+      sleep 30
+      sudo rm /var/lib/dpkg/lock && sudo dpkg --configure -a
+
 
 install_spython: &install_spython
   name: install spython
