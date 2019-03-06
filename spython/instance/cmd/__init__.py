@@ -30,7 +30,7 @@ def generate_instance_commands():
     Instance._run_command = run_command
     Instance._list = instances  # list command is used to get metadata
     Instance._println = println
-    Instance._start = start     # intended to be called on init, not by user
+    Instance.start = start     # intended to be called on init, not by user
     Instance.stop = stop
 
     # Give an instance the ability to breed :)
