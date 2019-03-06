@@ -10,7 +10,7 @@ import os
 
 class Instance(ImageBase):
 
-    def __init__(self, image, start=True, **kwargs):
+    def __init__(self, image, start=True, name=None, **kwargs):
        '''An instance is an image running as an instance with services.
           This class has functions appended under cmd/__init__ and is
           instantiated when the user calls Client.
@@ -19,10 +19,12 @@ class Instance(ImageBase):
           ==========
           image: the Singularity image uri to parse (required)
           start: boolean to start the instance (default is True)
-
+          name: a name for the instance (will generate RobotName 
+                if not provided)
        '''
        super(ImageBase, self).__init__()
        self.parse_image_name(image)
+       self.generate_name(name)
 
        # Update metadats from arguments
        self._update_metadata(kwargs)
@@ -31,9 +33,19 @@ class Instance(ImageBase):
 
        # Start the instance
        if start is True:
-           self._start(**kwargs)
+           self.start(**kwargs)
 
 # Unique resource identifier
+
+    def generate_name(self, name=None):
+        '''generate a Robot Name for the instance to use, if the user doesn't
+           supply one.
+        '''
+        # If no name provided, use robot name
+        if name == None:
+            name = self.RobotNamer.generate()
+        self.name = name.replace('-','_')
+
 
     def parse_image_name(self, image):
         '''
@@ -62,7 +74,7 @@ class Instance(ImageBase):
         '''
 
         # If not given metadata, use instance.list to get it for container
-        if kwargs is None:
+        if kwargs == None and hasattr(self, 'name'):
             kwargs = self._list(self.name, quiet=True, return_json=True)
 
         # Add acceptable arguments
@@ -79,7 +91,7 @@ class Instance(ImageBase):
 
 
     def __str__(self):
-        if hasattr(self, 'uri'):
+        if hasattr(self, 'name'):
             if self.uri:
                 return "%s%s" %(self.uri, self.name)
         return os.path.basename(self._image)

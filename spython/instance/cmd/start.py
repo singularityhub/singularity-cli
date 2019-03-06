@@ -29,10 +29,9 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
                                 check_install )
     check_install()
 
-    # If no name provided, give it an excellent one!
-    if name is None:
-        name = self.RobotNamer.generate()
-    self.name = name.replace('-','_')
+    # If name provided, over write robot (default)
+    if name != None:
+        self.name = name
 
     # If an image isn't provided, we have an initialized instance
     if image is None:
