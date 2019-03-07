@@ -121,7 +121,7 @@ class OciImage(ImageBase):
 
         # Show the response to the user, only if not quiet.
         elif not self.quiet:
-            bot.print(result['message'])
+            bot.println(result['message'])
 
         # Return the state object to the user
         return result['return_code']

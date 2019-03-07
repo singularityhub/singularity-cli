@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - print but with logger, should be println (0.0.57)
  - Fixing bug with instance not having name when not started (0.0.56)
    - instance start has been moved to non-private
  - Added ability for exec and run to return the full output and message (0.0.55)
