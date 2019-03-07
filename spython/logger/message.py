@@ -245,7 +245,7 @@ class SingularityMessage:
     def verbose(self, message):
         self.emit(VERBOSE, message, "VERBOSE")
 
-    def print(self, message):
+    def println(self, message):
         print(message)
 
     def verbose1(self, message):
