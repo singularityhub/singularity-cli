@@ -33,21 +33,26 @@ def export(self,
     check_install()
 
     # If not version 3, run deprecated command
-    if 'version 3' not in self.version():
+    if 'version 3' in self.version() or '2.6' in self.version():
+
+        if output_file == None:
+            output_file = self._get_filename(image_path, 'sandbox')
+
+        return self.build(recipe=image_path,
+                          image=output_file,
+                          sandbox=True,
+                          sudo=sudo)
+
+    elif '2.5' in self.version():
+
+        # Otherwise, we run a build
+        bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
         return self._export(image_path=image_path,
                             pipe=pipe,
                             output_file=output_file,
                             command=command)
 
-    if output_file == None:
-        output_file = self._get_filename(image_path, 'sandbox')
-
-    # Otherwise, we run a build
-    bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
-    return self.build(recipe=image_path,
-                      image=output_file,
-                      sandbox=True,
-                      sudo=sudo)
+    bot.warning('Unsupported version of Singularity, %s' % self.version())
 
 
 def _export(self,
@@ -77,6 +82,7 @@ def _export(self,
     # If the user has specified export to pipe, we don't need a file
     if pipe == True:
         cmd.append(image_path)
+
     else:
         _, tmptar = tempfile.mkstemp(suffix=".tar")
         os.remove(tmptar)
