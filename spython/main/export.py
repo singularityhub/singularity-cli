@@ -49,11 +49,10 @@ def export(self,
                       sudo=sudo)
 
 
-def _export(self,
-           image_path,
-           pipe=False,
-           output_file=None,
-           command=None):
+def _export(image_path,
+            pipe=False,
+            output_file=None,
+            command=None):
     ''' the older deprecated function, running export for previous
                versions of Singularity that support it
 
