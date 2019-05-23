@@ -81,7 +81,7 @@ def _export(self,
         _, tmptar = tempfile.mkstemp(suffix=".tar")
         os.remove(tmptar)
         cmd = cmd + ["-f", tmptar, image_path]
-        self.run_command(cmd, sudo=sudo)
+        self._run_command(cmd, sudo=sudo)
 
         # Was there an error?            
         if not os.path.exists(tmptar):
@@ -96,4 +96,4 @@ def _export(self,
             return tmptar
 
     # Otherwise, return output of pipe    
-    return self.run_command(cmd, sudo=sudo)
+    return self._run_command(cmd, sudo=sudo)
