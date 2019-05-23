@@ -192,21 +192,18 @@
 <dl class="class">
 <dt id="spython.image.Image">
 <em class="property">class </em><code class="descclassname">spython.image.</code><code class="descname">Image</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal"><span class="pre">spython.image.ImageBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.image.ImageBase</span></code></a></p>
 <dl class="method">
 <dt id="spython.image.Image.get_hash">
 <code class="descname">get_hash</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image.get_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image.get_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an md5 hash of the file based on a criteria level. This
 is intended to give the file a reasonable version. This only is
 useful for actual image files.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path to get hash for (first priority). Second</em>) – priority is image path saved with image object, if exists.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>the image path to get hash for (first priority). Second</em>) – priority is image path saved with image object, if exists.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -214,7 +211,7 @@ useful for actual image files.</p>
 <dl class="class">
 <dt id="spython.image.ImageBase">
 <em class="property">class </em><code class="descclassname">spython.image.</code><code class="descname">ImageBase</code><a class="reference internal" href="../modules/spython/image.html#ImageBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="spython.image.ImageBase.get_uri">
 <code class="descname">get_uri</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#ImageBase.get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase.get_uri" title="Permalink to this definition">¶</a></dt>
@@ -227,14 +224,11 @@ useful for actual image files.</p>
 <code class="descname">parse_image_name</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#ImageBase.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase.parse_image_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>simply split the uri from the image. Singularity handles
 parsing of registry, namespace, image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the complete image uri to load (e.g., docker://ubuntu)</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>the complete image uri to load (e.g., docker://ubuntu)</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -302,7 +296,7 @@ this will also remove all spaces from the uri.</p>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 

@@ -190,19 +190,15 @@ and we need to look up the PID, etc.</p>
 <code class="descclassname">spython.instance.cmd.iutils.</code><code class="descname">parse_table</code><span class="sig-paren">(</span><em>table_string</em>, <em>header</em>, <em>remove_rows=1</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/iutils.html#parse_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.iutils.parse_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse a table to json from a string, where a header is expected by default.
 Return a jsonified table.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>table_string</strong> (<em>the string table, ideally with a header</em>)</li>
-<li><strong>header</strong> (<em>header of expected table, must match dimension (number columns)</em>)</li>
-<li><strong>remove_rows</strong> (<em>an integer to indicate a number of rows to remove from top</em>) – the default is 1 assuming we don’t want the header</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_string</strong> (<em>the string table, ideally with a header</em>)</p></li>
+<li><p><strong>header</strong> (<em>header of expected table, must match dimension (number columns)</em>)</p></li>
+<li><p><strong>remove_rows</strong> (<em>an integer to indicate a number of rows to remove from top</em>) – the default is 1 assuming we don’t want the header</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -212,24 +208,20 @@ Return a jsonified table.</p>
 <dt id="spython.instance.cmd.start.start">
 <code class="descclassname">spython.instance.cmd.start.</code><code class="descname">start</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>args=None</em>, <em>sudo=False</em>, <em>options=[]</em>, <em>capture=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/start.html#start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.start.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>start an instance. This is done by default when an instance is created.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>optionally, an image uri (if called as a command from Client)</em>)</li>
-<li><strong>name</strong> (<em>a name for the instance</em>)</li>
-<li><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</li>
-<li><strong>capture</strong> (<em>capture output, default is False. With True likely to hang.</em>)</li>
-<li><strong>args</strong> (<em>arguments to provide to the instance (supported Singularity 3.1+)</em>)</li>
-<li><strong>options</strong> (<em>a list of tuples, each an option to give to the start command</em>) – [(“–bind”, “/tmp”),…]</li>
-<li><strong>USAGE</strong></li>
-<li><strong>singularity […] instance.start […] &lt;container path&gt; &lt;instance name&gt;</strong></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>optionally, an image uri (if called as a command from Client)</em>)</p></li>
+<li><p><strong>name</strong> (<em>a name for the instance</em>)</p></li>
+<li><p><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</p></li>
+<li><p><strong>capture</strong> (<em>capture output, default is False. With True likely to hang.</em>)</p></li>
+<li><p><strong>args</strong> (<em>arguments to provide to the instance (supported Singularity 3.1+)</em>)</p></li>
+<li><p><strong>options</strong> (<em>a list of tuples, each an option to give to the start command</em>) – [(“–bind”, “/tmp”),…]</p></li>
+<li><p><strong>USAGE</strong></p></li>
+<li><p><strong>singularity […] instance.start […] &lt;container path&gt; &lt;instance name&gt;</strong></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -239,20 +231,16 @@ Return a jsonified table.</p>
 <dt id="spython.instance.cmd.stop.stop">
 <code class="descclassname">spython.instance.cmd.stop.</code><code class="descname">stop</code><span class="sig-paren">(</span><em>self</em>, <em>name=None</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance/cmd/stop.html#stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.cmd.stop.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop an instance. This is done by default when an instance is created.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<em>a name for the instance</em>)</li>
-<li><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</li>
-<li><strong>USAGE</strong></li>
-<li><strong>singularity […] instance.stop […] &lt;instance name&gt;</strong></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>a name for the instance</em>)</p></li>
+<li><p><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</p></li>
+<li><p><strong>USAGE</strong></p></li>
+<li><p><strong>singularity […] instance.stop […] &lt;instance name&gt;</strong></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -322,7 +310,7 @@ client via the environment variable MESSAGELEVEL.</p>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 

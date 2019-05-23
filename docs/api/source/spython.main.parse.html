@@ -190,43 +190,35 @@
 <dl class="function">
 <dt id="spython.main.parse.converters.create_env_section">
 <code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_env_section</code><span class="sig-paren">(</span><em>pairs</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_env_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_env_section" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>environment key value pairs need to be joined by an equal, and</dt>
-<dd>exported at the end.</dd>
+<dd><dl class="simple">
+<dt>environment key value pairs need to be joined by an equal, and</dt><dd><p>exported at the end.</p>
+</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</li>
-<li><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</p></li>
+<li><p><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.parse.converters.create_keyval_section">
 <code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_keyval_section</code><span class="sig-paren">(</span><em>pairs</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_keyval_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_keyval_section" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>create a section based on key, value recipe pairs,</dt>
-<dd>This is used for files or label</dd>
+<dd><dl class="simple">
+<dt>create a section based on key, value recipe pairs,</dt><dd><p>This is used for files or label</p>
+</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</li>
-<li><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>the list of values to return as a parsed list of lines</em>)</p></li>
+<li><p><strong>name</strong> (<em>the name of the section to write (e.g., files)</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -236,39 +228,31 @@
 based on a Docker entrypoint or command. We first use the Docker
 ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
 we use function default.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>default</strong> (<em>set a default entrypoint, if the container does not have</em>) – an entrypoint or cmd.</li>
-<li><strong>force</strong> (<em>If true, use default and ignore Dockerfile settings</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default</strong> (<em>set a default entrypoint, if the container does not have</em>) – an entrypoint or cmd.</p></li>
+<li><p><strong>force</strong> (<em>If true, use default and ignore Dockerfile settings</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.parse.converters.create_section">
 <code class="descclassname">spython.main.parse.converters.</code><code class="descname">create_section</code><span class="sig-paren">(</span><em>self</em>, <em>attribute</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#create_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.create_section" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>create a section based on key, value recipe pairs,</dt>
-<dd>This is used for files or label</dd>
+<dd><dl class="simple">
+<dt>create a section based on key, value recipe pairs,</dt><dd><p>This is used for files or label</p>
+</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>attribute</strong> (<em>the name of the data section, either labels or files</em>)</li>
-<li><strong>name</strong> (<em>the name to write to the recipe file (e.g., %name).</em>) – if not defined, the attribute name is used.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attribute</strong> (<em>the name of the data section, either labels or files</em>)</p></li>
+<li><p><strong>name</strong> (<em>the name to write to the recipe file (e.g., %name).</em>) – if not defined, the attribute name is used.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -285,18 +269,14 @@ determines saving / output logic.</p>
 <code class="descclassname">spython.main.parse.converters.</code><code class="descname">finish_section</code><span class="sig-paren">(</span><em>section</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#finish_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.finish_section" title="Permalink to this definition">¶</a></dt>
 <dd><p>finish_section will add the header to a section, to finish the recipe
 take a custom command or list and return a section.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>section</strong> (<em>the section content, without a header</em>)</li>
-<li><strong>name</strong> (<em>the name of the section for the header</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<em>the section content, without a header</em>)</p></li>
+<li><p><strong>name</strong> (<em>the name of the section for the header</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -309,14 +289,11 @@ take a custom command or list and return a section.</p>
 <dt id="spython.main.parse.converters.write_lines">
 <code class="descclassname">spython.main.parse.converters.</code><code class="descname">write_lines</code><span class="sig-paren">(</span><em>label</em>, <em>lines</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/converters.html#write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.converters.write_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>write a list of lines with a header for a section.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lines</strong> (<em>one or more lines to write, with header appended</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lines</strong> (<em>one or more lines to write, with header appended</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -325,7 +302,7 @@ take a custom command or list and return a section.</p>
 <dl class="class">
 <dt id="spython.main.parse.docker.DockerRecipe">
 <em class="property">class </em><code class="descclassname">spython.main.parse.docker.</code><code class="descname">DockerRecipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/docker.html#DockerRecipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.docker.DockerRecipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
 </dd></dl>
 
 </div>
@@ -337,10 +314,11 @@ take a custom command or list and return a section.</p>
 <dd><p>parse_env will parse a single line (with prefix like ENV removed) to
 a list of commands in the format KEY=VALUE For example:</p>
 <blockquote>
-<div>ENV PYTHONBUFFER 1 –&gt; [PYTHONBUFFER=1]</div></blockquote>
-<dl class="docutils">
-<dt>::Notes</dt>
-<dd>Docker: <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#env">https://docs.docker.com/engine/reference/builder/#env</a></dd>
+<div><p>ENV PYTHONBUFFER 1 –&gt; [PYTHONBUFFER=1]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>::Notes</dt><dd><p>Docker: <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#env">https://docs.docker.com/engine/reference/builder/#env</a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -350,20 +328,17 @@ a list of commands in the format KEY=VALUE For example:</p>
 <dl class="class">
 <dt id="spython.main.parse.recipe.Recipe">
 <em class="property">class </em><code class="descclassname">spython.main.parse.recipe.</code><code class="descname">Recipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>a recipe includes an environment, labels, runscript or command,
 and install sequence. This object is subclassed by a Singularity or
 Docker recipe, and can be used to convert between the two. The user
 can read in one recipe type to convert to another, or provide raw
 commands and metadata for generating a recipe.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="spython.main.parse.recipe.Recipe.convert">
 <code class="descname">convert</code><span class="sig-paren">(</span><em>convert_to=None</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.convert" title="Permalink to this definition">¶</a></dt>
@@ -374,19 +349,15 @@ perform conversion with default based on recipe name. If the recipe
 object is DockerRecipe, we convert to Singularity. If the recipe
 object is SingularityRecipe, we convert to Docker. The user can
 override this by setting the variable convert_to</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</li>
-<li><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</li>
-<li><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</p></li>
+<li><p><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</p></li>
+<li><p><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -403,14 +374,11 @@ determines saving / output logic.</p>
 <code class="descname">load</code><span class="sig-paren">(</span><em>recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load a recipe file into the client, first performing checks, and
 then parsing the file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -441,20 +409,16 @@ self.entrypoint</p>
 opposite of the recipe type originally loaded, (e.g., docker–&gt;
 singularity and singularity–&gt;docker) and write to an output file,
 if specified. If not specified, a temporary file is used.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>output_file</strong> (<em>the file to save to, not required (estimates default)</em>)</li>
-<li><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</li>
-<li><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</li>
-<li><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_file</strong> (<em>the file to save to, not required (estimates default)</em>)</p></li>
+<li><p><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</p></li>
+<li><p><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</p></li>
+<li><p><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -471,23 +435,21 @@ if specified. If not specified, a temporary file is used.</p>
 <dl class="class">
 <dt id="spython.main.parse.singularity.SingularityRecipe">
 <em class="property">class </em><code class="descclassname">spython.main.parse.singularity.</code><code class="descname">SingularityRecipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/singularity.html#SingularityRecipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.singularity.SingularityRecipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#spython.main.parse.recipe.Recipe" title="spython.main.parse.recipe.Recipe"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.main.parse.recipe.Recipe</span></code></a></p>
 <dl class="method">
 <dt id="spython.main.parse.singularity.SingularityRecipe.load_recipe">
 <code class="descname">load_recipe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/singularity.html#SingularityRecipe.load_recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.singularity.SingularityRecipe.load_recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>load will return a loaded in singularity recipe. The idea
 is that these sections can then be parsed into a Dockerfile,
 or printed back into their original form.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>config</strong></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">a parsed recipe Singularity recipe</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>config</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>a parsed recipe Singularity recipe</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -555,7 +517,7 @@ with this file, You can obtain one at <a class="reference external" href="http:/
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 

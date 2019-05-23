@@ -285,17 +285,20 @@
         <span class="n">quiet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
+
+    <span class="c1"># If one line is returned, squash dimension</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># If the user wants to return the result, just return it</span>
+    <span class="k">if</span> <span class="n">return_result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span>
 
     <span class="c1"># On success, return result</span>
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
 
-    <span class="c1"># For client (internal) calls, we want the return code</span>
-    <span class="k">if</span> <span class="n">return_result</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">result</span></div>
+    <span class="k">return</span> <span class="n">result</span></div>
 </pre></div>
 
            </div>
@@ -341,7 +344,7 @@
       <script type="text/javascript" src="../../../../assets/jquery.js"></script>
       <script type="text/javascript" src="../../../../assets/underscore.js"></script>
       <script type="text/javascript" src="../../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../../assets/language_data.js"></script>
 
   
 

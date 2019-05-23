@@ -190,10 +190,10 @@
 <dl class="function">
 <dt id="spython.main.base.command.generate_bind_list">
 <code class="descclassname">spython.main.base.command.</code><code class="descname">generate_bind_list</code><span class="sig-paren">(</span><em>self</em>, <em>bindlist=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#generate_bind_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.generate_bind_list" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>generate bind string will take a single string or list of binds, and</dt>
-<dd>return a list that can be added to an exec or run command. For example,
-the following map as follows:</dd>
+<dd><dl class="simple">
+<dt>generate bind string will take a single string or list of binds, and</dt><dd><p>return a list that can be added to an exec or run command. For example,
+the following map as follows:</p>
+</dd>
 </dl>
 <p>[‘/host:/container’, ‘/both’] –&gt; [“–bind”, “/host:/container”,”–bind”,”/both” ]
 [‘/both’]                     –&gt; [“–bind”, “/both”]
@@ -210,18 +210,14 @@ The binds are also checked on the host.</p>
 <dt id="spython.main.base.command.init_command">
 <code class="descclassname">spython.main.base.command.</code><code class="descname">init_command</code><span class="sig-paren">(</span><em>self</em>, <em>action</em>, <em>flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the initial Singularity command with any added flags.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>action</strong> (<em>the main action to perform (e.g., build)</em>)</li>
-<li><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) – not implemented yet.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>action</strong> (<em>the main action to perform (e.g., build)</em>)</p></li>
+<li><p><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) – not implemented yet.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -231,21 +227,17 @@ The binds are also checked on the host.</p>
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
 the parent process so it appears for the user.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>the command to run</em>)</li>
-<li><strong>sudo</strong> (<em>does the command require sudo?</em>)</li>
-<li><strong>quiet</strong> (<em>if quiet set by function, overrides client setting.</em>)</li>
-<li><strong>return_result</strong> (<em>return the result, if not successful (default False).</em>)</li>
-<li><strong>On success, returns result.</strong></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>the command to run</em>)</p></li>
+<li><p><strong>sudo</strong> (<em>does the command require sudo?</em>)</p></li>
+<li><p><strong>quiet</strong> (<em>if quiet set by function, overrides client setting.</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>return the result, if not successful (default False).</em>)</p></li>
+<li><p><strong>On success, returns result.</strong></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -255,18 +247,14 @@ the parent process so it appears for the user.</p>
 that we execute the command and return the return value, but don’t
 attempt to stream any content (text from the screen) back to the
 user. This is useful for commands interacting with OCI bundles.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>the list of commands to send to the terminal</em>)</li>
-<li><strong>sudo</strong> (<em>use sudo (or not)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>the list of commands to send to the terminal</em>)</p></li>
+<li><p><strong>sudo</strong> (<em>use sudo (or not)</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -277,14 +265,11 @@ user. This is useful for commands interacting with OCI bundles.</p>
 <code class="descclassname">spython.main.base.flags.</code><code class="descname">parse_verbosity</code><span class="sig-paren">(</span><em>self</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse_verbosity will take an argument object, and return the args
 passed (from a dictionary) to a list</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>the argparse argument objects</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>the argparse argument objects</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -293,27 +278,23 @@ passed (from a dictionary) to a list</p>
 <dl class="class">
 <dt id="spython.main.base.generate.RobotNamer">
 <em class="property">class </em><code class="descclassname">spython.main.base.generate.</code><code class="descname">RobotNamer</code><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="spython.main.base.generate.RobotNamer.generate">
 <code class="descname">generate</code><span class="sig-paren">(</span><em>delim='-'</em>, <em>length=4</em>, <em>chars='0123456789'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer.generate" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Generate a robot name. Inspiration from Haikunator, but much more</dt>
-<dd>poorly implemented ;)</dd>
+<dd><dl class="simple">
+<dt>Generate a robot name. Inspiration from Haikunator, but much more</dt><dd><p>poorly implemented ;)</p>
+</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>delim</strong> (<em>Delimiter</em>)</li>
-<li><strong>length</strong> (<em>TokenLength</em>)</li>
-<li><strong>chars</strong> (<em>TokenChars</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delim</strong> (<em>Delimiter</em>)</p></li>
+<li><p><strong>length</strong> (<em>TokenLength</em>)</p></li>
+<li><p><strong>chars</strong> (<em>TokenChars</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -330,14 +311,11 @@ passed (from a dictionary) to a list</p>
 <dt id="spython.main.base.logger.init_level">
 <code class="descclassname">spython.main.base.logger.</code><code class="descname">init_level</code><span class="sig-paren">(</span><em>self</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the logging level based on the environment</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>quiet</strong> (<em>boolean if True, set to quiet. Gets overriden by environment</em>) – setting, and only exists to define default</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>quiet</strong> (<em>boolean if True, set to quiet. Gets overriden by environment</em>) – setting, and only exists to define default</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -345,18 +323,14 @@ passed (from a dictionary) to a list</p>
 <code class="descclassname">spython.main.base.logger.</code><code class="descname">println</code><span class="sig-paren">(</span><em>self</em>, <em>output</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
 <dd><p>print will print the output, given that quiet is not True. This
 function also serves to convert output in bytes to utf-8</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>output</strong> (<em>the string to print</em>)</li>
-<li><strong>quiet</strong> (<em>a runtime variable to over-ride the default.</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> (<em>the string to print</em>)</p></li>
+<li><p><strong>quiet</strong> (<em>a runtime variable to over-ride the default.</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -367,18 +341,14 @@ function also serves to convert output in bytes to utf-8</p>
 <code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an image filename based on the image uri. If an image uri is
 not specified, we look for the loaded image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>the uri to base off of</em>)</li>
-<li><strong>ext</strong> (<em>the extension to use</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>the uri to base off of</em>)</p></li>
+<li><p><strong>ext</strong> (<em>the extension to use</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -392,32 +362,25 @@ return if yes, None if not.</p>
 <dt id="spython.main.base.sutils.load">
 <code class="descclassname">spython.main.base.sutils.</code><code class="descname">load</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load an image, either an actual path on the filesystem or a uri.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.base.sutils.setenv">
 <code class="descclassname">spython.main.base.sutils.</code><code class="descname">setenv</code><span class="sig-paren">(</span><em>self</em>, <em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
 <dd><p>set an environment variable for Singularity</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>variable</strong> (<em>the variable to set</em>)</li>
-<li><strong>value</strong> (<em>the value to set</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> (<em>the variable to set</em>)</p></li>
+<li><p><strong>value</strong> (<em>the value to set</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -426,7 +389,7 @@ return if yes, None if not.</p>
 <dl class="class">
 <dt id="spython.main.base.Client">
 <em class="property">class </em><code class="descclassname">spython.main.base.</code><code class="descname">Client</code><a class="reference internal" href="../modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="spython.main.base.Client.RobotNamer">
 <code class="descname">RobotNamer</code><em class="property"> = &lt;spython.main.base.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
@@ -439,18 +402,14 @@ return if yes, None if not.</p>
 a scientific filesystem integration that will install apps to
 /scif/apps and associated data to /scif/data. For more information
 about SCIF, see <a class="reference external" href="https://sci-f.github.io">https://sci-f.github.io</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>full_path</strong> (<em>if True, return relative to scif base folder</em>)</li>
-<li><strong>image_path</strong> (<em>full path to the image</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_path</strong> (<em>if True, return relative to scif base folder</em>)</p></li>
+<li><p><strong>image_path</strong> (<em>full path to the image</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -460,26 +419,22 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 (requires sudo). If you specify to stream, expect the image name
 and an iterator to be returned.</p>
 <p>image, builder = Client.build(…)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) – defined, we look for “Singularity” file in $PWD</li>
-<li><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</li>
-<li><strong>isolated</strong> (<em>if True, run build with –isolated flag</em>)</li>
-<li><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</li>
-<li><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</li>
-<li><strong>build_folder</strong> (<em>where the container should be built.</em>)</li>
-<li><strong>ext</strong> (<em>the image extension to use.</em>)</li>
-<li><strong>robot_name</strong> (<em>boolean, default False. if you don’t give your image a</em>) – name (with “image”) then a fun robot name will be generated
-instead. Highly recommended :)</li>
-<li><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) – defined, we look for “Singularity” file in $PWD</p></li>
+<li><p><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</p></li>
+<li><p><strong>isolated</strong> (<em>if True, run build with –isolated flag</em>)</p></li>
+<li><p><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</p></li>
+<li><p><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</p></li>
+<li><p><strong>build_folder</strong> (<em>where the container should be built.</em>)</p></li>
+<li><p><strong>ext</strong> (<em>the image extension to use.</em>)</p></li>
+<li><p><strong>robot_name</strong> (<em>boolean, default False. if you don’t give your image a</em>) – name (with “image”) then a fun robot name will be generated
+instead. Highly recommended :)</p></li>
+<li><p><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -489,40 +444,34 @@ instead. Highly recommended :)</li>
 
 <dl class="method">
 <dt id="spython.main.base.Client.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">execute</code><span class="sig-paren">(</span><em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em>, <em>return_result=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>execute: send a command to a container</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
-<li><strong>command</strong> (<em>command to send to container</em>)</li>
-<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
-<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
-<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
-directories within your container using bind mounts</li>
-<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>full path to singularity image</em>)</p></li>
+<li><p><strong>command</strong> (<em>command to send to container</em>)</p></li>
+<li><p><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</p></li>
+<li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
+<li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
+<li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</p></li>
+<li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result (default is False)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="spython.main.base.Client.help">
 <code class="descname">help</code><span class="sig-paren">(</span><em>command=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.help" title="Permalink to this definition">¶</a></dt>
 <dd><p>help prints the general function help, or help for a specific command</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<em>the command to get help for, if none, prints general help</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>the command to get help for, if none, prints general help</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -534,26 +483,22 @@ directories within your container using bind mounts</li>
 <dt id="spython.main.base.Client.inspect">
 <code class="descname">inspect</code><span class="sig-paren">(</span><em>image=None</em>, <em>json=True</em>, <em>app=None</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>path of image to inspect</em>)</li>
-<li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
-<li><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</li>
-<li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>path of image to inspect</em>)</p></li>
+<li><p><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</p></li>
+<li><p><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</p></li>
+<li><p><strong>app</strong> (<em>if defined, return help in context of an app</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="spython.main.base.Client.instance">
 <code class="descname">instance</code><a class="headerlink" href="#spython.main.base.Client.instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Instance</span></code></p>
+<dd><p>alias of <a class="reference internal" href="spython.instance.html#spython.instance.Instance" title="spython.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.instance.Instance</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -561,14 +506,11 @@ directories within your container using bind mounts</li>
 <code class="descname">instance_stopall</code><span class="sig-paren">(</span><em>sudo=False</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instance_stopall" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop ALL instances. This command is only added to the command group
 as it doesn’t make sense to call from a single instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sudo</strong> (<em>if the command should be done with sudo (exposes different set of</em>) – instances)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sudo</strong> (<em>if the command should be done with sudo (exposes different set of</em>) – instances)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -579,36 +521,29 @@ group.</p>
 <p>singularity instance.list</p>
 <p>Return codes provided are different from standard linux:
 see <a class="reference external" href="https://github.com/singularityware/singularity/issues/1706">https://github.com/singularityware/singularity/issues/1706</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</li>
-<li><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</li>
-<li><strong>Return Code  –   Reason</strong></li>
-<li><strong>0 – Instances Found</strong></li>
-<li><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></li>
-<li><strong>255 – Couldn’t get UID</strong></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</p></li>
+<li><p><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</p></li>
+<li><p><strong>Return Code  –   Reason</strong></p></li>
+<li><p><strong>0 – Instances Found</strong></p></li>
+<li><p><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></p></li>
+<li><p><strong>255 – Couldn’t get UID</strong></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="spython.main.base.Client.load">
 <code class="descname">load</code><span class="sig-paren">(</span><em>image=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load an image, either an actual path on the filesystem or a uri.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>the image path or uri to load (e.g., docker://ubuntu</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -620,22 +555,18 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 <dt id="spython.main.base.Client.pull">
 <code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>name_by_commit=False</em>, <em>name_by_hash=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</li>
-<li><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</li>
-<li><strong>Docker and Singularity Hub Naming</strong></li>
-<li><strong>———————————</strong></li>
-<li><strong>name</strong> (<em>a custom name to use, to override default</em>)</li>
-<li><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</p></li>
+<li><p><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</p></li>
+<li><p><strong>Docker and Singularity Hub Naming</strong></p></li>
+<li><p><strong>———————————</strong></p></li>
+<li><p><strong>name</strong> (<em>a custom name to use, to override default</em>)</p></li>
+<li><p><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -645,46 +576,39 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 
 <dl class="method">
 <dt id="spython.main.base.Client.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em>, <em>return_result=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run will run the container, with or withour arguments (which
 should be provided in a list)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
-<li><strong>args</strong> (<em>args to include with the run</em>)</li>
-<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
-<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
-<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
-directories within your container using bind mounts</li>
-<li><strong>stream</strong> (<em>if True, return &lt;generator&gt; for the user to run</em>)</li>
-<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>full path to singularity image</em>)</p></li>
+<li><p><strong>args</strong> (<em>args to include with the run</em>)</p></li>
+<li><p><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</p></li>
+<li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
+<li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
+<li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</p></li>
+<li><p><strong>stream</strong> (<em>if True, return &lt;generator&gt; for the user to run</em>)</p></li>
+<li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result (default is False)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="spython.main.base.Client.setenv">
 <code class="descname">setenv</code><span class="sig-paren">(</span><em>variable</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.setenv" title="Permalink to this definition">¶</a></dt>
 <dd><p>set an environment variable for Singularity</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>variable</strong> (<em>the variable to set</em>)</li>
-<li><strong>value</strong> (<em>the value to set</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variable</strong> (<em>the variable to set</em>)</p></li>
+<li><p><strong>value</strong> (<em>the value to set</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -751,7 +675,7 @@ directories within your container using bind mounts</li>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 

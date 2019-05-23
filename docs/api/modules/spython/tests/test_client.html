@@ -216,6 +216,12 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.execute command with return code&#39;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing client.inspect command&quot;</span><span class="p">)</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
 
@@ -269,7 +275,7 @@
       <script type="text/javascript" src="../../../assets/jquery.js"></script>
       <script type="text/javascript" src="../../../assets/underscore.js"></script>
       <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../assets/language_data.js"></script>
 
   
 

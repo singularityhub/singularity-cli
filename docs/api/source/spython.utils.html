@@ -270,21 +270,17 @@ command line.</p>
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
 don’t return the output to parse.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
-<li><strong>sudo</strong> (<em>if needed, add to start of command</em>)</li>
-<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
-<li><strong>capture</strong> (<em>if True, don’t set stdout and have it go to console. This</em>) – option can print a progress bar, but won’t return the lines
-as output.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</p></li>
+<li><p><strong>sudo</strong> (<em>if needed, add to start of command</em>)</p></li>
+<li><p><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</p></li>
+<li><p><strong>capture</strong> (<em>if True, don’t set stdout and have it go to console. This</em>) – option can print a progress bar, but won’t return the lines
+as output.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -295,20 +291,17 @@ as output.</li>
 results = []
 for line in stream_command(cmd):</p>
 <blockquote>
-<div>print(line, end=”“)
-results.append(line)</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
-<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
+<div><p>print(line, end=”“)
+results.append(line)</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</p></li>
+<li><p><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -370,7 +363,7 @@ results.append(line)</div></blockquote>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 
