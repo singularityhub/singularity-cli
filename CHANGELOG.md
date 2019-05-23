@@ -17,6 +17,8 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
+   - export command added back, points to build given Singularity 3.x+
  - print but with logger, should be println (0.0.57)
  - Fixing bug with instance not having name when not started (0.0.56)
    - instance start has been moved to non-private
