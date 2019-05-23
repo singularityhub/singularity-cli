@@ -26,8 +26,8 @@ class TestClient(unittest.TestCase):
         self.tmpdir = tempfile.mkdtemp()
 
     def tearDown(self):
-        shutil.rmtree(self.tmpdir)
-
+        #shutil.rmtree(self.tmpdir)
+        print('not')
     def test_commands(self):
 
         print('Testing client.build command')
@@ -40,6 +40,13 @@ class TestClient(unittest.TestCase):
         self.assertEqual(created_container, container)
         self.assertTrue(os.path.exists(created_container))
         os.remove(container)
+
+        print('Testing client.export command')
+        sandbox = "busybox:1.30.1.sandbox"
+        created_sandbox = self.cli.export('docker://busybox:1.30.1')
+        self.assertEqual(created_sandbox, sandbox)
+        self.assertTrue(os.path.exists(created_sandbox))
+        shutil.rmtree(created_sandbox)
 
         print("Testing client.pull command")
         print("...Case 1: Testing naming pull by image name")

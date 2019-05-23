@@ -159,64 +159,76 @@ and <strong>Merged pull requests</strong>. All closed issued and bug fixes shoul
 represented by the pull requests that fixed them.
 Critical items to know are:</p>
 <ul class="simple">
-<li>renamed commands</li>
-<li>deprecated / removed commands</li>
-<li>changed defaults</li>
-<li>backward incompatible changes (recipe file format? image file format?)</li>
-<li>migration guidance (how to convert images?)</li>
-<li>changed behaviour (recipe sections work differently)</li>
+<li><p>renamed commands</p></li>
+<li><p>deprecated / removed commands</p></li>
+<li><p>changed defaults</p></li>
+<li><p>backward incompatible changes (recipe file format? image file format?)</p></li>
+<li><p>migration guidance (how to convert images?)</p></li>
+<li><p>changed behaviour (recipe sections work differently)</p></li>
 </ul>
 <p>The client here will eventually be released as “spython” (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.</p>
 <div class="section" id="master">
 <span id="master"></span><h2><a class="reference external" href="https://github.com/singularityhub/singularity-cli/tree/master">master</a><a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Added support and tests for OCI image command group (0.0.54)<ul>
-<li>client now has version() function to call get_singularity_version</li>
-<li>added return_result (boolean) to client run_command function.</li>
+<li><p>print but with logger, should be println (0.0.57)</p></li>
+<li><p>Fixing bug with instance not having name when not started (0.0.56)</p>
+<ul>
+<li><p>instance start has been moved to non-private</p></li>
 </ul>
 </li>
-<li>adding testing for 3.1.0 with Singularity Orbs (0.0.53)<ul>
-<li>inspect returns parsed json on success, or full message / return code otherwise</li>
+<li><p>Added ability for exec and run to return the full output and message (0.0.55)</p></li>
+<li><p>By default, oci commands (pause, resume, kill) return the return value</p></li>
+<li><p>Added support and tests for OCI image command group (0.0.54)</p>
+<ul>
+<li><p>client now has version() function to call get_singularity_version</p></li>
+<li><p>added return_result (boolean) to client run_command function.</p></li>
 </ul>
 </li>
-<li>instance stop all missing check for Singularity V3.+ (0.0.52)</li>
-<li>fixing bug with instances list, name not taken into account (0.0.51)</li>
-<li>additional of args to instance start commands (0.0.50)</li>
-<li>continued lines should not be split in docker.py recipe parser (_setup) (0.0.49)</li>
-<li>COPY command should honor src src dest (and not reverse) (0.0.48)</li>
-<li>adding support for instance list (0.0.47)</li>
-<li>ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)</li>
-<li>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)<ul>
-<li>Adding DockerRecipe, SingularityRecipe “load” action to load file</li>
+<li><p>adding testing for 3.1.0 with Singularity Orbs (0.0.53)</p>
+<ul>
+<li><p>inspect returns parsed json on success, or full message / return code otherwise</p></li>
 </ul>
 </li>
-<li>issue #64 bug with hanging instances (0.0.44)</li>
-<li>flexible error printing given command to terminal fails (0.0.43)</li>
-<li>adding name_by_commit and name_by_hash to pull (0.0.42)</li>
-<li>adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)</li>
-<li>fixing bug in shell.py, cli should be client (0.0.40)</li>
-<li>remove uri function should only right strip to support relative paths (0.0.39)</li>
-<li>adjusting container build to use correct Github branch (vault/release-2.5)</li>
-<li>adding support and documentation for container instances (0.0.38)</li>
-<li>fixing bug with recipe Dockerfile conversion (0.0.37)</li>
-<li>typo in pypi PACKAGE_URL (0.0.36)</li>
-<li>respecting Client “quiet” attribute in run_command  (0.0.34/0.0.35)</li>
-<li>adding missing import of tempfile in image.export (0.0.33)</li>
-<li>bug with Client.version() (0.0.32)</li>
-<li>fixing bugs with import, export, image commands (0.0.31)</li>
-<li>adding tests for client (0.0.30)</li>
-<li>bug in Dockerfile fromHeader variable fix (0.0.29)</li>
-<li>Dockerfile from “as level” removed (0.0.28)<ul>
-<li>fixed ENV parser to handle statements like A=B C=D</li>
+<li><p>instance stop all missing check for Singularity V3.+ (0.0.52)</p></li>
+<li><p>fixing bug with instances list, name not taken into account (0.0.51)</p></li>
+<li><p>additional of args to instance start commands (0.0.50)</p></li>
+<li><p>continued lines should not be split in docker.py recipe parser (_setup) (0.0.49)</p></li>
+<li><p>COPY command should honor src src dest (and not reverse) (0.0.48)</p></li>
+<li><p>adding support for instance list (0.0.47)</p></li>
+<li><p>ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)</p></li>
+<li><p>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)</p>
+<ul>
+<li><p>Adding DockerRecipe, SingularityRecipe “load” action to load file</p></li>
 </ul>
 </li>
-<li>adding ability to stream command executed to console (0.0.25)</li>
-<li>fixing import bug with recipe parsers in python 2.7 (0.0.24)</li>
-<li>addition of docker and singularity recipe parsers (0.0.22)</li>
-<li>adding bind argument to exec and run (0.0.21)</li>
-<li>generating basic api documentation (sphinx) (0.0.2)</li>
-<li>adding changelog, and original code for client  (0.0.1)</li>
+<li><p>issue #64 bug with hanging instances (0.0.44)</p></li>
+<li><p>flexible error printing given command to terminal fails (0.0.43)</p></li>
+<li><p>adding name_by_commit and name_by_hash to pull (0.0.42)</p></li>
+<li><p>adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)</p></li>
+<li><p>fixing bug in shell.py, cli should be client (0.0.40)</p></li>
+<li><p>remove uri function should only right strip to support relative paths (0.0.39)</p></li>
+<li><p>adjusting container build to use correct Github branch (vault/release-2.5)</p></li>
+<li><p>adding support and documentation for container instances (0.0.38)</p></li>
+<li><p>fixing bug with recipe Dockerfile conversion (0.0.37)</p></li>
+<li><p>typo in pypi PACKAGE_URL (0.0.36)</p></li>
+<li><p>respecting Client “quiet” attribute in run_command  (0.0.34/0.0.35)</p></li>
+<li><p>adding missing import of tempfile in image.export (0.0.33)</p></li>
+<li><p>bug with Client.version() (0.0.32)</p></li>
+<li><p>fixing bugs with import, export, image commands (0.0.31)</p></li>
+<li><p>adding tests for client (0.0.30)</p></li>
+<li><p>bug in Dockerfile fromHeader variable fix (0.0.29)</p></li>
+<li><p>Dockerfile from “as level” removed (0.0.28)</p>
+<ul>
+<li><p>fixed ENV parser to handle statements like A=B C=D</p></li>
+</ul>
+</li>
+<li><p>adding ability to stream command executed to console (0.0.25)</p></li>
+<li><p>fixing import bug with recipe parsers in python 2.7 (0.0.24)</p></li>
+<li><p>addition of docker and singularity recipe parsers (0.0.22)</p></li>
+<li><p>adding bind argument to exec and run (0.0.21)</p></li>
+<li><p>generating basic api documentation (sphinx) (0.0.2)</p></li>
+<li><p>adding changelog, and original code for client  (0.0.1)</p></li>
 </ul>
 </div>
 </div>
@@ -272,7 +284,7 @@ singularity on pypi), and the versions here will coincide with these releases.</
       <script type="text/javascript" src="assets/jquery.js"></script>
       <script type="text/javascript" src="assets/underscore.js"></script>
       <script type="text/javascript" src="assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="assets/language_data.js"></script>
 
   
 

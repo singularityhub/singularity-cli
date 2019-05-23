@@ -182,19 +182,15 @@
 <dt id="spython.image.cmd.create.create">
 <code class="descclassname">spython.image.cmd.create.</code><code class="descname">create</code><span class="sig-paren">(</span><em>self</em>, <em>image_path</em>, <em>size=1024</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/create.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.create.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>create will create a a new image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_path</strong> (<em>full path to image</em>)</li>
-<li><strong>size</strong> (<em>image sizein MiB, default is 1024MiB</em>)</li>
-<li><strong>filesystem</strong> (<em>supported file systems ext3/ext4 (ext[2/3]: default ext3</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>full path to image</em>)</p></li>
+<li><p><strong>size</strong> (<em>image sizein MiB, default is 1024MiB</em>)</p></li>
+<li><p><strong>filesystem</strong> (<em>supported file systems ext3/ext4 (ext[2/3]: default ext3</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -204,18 +200,14 @@
 <dt id="spython.image.cmd.export.export">
 <code class="descclassname">spython.image.cmd.export.</code><code class="descname">export</code><span class="sig-paren">(</span><em>self</em>, <em>image_path</em>, <em>tmptar=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/export.html#export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.export.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>export will export an image, sudo must be used.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_path</strong> (<em>full path to image</em>)</li>
-<li><strong>tmptar</strong> (<em>if defined, use custom temporary path for tar export</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>full path to image</em>)</p></li>
+<li><p><strong>tmptar</strong> (<em>if defined, use custom temporary path for tar export</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -225,19 +217,15 @@
 <dt id="spython.image.cmd.importcmd.importcmd">
 <code class="descclassname">spython.image.cmd.importcmd.</code><code class="descname">importcmd</code><span class="sig-paren">(</span><em>self</em>, <em>image_path</em>, <em>input_source</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/importcmd.html#importcmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.importcmd.importcmd" title="Permalink to this definition">¶</a></dt>
 <dd><p>import will import (stdin) to the image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_path</strong> (<em>path to image to import to.</em>)</li>
-<li><strong>input_source</strong> (<em>input source or file</em>)</li>
-<li><strong>import_type</strong> (<em>if not specified, imports whatever function is given</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>path to image to import to.</em>)</p></li>
+<li><p><strong>input_source</strong> (<em>input source or file</em>)</p></li>
+<li><p><strong>import_type</strong> (<em>if not specified, imports whatever function is given</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -269,10 +257,11 @@ client via the environment variable MESSAGELEVEL.</p>
 <p>These commands are added to Client.image under main/__init__.py to
 expose subcommands:</p>
 <blockquote>
-<div>Client.image.export
+<div><p>Client.image.export
 Client.image.imprt
 Client.image.decompress
-Client.image.create</div></blockquote>
+Client.image.create</p>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -331,7 +320,7 @@ Client.image.create</div></blockquote>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 

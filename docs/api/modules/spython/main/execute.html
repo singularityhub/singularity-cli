@@ -170,7 +170,8 @@
             <span class="n">contain</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">bind</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">stream</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">nv</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">nv</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="sd">&#39;&#39;&#39; execute: send a command to a container</span>
 <span class="sd">    </span>
@@ -187,6 +188,8 @@
 <span class="sd">             This option allows you to map directories on your host system to</span>
 <span class="sd">             directories within your container using bind mounts</span>
 <span class="sd">        nv: if True, load Nvidia Drivers in runtime (default False)</span>
+<span class="sd">        return_result: if True, return entire json object with return code</span>
+<span class="sd">                       and message result (default is False)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
     <span class="n">check_install</span><span class="p">()</span>
@@ -231,7 +234,9 @@
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">]</span> <span class="o">+</span> <span class="n">command</span>
  
         <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                                     <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span>
+                                     <span class="n">return_result</span><span class="o">=</span><span class="n">return_result</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">)</span>
 
     <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Please include a command (list) to execute.&#39;</span><span class="p">)</span></div>
@@ -280,7 +285,7 @@
       <script type="text/javascript" src="../../../assets/jquery.js"></script>
       <script type="text/javascript" src="../../../assets/underscore.js"></script>
       <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../../../assets/language_data.js"></script>
 
   
 

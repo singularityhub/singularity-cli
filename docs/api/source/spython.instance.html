@@ -190,8 +190,15 @@
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.instance" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="spython.instance.Instance">
-<em class="property">class </em><code class="descclassname">spython.instance.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>image</em>, <em>start=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="spython.image.html#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal"><span class="pre">spython.image.ImageBase</span></code></a></p>
+<em class="property">class </em><code class="descclassname">spython.instance.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>image</em>, <em>start=True</em>, <em>name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="spython.image.html#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.image.ImageBase</span></code></a></p>
+<dl class="method">
+<dt id="spython.instance.Instance.generate_name">
+<code class="descname">generate_name</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.generate_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.generate_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a Robot Name for the instance to use, if the user doesn’t
+supply one.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="spython.instance.Instance.get_uri">
 <code class="descname">get_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.get_uri" title="Permalink to this definition">¶</a></dt>
@@ -203,14 +210,11 @@
 <code class="descname">parse_image_name</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.parse_image_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>simply split the uri from the image. Singularity handles
 parsing of registry, namespace, image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>the complete image uri to load (e.g., docker://ubuntu)</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>the complete image uri to load (e.g., docker://ubuntu)</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -271,7 +275,7 @@ parsing of registry, namespace, image.</p>
       <script type="text/javascript" src="../assets/jquery.js"></script>
       <script type="text/javascript" src="../assets/underscore.js"></script>
       <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../assets/language_data.js"></script>
 
   
 
