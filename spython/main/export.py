@@ -17,8 +17,7 @@ def export(self,
            pipe=False,
            output_file=None,
            command=None,
-           sudo=False,
-           export_format="tar"):
+           sudo=False):
     '''export will export an image, sudo must be used. If we have Singularity
        versions after 3, export is replaced with building into a sandbox.
 
@@ -28,7 +27,6 @@ def export(self,
        pipe: export to pipe and not file (default, False)
        output_file: if pipe=False, export tar to this file. If not specified, 
        will generate temporary directory.
-       export_format: the export format (only tar currently supported)
     '''
     from spython.utils import check_install
     check_install()
@@ -38,8 +36,7 @@ def export(self,
         return _export(image_path=image_path,
                        pipe=pipe,
                        output_file=output_file,
-                       command=command,
-                       export_format=output_format)
+                       command=command)
 
     if output_file == None:
         output_file = self._get_filename(image_path, 'sandbox')
@@ -56,8 +53,7 @@ def _export(self,
            image_path,
            pipe=False,
            output_file=None,
-           command=None,
-           export_format="tar"):
+           command=None):
     ''' the older deprecated function, running export for previous
                versions of Singularity that support it
 
@@ -76,16 +72,12 @@ def _export(self,
     '''
     sudo = True
     cmd = self._init_command('export')
-
-    if export_format != "tar":
-        print("Legacy export only supported export format tar.")
-        return None
     
     # If the user has specified export to pipe, we don't need a file
     if pipe == True:
         cmd.append(image_path)
     else:
-        _,tmptar = tempfile.mkstemp(suffix=".%s" %export_format)
+        _,tmptar = tempfile.mkstemp(suffix=".tar")
         os.remove(tmptar)
         cmd = cmd + ["-f",tmptar,image_path]
         self.run_command(cmd,sudo=sudo)
