@@ -33,10 +33,10 @@ def export(self,
 
     # If not version 3, run deprecated command
     if 'version 3' not in self.version():
-        return _export(image_path=image_path,
-                       pipe=pipe,
-                       output_file=output_file,
-                       command=command)
+        return self._export(image_path=image_path,
+                            pipe=pipe,
+                            output_file=output_file,
+                            command=command)
 
     if output_file == None:
         output_file = self._get_filename(image_path, 'sandbox')
