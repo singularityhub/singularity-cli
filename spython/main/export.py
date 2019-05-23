@@ -8,7 +8,8 @@
 
 from spython.logger import bot
 from spython.utils import stream_command
-import re
+import tempfile
+import shutil
 import os
 
 
@@ -77,10 +78,10 @@ def _export(self,
     if pipe == True:
         cmd.append(image_path)
     else:
-        _,tmptar = tempfile.mkstemp(suffix=".tar")
+        _, tmptar = tempfile.mkstemp(suffix=".tar")
         os.remove(tmptar)
-        cmd = cmd + ["-f",tmptar,image_path]
-        self.run_command(cmd,sudo=sudo)
+        cmd = cmd + ["-f", tmptar, image_path]
+        self.run_command(cmd, sudo=sudo)
 
         # Was there an error?            
         if not os.path.exists(tmptar):
