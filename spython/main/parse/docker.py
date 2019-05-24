@@ -208,9 +208,14 @@ class DockerRecipe(Recipe):
             if path == ".":
                 paths[pathtype] = os.getcwd()
  
-            # Warning if doesn't exist
-            if not os.path.exists(path):
-                bot.warning("%s doesn't exist, ensure exists for build" %path)
+            # Warn the user Singularity doesn't support expansion
+            if path.contains('*'):
+                bot.warning("Singularity doesn't support expansion, * found in %s" % path)
+
+            # Warning if file/folder (src) or parent (dest) doesn't exist
+            parent = os.path.dirname(path)
+            if not os.path.exists(path) and not os.path.exists(parent)):
+                bot.warning("%s doesn't exist, ensure exists for build" % path)
 
         # The pair is added to the files as a list
         self.files.append([paths['source'], paths['dest']])
