@@ -22,6 +22,9 @@ def export(self, image_path, tmptar=None):
     from spython.utils import check_install
     check_install()
 
+    if 'version 3' in self.version():
+        bot.exit('export is deprecated after Singularity 2.*')
+
     if tmptar is None:
         tmptar = "/%s/tmptar.tar" %(tempfile.mkdtemp())
     cmd = ['singularity', 'image.export', '-f', tmptar, image_path]
