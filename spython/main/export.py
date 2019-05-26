@@ -45,6 +45,7 @@ def export(self,
         return self.build(recipe=image_path,
                           image=output_file,
                           sandbox=True,
+                          force=True,
                           sudo=sudo)
 
     # If not version 3, run deprecated command
