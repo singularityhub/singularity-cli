@@ -32,8 +32,10 @@ def export(self,
     from spython.utils import check_install
     check_install()
 
-    # If not version 3, run deprecated command
     if 'version 3' in self.version() or '2.6' in self.version():
+
+        # If export is deprecated, we run a build
+        bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
 
         if output_file == None:
             output_file = self._get_filename(image_path, 'sandbox')
@@ -43,10 +45,8 @@ def export(self,
                           sandbox=True,
                           sudo=sudo)
 
+    # If not version 3, run deprecated command
     elif '2.5' in self.version():
-
-        # Otherwise, we run a build
-        bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
         return self._export(image_path=image_path,
                             pipe=pipe,
                             output_file=output_file,
