@@ -53,7 +53,7 @@ class TestClient(unittest.TestCase):
         image = self.cli.pull("shub://vsoch/singularity-images", 
                               pull_folder=self.tmpdir)
         self.assertTrue(os.path.exists(image))
-        self.assertTrue('vsoch-singularity-images' in image)
+        self.assertTrue('singularity-images' in image)
         print(image)
 
         print('Testing client.run command')
