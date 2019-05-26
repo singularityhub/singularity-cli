@@ -18,6 +18,7 @@ singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
  - adding deprecation message for image.export (0.0.59)
+   - adding --force option to build
  - deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
    - export command added back, points to build given Singularity 3.x+
  - print but with logger, should be println (0.0.57)
