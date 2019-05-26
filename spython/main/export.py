@@ -19,6 +19,7 @@ def export(self,
            output_file=None,
            command=None,
            sudo=False):
+
     '''export will export an image, sudo must be used. If we have Singularity
        versions after 3, export is replaced with building into a sandbox.
 
@@ -38,7 +39,8 @@ def export(self,
         bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
 
         if output_file == None:
-            output_file = self._get_filename(image_path, 'sandbox')
+            basename, ext = os.path.splitext(image_path)
+            output_file = self._get_filename(basename, 'sandbox', pwd=False)
 
         return self.build(recipe=image_path,
                           image=output_file,
