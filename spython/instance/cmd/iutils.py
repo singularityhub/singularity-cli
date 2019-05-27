@@ -5,6 +5,8 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from spython.instance import Instance
+from spython.logger import bot
 
 def parse_table(table_string, header, remove_rows=1):
     '''parse a table to json from a string, where a header is expected by default.
@@ -49,7 +51,7 @@ def get(self, name, return_json=False, quiet=False):
     cmd = self._init_command(subgroup)
 
     cmd.append(name)
-    output = run_command(cmd, quiet=True)
+    output = self.run_command(cmd, quiet=True)
 
     # Success, we have instances
 

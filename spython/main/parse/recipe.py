@@ -282,7 +282,7 @@ class Recipe(object):
         return line.split('#')[0].strip()
 
 
-    def _write_script(path, lines, chmod=True):
+    def _write_script(self, path, lines, chmod=True):
         '''write a script with some lines content to path in the image. This
            is done by way of adding echo statements to the install section.
 
@@ -296,7 +296,7 @@ class Recipe(object):
         if len(lines) > 0:
             lastline = lines.pop()
         for line in lines:
-            self.install.append('echo "%s" >> %s' %path)
+            self.install.append('echo "%s" >> %s' %line %path)
         self.install.append(lastline)     
 
         if chmod is True:

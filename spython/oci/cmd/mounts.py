@@ -16,8 +16,8 @@ def mount(self, image, sudo=None):
     return self._state_command(image, command="mount", sudo=sudo)
 
 
-def umount(self, image):
-    '''delete an OCI bundle createdfrom SIF image
+def umount(self, image, sudo=None):
+    '''delete an OCI bundle created from SIF image
 
        Parameters
        ==========

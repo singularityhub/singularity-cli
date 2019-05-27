@@ -8,7 +8,7 @@
 import hashlib
 import os
 import re
-
+from spython.logger import bot
 
 class ImageBase(object):
 
