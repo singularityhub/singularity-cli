@@ -10,6 +10,29 @@ import os
 import re
 from spython.logger import bot
 
+def get_uri(image):
+    '''get the uri of an image, or the string (optional) that appears before
+        ://. Optional. If none found, returns ''
+    '''
+    image = image or ''
+    uri = ''
+
+    match = re.match("^(?P<uri>.+)://", image)
+    if match:
+        uri = match.group('uri')
+
+    return uri
+
+
+def remove_uri(image):
+    '''remove_image_uri will return just the image name.
+        this will also remove all spaces from the uri.
+    '''
+    image = image or ''
+    uri = get_uri(image) or ''
+    image = image.replace('%s://' %uri,'', 1)
+    return image.strip('-').rstrip('/')
+
 class ImageBase(object):
 
     def __str__(self):
@@ -23,30 +46,6 @@ class ImageBase(object):
         return self.__str__()
 
 
-    def get_uri(self, image):
-        '''get the uri of an image, or the string (optional) that appears before
-           ://. Optional. If none found, returns ''
-        '''
-        image = image or ''
-        uri = ''
-
-        match = re.match("^(?P<uri>.+)://", image)
-        if match:
-            uri = match.group('uri')
-
-        return uri
-
-
-    def remove_uri(self, image):
-        '''remove_image_uri will return just the image name.
-           this will also remove all spaces from the uri.
-        '''
-        image = image or ''
-        uri = self.get_uri(image) or ''
-        image = image.replace('%s://' %uri,'', 1)
-        return image.strip('-').rstrip('/')
-
-
     def parse_image_name(self, image):
         '''
             simply split the uri from the image. Singularity handles
@@ -58,8 +57,8 @@ class ImageBase(object):
 
         '''
         self._image = image
-        self.uri = self.get_uri(image)
-        self.image = self.remove_uri(image)
+        self.uri = get_uri(image)
+        self.image = remove_uri(image)
 
 
 class Image(ImageBase):
