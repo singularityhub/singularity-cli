@@ -22,7 +22,7 @@ class Instance(ImageBase):
             name: a name for the instance (will generate RobotName 
                     if not provided)
         '''
-        super(ImageBase, self).__init__()
+        super().__init__()
         self.parse_image_name(image)
         self.generate_name(name)
 

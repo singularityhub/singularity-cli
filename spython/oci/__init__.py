@@ -30,7 +30,7 @@ class OciImage(ImageBase):
             sudo: if init is called with or without sudo, keep a record and use
                   for following commands unless sudo is provided to function.
         '''
-        super(ImageBase, self).__init__()
+        super().__init__()
 
         # Will typically be None, unless used outside of Client
         self.container_id = container_id

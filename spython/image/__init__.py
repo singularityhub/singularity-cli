@@ -75,7 +75,7 @@ class Image(ImageBase):
             image: the image uri to parse (required)
 
         '''
-        super(ImageBase, self).__init__()
+        super().__init__()
         self.parse_image_name(image)
 
 
