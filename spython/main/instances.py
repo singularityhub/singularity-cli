@@ -7,7 +7,7 @@
 
 
 from spython.logger import bot
-from spython.utils import ( run_command, check_install )
+from spython.utils import ( run_command )
 
 def instances(self, name=None, return_json=False, quiet=False):
     '''list instances. For Singularity, this is provided as a command sub
@@ -106,7 +106,7 @@ def stopall(self, sudo=False, quiet=True):
              instances)
 
     '''
-    from spython.utils import run_command, check_install
+    from spython.utils import check_install
     check_install()
 
     subgroup = 'instance.stop'

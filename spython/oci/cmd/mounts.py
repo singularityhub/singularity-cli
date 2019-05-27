@@ -6,11 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-from .states import _state_command
-import sys
-
-
 def mount(self, image, sudo=None):
     '''create an OCI bundle from SIF image
 

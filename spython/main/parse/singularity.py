@@ -6,13 +6,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-import json
-import os
 import re
 import sys
 
 from spython.logger import bot
-from spython.utils import read_file
 from spython.main.parse.recipe import Recipe
 
 

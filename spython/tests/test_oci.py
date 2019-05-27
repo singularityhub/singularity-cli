@@ -8,12 +8,10 @@
 
 from spython.utils import get_installdir
 from spython.main.base.generate import RobotNamer
-from spython.logger import bot
 from spython.main import Client
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 print("############################################################## test_oci")

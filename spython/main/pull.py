@@ -10,9 +10,6 @@ from spython.logger import bot
 from spython.utils import stream_command
 import os
 import re
-import shutil
-import sys
-import tempfile
 
 def pull(self, 
          image=None,

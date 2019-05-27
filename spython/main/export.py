@@ -7,7 +7,6 @@
 
 
 from spython.logger import bot
-from spython.utils import stream_command
 import tempfile
 import shutil
 import os

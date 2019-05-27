@@ -8,8 +8,6 @@
 
 from spython.logger import bot
 from spython.utils import stream_command
-import os
-import sys
 
 
 def execute(self, 

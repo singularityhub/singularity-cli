@@ -6,13 +6,10 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
-from spython.logger import bot
 from spython.main import Client
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 

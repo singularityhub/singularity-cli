@@ -7,7 +7,6 @@
 
 import json as jsonp
 
-from spython.logger import bot
 from spython.utils import ( 
     check_install, 
     run_command

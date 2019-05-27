@@ -6,19 +6,15 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.main.base.logger import println
 from spython.utils import ( 
-    run_command as run_cmd, 
-    check_install 
+    run_command as run_cmd
 )
 
 from spython.logger import bot
 
 import subprocess
-import json
 import sys
 import os
-import re
 
 
 

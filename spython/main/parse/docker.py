@@ -8,11 +8,9 @@
 
 import os
 import re
-import sys
 
 from .environment import parse_env
 from .recipe import Recipe
-from spython.utils import read_file
 from spython.logger import bot
 
 class DockerRecipe(Recipe):

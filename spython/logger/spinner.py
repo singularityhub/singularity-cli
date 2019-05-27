@@ -6,9 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-import os
-import sys
-
 import sys
 import time
 import threading

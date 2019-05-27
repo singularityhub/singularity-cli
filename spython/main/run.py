@@ -6,7 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
 from spython.utils import stream_command
 import json
 
