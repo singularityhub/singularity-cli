@@ -18,7 +18,7 @@ def help(self, command=None):
     check_install()
 
     cmd = ['singularity','--help']
-    if command != None:
+    if command is not None:
         cmd.append(command)
     help = self._run_command(cmd)
     return help

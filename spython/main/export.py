@@ -34,7 +34,7 @@ def export(self,
     # If not version 3, run deprecated command
     if 'version 3' in self.version() or '2.6' in self.version():
 
-        if output_file == None:
+        if output_file is None:
             output_file = self._get_filename(image_path, 'sandbox')
 
         return self.build(recipe=image_path,
@@ -79,7 +79,7 @@ def _export(self,
     cmd = self._init_command('export')
     
     # If the user has specified export to pipe, we don't need a file
-    if pipe == True:
+    if pipe:
         cmd.append(image_path)
 
     else:
@@ -94,7 +94,7 @@ def _export(self,
             return None
 
         # if user has specified output file, move it there, return path
-        if output_file != None:
+        if output_file is not None:
             shutil.copyfile(tmptar, output_file)
             return output_file
         else:

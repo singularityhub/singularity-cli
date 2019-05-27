@@ -30,7 +30,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
     check_install()
 
     # If name provided, over write robot (default)
-    if name != None:
+    if name is not None:
         self.name = name
 
     # If an image isn't provided, we have an initialized instance
@@ -57,7 +57,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
     cmd = cmd + options + [image, self.name]
 
     # If arguments are provided
-    if args != None:
+    if args is not None:
         if not isinstance(args, list):
             args = [args]
         cmd = cmd + args

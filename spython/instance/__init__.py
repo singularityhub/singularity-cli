@@ -42,7 +42,7 @@ class Instance(ImageBase):
            supply one.
         '''
         # If no name provided, use robot name
-        if name == None:
+        if name is None:
             name = self.RobotNamer.generate()
         self.name = name.replace('-','_')
 
@@ -74,7 +74,7 @@ class Instance(ImageBase):
         '''
 
         # If not given metadata, use instance.list to get it for container
-        if kwargs == None and hasattr(self, 'name'):
+        if kwargs is None and hasattr(self, 'name'):
             kwargs = self._list(self.name, quiet=True, return_json=True)
 
         # Add acceptable arguments

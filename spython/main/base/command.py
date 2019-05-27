@@ -125,7 +125,7 @@ def run_command(self, cmd,
 
     '''
     # First preference to function, then to client setting
-    if quiet == None:
+    if quiet is None:
         quiet = self.quiet
 
     result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)

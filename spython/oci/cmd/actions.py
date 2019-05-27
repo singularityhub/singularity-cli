@@ -119,11 +119,11 @@ def _run(self, bundle,
     # Additional Logging Files
     cmd = cmd + ['--log-format', log_format]
 
-    if log_path != None:
+    if log_path is not None:
         cmd = cmd + ['--log-path', log_path]
-    if pid_file != None:
+    if pid_file is not None:
         cmd = cmd + ['--pid-file', pid_file]
-    if sync_socket != None:
+    if sync_socket is not None:
         cmd = cmd + ['--sync-socket', sync_socket]
     if empty_process:
         cmd.append('--empty-process')
@@ -225,7 +225,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
     # Add the container_id
     cmd.append(container_id)
 
-    if command != None:
+    if command is not None:
         if not isinstance(command, list):
             command = [command]
 
@@ -255,7 +255,7 @@ def update(self, container_id, from_file=None):
     # singularity oci delete
     cmd = self._init_command('update')
 
-    if from_file != None:
+    if from_file is not None:
         cmd = cmd + ['--from-file', from_file]
 
     # Add the container_id

@@ -31,7 +31,7 @@ class Spinner:
             for cursor in '<^>v': yield cursor
 
     def select_generator(self, generator):
-        if generator == None:
+        if generator is None:
             generator = choice(['cursor',
                                 'arrow',
                                 'balloons'])
