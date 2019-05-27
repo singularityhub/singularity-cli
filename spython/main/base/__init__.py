@@ -37,10 +37,10 @@ class Client:
         return self.__str__()
 
     def __init__(self):
-       '''the base client for singularity, will have commands added to it.
-          upon init, store verbosity requested in environment MESSAGELEVEL.
-       '''
-       self._init_level()
+        '''the base client for singularity, will have commands added to it.
+           upon init, store verbosity requested in environment MESSAGELEVEL.
+        '''
+        self._init_level()
 
     def version(self):
         '''a wrapped to get_singularity_version, takes no arguments.

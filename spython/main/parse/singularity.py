@@ -122,17 +122,17 @@ class SingularityRecipe(Recipe):
 # Comments and Help
 
     def _comments(self, lines):
-         ''' comments is a wrapper for comment, intended to be given a list
-             of comments.
+        ''' comments is a wrapper for comment, intended to be given a list
+            of comments.
 
-             Parameters
-             ==========
-             lines: the list of lines to parse
+            Parameters
+            ==========
+            lines: the list of lines to parse
 
-         ''' 
-         for line in lines:
-             comment = self._comment(line)
-             self.comments.append(comment)
+        ''' 
+        for line in lines:
+            comment = self._comment(line)
+            self.comments.append(comment)
 
 
     def _comment(self, line):

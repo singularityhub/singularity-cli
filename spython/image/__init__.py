@@ -65,18 +65,18 @@ class ImageBase(object):
 class Image(ImageBase):
 
     def __init__(self, image=None):
-       '''An image here is an image file or a record.
-          The user can choose to load the image when starting the client, or
-          update the main client with an image. The image object is kept
-          with the main client to make running additional commands easier.
+        '''An image here is an image file or a record.
+            The user can choose to load the image when starting the client, or
+            update the main client with an image. The image object is kept
+            with the main client to make running additional commands easier.
 
-          Parameters
-          ==========
-          image: the image uri to parse (required)
+            Parameters
+            ==========
+            image: the image uri to parse (required)
 
-       '''
-       super(ImageBase, self).__init__()
-       self.parse_image_name(image)
+        '''
+        super(ImageBase, self).__init__()
+        self.parse_image_name(image)
 
 
     def get_hash(self, image=None):
