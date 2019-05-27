@@ -236,7 +236,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
             return stream_command(cmd, sudo=sudo)
         return self._run_command(cmd, sudo=sudo, quiet=True)
 
-def update(self, container_id, from_file=None):
+def update(self, container_id, from_file=None, sudo=False):
     '''update container cgroup resources for a specific container_id,
        The container must have state "running" or "created."
 
