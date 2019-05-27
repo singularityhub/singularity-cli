@@ -382,7 +382,7 @@ class SingularityRecipe(Recipe):
         parts = line.split(' ')
         if len(parts) > 1:
             name = ' '.join(parts[1:])          
-        section = re.sub('[%]|(\s+)','',parts[0]).lower()
+        section = re.sub(r'[%]|(\s+)','',parts[0]).lower()
 
         if section not in self.config: 
             self.config[section] = []
