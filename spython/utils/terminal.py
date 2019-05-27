@@ -48,10 +48,9 @@ def check_install(software='singularity', quiet=True):
 
 
 def get_singularity_version():
-    '''get the singularity client version. Useful in the case that functionality
-       has changed, etc. Can be "hacked" if needed by exporting 
-       SPYTHON_SINGULARITY_VERSION, which is checked before checking on the
-       command line.
+    '''get the full singularity client version as reported by 
+       singularity --version [...]. For Singularity 3.x, this means:
+       "singularity version 3.0.1-1"
     '''
     version = os.environ.get('SPYTHON_SINGULARITY_VERSION', "")
     if version == "":
