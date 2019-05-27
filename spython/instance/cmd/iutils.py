@@ -29,8 +29,8 @@ def parse_table(table_string, header, remove_rows=1):
         item = {}
         # This assumes no white spaces in each entry, which should be the case
         row = [x for x in row.split(' ') if x]
-        for e in range(len(row)):
-            item[header[e]] = row[e]
+        for i, r in enumerate(row):
+            item[header[i]] = r
         parsed.append(item)
     return parsed
 
