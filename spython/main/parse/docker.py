@@ -199,21 +199,19 @@ class DockerRecipe(Recipe):
            dest: the destiation
         '''
 
-        # Create data structure to iterate over
-
-        paths = {'source': source,
-                 'dest': dest}
-
-        for pathtype, path in paths.items():
-            if path == ".":
-                paths[pathtype] = os.getcwd()
- 
-            # Warning if doesn't exist
-            if not os.path.exists(path):
-                bot.warning("%s doesn't exist, ensure exists for build" %path)
-
+        def expandPath(path):
+            return os.getcwd() if path == "." else path
+        
+        # Warn the user Singularity doesn't support expansion
+        if source.contains('*'):
+            bot.warning("Singularity doesn't support expansion, * found in %s" % source)
+        
+        # Warning if file/folder (src) doesn't exist
+        if not os.path.exists(source):
+            bot.warning("%s doesn't exist, ensure exists for build" % source)
+        
         # The pair is added to the files as a list
-        self.files.append([paths['source'], paths['dest']])
+        self.files.append([expandPath(source), expandPath(dest)])
 
 
     def _parse_http(self, url, dest):
