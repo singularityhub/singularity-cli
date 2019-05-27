@@ -132,7 +132,7 @@ def _run(self, bundle,
     cmd.append(container_id)
 
     # Generate the instance
-    result = self._send_command(cmd, sudo=True)
+    self._send_command(cmd, sudo=True)
 
     # Get the status to report to the user!
     # TODO: Singularity seems to create even with error, can we check and

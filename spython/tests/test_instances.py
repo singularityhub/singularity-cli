@@ -64,6 +64,8 @@ class TestInstances(unittest.TestCase):
         self.assertEqual(instances, [])
         myinstance1 = self.cli.instance(image)
         myinstance2 = self.cli.instance(image)
+        self.assertTrue(myinstance1 is not None)
+        self.assertTrue(myinstance2 is not None)
         instances = self.cli.instances()
         self.assertEqual(len(instances), 2)
         self.cli.instance_stopall()

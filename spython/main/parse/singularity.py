@@ -85,7 +85,6 @@ class SingularityRecipe(Recipe):
 
         '''
         self._write_script('/tests.sh', lines)
-        testrun = "/bin/bash /tests.sh"
         self.test = "/bin/bash /tests.sh"
         
 
@@ -327,7 +326,6 @@ class SingularityRecipe(Recipe):
         self.config = dict()
      
         section = None
-        name = None
 
         while len(lines) > 0:
 
@@ -379,9 +377,7 @@ class SingularityRecipe(Recipe):
         line = line.split('#',1)[0].strip()
 
         # Is there a section name?
-        parts = line.split(' ')
-        if len(parts) > 1:
-            name = ' '.join(parts[1:])          
+        parts = line.split(' ')         
         section = re.sub(r'[%]|(\s+)','',parts[0]).lower()
 
         if section not in self.config: 

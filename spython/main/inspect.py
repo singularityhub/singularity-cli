@@ -53,7 +53,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
         result = jsonp.loads(result['message'][0])
 
         # Fix up labels
-        labels = parse_labels(result)
+        result = parse_labels(result)
 
         if not quiet:
             print(jsonp.dumps(result, indent=4))

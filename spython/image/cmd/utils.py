@@ -27,5 +27,5 @@ def decompress(self, image_path, quiet=True):
         
     extracted_file = image_path.replace('.gz','')
     cmd = ['gzip','-d','-f', image_path]
-    result = self.run_command(cmd, quiet=quiet) # exits if return code != 0
+    self.run_command(cmd, quiet=quiet) # exits if return code != 0
     return extracted_file

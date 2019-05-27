@@ -80,7 +80,9 @@ class TestClient(unittest.TestCase):
         self.assertEqual(result['return_code'], 0)
 
         print("Testing client.inspect command")
-        labels = self.cli.inspect(container)
+        result = self.cli.inspect(container)
+        self.assertEqual(result['type'], 'container')
+        self.assertTrue('attributes' in result)
 
         os.remove(container)
 

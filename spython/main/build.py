@@ -89,7 +89,7 @@ def build(self, recipe=None,
     cmd = cmd + [image, recipe]
 
     if stream is False:
-        output = self._run_command(cmd, sudo=sudo, capture=False)
+        self._run_command(cmd, sudo=sudo, capture=False)
     else:
         # Here we return the expected image, and an iterator! 
         # The caller must iterate over
