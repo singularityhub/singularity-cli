@@ -6,31 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-
-def parse_verbosity(self, args):
-    '''parse_verbosity will take an argument object, and return the args
-       passed (from a dictionary) to a list
-
-       Parameters
-       ==========
-       args: the argparse argument objects
-
-    '''
-
-    flags = []
-
-    if args.silent is True:
-        flags.append('--silent')
-    elif args.quiet is True:
-        flags.append('--quiet')
-    elif args.debug is True:
-        flags.append('--debug')
-    elif args.verbose is True:
-        flags.append('-' + 'v' * args.verbose)
-
-    return flags
-
-
 '''
 GLOBAL OPTIONS:
     -d|--debug    Print debugging information
@@ -69,3 +44,26 @@ COMMAND GROUPS:
     instance   Persistent instance command group                                
 
 '''
+
+def parse_verbosity(self, args):
+    '''parse_verbosity will take an argument object, and return the args
+       passed (from a dictionary) to a list
+
+       Parameters
+       ==========
+       args: the argparse argument objects
+
+    '''
+
+    flags = []
+
+    if args.silent is True:
+        flags.append('--silent')
+    elif args.quiet is True:
+        flags.append('--quiet')
+    elif args.debug is True:
+        flags.append('--debug')
+    elif args.verbose is True:
+        flags.append('-' + 'v' * args.verbose)
+
+    return flags

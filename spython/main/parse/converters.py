@@ -9,8 +9,6 @@
 import re
 from spython.logger import bot
 
-from spython.logger import bot
-
 # Singularity to Dockerfile
 # Easier, parsed line by line
 

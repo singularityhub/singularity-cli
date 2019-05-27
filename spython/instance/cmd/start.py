@@ -8,7 +8,7 @@
 
 from spython.logger import bot
 
-def start(self, image=None, name=None, args=None, sudo=False, options=[], capture=False):
+def start(self, image=None, name=None, args=None, sudo=False, options=None, capture=False):
     '''start an instance. This is done by default when an instance is created.
 
        Parameters
@@ -51,7 +51,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
 
     # Add options, if they are provided
     if not isinstance(options, list):
-        options = options.split(' ')
+        options = [] if options is None else options.split(' ')
 
     # Assemble the command!
     cmd = cmd + options + [image, self.name]
