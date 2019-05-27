@@ -77,8 +77,14 @@ class TestUtils(unittest.TestCase):
         from spython.utils import get_singularity_version
         version = get_singularity_version()
         self.assertTrue(version != "")
+        oldValue = os.environ.get('SPYTHON_SINGULARITY_VERSION')
         os.environ['SPYTHON_SINGULARITY_VERSION'] = "3.0"
         version = get_singularity_version()
+        # Restore for other tests
+        if oldValue is None:
+            del os.environ['SPYTHON_SINGULARITY_VERSION']
+        else:
+            os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
         self.assertTrue(version == "3.0")
 
 
