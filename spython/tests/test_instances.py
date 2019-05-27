@@ -50,7 +50,7 @@ class TestInstances(unittest.TestCase):
 
         print("...Case 3: Commands to instances")
         result = self.cli.execute(myinstance, ['echo', 'hello'])
-        self.assertTrue('hello\n' == result)
+        self.assertEqual(result, 'hello\n')
 
         print('...Case 4: Return value from instance')
         result = self.cli.execute(myinstance,'ls /', return_result=True)

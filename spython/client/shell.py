@@ -7,9 +7,6 @@
 
 
 def main(args, options, parser):
-
-    from spython.main import Client as cli
-
     # If we have options, first is image
     image = None
     if len(options) > 0:

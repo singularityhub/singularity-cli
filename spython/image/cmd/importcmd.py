@@ -23,4 +23,3 @@ def importcmd(self, image_path, input_source):
     output = self.run_command(cmd, sudo=False)
     self.println(output)        
     return image_path
-

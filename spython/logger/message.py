@@ -206,7 +206,7 @@ class SingularityMessage:
             percent = "%5s" % ("{0:.1f}").format(percent)
             output = '\r' + prefix + \
                 " |%s| %s%s %s" % (bar, percent, '%', suffix)
-            sys.stdout.write(output),
+            sys.stdout.write(output)
             if iteration == total and carriage_return:
                 sys.stdout.write('\n')
             sys.stdout.flush()

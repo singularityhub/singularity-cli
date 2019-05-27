@@ -54,7 +54,7 @@ class ProgressBar(object):
         self.etadelta =      time.time()
         self.etadisp =       self.format_time(self.eta)
         self.last_progress = 0
-        if (self.expected_size):
+        if self.expected_size:
             self.show(0)
 
     def show(self, progress, count=None):

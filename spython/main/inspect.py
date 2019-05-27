@@ -40,7 +40,8 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if "version 3" in self.version():
         options = ['e','d','l','r','H','t']
 
-    [cmd.append('-%s' % x) for x in options]
+    for x in options:
+        cmd.append('-%s' % x)
 
     if json is True:
         cmd.append('--json')
