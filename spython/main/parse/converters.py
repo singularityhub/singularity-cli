@@ -11,6 +11,8 @@ import os
 import re
 import sys
 
+from spython.logger import bot
+
 # Singularity to Dockerfile
 # Easier, parsed line by line
 
