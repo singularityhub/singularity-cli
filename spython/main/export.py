@@ -105,4 +105,3 @@ def _export(self,
 
     # Otherwise, return output of pipe    
     return self._run_command(cmd, sudo=sudo)
-
