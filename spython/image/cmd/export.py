@@ -6,6 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+from spython.logger import bot
 import tempfile
 
 def export(self, image_path, tmptar=None):

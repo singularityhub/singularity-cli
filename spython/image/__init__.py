@@ -75,3 +75,4 @@ class Image(ImageBase):
                 return hasher.hexdigest()
 
         bot.warning('%s does not exist.' % image)
+

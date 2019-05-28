@@ -38,7 +38,7 @@ def export(self,
         bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
 
         if output_file is None:
-            basename, ext = os.path.splitext(image_path)
+            basename, _ = os.path.splitext(image_path)
             output_file = self._get_filename(basename, 'sandbox', pwd=False)
 
         return self.build(recipe=image_path,
@@ -105,3 +105,4 @@ def _export(self,
 
     # Otherwise, return output of pipe    
     return self._run_command(cmd, sudo=sudo)
+
