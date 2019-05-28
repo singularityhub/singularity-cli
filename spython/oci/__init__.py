@@ -34,7 +34,7 @@ class OciImage(ImageBase):
 
         # Will typically be None, unless used outside of Client
         self.container_id = container_id
-        self.uri = 'oci://'
+        self.protocol = 'oci'
         self.sudo = sudo
 
         # If bundle is provided, create it

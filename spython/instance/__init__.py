@@ -58,7 +58,7 @@ class Instance(ImageBase):
 
         '''
         self._image = image
-        self.uri = 'instance://'
+        self.protocol = 'instance'
 
 
     def get_uri(self):
@@ -92,8 +92,8 @@ class Instance(ImageBase):
 
     def __str__(self):
         if hasattr(self, 'name'):
-            if self.uri:
-                return "%s%s" %(self.uri, self.name)
+            if self.protocol:
+                return "%s://%s" %(self.protocol, self.name)
         return os.path.basename(self._image)
 
     def __repr__(self):

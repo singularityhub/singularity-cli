@@ -14,9 +14,9 @@ from spython.utils import split_uri
 class ImageBase(object):
 
     def __str__(self):
-        if hasattr(self, 'uri'):
-            if self.uri:
-                return "%s://%s" %(self.uri, self.image)
+        protocol = getattr(self, 'protocol', None)
+        if protocol:
+            return "%s://%s" %(protocol, self.image)
         return self.image
 
 
@@ -35,7 +35,7 @@ class ImageBase(object):
 
         '''
         self._image = image
-        self.uri, self.image = split_uri(image)
+        self.protocol, self.image = split_uri(image)
 
 
 class Image(ImageBase):
