@@ -10,24 +10,53 @@ import re
 import sys
 
 from spython.logger import bot
-from spython.main.parse.recipe import Recipe
+from .base import ParserBase
 
 
-class SingularityRecipe(Recipe):
+class SingularityParser(ParserBase):
 
-    def __init__(self, recipe=None):
-        '''a Docker recipe parses a Docker Recipe into the expected fields of
-           labels, environment, and install/runtime commands
+    name = 'singularity'
+
+    def __init__(self, recipe="Singularity", load=True):
+        '''a SingularityParser parses a Singularity file into expected fields of
+           labels, environment, and install/runtime commands. The base class
+           ParserBase will instantiate an empty Recipe() object to populate,
+           and call parse() here on the recipe.
 
            Parameters
            ==========
-           recipe: the recipe file (Dockerfile) to parse
+           recipe: the recipe file (Singularity) to parse
+           load: load and parse the recipe (defaults to True)
 
         '''
+        super(SingularityParser, self).__init__(recipe, load)
 
-        self.name = 'singularity'
-        self.filename = "Singularity"
-        super(SingularityRecipe, self).__init__(recipe)
+
+    def parse(self):
+        '''parse is the base function for parsing the recipe, and extracting
+           elements into the correct data structures. Everything is parsed into
+           lists or dictionaries that can be assembled again on demand. 
+    
+           Singularity: we parse files/labels first, then install. 
+                        cd first in a line is parsed as WORKDIR
+
+        '''
+        # If the recipe isn't loaded, load it
+        if not hasattr(self, 'config'):
+            self.load_recipe()
+
+        # Parse each section
+        for section, lines in self.config.items():
+            bot.debug(section)
+
+            # Get the correct parsing function
+            parser = self._get_mapping(section)
+           
+            # Parse it, if appropriate
+            if parser:
+                parser(lines)
+
+        return self.recipe
 
 
 # Setup for each Parser
@@ -68,8 +97,8 @@ class SingularityRecipe(Recipe):
            line: the line from the recipe file to parse for FROM
 
         '''
-        self.fromHeader = line
-        bot.debug('FROM %s' %self.fromHeader) 
+        self.recipe.fromHeader = line
+        bot.debug('FROM %s' % self.recipe.fromHeader) 
 
 
 # Run and Test Parser
@@ -85,7 +114,7 @@ class SingularityRecipe(Recipe):
 
         '''
         self._write_script('/tests.sh', lines)
-        self.test = "/bin/bash /tests.sh"
+        self.recipe.test = "/bin/bash /tests.sh"
         
 
 # Env Parser
@@ -101,7 +130,7 @@ class SingularityRecipe(Recipe):
 
         '''
         environ = [x for x in lines if not x.startswith('export')]        
-        self.environ += environ
+        self.recipe.environ += environ
 
 
 # Files for container
@@ -115,7 +144,7 @@ class SingularityRecipe(Recipe):
            lines: pairs of files, one pair per line
    
         '''
-        self.files += lines
+        self.recipe.files += lines
 
 
 # Comments and Help
@@ -131,7 +160,7 @@ class SingularityRecipe(Recipe):
         ''' 
         for line in lines:
             comment = self._comment(line)
-            self.comments.append(comment)
+            self.recipe.comments.append(comment)
 
 
     def _comment(self, line):
@@ -170,7 +199,7 @@ class SingularityRecipe(Recipe):
             self._write_script('/entrypoint.sh', lines)
             runscript = "/bin/bash /entrypoint.sh"
 
-        self.cmd = runscript
+        self.recipe.cmd = runscript
 
 
 # Labels
@@ -183,7 +212,7 @@ class SingularityRecipe(Recipe):
            lines: the lines from the recipe with key,value pairs
 
         '''
-        self.labels += lines
+        self.recipe.labels += lines
 
 
     def _post(self, lines):
@@ -194,7 +223,7 @@ class SingularityRecipe(Recipe):
            lines: the lines from the recipe with install commands
 
         '''        
-        self.install += lines
+        self.recipe.install += lines
 
 
 # Main Parsing Functions
@@ -234,32 +263,6 @@ class SingularityRecipe(Recipe):
         return self._comments
  
 
-    def _parse(self):
-        '''parse is the base function for parsing the recipe, and extracting
-           elements into the correct data structures. Everything is parsed into
-           lists or dictionaries that can be assembled again on demand. 
-    
-           Singularity: we parse files/labels first, then install. 
-                        cd first in a line is parsed as WORKDIR
-
-        '''
-        # If the recipe isn't loaded, load it
-        if not hasattr(self, 'config'):
-            self.load_recipe()
-
-        # Parse each section
-        for section, lines in self.config.items():
-            bot.debug(section)
-
-            # Get the correct parsing function
-            parser = self._get_mapping(section)
-           
-            # Parse it, if appropriate
-            if parser:
-                parser(lines)
-
-
-
 # Loading Functions
 
     def _load_from(self, line):
@@ -268,7 +271,7 @@ class SingularityRecipe(Recipe):
         # Remove any comments
         line = line.split('#',1)[0]        
         line = re.sub('(F|f)(R|r)(O|o)(M|m):','', line).strip()
-        bot.info('FROM %s' %line)
+        bot.info('FROM %s' % line)
         self.config['from'] = line
 
 
@@ -277,8 +280,7 @@ class SingularityRecipe(Recipe):
            exit on fail (there is no other option to convert to Dockerfile!
         '''
         if 'docker' not in line.lower():
-            bot.error('docker not detected as Bootstrap!')
-            sys.exit(1)
+            bot.exit('docker not detected as Bootstrap!')
 
 
     def _load_section(self, lines, section):
@@ -385,3 +387,4 @@ class SingularityRecipe(Recipe):
             bot.debug("Adding section %s" %section)
 
         return section
+
