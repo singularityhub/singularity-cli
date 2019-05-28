@@ -29,7 +29,6 @@ class DockerRecipe(Recipe):
 
         '''
         self.name = "docker"
-        self.workdir = None
         super(DockerRecipe, self).__init__(recipe)
 
 
