@@ -80,11 +80,11 @@ def create_runscript(self, default="/bin/bash", force=False):
     entrypoint = default
 
     # Only look at Docker if not enforcing default
-    if force is False:
+    if not force:
         if self.entrypoint is not None:
-            entrypoint = ''.join(self.entrypoint)
-        elif self.cmd is not None:
-            entrypoint = ''.join(self.cmd)
+            entrypoint = ' '.join(self.entrypoint)
+        if self.cmd is not None:
+            entrypoint = entrypoint + ' ' + ' '.join(self.cmd)
 
     # Entrypoint should use exec
     if not entrypoint.startswith('exec'):
