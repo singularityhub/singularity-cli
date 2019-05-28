@@ -323,7 +323,7 @@ class DockerRecipe(Recipe):
         # Save the last working directory to add to the runscript
         workdir = self._setup('WORKDIR', line)
         self.workdir = "cd %s" %(''.join(workdir))
-        self.install.append(line)
+        self.install.append(self.workdir)
 
 
 # Entrypoint and Command

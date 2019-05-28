@@ -211,7 +211,7 @@ def docker2singularity(self, runscript="/bin/bash", force=False):
     runscript = self._create_runscript(runscript, force)
 
     # If a working directory was used, add it as a cd
-    if self.workdir != None:
+    if self.workdir is not None:
         runscript = [self.workdir] + [runscript]
 
     # Finish the recipe
