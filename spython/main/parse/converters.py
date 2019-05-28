@@ -210,8 +210,9 @@ def docker2singularity(self, runscript="/bin/bash", force=False):
     if self.workdir is not None:
         runscript = [self.workdir] + [runscript]
 
-    # Finish the recipe
+    # Finish the recipe, also add as startscript
     recipe += finish_section(runscript, 'runscript')
+    recipe += finish_section(runscript, 'startscript')
 
     if self.test is not None:
         recipe += finish_section(self.test, 'test')
