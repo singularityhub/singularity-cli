@@ -52,6 +52,10 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
 
+        # Unify output to singularity 3 format
+        if "version 3" not in self.version():
+            result = result['data']
+
         # Fix up labels
         result = parse_labels(result)
 
@@ -70,22 +74,12 @@ def parse_labels(result):
        result: the json object to parse from inspect
     '''
 
-    if "data" in result:
-        labels = result['data']['attributes'].get('labels') or {}
-
-    elif 'attributes' in result:
-        labels = result['attributes'].get('labels') or {}
-
-    # If labels included, try parsing to json
-
+    labels = result['attributes'].get('labels') or {}
     try:
         labels = jsonp.loads(labels)
     except:
         pass
 
-    if "data" in result:
-        result['data']['attributes']['labels'] = labels
-    else:
-        result['attributes']['labels'] = labels
+    result['attributes']['labels'] = labels
 
     return result
