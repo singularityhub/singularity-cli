@@ -6,6 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+from spython.logger import bot
 from spython.utils import stream_command
 import json
 
@@ -58,6 +59,10 @@ def run(self,
     # If an instance is provided, grab it's name
     if isinstance(image, self.instance):
         image = image.get_uri()
+
+    # If image is still None, not defined by user or previously with client
+    if image is None:
+        bot.exit('Please load or provide an image.')
 
     # Does the user want to use bind paths option?
     if bind is not None:

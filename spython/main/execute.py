@@ -64,6 +64,10 @@ def execute(self,
         if isinstance(image, self.instance):
             image = image.get_uri()
 
+        # If image is still None, not defined by user or previously with client
+        if image is None:
+            bot.exit('Please load or provide an image.')
+
         # Does the user want to use bind paths option?
         if bind is not None:
             cmd += self._generate_bind_list(bind)
