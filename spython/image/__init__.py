@@ -8,6 +8,7 @@
 import hashlib
 import os
 import re
+from spython.utils import get_singularity_version
 
 
 class ImageBase(object):
@@ -21,7 +22,6 @@ class ImageBase(object):
 
     def __repr__(self):
         return self.__str__()
-
 
     def get_uri(self, image):
         '''get the uri of an image, or the string (optional) that appears before

@@ -71,10 +71,10 @@ def get_client(quiet=False, debug=False):
     cli = Client()
 
     # Pass on verbosity
-    cli.image.debug = cli.debug
-    cli.image.quiet = cli.quiet
-    cli.instance.debug = cli.debug
-    cli.instance.quiet = cli.quiet 
+    for subclient in [cli.image, cli.instance]:
+        subclient.debug = cli.debug
+        subclient.quiet = cli.quiet
+        subclient.version = cli.version
 
     return cli
 

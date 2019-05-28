@@ -45,17 +45,20 @@ def setenv(self, variable, value):
     bot.debug('%s set to %s' % (variable, value))
 
 
-def get_filename(self, image=None, ext='simg'):
-    '''return an image filename based on the image uri. If an image uri is
-       not specified, we look for the loaded image.
+def get_filename(self, image, ext='sif', pwd=True):
+    '''return an image filename based on the image uri.
  
        Parameters
        ==========
-       image: the uri to base off of
        ext: the extension to use
+       pwd: derive a filename for the pwd
     '''
-    return "%s.%s" %(re.sub('^.*://','',image).replace('/','-'), ext)
-    
+    if pwd is True:
+        image = os.path.basename(image)
+    image = re.sub('^.*://','', image)
+    if not image.endswith(ext):
+        image = "%s.%s" %(image, ext)
+    return image
 
 
 def get_uri(self):

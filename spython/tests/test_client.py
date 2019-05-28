@@ -42,7 +42,7 @@ class TestClient(unittest.TestCase):
         os.remove(container)
 
         print('Testing client.export command')
-        sandbox = "busybox:1.30.1.sandbox"
+        sandbox = "busybox:1.30.sandbox"
         created_sandbox = self.cli.export('docker://busybox:1.30.1')
         self.assertEqual(created_sandbox, sandbox)
         self.assertTrue(os.path.exists(created_sandbox))
@@ -53,7 +53,7 @@ class TestClient(unittest.TestCase):
         image = self.cli.pull("shub://vsoch/singularity-images", 
                               pull_folder=self.tmpdir)
         self.assertTrue(os.path.exists(image))
-        self.assertTrue('vsoch-singularity-images' in image)
+        self.assertTrue('singularity-images' in image)
         print(image)
 
         print('Testing client.run command')
