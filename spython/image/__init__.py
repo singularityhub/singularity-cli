@@ -9,29 +9,7 @@ import hashlib
 import os
 import re
 from spython.logger import bot
-
-def get_uri(image):
-    '''get the uri of an image, or the string (optional) that appears before
-        ://. Optional. If none found, returns ''
-    '''
-    image = image or ''
-    uri = ''
-
-    match = re.match("^(?P<uri>.+)://", image)
-    if match:
-        uri = match.group('uri')
-
-    return uri
-
-
-def remove_uri(image):
-    '''remove_image_uri will return just the image name.
-        this will also remove all spaces from the uri.
-    '''
-    image = image or ''
-    uri = get_uri(image) or ''
-    image = image.replace('%s://' %uri,'', 1)
-    return image.strip('-').rstrip('/')
+from spython.utils import split_uri
 
 class ImageBase(object):
 
@@ -57,8 +35,7 @@ class ImageBase(object):
 
         '''
         self._image = image
-        self.uri = get_uri(image)
-        self.image = remove_uri(image)
+        self.uri, self.image = split_uri(image)
 
 
 class Image(ImageBase):

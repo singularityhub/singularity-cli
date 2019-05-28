@@ -13,5 +13,6 @@ from .terminal import (
     stream_command,
     run_command,
     format_container_name,
+    split_uri,
     remove_uri
 )
