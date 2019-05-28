@@ -19,7 +19,9 @@ class DockerRecipe(Recipe):
 
     def __init__(self, recipe=None):
         '''a Docker recipe parses a Docker Recipe into the expected fields of
-           labels, environment, and install/runtime commands
+           labels, environment, and install/runtime commands. We save working
+           directory as we parse, and the last one can be added to the runscript
+           of a Singularity recipe.
 
            Parameters
            ==========
@@ -27,6 +29,7 @@ class DockerRecipe(Recipe):
 
         '''
         self.name = "docker"
+        self.workdir = None
         super(DockerRecipe, self).__init__(recipe)
 
 
@@ -203,7 +206,7 @@ class DockerRecipe(Recipe):
             return os.getcwd() if path == "." else path
         
         # Warn the user Singularity doesn't support expansion
-        if source.contains('*'):
+        if '*' in source:
             bot.warning("Singularity doesn't support expansion, * found in %s" % source)
         
         # Warning if file/folder (src) doesn't exist
@@ -318,8 +321,9 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse for WORKDIR
 
         '''
+        # Save the last working directory to add to the runscript
         workdir = self._setup('WORKDIR', line)
-        line = "cd %s" %(''.join(workdir))
+        self.workdir = "cd %s" %(''.join(workdir))
         self.install.append(line)
 
 

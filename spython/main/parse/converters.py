@@ -92,11 +92,11 @@ def create_runscript(self, default="/bin/bash", force=False):
 
     # Entrypoint should use exec
     if not entrypoint.startswith('exec'):
-        entrypoint = "exec %s" %entrypoint
+        entrypoint = "exec %s" % entrypoint
 
     # Should take input arguments into account
     if not re.search('"?[$]@"?', entrypoint):
-        entrypoint = '%s "$@"' %entrypoint
+        entrypoint = '%s "$@"' % entrypoint
     return entrypoint
 
 
@@ -209,6 +209,12 @@ def docker2singularity(self, runscript="/bin/bash", force=False):
 
     # Take preference for user, entrypoint, command, then default
     runscript = self._create_runscript(runscript, force)
+
+    # If a working directory was used, add it as a cd
+    if self.workdir != None:
+        runscript = [self.workdir] + [runscript]
+
+    # Finish the recipe
     recipe += finish_section(runscript, 'runscript')
 
     if self.test is not None:
