@@ -53,7 +53,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
         result = jsonp.loads(result['message'][0])
 
         # Unify output to singularity 3 format
-        if "version 3" not in self.version():
+        if "data" in result:
             result = result['data']
 
         # Fix up labels
