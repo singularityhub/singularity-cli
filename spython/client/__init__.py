@@ -63,23 +63,6 @@ def get_parser():
     return parser
 
 
-
-def get_subparsers(parser):
-    '''get_subparser will get a dictionary of subparsers, to help with printing help
-    '''
-
-    actions = [action for action in parser._actions 
-               if isinstance(action, argparse._SubParsersAction)]
-
-    subparsers = dict()
-    for action in actions:
-        # get all subparsers and print help
-        for choice, subparser in action.choices.items():
-            subparsers[choice] = subparser
-
-    return subparsers
-
-
 def set_verbosity(args):
     '''determine the message level in the environment to set based on args.
     '''
@@ -113,7 +96,6 @@ def version():
 def main():
 
     parser = get_parser()
-    subparsers = get_subparsers(parser)
 
     def help(return_code=0):
         '''print help, including the software version and active client 

@@ -8,8 +8,6 @@
 
 from spython.logger import bot
 from spython.utils import stream_command
-import os
-import sys
 
 
 def execute(self, 
@@ -65,6 +63,10 @@ def execute(self,
         # If an instance is provided, grab it's name
         if isinstance(image, self.instance):
             image = image.get_uri()
+
+        # If image is still None, not defined by user or previously with client
+        if image is None:
+            bot.exit('Please load or provide an image.')
 
         # Does the user want to use bind paths option?
         if bind is not None:

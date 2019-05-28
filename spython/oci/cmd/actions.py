@@ -119,11 +119,11 @@ def _run(self, bundle,
     # Additional Logging Files
     cmd = cmd + ['--log-format', log_format]
 
-    if log_path != None:
+    if log_path is not None:
         cmd = cmd + ['--log-path', log_path]
-    if pid_file != None:
+    if pid_file is not None:
         cmd = cmd + ['--pid-file', pid_file]
-    if sync_socket != None:
+    if sync_socket is not None:
         cmd = cmd + ['--sync-socket', sync_socket]
     if empty_process:
         cmd.append('--empty-process')
@@ -132,7 +132,7 @@ def _run(self, bundle,
     cmd.append(container_id)
 
     # Generate the instance
-    result = self._send_command(cmd, sudo=True)
+    self._send_command(cmd, sudo=True)
 
     # Get the status to report to the user!
     # TODO: Singularity seems to create even with error, can we check and
@@ -225,7 +225,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
     # Add the container_id
     cmd.append(container_id)
 
-    if command != None:
+    if command is not None:
         if not isinstance(command, list):
             command = [command]
 
@@ -236,7 +236,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
             return stream_command(cmd, sudo=sudo)
         return self._run_command(cmd, sudo=sudo, quiet=True)
 
-def update(self, container_id, from_file=None):
+def update(self, container_id, from_file=None, sudo=False):
     '''update container cgroup resources for a specific container_id,
        The container must have state "running" or "created."
 
@@ -255,7 +255,7 @@ def update(self, container_id, from_file=None):
     # singularity oci delete
     cmd = self._init_command('update')
 
-    if from_file != None:
+    if from_file is not None:
         cmd = cmd + ['--from-file', from_file]
 
     # Add the container_id

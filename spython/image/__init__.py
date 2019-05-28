@@ -8,44 +8,20 @@
 import hashlib
 import os
 import re
-from spython.utils import get_singularity_version
-
+from spython.logger import bot
+from spython.utils import split_uri
 
 class ImageBase(object):
 
     def __str__(self):
-        if hasattr(self, 'uri'):
-            if self.uri:
-                return "%s://%s" %(self.uri, self.image)
+        protocol = getattr(self, 'protocol', None)
+        if protocol:
+            return "%s://%s" %(protocol, self.image)
         return self.image
 
 
     def __repr__(self):
         return self.__str__()
-
-    def get_uri(self, image):
-        '''get the uri of an image, or the string (optional) that appears before
-           ://. Optional. If none found, returns ''
-        '''
-        image = image or ''
-        uri = ''
-
-        match = re.match("^(?P<uri>.+)://", image)
-        if match:
-            uri = match.group('uri')
-
-        return uri
-
-
-    def remove_uri(self, image):
-        '''remove_image_uri will return just the image name.
-           this will also remove all spaces from the uri.
-        '''
-        image = image or ''
-        uri = self.get_uri(image) or ''
-        image = image.replace('%s://' %uri,'', 1)
-        return image.strip('-').rstrip('/')
-
 
     def parse_image_name(self, image):
         '''
@@ -58,25 +34,24 @@ class ImageBase(object):
 
         '''
         self._image = image
-        self.uri = self.get_uri(image)
-        self.image = self.remove_uri(image)
+        self.protocol, self.image = split_uri(image)
 
 
 class Image(ImageBase):
 
     def __init__(self, image=None):
-       '''An image here is an image file or a record.
-          The user can choose to load the image when starting the client, or
-          update the main client with an image. The image object is kept
-          with the main client to make running additional commands easier.
+        '''An image here is an image file or a record.
+            The user can choose to load the image when starting the client, or
+            update the main client with an image. The image object is kept
+            with the main client to make running additional commands easier.
 
-          Parameters
-          ==========
-          image: the image uri to parse (required)
+            Parameters
+            ==========
+            image: the image uri to parse (required)
 
-       '''
-       super(ImageBase, self).__init__()
-       self.parse_image_name(image)
+        '''
+        super().__init__()
+        self.parse_image_name(image)
 
 
     def get_hash(self, image=None):
@@ -99,4 +74,4 @@ class Image(ImageBase):
                     hasher.update(chunk)
                 return hasher.hexdigest()
 
-        bot.warning('%s does not exist.' %image)
+        bot.warning('%s does not exist.' % image)

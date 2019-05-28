@@ -6,6 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+import os
 from spython.logger import bot
 
 def create(self,image_path, size=1024, sudo=False):

@@ -30,15 +30,15 @@ class OciImage(ImageBase):
             sudo: if init is called with or without sudo, keep a record and use
                   for following commands unless sudo is provided to function.
         '''
-        super(ImageBase, self).__init__()
+        super().__init__()
 
         # Will typically be None, unless used outside of Client
         self.container_id = container_id
-        self.uri = 'oci://'
+        self.protocol = 'oci'
         self.sudo = sudo
 
         # If bundle is provided, create it
-        if bundle != None and container_id != None and create:
+        if bundle is not None and container_id is not None and create:
             self.bundle = bundle
             self.create(bundle, container_id, **kwargs)
 
@@ -56,7 +56,7 @@ class OciImage(ImageBase):
         '''
 
         # The user must provide a container_id, or have one with the client
-        if container_id == None and self.container_id == None:
+        if container_id is None and self.container_id is None:
             bot.exit('You must provide a container_id.')
 
         # Choose whichever is not None, with preference for function provided
@@ -72,7 +72,7 @@ class OciImage(ImageBase):
 # Naming
 
     def __str__(self):
-        if self.container_id != None:
+        if self.container_id is not None:
             return "[singularity-python-oci:%s]" % self.container_id
         return "[singularity-python-oci]"
 
@@ -92,7 +92,7 @@ class OciImage(ImageBase):
            ==========
            sudo: if None, use self.sudo. Otherwise return sudo.
         '''
-        if sudo == None:
+        if sudo is None:
             sudo = self.sudo
         return sudo
 

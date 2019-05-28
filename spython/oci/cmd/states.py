@@ -6,7 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
 import json
 
 
@@ -36,7 +35,7 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
     # singularity oci state
     cmd = self._init_command('state')
 
-    if sync_socket != None:
+    if sync_socket is not None:
         cmd = cmd + ['--sync-socket', sync_socket]
 
     # Finally, add the container_id
@@ -45,7 +44,7 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
     # Get the instance state
     result = self._run_command(cmd, sudo=sudo, quiet=True)
 
-    if result != None:
+    if result is not None:
 
         # If successful, a string is returned to parse
         if isinstance(result, str):
@@ -134,7 +133,7 @@ def kill(self, container_id=None, sudo=None, signal=None):
     cmd.append(container_id)
 
     # Add the signal, if defined
-    if signal != None:
+    if signal is not None:
         cmd = cmd + ['--signal', signal]
 
     # Run the command, return return code

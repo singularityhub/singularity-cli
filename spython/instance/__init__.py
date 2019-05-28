@@ -11,29 +11,29 @@ import os
 class Instance(ImageBase):
 
     def __init__(self, image, start=True, name=None, **kwargs):
-       '''An instance is an image running as an instance with services.
-          This class has functions appended under cmd/__init__ and is
-          instantiated when the user calls Client.
+        '''An instance is an image running as an instance with services.
+            This class has functions appended under cmd/__init__ and is
+            instantiated when the user calls Client.
 
-          Parameters
-          ==========
-          image: the Singularity image uri to parse (required)
-          start: boolean to start the instance (default is True)
-          name: a name for the instance (will generate RobotName 
-                if not provided)
-       '''
-       super(ImageBase, self).__init__()
-       self.parse_image_name(image)
-       self.generate_name(name)
+            Parameters
+            ==========
+            image: the Singularity image uri to parse (required)
+            start: boolean to start the instance (default is True)
+            name: a name for the instance (will generate RobotName 
+                    if not provided)
+        '''
+        super().__init__()
+        self.parse_image_name(image)
+        self.generate_name(name)
 
-       # Update metadats from arguments
-       self._update_metadata(kwargs)
-       self.options = []
-       self.cmd = []
+        # Update metadats from arguments
+        self._update_metadata(kwargs)
+        self.options = []
+        self.cmd = []
 
-       # Start the instance
-       if start is True:
-           self.start(**kwargs)
+        # Start the instance
+        if start is True:
+            self.start(**kwargs)
 
 # Unique resource identifier
 
@@ -42,7 +42,7 @@ class Instance(ImageBase):
            supply one.
         '''
         # If no name provided, use robot name
-        if name == None:
+        if name is None:
             name = self.RobotNamer.generate()
         self.name = name.replace('-','_')
 
@@ -58,7 +58,7 @@ class Instance(ImageBase):
 
         '''
         self._image = image
-        self.uri = 'instance://'
+        self.protocol = 'instance'
 
 
     def get_uri(self):
@@ -74,15 +74,15 @@ class Instance(ImageBase):
         '''
 
         # If not given metadata, use instance.list to get it for container
-        if kwargs == None and hasattr(self, 'name'):
+        if kwargs is None and hasattr(self, 'name'):
             kwargs = self._list(self.name, quiet=True, return_json=True)
 
         # Add acceptable arguments
         for arg in ['pid', 'name']:
 
-           # Skip over non-iterables:
-           if arg in kwargs:
-               setattr(self, arg, kwargs[arg])
+            # Skip over non-iterables:
+            if arg in kwargs:
+                setattr(self, arg, kwargs[arg])
        
         if "image" in kwargs:
             self._image = kwargs['image']
@@ -92,8 +92,8 @@ class Instance(ImageBase):
 
     def __str__(self):
         if hasattr(self, 'name'):
-            if self.uri:
-                return "%s%s" %(self.uri, self.name)
+            if self.protocol:
+                return "%s://%s" %(self.protocol, self.name)
         return os.path.basename(self._image)
 
     def __repr__(self):

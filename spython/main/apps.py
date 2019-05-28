@@ -6,8 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-
 def apps(self, image=None, full_path=False, root=''):
     '''
        return list of SCIF apps in image. The Singularity software serves

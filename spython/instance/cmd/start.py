@@ -8,7 +8,7 @@
 
 from spython.logger import bot
 
-def start(self, image=None, name=None, args=None, sudo=False, options=[], capture=False):
+def start(self, image=None, name=None, args=None, sudo=False, options=None, capture=False):
     '''start an instance. This is done by default when an instance is created.
 
        Parameters
@@ -30,7 +30,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
     check_install()
 
     # If name provided, over write robot (default)
-    if name != None:
+    if name is not None:
         self.name = name
 
     # If an image isn't provided, we have an initialized instance
@@ -51,13 +51,13 @@ def start(self, image=None, name=None, args=None, sudo=False, options=[], captur
 
     # Add options, if they are provided
     if not isinstance(options, list):
-        options = options.split(' ')
+        options = [] if options is None else options.split(' ')
 
     # Assemble the command!
     cmd = cmd + options + [image, self.name]
 
     # If arguments are provided
-    if args != None:
+    if args is not None:
         if not isinstance(args, list):
             args = [args]
         cmd = cmd + args

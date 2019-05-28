@@ -6,8 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-
 def importcmd(self, image_path, input_source):
     '''import will import (stdin) to the image
 
@@ -25,4 +23,3 @@ def importcmd(self, image_path, input_source):
     output = self.run_command(cmd, sudo=False)
     self.println(output)        
     return image_path
-

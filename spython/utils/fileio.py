@@ -10,14 +10,8 @@ with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import errno
 import os
-import re
 import json
 from spython.logger import bot
-from subprocess import (
-    Popen,
-    PIPE,
-    STDOUT
-)
 import sys
 
 

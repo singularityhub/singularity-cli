@@ -53,5 +53,5 @@ def main(args, options, parser):
 
     # Otherwise, convert and print to screen
     else:
-        recipe = parser.convert(runscript=entrypoint, force=True)
+        recipe = parser.convert(runscript=entrypoint, force=force)
         print(recipe)

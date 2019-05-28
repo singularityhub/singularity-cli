@@ -8,12 +8,10 @@
 
 from spython.utils import get_installdir
 from spython.main.base.generate import RobotNamer
-from spython.logger import bot
 from spython.main import Client
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 print("############################################################## test_oci")
@@ -41,6 +39,10 @@ class TestOci(unittest.TestCase):
         print('Copying OCI config.json to sandbox...')
         shutil.copyfile(self.config, '%s/config.json' %image)
         return image
+
+    def test_oci_image(self):
+        image=self.cli.oci.OciImage('oci://imagename')
+        self.assertEqual(image.get_uri(), '[singularity-python-oci:oci://imagename]')
 
     def test_oci(self):
 

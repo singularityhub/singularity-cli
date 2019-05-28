@@ -6,11 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-import json
-import os
 import re
-import sys
-
 from spython.logger import bot
 
 # Singularity to Dockerfile
@@ -84,11 +80,11 @@ def create_runscript(self, default="/bin/bash", force=False):
     entrypoint = default
 
     # Only look at Docker if not enforcing default
-    if force is False:
+    if not force:
         if self.entrypoint is not None:
-            entrypoint = ''.join(self.entrypoint)
-        elif self.cmd is not None:
-            entrypoint = ''.join(self.cmd)
+            entrypoint = ' '.join(self.entrypoint)
+        if self.cmd is not None:
+            entrypoint = entrypoint + ' ' + ' '.join(self.cmd)
 
     # Entrypoint should use exec
     if not entrypoint.startswith('exec'):
@@ -214,8 +210,9 @@ def docker2singularity(self, runscript="/bin/bash", force=False):
     if self.workdir is not None:
         runscript = [self.workdir] + [runscript]
 
-    # Finish the recipe
+    # Finish the recipe, also add as startscript
     recipe += finish_section(runscript, 'runscript')
+    recipe += finish_section(runscript, 'startscript')
 
     if self.test is not None:
         recipe += finish_section(self.test, 'test')

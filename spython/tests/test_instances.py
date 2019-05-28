@@ -6,13 +6,10 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
-from spython.logger import bot
 from spython.main import Client
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 
@@ -26,6 +23,16 @@ class TestInstances(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
+
+    def test_instance_class(self):
+        instance = self.cli.instance('docker://ubuntu', start=False)
+        self.assertEqual(instance.get_uri(), 'instance://' + instance.name)
+        self.assertNotEqual(instance.name, '')
+
+        name = 'coolName'
+        instance = self.cli.instance('docker://busybox:1.30.1', start=False, name=name)
+        self.assertEqual(instance.get_uri(), 'instance://' + instance.name)
+        self.assertEqual(instance.name, name)
 
     def test_instances(self):
 
@@ -53,7 +60,7 @@ class TestInstances(unittest.TestCase):
 
         print("...Case 3: Commands to instances")
         result = self.cli.execute(myinstance, ['echo', 'hello'])
-        self.assertTrue('hello\n' == result)
+        self.assertEqual(result, 'hello\n')
 
         print('...Case 4: Return value from instance')
         result = self.cli.execute(myinstance,'ls /', return_result=True)
@@ -67,6 +74,8 @@ class TestInstances(unittest.TestCase):
         self.assertEqual(instances, [])
         myinstance1 = self.cli.instance(image)
         myinstance2 = self.cli.instance(image)
+        self.assertTrue(myinstance1 is not None)
+        self.assertTrue(myinstance2 is not None)
         instances = self.cli.instances()
         self.assertEqual(len(instances), 2)
         self.cli.instance_stopall()

@@ -7,7 +7,6 @@
 
 import json as jsonp
 
-from spython.logger import bot
 from spython.utils import ( 
     check_install, 
     run_command
@@ -41,7 +40,8 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if "version 3" in self.version():
         options = ['e','d','l','r','H','t']
 
-    [cmd.append('-%s' % x) for x in options]
+    for x in options:
+        cmd.append('-%s' % x)
 
     if json is True:
         cmd.append('--json')
@@ -52,8 +52,12 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
 
+        # Unify output to singularity 3 format
+        if "data" in result:
+            result = result['data']
+
         # Fix up labels
-        labels = parse_labels(result)
+        result = parse_labels(result)
 
         if not quiet:
             print(jsonp.dumps(result, indent=4))
@@ -70,22 +74,12 @@ def parse_labels(result):
        result: the json object to parse from inspect
     '''
 
-    if "data" in result:
-        labels = result['data']['attributes'].get('labels') or {}
-
-    elif 'attributes' in result:
-        labels = result['attributes'].get('labels') or {}
-
-    # If labels included, try parsing to json
-
+    labels = result['attributes'].get('labels') or {}
     try:
         labels = jsonp.loads(labels)
     except:
         pass
 
-    if "data" in result:
-        result['data']['attributes']['labels'] = labels
-    else:
-        result['attributes']['labels'] = labels
+    result['attributes']['labels'] = labels
 
     return result

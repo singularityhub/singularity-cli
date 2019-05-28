@@ -5,14 +5,12 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-
+import json
 import os
 import re
-import sys
 
 from .environment import parse_env
 from .recipe import Recipe
-from spython.utils import read_file
 from spython.logger import bot
 
 class DockerRecipe(Recipe):
@@ -332,14 +330,29 @@ class DockerRecipe(Recipe):
         '''_cmd will parse a Dockerfile CMD command
            
            eg: CMD /code/run_uwsgi.sh --> /code/run_uwsgi.sh.
-               The 
+               If a list is provided, it's parsed to a list.
 
            Parameters
            ==========
            line: the line from the recipe file to parse for CMD
 
         '''
-        self.cmd = self._setup('CMD', line)
+        cmd = self._setup('CMD', line)[0]
+        self.cmd = self._load_list(cmd)
+
+
+    def _load_list(self, line):
+        '''load an entrypoint or command, meaning it can be wrapped in a list
+           or a regular string. We try loading as json to return an actual
+           list. E.g., after _setup, we might go from 'ENTRYPOINT ["one", "two"]'
+           to '["one", "two"]', and this function loads as json and returns
+           ["one", "two"]
+        '''
+        try:
+            line = json.loads(line)
+        except json.JSONDecodeError:
+            pass
+        return line
 
 
     def _entry(self, line):
@@ -350,7 +363,8 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse for CMD
 
         '''
-        self.entrypoint = self._setup('ENTRYPOINT', line)
+        entrypoint = self._setup('ENTRYPOINT', line)[0]
+        self.entrypoint = self._load_list(entrypoint)
 
 
 # Labels

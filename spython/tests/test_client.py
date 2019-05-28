@@ -7,12 +7,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from spython.utils import get_installdir
-from spython.logger import bot
 from spython.main import Client
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 
@@ -82,7 +80,9 @@ class TestClient(unittest.TestCase):
         self.assertEqual(result['return_code'], 0)
 
         print("Testing client.inspect command")
-        labels = self.cli.inspect(container)
+        result = self.cli.inspect(container)
+        self.assertEqual(result['type'], 'container')
+        self.assertTrue('attributes' in result)
 
         os.remove(container)
 

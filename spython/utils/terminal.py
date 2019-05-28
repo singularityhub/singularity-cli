@@ -11,7 +11,6 @@ with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 import os
 import re
 
-import json
 from spython.logger import bot
 import subprocess
 import sys
@@ -177,7 +176,22 @@ def format_container_name(name, special_characters=None):
                    for e in name if e.isalnum() or e in special_characters)
 
 
+def split_uri(container):
+    '''Split the uri of a container into the protocol and image part
+
+    An empty protocol is returned if none found.
+    A trailing slash is removed from the image part.
+    '''
+    parts = container.split('://', 1)
+    if len(parts) == 2:
+        protocol, image = parts
+    else:
+        protocol = ''
+        image=parts[0]
+    return protocol, image.rstrip('/')
+
+
 def remove_uri(container):
     '''remove_uri will remove docker:// or shub:// from the uri
     '''
-    return container.replace('docker://', '').replace('shub://', '')
+    return split_uri(container)[1]

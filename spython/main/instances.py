@@ -7,7 +7,7 @@
 
 
 from spython.logger import bot
-from spython.utils import ( run_command, check_install )
+from spython.utils import ( run_command )
 
 def instances(self, name=None, return_json=False, quiet=False):
     '''list instances. For Singularity, this is provided as a command sub
@@ -66,7 +66,7 @@ def instances(self, name=None, return_json=False, quiet=False):
             for i in instances:
                 
                 # If the user has provided a name, only add instance matches
-                if name != None:
+                if name is not None:
                     if name != i['daemon_name']:
                         continue
 
@@ -89,7 +89,7 @@ def instances(self, name=None, return_json=False, quiet=False):
         bot.info('No instances found.')
 
     # If we are given a name, return just one
-    if name != None and instances not in [None,[]]:
+    if name is not None and instances not in [None,[]]:
         if len(instances) == 1:
             instances = instances[0]
 
@@ -106,7 +106,7 @@ def stopall(self, sudo=False, quiet=True):
              instances)
 
     '''
-    from spython.utils import run_command, check_install
+    from spython.utils import check_install
     check_install()
 
     subgroup = 'instance.stop'

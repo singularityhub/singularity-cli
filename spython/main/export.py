@@ -7,7 +7,6 @@
 
 
 from spython.logger import bot
-from spython.utils import stream_command
 import tempfile
 import shutil
 import os
@@ -38,8 +37,8 @@ def export(self,
         # If export is deprecated, we run a build
         bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
 
-        if output_file == None:
-            basename, ext = os.path.splitext(image_path)
+        if output_file is None:
+            basename, _ = os.path.splitext(image_path)
             output_file = self._get_filename(basename, 'sandbox', pwd=False)
 
         return self.build(recipe=image_path,
@@ -83,7 +82,7 @@ def _export(self,
     cmd = self._init_command('export')
     
     # If the user has specified export to pipe, we don't need a file
-    if pipe == True:
+    if pipe:
         cmd.append(image_path)
 
     else:
@@ -98,7 +97,7 @@ def _export(self,
             return None
 
         # if user has specified output file, move it there, return path
-        if output_file != None:
+        if output_file is not None:
             shutil.copyfile(tmptar, output_file)
             return output_file
         else:

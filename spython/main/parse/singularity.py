@@ -6,13 +6,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-import json
-import os
 import re
 import sys
 
 from spython.logger import bot
-from spython.utils import read_file
 from spython.main.parse.recipe import Recipe
 
 
@@ -88,7 +85,6 @@ class SingularityRecipe(Recipe):
 
         '''
         self._write_script('/tests.sh', lines)
-        testrun = "/bin/bash /tests.sh"
         self.test = "/bin/bash /tests.sh"
         
 
@@ -125,17 +121,17 @@ class SingularityRecipe(Recipe):
 # Comments and Help
 
     def _comments(self, lines):
-         ''' comments is a wrapper for comment, intended to be given a list
-             of comments.
+        ''' comments is a wrapper for comment, intended to be given a list
+            of comments.
 
-             Parameters
-             ==========
-             lines: the list of lines to parse
+            Parameters
+            ==========
+            lines: the list of lines to parse
 
-         ''' 
-         for line in lines:
-             comment = self._comment(line)
-             self.comments.append(comment)
+        ''' 
+        for line in lines:
+            comment = self._comment(line)
+            self.comments.append(comment)
 
 
     def _comment(self, line):
@@ -330,7 +326,6 @@ class SingularityRecipe(Recipe):
         self.config = dict()
      
         section = None
-        name = None
 
         while len(lines) > 0:
 
@@ -382,10 +377,8 @@ class SingularityRecipe(Recipe):
         line = line.split('#',1)[0].strip()
 
         # Is there a section name?
-        parts = line.split(' ')
-        if len(parts) > 1:
-            name = ' '.join(parts[1:])          
-        section = re.sub('[%]|(\s+)','',parts[0]).lower()
+        parts = line.split(' ')         
+        section = re.sub(r'[%]|(\s+)','',parts[0]).lower()
 
         if section not in self.config: 
             self.config[section] = []

@@ -6,11 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-from .states import _state_command
-import sys
-
-
 def mount(self, image, sudo=None):
     '''create an OCI bundle from SIF image
 
@@ -21,8 +16,8 @@ def mount(self, image, sudo=None):
     return self._state_command(image, command="mount", sudo=sudo)
 
 
-def umount(self, image):
-    '''delete an OCI bundle createdfrom SIF image
+def umount(self, image, sudo=None):
+    '''delete an OCI bundle created from SIF image
 
        Parameters
        ==========

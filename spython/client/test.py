@@ -6,12 +6,6 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
-from spython.utils import check_install
-import sys
-import os
-
-
 def main(args, options, parser):
     print('TBA, additional tests for Singularity containers.')
     print('What would you like to see? Let us know!')

@@ -17,6 +17,8 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - fix crash in some error conditions (0.0.62)
+   - more OCI commands accept sudo parameter
  - working directory, the last one defined, should be added to runscript (0.0.61)
  - adding deprecation message for image.export (0.0.60)
    - adding --force option to build

@@ -6,11 +6,9 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
 import unittest
 import tempfile
 import shutil
-import json
 import os
 
 print("############################################################ test_utils")
@@ -46,7 +44,7 @@ class TestUtils(unittest.TestCase):
         bad_json = {"Wakkawakkawakka'}":[{True},"2",3]}
         tmpfile = tempfile.mkstemp()[1]
         os.remove(tmpfile)        
-        with self.assertRaises(TypeError) as cm:
+        with self.assertRaises(TypeError):
             write_json(bad_json,tmpfile)
 
         print("...Case 2: Providing good json")        
@@ -77,8 +75,14 @@ class TestUtils(unittest.TestCase):
         from spython.utils import get_singularity_version
         version = get_singularity_version()
         self.assertTrue(version != "")
+        oldValue = os.environ.get('SPYTHON_SINGULARITY_VERSION')
         os.environ['SPYTHON_SINGULARITY_VERSION'] = "3.0"
         version = get_singularity_version()
+        # Restore for other tests
+        if oldValue is None:
+            del os.environ['SPYTHON_SINGULARITY_VERSION']
+        else:
+            os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
         self.assertTrue(version == "3.0")
 
 
@@ -93,11 +97,26 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(whereami.endswith('spython'))
 
 
+    def test_split_uri(self):
+        from spython.utils import split_uri
+        protocol, image = split_uri('docker://ubuntu')
+        self.assertEqual(protocol, 'docker')
+        self.assertEqual(image, 'ubuntu')
+
+        protocol, image = split_uri('http://image/path/with/slash/')
+        self.assertEqual(protocol, 'http')
+        self.assertEqual(image, 'image/path/with/slash')
+
+        protocol, image = split_uri('no/proto/')
+        self.assertEqual(protocol, '')
+        self.assertEqual(image, 'no/proto')
+
     def test_remove_uri(self):
         print("Testing utils.remove_uri")
         from spython.utils import remove_uri
         self.assertEqual(remove_uri('docker://ubuntu'),'ubuntu')
         self.assertEqual(remove_uri('shub://vanessa/singularity-images'),'vanessa/singularity-images')
+        self.assertEqual(remove_uri('vanessa/singularity-images'),'vanessa/singularity-images')
 
 
 

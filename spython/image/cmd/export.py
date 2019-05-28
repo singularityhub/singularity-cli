@@ -29,5 +29,5 @@ def export(self, image_path, tmptar=None):
         tmptar = "/%s/tmptar.tar" %(tempfile.mkdtemp())
     cmd = ['singularity', 'image.export', '-f', tmptar, image_path]
 
-    output = self.run_command(cmd, sudo=False)
+    self.run_command(cmd, sudo=False)
     return tmptar
