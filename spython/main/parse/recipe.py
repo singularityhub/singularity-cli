@@ -115,6 +115,7 @@ class Recipe(object):
         self.ports = []
         self.test = None
         self.volumes = []
+        self.workdir = None
 
         if self.recipe:
 
