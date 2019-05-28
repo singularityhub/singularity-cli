@@ -18,6 +18,7 @@ def export(self,
            output_file=None,
            command=None,
            sudo=False):
+
     '''export will export an image, sudo must be used. If we have Singularity
        versions after 3, export is replaced with building into a sandbox.
 
@@ -31,21 +32,23 @@ def export(self,
     from spython.utils import check_install
     check_install()
 
-    # If not version 3, run deprecated command
     if 'version 3' in self.version() or '2.6' in self.version():
 
+        # If export is deprecated, we run a build
+        bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
+
         if output_file is None:
-            output_file = self._get_filename(image_path, 'sandbox')
+            basename, ext = os.path.splitext(image_path)
+            output_file = self._get_filename(basename, 'sandbox', pwd=False)
 
         return self.build(recipe=image_path,
                           image=output_file,
                           sandbox=True,
+                          force=True,
                           sudo=sudo)
 
+    # If not version 3, run deprecated command
     elif '2.5' in self.version():
-
-        # Otherwise, we run a build
-        bot.warning('Export is not supported for Singularity 3.x. Building to sandbox instead.')
         return self._export(image_path=image_path,
                             pipe=pipe,
                             output_file=output_file,

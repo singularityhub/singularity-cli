@@ -20,7 +20,8 @@ def build(self, recipe=None,
                 robot_name=False,
                 ext='simg',
                 sudo=True,
-                stream=False):
+                stream=False,
+                force=False):
 
     '''build a singularity image, optionally for an isolated build
        (requires sudo). If you specify to stream, expect the image name
@@ -52,6 +53,10 @@ def build(self, recipe=None,
 
     if 'version 3' in self.version():
         ext = 'sif'
+        
+    # Force the build if the image / sandbox exists
+    if force is True:
+        cmd.append('--force')
 
     # No image provided, default to use the client's loaded image
     if recipe is None:
@@ -76,7 +81,6 @@ def build(self, recipe=None,
             bot.exit('%s does not exist!' % build_folder)
         image = os.path.join(build_folder, image)
         
-
     # The user wants to run an isolated build
     if isolated is True:
         cmd.append('--isolated')

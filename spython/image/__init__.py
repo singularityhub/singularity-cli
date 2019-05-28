@@ -23,7 +23,6 @@ class ImageBase(object):
     def __repr__(self):
         return self.__str__()
 
-
     def parse_image_name(self, image):
         '''
             simply split the uri from the image. Singularity handles
@@ -75,4 +74,4 @@ class Image(ImageBase):
                     hasher.update(chunk)
                 return hasher.hexdigest()
 
-        bot.warning('%s does not exist.' %image)
+        bot.warning('%s does not exist.' % image)
