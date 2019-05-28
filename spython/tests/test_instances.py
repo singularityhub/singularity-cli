@@ -24,6 +24,16 @@ class TestInstances(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
+    def test_instance_class(self):
+        instance = self.cli.instance('docker://ubuntu', start=False)
+        self.assertEqual(instance.get_uri(), 'instance://' + instance.name)
+        self.assertNotEqual(instance.name, '')
+
+        name = 'coolName'
+        instance = self.cli.instance('docker://busybox:1.30.1', start=False, name=name)
+        self.assertEqual(instance.get_uri(), 'instance://' + instance.name)
+        self.assertEqual(instance.name, name)
+
     def test_instances(self):
 
         print('Pulling testing container')

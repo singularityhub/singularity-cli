@@ -40,6 +40,10 @@ class TestOci(unittest.TestCase):
         shutil.copyfile(self.config, '%s/config.json' %image)
         return image
 
+    def test_oci_image(self):
+        image=self.cli.oci.OciImage('oci://imagename')
+        self.assertEqual(image.get_uri(), '[singularity-python-oci:oci://imagename]')
+
     def test_oci(self):
 
         image = self._build_sandbox()
