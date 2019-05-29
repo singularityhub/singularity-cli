@@ -132,7 +132,6 @@ jobs:
       - singularity/debian-install-3:
           singularity-version: 3.2.1
       - run: *install_spython
-      - run: *run_linter
       - save_cache:
           paths:
             - /home/circleci/conda

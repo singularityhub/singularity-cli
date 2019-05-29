@@ -45,7 +45,12 @@ def ipython(image):
     '''give the user an ipython shell
     '''
     client = prepare_client(image) # pylint: disable=unused-variable
-    from IPython import embed
+
+    try:
+        from IPython import embed
+    except ImportError:
+        return python(image)
+
     embed()
 
 def bpython(image):
