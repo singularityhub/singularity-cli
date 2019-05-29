@@ -62,12 +62,10 @@ confidence=
 # --disable=W".
 disable=attribute-defined-outside-init,
         bad-continuation,
-        bad-whitespace,
         bare-except,
         blacklisted-name,
         duplicate-code,
         fixme,
-        import-error,
         invalid-name,
         len-as-condition,
         line-too-long,

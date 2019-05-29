@@ -19,11 +19,11 @@ def get_parser():
                                 add_help=False)
 
     # Global Options
-    parser.add_argument('--debug','-d', dest="debug", 
+    parser.add_argument('--debug', '-d', dest="debug", 
                         help="use verbose logging to debug.", 
                         default=False, action='store_true')
 
-    parser.add_argument('--quiet','-q', dest="quiet", 
+    parser.add_argument('--quiet', '-q', dest="quiet", 
                         help="suppress all normal output", 
                         default=False, action='store_true')
 

@@ -122,7 +122,7 @@ class DockerParser(ParserBase):
            line: the line from the recipe file to parse for FROM
 
         '''
-        self.recipe.test  = self._setup('HEALTHCHECK', line)
+        self.recipe.test = self._setup('HEALTHCHECK', line)
 
 
 # Arg Parser
@@ -456,7 +456,7 @@ class DockerParser(ParserBase):
 
         '''
         label = self._setup('LABEL', line)
-        self.recipe.labels += [ label ]
+        self.recipe.labels += [label]
 
 
 # Main Parsing Functions        

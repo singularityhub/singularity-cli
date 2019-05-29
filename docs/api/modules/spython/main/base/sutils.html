@@ -197,17 +197,20 @@
     <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> set to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;simg&#39;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;return an image filename based on the image uri. If an image uri is</span>
-<span class="sd">       not specified, we look for the loaded image.</span>
+<div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;sif&#39;</span><span class="p">,</span> <span class="n">pwd</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;return an image filename based on the image uri.</span>
 <span class="sd"> </span>
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
-<span class="sd">       image: the uri to base off of</span>
 <span class="sd">       ext: the extension to use</span>
+<span class="sd">       pwd: derive a filename for the pwd</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^.*://&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">),</span> <span class="n">ext</span><span class="p">)</span></div>
-    
+    <span class="k">if</span> <span class="n">pwd</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^.*://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span></div>
 
 
 <div class="viewcode-block" id="get_uri"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_uri">[docs]</a><span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

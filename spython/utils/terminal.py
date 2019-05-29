@@ -89,9 +89,9 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
     if sudo is True:
         cmd = ['sudo'] + cmd
 
-    process = subprocess.Popen(cmd, 
-                               stdout = subprocess.PIPE, 
-                               universal_newlines = True)
+    process = subprocess.Popen(cmd,
+                               stdout=subprocess.PIPE,
+                               universal_newlines=True)
     for line in iter(process.stdout.readline, ""):
         if not re.search(no_newline_regexp, line):
             yield line
@@ -131,9 +131,9 @@ def run_command(cmd,
         stdout = subprocess.PIPE
 
     # Use the parent stdout and stderr
-    process = subprocess.Popen(cmd, 
-                               stderr = subprocess.PIPE, 
-                               stdout = stdout)
+    process = subprocess.Popen(cmd,
+                               stderr=subprocess.PIPE,
+                               stdout=stdout)
     lines = ()
     found_match = False
 
@@ -153,7 +153,7 @@ def run_command(cmd,
                 found_match = False
 
     output = {'message': lines,
-              'return_code': process.returncode }
+              'return_code': process.returncode}
 
     return output
 
@@ -187,7 +187,7 @@ def split_uri(container):
         protocol, image = parts
     else:
         protocol = ''
-        image=parts[0]
+        image = parts[0]
     return protocol, image.rstrip('/')
 
 

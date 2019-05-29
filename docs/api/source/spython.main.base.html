@@ -260,6 +260,45 @@ user. This is useful for commands interacting with OCI bundles.</p>
 </div>
 <div class="section" id="module-spython.main.base.flags">
 <span id="spython-main-base-flags-module"></span><h2>spython.main.base.flags module<a class="headerlink" href="#module-spython.main.base.flags" title="Permalink to this headline">¶</a></h2>
+<dl>
+<dt>GLOBAL OPTIONS:</dt><dd><p>-d|–debug    Print debugging information
+-h|–help     Display usage summary
+-s|–silent   Only print errors
+-q|–quiet    Suppress all normal output</p>
+<blockquote>
+<div><dl class="option-list">
+<dt><kbd><span class="option">--version</span></kbd></dt>
+<dd><p>Show application version</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>-v|–verbose  Increase verbosity +1
+-x|–sh-debug Print shell wrapper debugging information</p>
+</dd>
+<dt>GENERAL COMMANDS:</dt><dd><p>help       Show additional help for a command or container
+selftest   Run some self tests for singularity install</p>
+</dd>
+<dt>CONTAINER USAGE COMMANDS:</dt><dd><p>exec       Execute a command within container
+run        Launch a runscript within container
+shell      Run a Bourne shell within container
+test       Launch a testscript within container</p>
+</dd>
+<dt>CONTAINER MANAGEMENT COMMANDS:</dt><dd><p>apps       List available apps within a container
+bootstrap  <em>Deprecated</em> use build instead
+build      Build a new Singularity container
+check      Perform container lint checks
+inspect    Display container’s metadata
+mount      Mount a Singularity container image
+pull       Pull a Singularity/Docker container to $PWD
+siflist    list data object descriptors of a SIF container image
+sign       Sign a group of data objects in container
+verify     Verify the crypto signature of group of data objects in container</p>
+</dd>
+<dt>COMMAND GROUPS:</dt><dd><p>capability User’s capabilities management command group
+image      Container image command group
+instance   Persistent instance command group</p>
+</dd>
+</dl>
 <dl class="function">
 <dt id="spython.main.base.flags.parse_verbosity">
 <code class="descclassname">spython.main.base.flags.</code><code class="descname">parse_verbosity</code><span class="sig-paren">(</span><em>self</em>, <em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
@@ -338,14 +377,13 @@ function also serves to convert output in bytes to utf-8</p>
 <span id="spython-main-base-sutils-module"></span><h2>spython.main.base.sutils module<a class="headerlink" href="#module-spython.main.base.sutils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.base.sutils.get_filename">
-<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>ext='simg'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>return an image filename based on the image uri. If an image uri is
-not specified, we look for the loaded image.</p>
+<code class="descclassname">spython.main.base.sutils.</code><code class="descname">get_filename</code><span class="sig-paren">(</span><em>self</em>, <em>image</em>, <em>ext='sif'</em>, <em>pwd=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an image filename based on the image uri.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>the uri to base off of</em>)</p></li>
 <li><p><strong>ext</strong> (<em>the extension to use</em>)</p></li>
+<li><p><strong>pwd</strong> (<em>derive a filename for the pwd</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -414,7 +452,7 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 
 <dl class="method">
 <dt id="spython.main.base.Client.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build</code><span class="sig-paren">(</span><em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em>, <em>stream=False</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
 (requires sudo). If you specify to stream, expect the image name
 and an iterator to be returned.</p>
@@ -458,6 +496,23 @@ instead. Highly recommended :)</p></li>
 directories within your container using bind mounts</p></li>
 <li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
 <li><p><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result (default is False)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="spython.main.base.Client.export">
+<code class="descname">export</code><span class="sig-paren">(</span><em>image_path</em>, <em>pipe=False</em>, <em>output_file=None</em>, <em>command=None</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.export" title="Permalink to this definition">¶</a></dt>
+<dd><p>export will export an image, sudo must be used. If we have Singularity
+versions after 3, export is replaced with building into a sandbox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>full path to image</em>)</p></li>
+<li><p><strong>pipe</strong> (<em>export to pipe and not file (default, False)</em>)</p></li>
+<li><p><strong>output_file</strong> (<em>if pipe=False, export tar to this file. If not specified,</em>)</p></li>
+<li><p><strong>will generate temporary directory.</strong></p></li>
 </ul>
 </dd>
 </dl>
@@ -553,7 +608,7 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 
 <dl class="method">
 <dt id="spython.main.base.Client.pull">
-<code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>name_by_commit=False</em>, <em>name_by_hash=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pull</code><span class="sig-paren">(</span><em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

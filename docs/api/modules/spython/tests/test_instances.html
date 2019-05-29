@@ -154,13 +154,10 @@
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_installdir</span>
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">Client</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 
@@ -174,6 +171,16 @@
 
 <div class="viewcode-block" id="TestInstances.tearDown"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestInstances.test_instance_class"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances.test_instance_class">[docs]</a>    <span class="k">def</span> <span class="nf">test_instance_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s1">&#39;docker://ubuntu&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(),</span> <span class="s1">&#39;instance://&#39;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;coolName&#39;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(),</span> <span class="s1">&#39;instance://&#39;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TestInstances.test_instances"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstances.test_instances">[docs]</a>    <span class="k">def</span> <span class="nf">test_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -201,10 +208,10 @@
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 3: Commands to instances&quot;</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">==</span> <span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Case 4: Return value from instance&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span><span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
@@ -215,6 +222,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="p">[])</span>
         <span class="n">myinstance1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="n">myinstance2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">myinstance1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">myinstance2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">instance_stopall</span><span class="p">()</span>

@@ -12,9 +12,9 @@ def main(args, options, parser):
     if len(options) > 0:
         image = options.pop(0)
  
-    lookup = { 'ipython': ipython,
-               'python': python,
-               'bpython': bpython }
+    lookup = {'ipython': ipython,
+              'python': python,
+              'bpython': bpython}
 
     shells = ['ipython', 'python', 'bpython']
 
@@ -51,8 +51,13 @@ def ipython(image):
 def bpython(image):
     '''give the user a bpython shell
     '''
-    import bpython
     client = prepare_client(image)
+
+    try:
+        import bpython
+    except ImportError:
+        return python(image)
+
     bpython.embed(locals_={'client': client})
 
 def python(image):

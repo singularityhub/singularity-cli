@@ -25,8 +25,7 @@ def start(self, image=None, name=None, args=None, sudo=False, options=None, capt
        singularity [...] instance.start [...] <container path> <instance name>
 
     '''        
-    from spython.utils import ( run_command, 
-                                check_install )
+    from spython.utils import (run_command, check_install)
     check_install()
 
     # If name provided, over write robot (default)

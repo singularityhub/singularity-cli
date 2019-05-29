@@ -158,31 +158,6 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-
-<div class="viewcode-block" id="parse_verbosity"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.flags.parse_verbosity">[docs]</a><span class="k">def</span> <span class="nf">parse_verbosity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;parse_verbosity will take an argument object, and return the args</span>
-<span class="sd">       passed (from a dictionary) to a list</span>
-
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       args: the argparse argument objects</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">silent</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--silent&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">debug</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-       <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="s1">&#39;v&#39;</span> <span class="o">*</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">flags</span></div>
-
-
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">GLOBAL OPTIONS:</span>
 <span class="sd">    -d|--debug    Print debugging information</span>
@@ -221,6 +196,29 @@
 <span class="sd">    instance   Persistent instance command group                                </span>
 
 <span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="parse_verbosity"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.flags.parse_verbosity">[docs]</a><span class="k">def</span> <span class="nf">parse_verbosity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;parse_verbosity will take an argument object, and return the args</span>
+<span class="sd">       passed (from a dictionary) to a list</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ==========</span>
+<span class="sd">       args: the argparse argument objects</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">silent</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--silent&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">debug</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">flags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="s1">&#39;v&#39;</span> <span class="o">*</span> <span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">flags</span></div>
 </pre></div>
 
            </div>

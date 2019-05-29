@@ -159,7 +159,6 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -196,10 +195,9 @@
 
 
 <div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;get the singularity client version. Useful in the case that functionality</span>
-<span class="sd">       has changed, etc. Can be &quot;hacked&quot; if needed by exporting </span>
-<span class="sd">       SPYTHON_SINGULARITY_VERSION, which is checked before checking on the</span>
-<span class="sd">       command line.</span>
+    <span class="sd">&#39;&#39;&#39;get the full singularity client version as reported by </span>
+<span class="sd">       singularity --version [...]. For Singularity 3.x, this means:</span>
+<span class="sd">       &quot;singularity version 3.0.1-1&quot;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
@@ -239,9 +237,9 @@
     <span class="k">if</span> <span class="n">sudo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sudo&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
 
-    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
-                               <span class="n">stdout</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> 
-                               <span class="n">universal_newlines</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">line</span>
@@ -281,9 +279,9 @@
         <span class="n">stdout</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span>
 
     <span class="c1"># Use the parent stdout and stderr</span>
-    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
-                               <span class="n">stderr</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> 
-                               <span class="n">stdout</span> <span class="o">=</span> <span class="n">stdout</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                               <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">)</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">()</span>
     <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -303,7 +301,7 @@
                 <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="p">,</span>
-              <span class="s1">&#39;return_code&#39;</span><span class="p">:</span> <span class="n">process</span><span class="o">.</span><span class="n">returncode</span> <span class="p">}</span>
+              <span class="s1">&#39;return_code&#39;</span><span class="p">:</span> <span class="n">process</span><span class="o">.</span><span class="n">returncode</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">output</span></div>
 
@@ -326,10 +324,25 @@
                    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">special_characters</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="split_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.split_uri">[docs]</a><span class="k">def</span> <span class="nf">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Split the uri of a container into the protocol and image part</span>
+
+<span class="sd">    An empty protocol is returned if none found.</span>
+<span class="sd">    A trailing slash is removed from the image part.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;://&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">parts</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;remove_uri will remove docker:// or shub:// from the uri</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;docker://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;shub://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

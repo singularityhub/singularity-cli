@@ -12,24 +12,35 @@ from spython.utils import (
     get_singularity_version
 )
 
+from .command import (
+    generate_bind_list,
+    init_command,
+    run_command
+)
+from .flags import parse_verbosity
+from .sutils import (
+    get_uri,
+    load,
+    setenv,
+    get_filename
+)
+from .logger import (
+    println,
+    init_level
+)
+from .generate import RobotNamer
+
 import json
 import sys
 import os
 import re
-
-
-from .command import ( generate_bind_list, init_command, run_command )
-from .flags import parse_verbosity
-from .sutils import ( get_uri, load, setenv, get_filename )
-from .logger import ( println,  init_level )
-from .generate import RobotNamer
 
 class Client:
 
     def __str__(self):
         base = "[singularity-python]"
         if hasattr(self, 'simage'):
-            if self.simage.image not in [None,'']:
+            if self.simage.image not in [None, '']:
                 base = "%s[%s]" %(base, self.simage)
         return base
 

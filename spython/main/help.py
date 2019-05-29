@@ -17,7 +17,7 @@ def help(self, command=None):
     from spython.utils import check_install
     check_install()
 
-    cmd = ['singularity','--help']
+    cmd = ['singularity', '--help']
     if command is not None:
         cmd.append(command)
     help = self._run_command(cmd)

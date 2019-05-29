@@ -9,7 +9,7 @@
 import os
 from spython.logger import bot
 
-def create(self,image_path, size=1024, sudo=False):
+def create(self, image_path, size=1024, sudo=False):
     '''create will create a a new image
 
         Parameters
@@ -22,14 +22,13 @@ def create(self,image_path, size=1024, sudo=False):
     from spython.utils import check_install
     check_install()
 
-
     cmd = self.init_command('image.create')
-    cmd = cmd + ['--size', str(size), image_path ]
+    cmd = cmd + ['--size', str(size), image_path]
 
-    output = self.run_command(cmd,sudo=sudo)
+    output = self.run_command(cmd, sudo=sudo)
     self.println(output)
 
     if not os.path.exists(image_path):
-        bot.exit("Could not create image %s" %image_path)
+        bot.exit("Could not create image %s" % image_path)
 
     return image_path

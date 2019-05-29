@@ -41,7 +41,7 @@ class TestOci(unittest.TestCase):
         return image
 
     def test_oci_image(self):
-        image=self.cli.oci.OciImage('oci://imagename')
+        image = self.cli.oci.OciImage('oci://imagename')
         self.assertEqual(image.get_uri(), '[singularity-python-oci:oci://imagename]')
 
     def test_oci(self):
@@ -63,8 +63,8 @@ class TestOci(unittest.TestCase):
 
         print('...Case 3. Execute command to non running bundle.')
         result = self.cli.oci.execute(container_id=self.name, 
-                                      sudo=True, 
-                                      command=['ls','/'])
+                                      sudo=True,
+                                      command=['ls', '/'])
 
         print(result)
         self.assertTrue(result['return_code'] == 255)
@@ -76,7 +76,7 @@ class TestOci(unittest.TestCase):
         print('...Case 5. Execute command to running bundle.')
         result = self.cli.oci.execute(container_id=self.name, 
                                       sudo=True, 
-                                      command=['ls','/'])
+                                      command=['ls', '/'])
 
         print(result)
         self.assertTrue('bin' in result)
@@ -109,7 +109,7 @@ class TestOci(unittest.TestCase):
         # Bug in singularity that kill doesn't kill completely - this returns 
         # 255. When testsupdated to 3.1.* add signal=K to run
         result = self.cli.oci.delete(self.name, sudo=True)
-        self.assertTrue(result in [0,255])
+        self.assertTrue(result in [0, 255])
 
 
 if __name__ == '__main__':

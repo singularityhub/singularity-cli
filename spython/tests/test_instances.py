@@ -63,7 +63,7 @@ class TestInstances(unittest.TestCase):
         self.assertEqual(result, 'hello\n')
 
         print('...Case 4: Return value from instance')
-        result = self.cli.execute(myinstance,'ls /', return_result=True)
+        result = self.cli.execute(myinstance, 'ls /', return_result=True)
         print(result)
         self.assertTrue('tmp\nusr\nvar' in result['message'])
         self.assertEqual(result['return_code'], 0)

@@ -35,7 +35,7 @@ def println(self, output, quiet=False):
        quiet: a runtime variable to over-ride the default.
 
     '''
-    if isinstance(output,bytes):
+    if isinstance(output, bytes):
         output = output.decode('utf-8')
     if self.quiet is False and quiet is False:
         print(output)

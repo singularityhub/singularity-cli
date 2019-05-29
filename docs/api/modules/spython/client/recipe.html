@@ -156,15 +156,18 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">write_file</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.recipe.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;This function serves as a wrapper around the DockerRecipe and</span>
-<span class="sd">       SingularityRecipe converters. We can either save to file if</span>
-<span class="sd">       args.outfile is defined, or print to the console if not.</span>
+    <span class="sd">&#39;&#39;&#39;This function serves as a wrapper around the DockerParser, </span>
+<span class="sd">       SingularityParser, DockerWriter, and SingularityParser converters. </span>
+<span class="sd">       We can either save to file if args.outfile is defined, or print </span>
+<span class="sd">       to the console if not.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="p">(</span> <span class="n">DockerRecipe</span><span class="p">,</span> <span class="n">SingularityRecipe</span> <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="n">parsers</span>
+    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="n">writers</span>
 
     <span class="c1"># We need something to work with</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
@@ -177,17 +180,21 @@
         <span class="n">outfile</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="c1"># Choose the recipe parser</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">SingularityRecipe</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">SingularityParser</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="o">.</span><span class="n">SingularityWriter</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">input</span> <span class="o">==</span> <span class="s2">&quot;docker&quot;</span><span class="p">:</span>
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">DockerRecipe</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">DockerParser</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="o">.</span><span class="n">DockerWriter</span>
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">input</span> <span class="o">==</span> <span class="s2">&quot;singularity&quot;</span><span class="p">:</span>
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">SingularityRecipe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">SingularityParser</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="o">.</span><span class="n">SingularityWriter</span>        
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;dockerfile&quot;</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-            <span class="n">parser</span> <span class="o">=</span> <span class="n">DockerRecipe</span>
+            <span class="n">parser</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">DockerParser</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">writers</span><span class="o">.</span><span class="n">DockerWriter</span>
 
     <span class="c1"># Initialize the chosen parser</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="c1"># By default, discover entrypoint / cmd from Dockerfile</span>
     <span class="n">entrypoint</span> <span class="o">=</span> <span class="s2">&quot;/bin/bash&quot;</span>
@@ -197,14 +204,17 @@
         <span class="n">entrypoint</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">entrypoint</span>
         <span class="n">force</span> <span class="o">=</span> <span class="kc">True</span>
 
+    <span class="c1"># Do the conversion</span>
+    <span class="n">recipeWriter</span> <span class="o">=</span> <span class="n">writer</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">recipeWriter</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">runscript</span><span class="o">=</span><span class="n">entrypoint</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+
     <span class="c1"># If the user specifies an output file, save to it</span>
     <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">runscript</span><span class="o">=</span><span class="n">entrypoint</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">write_file</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 
     <span class="c1"># Otherwise, convert and print to screen</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">recipe</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">runscript</span><span class="o">=</span><span class="n">entrypoint</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

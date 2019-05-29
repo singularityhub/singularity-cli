@@ -178,15 +178,15 @@
 <span class="sd">            sudo: if init is called with or without sudo, keep a record and use</span>
 <span class="sd">                  for following commands unless sudo is provided to function.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="c1"># Will typically be None, unless used outside of Client</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">=</span> <span class="n">container_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;oci://&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;oci&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sudo</span> <span class="o">=</span> <span class="n">sudo</span>
 
         <span class="c1"># If bundle is provided, create it</span>
-        <span class="k">if</span> <span class="n">bundle</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">container_id</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">create</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">container_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">create</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">container_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -204,7 +204,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="c1"># The user must provide a container_id, or have one with the client</span>
-        <span class="k">if</span> <span class="n">container_id</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">container_id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;You must provide a container_id.&#39;</span><span class="p">)</span>
 
         <span class="c1"># Choose whichever is not None, with preference for function provided</span>
@@ -220,7 +220,7 @@
 <span class="c1"># Naming</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;[singularity-python-oci:</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">container_id</span>
         <span class="k">return</span> <span class="s2">&quot;[singularity-python-oci]&quot;</span>
 
@@ -240,7 +240,7 @@
 <span class="sd">           ==========</span>
 <span class="sd">           sudo: if None, use self.sudo. Otherwise return sudo.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">sudo</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sudo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sudo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sudo</span>
         <span class="k">return</span> <span class="n">sudo</span>
 

@@ -234,7 +234,7 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 <span id="spython-main-build-module"></span><h2>spython.main.build module<a class="headerlink" href="#module-spython.main.build" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.build.build">
-<code class="descclassname">spython.main.build.</code><code class="descname">build</code><span class="sig-paren">(</span><em>self</em>, <em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.build.</code><code class="descname">build</code><span class="sig-paren">(</span><em>self</em>, <em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='simg'</em>, <em>sudo=True</em>, <em>stream=False</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
 (requires sudo). If you specify to stream, expect the image name
 and an iterator to be returned.</p>
@@ -368,7 +368,7 @@ as it doesn’t make sense to call from a single instance</p>
 <span id="spython-main-pull-module"></span><h2>spython.main.pull module<a class="headerlink" href="#module-spython.main.pull" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.pull.pull">
-<code class="descclassname">spython.main.pull.</code><code class="descname">pull</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>name_by_commit=False</em>, <em>name_by_hash=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/pull.html#pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.pull.pull" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">spython.main.pull.</code><code class="descname">pull</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext='simg'</em>, <em>force=False</em>, <em>capture=False</em>, <em>stream=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/pull.html#pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.pull.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -155,21 +155,21 @@
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">.environment</span> <span class="k">import</span> <span class="n">parse_env</span>
 <span class="kn">from</span> <span class="nn">.recipe</span> <span class="k">import</span> <span class="n">Recipe</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">read_file</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
 <div class="viewcode-block" id="DockerRecipe"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.docker.DockerRecipe">[docs]</a><span class="k">class</span> <span class="nc">DockerRecipe</span><span class="p">(</span><span class="n">Recipe</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;a Docker recipe parses a Docker Recipe into the expected fields of</span>
-<span class="sd">           labels, environment, and install/runtime commands</span>
+<span class="sd">           labels, environment, and install/runtime commands. We save working</span>
+<span class="sd">           directory as we parse, and the last one can be added to the runscript</span>
+<span class="sd">           of a Singularity recipe.</span>
 
 <span class="sd">           Parameters</span>
 <span class="sd">           ==========</span>
@@ -349,21 +349,19 @@
 <span class="sd">           dest: the destiation</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
-        <span class="c1"># Create data structure to iterate over</span>
-
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span>
-                 <span class="s1">&#39;dest&#39;</span><span class="p">:</span> <span class="n">dest</span><span class="p">}</span>
-
-        <span class="k">for</span> <span class="n">pathtype</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
-                <span class="n">paths</span><span class="p">[</span><span class="n">pathtype</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
- 
-            <span class="c1"># Warning if doesn&#39;t exist</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-                <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> doesn&#39;t exist, ensure exists for build&quot;</span> <span class="o">%</span><span class="n">path</span><span class="p">)</span>
-
+        <span class="k">def</span> <span class="nf">expandPath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span> <span class="k">else</span> <span class="n">path</span>
+        
+        <span class="c1"># Warn the user Singularity doesn&#39;t support expansion</span>
+        <span class="k">if</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Singularity doesn&#39;t support expansion, * found in </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">source</span><span class="p">)</span>
+        
+        <span class="c1"># Warning if file/folder (src) doesn&#39;t exist</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> doesn&#39;t exist, ensure exists for build&quot;</span> <span class="o">%</span> <span class="n">source</span><span class="p">)</span>
+        
         <span class="c1"># The pair is added to the files as a list</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">paths</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="n">paths</span><span class="p">[</span><span class="s1">&#39;dest&#39;</span><span class="p">]])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">expandPath</span><span class="p">(</span><span class="n">source</span><span class="p">),</span> <span class="n">expandPath</span><span class="p">(</span><span class="n">dest</span><span class="p">)])</span>
 
 
     <span class="k">def</span> <span class="nf">_parse_http</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
@@ -470,9 +468,10 @@
 <span class="sd">           line: the line from the recipe file to parse for WORKDIR</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Save the last working directory to add to the runscript</span>
         <span class="n">workdir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;WORKDIR&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;cd </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workdir</span> <span class="o">=</span> <span class="s2">&quot;cd </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">workdir</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">workdir</span><span class="p">))</span>
 
 
 <span class="c1"># Entrypoint and Command</span>
@@ -481,14 +480,29 @@
         <span class="sd">&#39;&#39;&#39;_cmd will parse a Dockerfile CMD command</span>
 <span class="sd">           </span>
 <span class="sd">           eg: CMD /code/run_uwsgi.sh --&gt; /code/run_uwsgi.sh.</span>
-<span class="sd">               The </span>
+<span class="sd">               If a list is provided, it&#39;s parsed to a list.</span>
 
 <span class="sd">           Parameters</span>
 <span class="sd">           ==========</span>
 <span class="sd">           line: the line from the recipe file to parse for CMD</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_list</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">_load_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;load an entrypoint or command, meaning it can be wrapped in a list</span>
+<span class="sd">           or a regular string. We try loading as json to return an actual</span>
+<span class="sd">           list. E.g., after _setup, we might go from &#39;ENTRYPOINT [&quot;one&quot;, &quot;two&quot;]&#39;</span>
+<span class="sd">           to &#39;[&quot;one&quot;, &quot;two&quot;]&#39;, and this function loads as json and returns</span>
+<span class="sd">           [&quot;one&quot;, &quot;two&quot;]</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">line</span>
 
 
     <span class="k">def</span> <span class="nf">_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
@@ -499,7 +513,8 @@
 <span class="sd">           line: the line from the recipe file to parse for CMD</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;ENTRYPOINT&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">entrypoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">(</span><span class="s1">&#39;ENTRYPOINT&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_list</span><span class="p">(</span><span class="n">entrypoint</span><span class="p">)</span>
 
 
 <span class="c1"># Labels</span>

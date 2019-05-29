@@ -44,15 +44,15 @@ class ProgressBar(object):
                 self.hide = not STREAM.isatty()
             except AttributeError:  # output does not support isatty()
                 self.hide = True
-        self.empty_char =    empty_char
-        self.filled_char =   filled_char
+        self.empty_char = empty_char
+        self.filled_char = filled_char
         self.expected_size = expected_size
-        self.every =         every
-        self.start =         time.time()
-        self.ittimes =       []
-        self.eta =           0
-        self.etadelta =      time.time()
-        self.etadisp =       self.format_time(self.eta)
+        self.every = every
+        self.start = time.time()
+        self.ittimes = []
+        self.eta = 0
+        self.etadelta = time.time()
+        self.etadisp = self.format_time(self.eta)
         self.last_progress = 0
         if self.expected_size:
             self.show(0)

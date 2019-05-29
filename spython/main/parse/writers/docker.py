@@ -69,9 +69,9 @@ class DockerWriter(WriterBase):
             bot.exit("Dockerfile requires a fromHeader.")
             
             # Parse the provided name
-            uri_regexes = [ _reduced_uri,
-                            _default_uri,
-                            _docker_uri ]
+            uri_regexes = [_reduced_uri,
+                           _default_uri,
+                           _docker_uri]
 
             for r in uri_regexes:
                 match = r.match(self.recipe.fromHeader)
@@ -87,7 +87,7 @@ class DockerWriter(WriterBase):
         '''
         self.validate()
 
-        recipe = [ "FROM %s" % self.recipe.fromHeader ]
+        recipe = ["FROM %s" % self.recipe.fromHeader]
 
         # Comments go up front!
         recipe += self.recipe.comments  
@@ -114,7 +114,7 @@ class DockerWriter(WriterBase):
             recipe.append(write_lines('HEALTHCHECK', self.recipe.test))
 
         # Clean up extra white spaces
-        return '\n'.join(recipe).replace('\n\n','\n')
+        return '\n'.join(recipe).replace('\n\n', '\n')
 
 
 def write_files(label, lines):

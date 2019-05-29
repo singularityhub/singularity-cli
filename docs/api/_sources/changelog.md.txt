@@ -17,6 +17,15 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - refactor recipe parsers, writers, and base (0.0.63)
+ - fix crash in some error conditions (0.0.62)
+   - more OCI commands accept sudo parameter
+ - working directory, the last one defined, should be added to runscript (0.0.61)
+ - adding deprecation message for image.export (0.0.60)
+   - adding --force option to build
+ - fixing warning for files, only relevant for sources (0.0.59)
+ - deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
+   - export command added back, points to build given Singularity 3.x+
  - print but with logger, should be println (0.0.57)
  - Fixing bug with instance not having name when not started (0.0.56)
    - instance start has been moved to non-private

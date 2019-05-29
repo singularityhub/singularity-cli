@@ -156,8 +156,6 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-
 <div class="viewcode-block" id="apps"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.apps.apps">[docs]</a><span class="k">def</span> <span class="nf">apps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">full_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">       return list of SCIF apps in image. The Singularity software serves</span>
@@ -178,7 +176,7 @@
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_uri</span><span class="p">()</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;apps&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span> <span class="n">image</span> <span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;apps&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">]</span>
     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">full_path</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -186,7 +184,7 @@
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">output</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">output</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">output</span></div>
 </pre></div>

@@ -19,7 +19,7 @@ def generate_instance_commands():
     from spython.utils import run_command as run_cmd
 
     # run_command uses run_cmd, but wraps to catch error
-    from spython.main.base.command import ( init_command, run_command )
+    from spython.main.base.command import (init_command, run_command)
     from spython.main.base.generate import RobotNamer
     from .start import start
     from .stop import stop

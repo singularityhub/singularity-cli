@@ -69,12 +69,12 @@ class TestClient(unittest.TestCase):
         self.assertTrue(os.path.exists(container))
 
         print('Testing client.execute command')
-        result = self.cli.execute(container,'ls /')
+        result = self.cli.execute(container, 'ls /')
         print(result)
         self.assertTrue('tmp\nusr\nvar' in result)
 
         print('Testing client.execute command with return code')
-        result = self.cli.execute(container,'ls /', return_result=True)
+        result = self.cli.execute(container, 'ls /', return_result=True)
         print(result)
         self.assertTrue('tmp\nusr\nvar' in result['message'])
         self.assertEqual(result['return_code'], 0)

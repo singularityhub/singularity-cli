@@ -63,7 +63,7 @@ def get(self, name, return_json=False, quiet=False):
 
         # Prepare json result from table
 
-        header = ['daemon_name','pid','container_image']
+        header = ['daemon_name', 'pid', 'container_image']
         instances = parse_table(output['message'][0], header)
 
         # Does the user want instance objects instead?

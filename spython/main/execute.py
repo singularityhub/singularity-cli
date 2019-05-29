@@ -11,16 +11,15 @@ from spython.utils import stream_command
 
 
 def execute(self, 
-            image = None, 
-            command = None,
-            app = None,
-            writable = False,
-            contain = False,
-            bind = None,
-            stream = False,
-            nv = False,
+            image=None, 
+            command=None,
+            app=None,
+            writable=False,
+            contain=False,
+            bind=None,
+            stream=False,
+            nv=False,
             return_result=False):
-
     ''' execute: send a command to a container
     
         Parameters

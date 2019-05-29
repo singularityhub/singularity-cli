@@ -330,103 +330,16 @@ a list of commands in the format KEY=VALUE For example:</p>
 <em class="property">class </em><code class="descclassname">spython.main.parse.recipe.</code><code class="descname">Recipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>a recipe includes an environment, labels, runscript or command,
-and install sequence. This object is subclassed by a Singularity or
-Docker recipe, and can be used to convert between the two. The user
-can read in one recipe type to convert to another, or provide raw
-commands and metadata for generating a recipe.</p>
+and install sequence. This object is interacted with by a Parser
+(intended to popualte the recipe with content) and a Writer (intended
+to write a recipe to file). The parsers and writers are located in
+parsers.py, and writers.py, respectively. The user is also free to use
+the recipe class to build recipes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</p>
+<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p>
 </dd>
 </dl>
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.convert">
-<code class="descname">convert</code><span class="sig-paren">(</span><em>convert_to=None</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.convert" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a convenience function for the user to easily call to get
-the most likely desired result, conversion to the opposite format.
-We choose the selection based on the recipe name - meaning that we
-perform conversion with default based on recipe name. If the recipe
-object is DockerRecipe, we convert to Singularity. If the recipe
-object is SingularityRecipe, we convert to Docker. The user can
-override this by setting the variable convert_to</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</p></li>
-<li><p><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</p></li>
-<li><p><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.docker2singularity">
-<code class="descname">docker2singularity</code><span class="sig-paren">(</span><em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.parse.recipe.Recipe.docker2singularity" title="Permalink to this definition">¶</a></dt>
-<dd><p>docker2singularity will return a Singularity build recipe based on
-a the loaded recipe object. It doesn’t take any arguments as the
-recipe object contains the sections, and the calling function
-determines saving / output logic.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>recipe</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>load a recipe file into the client, first performing checks, and
-then parsing the file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerRecipe or SingularityRecipe</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.parse">
-<code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.parse" title="Permalink to this definition">¶</a></dt>
-<dd><p>parse is the base function for parsing the recipe, whether it be
-a Dockerfile or Singularity recipe. The recipe is read in as lines,
-and saved to a list if needed for the future. If the client has
-it, the recipe type specific _parse function is called.</p>
-<p>Instructions for making a client subparser:</p>
-<blockquote>
-<div><p>It should have a main function _parse that parses a list of lines
-from some recipe text file into the appropriate sections, e.g.,</p>
-<p>self.fromHeader
-self.environ
-self.labels
-self.install
-self.files
-self.test
-self.entrypoint</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>output_file=None</em>, <em>convert_to=None</em>, <em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>save will convert a recipe to a specified format (defaults to the
-opposite of the recipe type originally loaded, (e.g., docker–&gt;
-singularity and singularity–&gt;docker) and write to an output file,
-if specified. If not specified, a temporary file is used.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>output_file</strong> (<em>the file to save to, not required (estimates default)</em>)</p></li>
-<li><p><strong>convert_to</strong> (<em>can be manually forced (docker or singularity)</em>)</p></li>
-<li><p><strong>runscript</strong> (<em>default runscript (entrypoint) to use</em>)</p></li>
-<li><p><strong>force</strong> (<em>if True, override discovery from Dockerfile</em>)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.main.parse.recipe.Recipe.singularity2docker">
-<code class="descname">singularity2docker</code><span class="sig-paren">(</span><em>runscript='/bin/bash'</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.parse.recipe.Recipe.singularity2docker" title="Permalink to this definition">¶</a></dt>
-<dd><p>convert a Singularity recipe to a (best estimated) Dockerfile</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>

@@ -44,7 +44,7 @@ class Instance(ImageBase):
         # If no name provided, use robot name
         if name is None:
             name = self.RobotNamer.generate()
-        self.name = name.replace('-','_')
+        self.name = name.replace('-', '_')
 
 
     def parse_image_name(self, image):

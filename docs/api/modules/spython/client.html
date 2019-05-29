@@ -167,11 +167,11 @@
                                 <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># Global Options</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> 
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use verbose logging to debug.&quot;</span><span class="p">,</span> 
                         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
 
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">,</span><span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> 
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;suppress all normal output&quot;</span><span class="p">,</span> 
                         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
 
@@ -211,23 +211,6 @@
     <span class="k">return</span> <span class="n">parser</span></div>
 
 
-
-<div class="viewcode-block" id="get_subparsers"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.get_subparsers">[docs]</a><span class="k">def</span> <span class="nf">get_subparsers</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;get_subparser will get a dictionary of subparsers, to help with printing help</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">_actions</span> 
-               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)]</span>
-
-    <span class="n">subparsers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
-        <span class="c1"># get all subparsers and print help</span>
-        <span class="k">for</span> <span class="n">choice</span><span class="p">,</span> <span class="n">subparser</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">choices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">subparsers</span><span class="p">[</span><span class="n">choice</span><span class="p">]</span> <span class="o">=</span> <span class="n">subparser</span>
-
-    <span class="k">return</span> <span class="n">subparsers</span></div>
-
-
 <div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.set_verbosity">[docs]</a><span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;determine the message level in the environment to set based on args.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -261,7 +244,6 @@
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
     <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
-    <span class="n">subparsers</span> <span class="o">=</span> <span class="n">get_subparsers</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;print help, including the software version and active client </span>

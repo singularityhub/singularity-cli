@@ -177,14 +177,17 @@
     <span class="kn">from</span> <span class="nn">.execute</span> <span class="k">import</span> <span class="n">execute</span> 
     <span class="kn">from</span> <span class="nn">.help</span> <span class="k">import</span> <span class="n">help</span>
     <span class="kn">from</span> <span class="nn">.inspect</span> <span class="k">import</span> <span class="n">inspect</span>
-    <span class="kn">from</span> <span class="nn">.instances</span> <span class="k">import</span> <span class="p">(</span> <span class="n">instances</span><span class="p">,</span> <span class="n">stopall</span> <span class="p">)</span> <span class="c1"># global instance commands</span>
+    <span class="kn">from</span> <span class="nn">.instances</span> <span class="k">import</span> <span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="n">stopall</span><span class="p">)</span> <span class="c1"># global instance commands</span>
     <span class="kn">from</span> <span class="nn">.run</span> <span class="k">import</span> <span class="n">run</span>
     <span class="kn">from</span> <span class="nn">.pull</span> <span class="k">import</span> <span class="n">pull</span>
+    <span class="kn">from</span> <span class="nn">.export</span> <span class="k">import</span> <span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">_export</span><span class="p">)</span>
 
     <span class="c1"># Actions</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">apps</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="n">build</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">execute</span> <span class="o">=</span> <span class="n">execute</span>
+    <span class="n">Client</span><span class="o">.</span><span class="n">export</span> <span class="o">=</span> <span class="n">export</span>
+    <span class="n">Client</span><span class="o">.</span><span class="n">_export</span> <span class="o">=</span> <span class="n">_export</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">help</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">inspect</span> <span class="o">=</span> <span class="n">inspect</span>
     <span class="n">Client</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">instances</span>
@@ -216,10 +219,10 @@
     <span class="n">cli</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 
     <span class="c1"># Pass on verbosity</span>
-    <span class="n">cli</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">debug</span>
-    <span class="n">cli</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">quiet</span>
-    <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">debug</span>
-    <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">quiet</span> 
+    <span class="k">for</span> <span class="n">subclient</span> <span class="ow">in</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">]:</span>
+        <span class="n">subclient</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">debug</span>
+        <span class="n">subclient</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">quiet</span>
+        <span class="n">subclient</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">version</span>
 
     <span class="k">return</span> <span class="n">cli</span></div>
 

@@ -268,8 +268,8 @@ class SingularityParser(ParserBase):
         '''load the From section of the recipe for the Dockerfile.
         '''
         # Remove any comments
-        line = line.split('#',1)[0]        
-        line = re.sub('(F|f)(R|r)(O|o)(M|m):','', line).strip()
+        line = line.split('#', 1)[0] 
+        line = re.sub('(F|f)(R|r)(O|o)(M|m):', '', line).strip()
         bot.info('FROM %s' % line)
         self.config['from'] = line
 
@@ -375,14 +375,14 @@ class SingularityParser(ParserBase):
 
         '''
         # Remove any comments
-        line = line.split('#',1)[0].strip()
+        line = line.split('#', 1)[0].strip()
 
         # Is there a section name?
         parts = line.split(' ')         
-        section = re.sub(r'[%]|(\s+)','',parts[0]).lower()
+        section = re.sub(r'[%]|(\s+)', '', parts[0]).lower()
 
         if section not in self.config: 
             self.config[section] = []
-            bot.debug("Adding section %s" %section)
+            bot.debug("Adding section %s" % section)
 
         return section

@@ -156,44 +156,20 @@
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">split_uri</span>
 
 <div class="viewcode-block" id="ImageBase"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.ImageBase">[docs]</a><span class="k">class</span> <span class="nc">ImageBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;protocol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">protocol</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
 
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
-
-
-<div class="viewcode-block" id="ImageBase.get_uri"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.ImageBase.get_uri">[docs]</a>    <span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;get the uri of an image, or the string (optional) that appears before</span>
-<span class="sd">           ://. Optional. If none found, returns &#39;&#39;</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-
-        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^(?P&lt;uri&gt;.+)://&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
-            <span class="n">uri</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;uri&#39;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">uri</span></div>
-
-
-<div class="viewcode-block" id="ImageBase.remove_uri"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.ImageBase.remove_uri">[docs]</a>    <span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;remove_image_uri will return just the image name.</span>
-<span class="sd">           this will also remove all spaces from the uri.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">uri</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">://&#39;</span> <span class="o">%</span><span class="n">uri</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">image</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="ImageBase.parse_image_name"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.ImageBase.parse_image_name">[docs]</a>    <span class="k">def</span> <span class="nf">parse_image_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -206,25 +182,24 @@
 
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">image</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_uri</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_uri</span><span class="p">(</span><span class="n">image</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="n">image</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-       <span class="sd">&#39;&#39;&#39;An image here is an image file or a record.</span>
-<span class="sd">          The user can choose to load the image when starting the client, or</span>
-<span class="sd">          update the main client with an image. The image object is kept</span>
-<span class="sd">          with the main client to make running additional commands easier.</span>
+        <span class="sd">&#39;&#39;&#39;An image here is an image file or a record.</span>
+<span class="sd">            The user can choose to load the image when starting the client, or</span>
+<span class="sd">            update the main client with an image. The image object is kept</span>
+<span class="sd">            with the main client to make running additional commands easier.</span>
 
-<span class="sd">          Parameters</span>
-<span class="sd">          ==========</span>
-<span class="sd">          image: the image uri to parse (required)</span>
+<span class="sd">            Parameters</span>
+<span class="sd">            ==========</span>
+<span class="sd">            image: the image uri to parse (required)</span>
 
-<span class="sd">       &#39;&#39;&#39;</span>
-       <span class="nb">super</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-       <span class="bp">self</span><span class="o">.</span><span class="n">parse_image_name</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_image_name</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Image.get_hash"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.Image.get_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -247,7 +222,7 @@
                     <span class="n">hasher</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">hasher</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
-        <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not exist.&#39;</span> <span class="o">%</span><span class="n">image</span><span class="p">)</span></div></div>
+        <span class="n">bot</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not exist.&#39;</span> <span class="o">%</span> <span class="n">image</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

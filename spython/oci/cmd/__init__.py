@@ -15,13 +15,13 @@ def generate_oci_commands():
     from spython.main.base.logger import println
 
     # run_command uses run_cmd, but wraps to catch error
-    from spython.main.base.command import ( run_command, send_command )
+    from spython.main.base.command import (run_command, send_command)
     from spython.main.base.generate import RobotNamer
 
     # Oci Command Groups
-    from .mounts import ( mount, umount )
-    from .states import ( kill, state, start, pause, resume, _state_command  )
-    from .actions import ( attach, create, delete, execute, run, _run, update )
+    from .mounts import (mount, umount)
+    from .states import (kill, state, start, pause, resume, _state_command)
+    from .actions import (attach, create, delete, execute, run, _run, update)
 
     # Oci Commands
     OciImage.start = start

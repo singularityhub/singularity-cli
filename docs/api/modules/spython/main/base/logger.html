@@ -187,7 +187,7 @@
 <span class="sd">       quiet: a runtime variable to over-ride the default.</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="nb">bytes</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>

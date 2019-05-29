@@ -182,9 +182,10 @@
 <dl class="function">
 <dt id="spython.client.recipe.main">
 <code class="descclassname">spython.client.recipe.</code><code class="descname">main</code><span class="sig-paren">(</span><em>args</em>, <em>options</em>, <em>parser</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client/recipe.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.recipe.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function serves as a wrapper around the DockerRecipe and
-SingularityRecipe converters. We can either save to file if
-args.outfile is defined, or print to the console if not.</p>
+<dd><p>This function serves as a wrapper around the DockerParser,
+SingularityParser, DockerWriter, and SingularityParser converters.
+We can either save to file if args.outfile is defined, or print
+to the console if not.</p>
 </dd></dl>
 
 </div>
@@ -193,7 +194,8 @@ args.outfile is defined, or print to the console if not.</p>
 <dl class="function">
 <dt id="spython.client.shell.bpython">
 <code class="descclassname">spython.client.shell.</code><code class="descname">bpython</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client/shell.html#bpython"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.shell.bpython" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>give the user a bpython shell</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="spython.client.shell.ipython">
@@ -207,9 +209,16 @@ args.outfile is defined, or print to the console if not.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="spython.client.shell.prepare_client">
+<code class="descclassname">spython.client.shell.</code><code class="descname">prepare_client</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client/shell.html#prepare_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.shell.prepare_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>prepare a client to embed in a shell with recipe parsers and writers.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="spython.client.shell.python">
 <code class="descclassname">spython.client.shell.</code><code class="descname">python</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client/shell.html#python"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.shell.python" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>give the user a python shell</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-spython.client.test">
@@ -226,12 +235,6 @@ args.outfile is defined, or print to the console if not.</p>
 <dt id="spython.client.get_parser">
 <code class="descclassname">spython.client.</code><code class="descname">get_parser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client.html#get_parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.get_parser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="spython.client.get_subparsers">
-<code class="descclassname">spython.client.</code><code class="descname">get_subparsers</code><span class="sig-paren">(</span><em>parser</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/client.html#get_subparsers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.client.get_subparsers" title="Permalink to this definition">¶</a></dt>
-<dd><p>get_subparser will get a dictionary of subparsers, to help with printing help</p>
-</dd></dl>
 
 <dl class="function">
 <dt id="spython.client.main">

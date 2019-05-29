@@ -50,7 +50,7 @@ class SingularityWriter(WriterBase):
         self.validate()
 
         recipe = ['Bootstrap: docker']
-        recipe += [ "From: %s" % self.recipe.fromHeader ]
+        recipe += ["From: %s" % self.recipe.fromHeader]
   
         # Sections with key value pairs
         recipe += self._create_section('files')
@@ -73,7 +73,7 @@ class SingularityWriter(WriterBase):
             recipe += finish_section(self.recipe.test, 'test')
 
         # Clean up extra white spaces
-        return '\n'.join(recipe).replace('\n\n','\n')
+        return '\n'.join(recipe).replace('\n\n', '\n')
 
 
     def _create_runscript(self, default="/bin/bash", force=False):
@@ -172,7 +172,7 @@ def finish_section(section, name):
     if not isinstance(section, list):
         section = [section]
 
-    header = ['%' + name ]
+    header = ['%' + name]
     return header + section
 
 
@@ -186,7 +186,7 @@ def create_keyval_section(pairs, name):
       name: the name of the section to write (e.g., files)
 
     '''
-    section = ['%' + name ]
+    section = ['%' + name]
     for pair in pairs:
         print(pair)
         section.append(' '.join(pair).strip().strip('\\'))
@@ -203,7 +203,7 @@ def create_env_section(pairs, name):
       name: the name of the section to write (e.g., files)
 
     '''
-    section = ['%' + name ]
+    section = ['%' + name]
     for pair in pairs:
         section.append("export %s" %pair)
     return section

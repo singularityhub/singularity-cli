@@ -20,8 +20,7 @@ def stop(self, name=None, sudo=False):
        singularity [...] instance.stop [...] <instance name>
 
     '''        
-    from spython.utils import ( check_install, 
-                                run_command )
+    from spython.utils import (check_install, run_command)
     check_install()
 
     subgroup = 'instance.stop'
