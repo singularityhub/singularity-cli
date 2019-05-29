@@ -7,7 +7,6 @@
 
 
 import re
-import sys
 
 from spython.logger import bot
 from .base import ParserBase
@@ -387,4 +386,3 @@ class SingularityParser(ParserBase):
             bot.debug("Adding section %s" %section)
 
         return section
-

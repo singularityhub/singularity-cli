@@ -6,15 +6,18 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+from spython.utils import write_file
 import sys
 
 def main(args, options, parser):
-    '''This function serves as a wrapper around the DockerRecipe and
-       SingularityRecipe converters. We can either save to file if
-       args.outfile is defined, or print to the console if not.
+    '''This function serves as a wrapper around the DockerParser, 
+       SingularityParser, DockerWriter, and SingularityParser converters. 
+       We can either save to file if args.outfile is defined, or print 
+       to the console if not.
     '''
 
-    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
+    from spython.main.parse.parsers import ( DockerParser, SingularityParser )
+    from spython.main.parse.writers import ( DockerWriter, SingularityWriter )
 
     # We need something to work with
     if not args.files:
@@ -27,17 +30,21 @@ def main(args, options, parser):
         outfile = args.files[1]
 
     # Choose the recipe parser
-    parser = SingularityRecipe
+    parser = SingularityParser
+    writer = SingularityWriter
     if args.input == "docker":
-        parser = DockerRecipe
+        parser = DockerParser
+        writer = DockerWriter
     elif args.input == "singularity":
-        parser = SingularityRecipe(args.files[0])
+        parser = SingularityParser
+        writer = SingularityParser        
     else:
         if "dockerfile" in args.files[0].lower():
-            parser = DockerRecipe
+            parser = DockerParser
+            writer = DockerWriter
 
     # Initialize the chosen parser
-    parser = parser(args.files[0])
+    recipe = parser(args.files[0])
 
     # By default, discover entrypoint / cmd from Dockerfile
     entrypoint = "/bin/bash"
@@ -47,11 +54,14 @@ def main(args, options, parser):
         entrypoint = args.entrypoint
         force = True
 
+    # Do the conversion
+    recipeWriter = writer(recipe)
+    result = recipeWriter.convert(runscript=entrypoint, force=force)
+
     # If the user specifies an output file, save to it
     if outfile is not None:
-        parser.save(outfile, runscript=entrypoint, force=force)
+        write_file(outfile, result)
 
     # Otherwise, convert and print to screen
     else:
-        recipe = parser.convert(runscript=entrypoint, force=force)
-        print(recipe)
+        print(result)

@@ -555,4 +555,3 @@ class DockerParser(ParserBase):
 
         if chmod is True:
             self.recipe.install.append('chmod u+x %s' %path)
-

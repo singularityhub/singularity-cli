@@ -5,12 +5,6 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import os
-import sys
-
-from spython.logger import bot
-from spython.utils import ( read_file, write_file )
-
 
 class Recipe(object):
     '''a recipe includes an environment, labels, runscript or command,
@@ -23,7 +17,7 @@ class Recipe(object):
        Parameters
        ==========
        recipe: the original recipe file, parsed by the subclass either
-               DockerRecipe or SingularityRecipe
+               DockerParser or SingularityParser
 
     '''
 

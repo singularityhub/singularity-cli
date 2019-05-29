@@ -5,7 +5,6 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import json
 import os
 
 from spython.logger import bot
@@ -32,7 +31,7 @@ class ParserBase(object):
            recipe: the recipe file to parse.
 
         '''
-        self.filename = recipe
+        self.filename = filename
         self._run_checks()
         self.recipe = Recipe(self.filename)
 
@@ -94,4 +93,3 @@ class ParserBase(object):
 
         '''
         return [x.strip() for x in line.split(' ', 1)]
-
