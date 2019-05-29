@@ -320,7 +320,7 @@ class SingularityParser(ParserBase):
         '''
 
         # Comments between sections, add to top of file
-        lines = self.lines.copy()
+        lines = self.lines[:]
         comments = []
 
         # Start with a fresh config!

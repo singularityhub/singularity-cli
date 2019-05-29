@@ -428,7 +428,7 @@ class DockerParser(ParserBase):
         '''
         try:
             line = json.loads(line)
-        except json.JSONDecodeError:
+        except: # json.JSONDecodeError
             pass
         return line
 
