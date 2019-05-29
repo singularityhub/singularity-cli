@@ -129,7 +129,6 @@ jobs:
           paths:
             - ~/conda
           key: v1-dependencies-py3
-      - run: *run_linter
       - run: *test_spython
       - run: *test_spython_3
 
@@ -153,7 +152,6 @@ jobs:
           paths:
             - ~/conda
           key: v1-dependencies-py2
-      - run: *run_linter
       - run: *test_spython
       - run: *test_spython_3
 
