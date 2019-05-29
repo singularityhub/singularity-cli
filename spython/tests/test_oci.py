@@ -93,9 +93,11 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.pause(self.name, sudo=True)
         self.assertEqual(state, 0)
 
-        print('...check status of paused bundle.')
-        state = self.cli.oci.state(self.name, sudo=True)
-        self.assertEqual(state['status'], 'paused')
+        # State was still reported as running
+        if self.cli.version_info() >= VersionInfo(3, 2, 1):
+            print('...check status of paused bundle.')
+            state = self.cli.oci.state(self.name, sudo=True)
+            self.assertEqual(state['status'], 'paused')
 
         print('...Case 8. Resume paused container return value 0.')
         state = self.cli.oci.resume(self.name, sudo=True)
