@@ -9,57 +9,25 @@ import json
 import os
 import re
 
+from .environment import parse_env
+from .recipe import Recipe
 from spython.logger import bot
-from .base import ParserBase
 
+class DockerRecipe(Recipe):
 
-class DockerParser(ParserBase):
-
-    name = 'docker'
-
-    def __init__(self, recipe='Dockerfile', load=True):
-        '''a docker parser will read in a Dockerfile and put it into a Recipe
-           object.
+    def __init__(self, recipe=None):
+        '''a Docker recipe parses a Docker Recipe into the expected fields of
+           labels, environment, and install/runtime commands. We save working
+           directory as we parse, and the last one can be added to the runscript
+           of a Singularity recipe.
 
            Parameters
            ==========
-           recipe: the Dockerfile to parse. If not defined, deafults to 
-                   Dockerfile assumed to be in the $PWD.
+           recipe: the recipe file (Dockerfile) to parse
 
         '''
-        super(DockerParser, self).__init__(recipe, load)
-
-
-    def parse(self):
-        '''parse is the base function for parsing the Dockerfile, and extracting
-           elements into the correct data structures. Everything is parsed into
-           lists or dictionaries that can be assembled again on demand. 
-
-           Environment: Since Docker also exports environment as we go, 
-                        we add environment to the environment section and 
-                        install
-
-           Labels: include anything that is a LABEL, ARG, or (deprecated)
-                   maintainer.
-
-           Add/Copy: are treated the same
-
-        '''
-        parser = None
-        previous = None
-
-        for line in self.lines:
-
-            parser = self._get_mapping(line, parser, previous)
-
-            # Parse it, if appropriate
-            if parser:
-                parser(line)
-
-            previous = line
-
-        # Instantiated by ParserBase
-        return self.recipe
+        self.name = "docker"
+        super(DockerRecipe, self).__init__(recipe)
 
 
 # Setup for each Parser
@@ -88,16 +56,16 @@ class DockerParser(ParserBase):
            Parameters
            ==========
            line: the line from the recipe file to parse for FROM
-           recipe: the recipe object to populate.
+
         '''
         fromHeader = self._setup('FROM', line)
 
         # Singularity does not support AS level
-        self.recipe.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
+        self.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
 
-        if "scratch" in self.recipe.fromHeader:
+        if "scratch" in self.fromHeader:
             bot.warning('scratch is no longer available on Docker Hub.')
-        bot.debug('FROM %s' % self.recipe.fromHeader) 
+        bot.debug('FROM %s' %self.fromHeader) 
 
 
 # Run and Test Parser
@@ -111,7 +79,7 @@ class DockerParser(ParserBase):
 
         '''
         line = self._setup('RUN', line)
-        self.recipe.install += line
+        self.install += line
 
 
     def _test(self, line):
@@ -122,7 +90,7 @@ class DockerParser(ParserBase):
            line: the line from the recipe file to parse for FROM
 
         '''
-        self.recipe.test  = self._setup('HEALTHCHECK', line)
+        self.test  = self._setup('HEALTHCHECK', line)
 
 
 # Arg Parser
@@ -155,59 +123,13 @@ class DockerParser(ParserBase):
         line = self._setup('ENV', line)
 
         # Extract environment (list) from the line
-        environ = self.parse_env(line)
+        environ = parse_env(line)
 
         # Add to global environment, run during install
-        self.recipe.install += environ
+        self.install += environ
 
         # Also define for global environment
-        self.recipe.environ += environ
-
-
-    def parse_env(self, envlist):
-        '''parse_env will parse a single line (with prefix like ENV removed) to
-            a list of commands in the format KEY=VALUE For example:
-
-            ENV PYTHONBUFFER 1 --> [PYTHONBUFFER=1]
-            Docker: https://docs.docker.com/engine/reference/builder/#env
-        '''
-        if not isinstance(envlist, list):
-            envlist = [envlist]
-
-        exports = [] 
-
-        for env in envlist:
-
-            pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
-            pieces = [p for p in pieces if p.strip()]
-
-            while len(pieces) > 0:
-                current = pieces.pop(0)
-
-                if current.endswith('='):
-
-                    # Case 1: ['A='] --> A=
-                    next = ""
-
-                    # Case 2: ['A=', '"1 2"'] --> A=1 2
-                    if len(pieces) > 0:
-                        next = pieces.pop(0)
-                    exports.append("%s%s" %(current, next))
-
-                # Case 3: ['A=B']     --> A=B
-                elif '=' in current:
-                    exports.append(current)
-
-                # Case 4: ENV \\
-                elif current.endswith('\\'):
-                    continue
-
-                # Case 5: ['A', 'B']  --> A=B
-                else:
-                    next = pieces.pop(0)
-                    exports.append("%s=%s" %(current, next))
-
-        return exports
+        self.environ += environ
 
 
 # Add and Copy Parser
@@ -289,7 +211,7 @@ class DockerParser(ParserBase):
             bot.warning("%s doesn't exist, ensure exists for build" % source)
         
         # The pair is added to the files as a list
-        self.recipe.files.append([expandPath(source), expandPath(dest)])
+        self.files.append([expandPath(source), expandPath(dest)])
 
 
     def _parse_http(self, url, dest):
@@ -305,7 +227,7 @@ class DockerParser(ParserBase):
         file_name = os.path.basename(url)
         download_path = "%s/%s" %(dest, file_name)
         command = "curl %s -o %s" %(url, download_path)
-        self.recipe.install.append(command)
+        self.install.append(command)
 
 
     def _parse_archive(self, targz, dest):
@@ -320,7 +242,7 @@ class DockerParser(ParserBase):
         '''
 
         # Add command to extract it
-        self.recipe.install.append("tar -zvf %s %s" %(targz, dest))
+        self.install.append("tar -zvf %s %s" %(targz, dest))
 
         # Ensure added to container files
         return self._add_files(targz, dest)
@@ -338,7 +260,7 @@ class DockerParser(ParserBase):
            line: the line from the recipe file to parse to INSTALL
 
         '''
-        self.recipe.install.append(line)
+        self.install.append(line)
 
 
     def _default(self, line):
@@ -351,7 +273,7 @@ class DockerParser(ParserBase):
         '''
         if line.strip().startswith('#'):
             return self._comment(line)
-        self.recipe.install.append(line)
+        self.install.append(line)
         
 
 # Ports and Volumes
@@ -368,7 +290,7 @@ class DockerParser(ParserBase):
         '''
         volumes = self._setup('VOLUME', line)
         if len(volumes) > 0:
-            self.recipe.volumes += volumes
+            self.volumes += volumes
         return self._comment("# %s" %line)
 
 
@@ -382,7 +304,7 @@ class DockerParser(ParserBase):
         '''
         ports = self._setup('EXPOSE', line)
         if len(ports) > 0:
-            self.recipe.ports += ports
+            self.ports += ports
         return self._comment("# %s" %line)
 
 
@@ -398,9 +320,9 @@ class DockerParser(ParserBase):
         '''
         # Save the last working directory to add to the runscript
         workdir = self._setup('WORKDIR', line)
-        workdir_cd = "cd %s" %(''.join(workdir))
-        self.recipe.install.append(workdir_cd)
-        self.recipe.workdir = workdir
+        self.workdir = "cd %s" %(''.join(workdir))
+        self.install.append(''.join(self.workdir))
+
 
 # Entrypoint and Command
 
@@ -416,7 +338,7 @@ class DockerParser(ParserBase):
 
         '''
         cmd = self._setup('CMD', line)[0]
-        self.recipe.cmd = self._load_list(cmd)
+        self.cmd = self._load_list(cmd)
 
 
     def _load_list(self, line):
@@ -442,7 +364,7 @@ class DockerParser(ParserBase):
 
         '''
         entrypoint = self._setup('ENTRYPOINT', line)[0]
-        self.recipe.entrypoint = self._load_list(entrypoint)
+        self.entrypoint = self._load_list(entrypoint)
 
 
 # Labels
@@ -456,7 +378,7 @@ class DockerParser(ParserBase):
 
         '''
         label = self._setup('LABEL', line)
-        self.recipe.labels += [ label ]
+        self.labels += [ label ]
 
 
 # Main Parsing Functions        
@@ -518,40 +440,30 @@ class DockerParser(ParserBase):
         return self._default
  
 
-    def _clean_line(self, line):
-        '''clean line will remove comments, and strip the line of newlines 
-           or spaces.
+    def _parse(self):
+        '''parse is the base function for parsing the Dockerfile, and extracting
+           elements into the correct data structures. Everything is parsed into
+           lists or dictionaries that can be assembled again on demand. 
 
-           Parameters
-           ==========
-           line: the string to parse into parts
+           Environment: Since Docker also exports environment as we go, 
+                        we add environment to the environment section and 
+                        install
 
-           Returns
-           =======
-           line: a cleaned line
+           Labels: include anything that is a LABEL, ARG, or (deprecated)
+                   maintainer.
 
-        '''
-        # A line that is None should return empty string
-        line = line or ''
-        return line.split('#')[0].strip()
-
-
-    def _write_script(self, path, lines, chmod=True):
-        '''write a script with some lines content to path in the image. This
-           is done by way of adding echo statements to the install section.
-
-           Parameters
-           ==========
-           path: the path to the file to write
-           lines: the lines to echo to the file
-           chmod: If true, change permission to make u+x
+           Add/Copy: are treated the same
 
         '''
-        if len(lines) > 0:
-            lastline = lines.pop()
-        for line in lines:
-            self.recipe.install.append('echo "%s" >> %s' %line %path)
-        self.recipe.install.append(lastline)     
+        parser = None
+        previous = None
 
-        if chmod is True:
-            self.recipe.install.append('chmod u+x %s' %path)
+        for line in self.lines:
+
+            parser = self._get_mapping(line, parser, previous)
+
+            # Parse it, if appropriate
+            if parser:
+                parser(line)
+
+            previous = line

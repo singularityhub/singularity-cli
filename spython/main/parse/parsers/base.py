@@ -49,14 +49,14 @@ class ParserBase(object):
         '''basic sanity checks for the file name (and others if needed) before
            attempting parsing.
         '''
-        if self.recipe is not None:
+        if self.filename is not None:
 
             # Does the recipe provided exist?
-            if not os.path.exists(self.recipe):
-                bot.exit("Cannot find %s, is the path correct?" % self.recipe)
+            if not os.path.exists(self.filename):
+                bot.exit("Cannot find %s, is the path correct?" % self.filename)
 
             # Ensure we carry fullpath
-            self.recipe = os.path.abspath(self.recipe)
+            self.filename = os.path.abspath(self.filename)
 
 
 # Printing

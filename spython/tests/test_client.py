@@ -24,8 +24,8 @@ class TestClient(unittest.TestCase):
         self.tmpdir = tempfile.mkdtemp()
 
     def tearDown(self):
-        #shutil.rmtree(self.tmpdir)
-        print('not')
+        shutil.rmtree(self.tmpdir)
+
     def test_commands(self):
 
         print('Testing client.build command')

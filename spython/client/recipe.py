@@ -16,8 +16,8 @@ def main(args, options, parser):
        to the console if not.
     '''
 
-    from spython.main.parse.parsers import ( DockerParser, SingularityParser )
-    from spython.main.parse.writers import ( DockerWriter, SingularityWriter )
+    from spython.main.parse import parsers
+    from spython.main.parse import writers
 
     # We need something to work with
     if not args.files:
@@ -30,18 +30,18 @@ def main(args, options, parser):
         outfile = args.files[1]
 
     # Choose the recipe parser
-    parser = SingularityParser
-    writer = SingularityWriter
+    parser = parsers.SingularityParser
+    writer = writers.SingularityWriter
     if args.input == "docker":
-        parser = DockerParser
-        writer = DockerWriter
+        parser = parsers.DockerParser
+        writer = writers.DockerWriter
     elif args.input == "singularity":
-        parser = SingularityParser
-        writer = SingularityParser        
+        parser = parsers.SingularityParser
+        writer = writers.SingularityWriter        
     else:
         if "dockerfile" in args.files[0].lower():
-            parser = DockerParser
-            writer = DockerWriter
+            parser = parsers.DockerParser
+            writer = writers.DockerWriter
 
     # Initialize the chosen parser
     recipe = parser(args.files[0])

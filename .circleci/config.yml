@@ -79,6 +79,9 @@ test_spython: &test_spython
   name: Test Singularity Python (Singularity Version 2 and 3)
   command: |
         cd ~/repo/spython
+        $HOME/conda/bin/python -m unittest tests.test_recipe
+        $HOME/conda/bin/python -m unittest tests.test_parsers
+        $HOME/conda/bin/python -m unittest tests.test_writers
         $HOME/conda/bin/python -m unittest tests.test_client
         $HOME/conda/bin/python -m unittest tests.test_utils
         $HOME/conda/bin/python -m unittest tests.test_instances

@@ -45,7 +45,7 @@ class DockerWriter(WriterBase):
 
     name = 'docker'
 
-    def __init__(self, recipe="Dockerfile", load=True):
+    def __init__(self, recipe="Dockerfile"):
         '''a DockerWriter will take a Recipe as input, and write
            to a Dockerfile.
 
@@ -54,7 +54,7 @@ class DockerWriter(WriterBase):
            recipe: the Recipe object to write to file.
 
         '''
-        super(DockerWriter, self).__init__(recipe, load)
+        super(DockerWriter, self).__init__(recipe)
 
 
     def validate(self):
@@ -93,7 +93,7 @@ class DockerWriter(WriterBase):
         recipe += self.recipe.comments  
 
         # First add files, labels, environment
-        recipe += write_lines('ADD', self.recipe.files)
+        recipe += write_files('ADD', self.recipe.files)
         recipe += write_lines('LABEL', self.recipe.labels)
         recipe += write_lines('ENV', self.recipe.environ)
 
@@ -117,6 +117,19 @@ class DockerWriter(WriterBase):
         return '\n'.join(recipe).replace('\n\n','\n')
 
 
+def write_files(label, lines):
+    '''write a list of lines with a header for a section.
+    
+       Parameters
+       ==========
+       lines: one or more lines to write, with header appended
+
+    '''
+    result = []
+    for line in lines:
+        result.append('%s %s %s' %(label, line[0], line[1]))            
+    return result
+
 def write_lines(label, lines):
     '''write a list of lines with a header for a section.
     
@@ -128,10 +141,16 @@ def write_lines(label, lines):
     result = []
     continued = False
     for line in lines:
-        if continued:
+
+        # Skip comments and empty lines
+        if line.strip() == "" or line.strip().startswith('#'):
+            continue
+
+        if continued or "USER" in line:
             result.append(line)
         else:
             result.append('%s %s' %(label, line))
+
         continued = False
         if line.endswith('\\'):
             continued = True

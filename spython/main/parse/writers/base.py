@@ -65,3 +65,20 @@ class WriterBase(object):
             prefix = self.name
         suffix = next(tempfile._get_candidate_names())
         return "%s.%s" %(prefix, suffix)
+
+# Printing
+
+    def __str__(self):
+        ''' show the user the recipe object, along with the type. E.g.,
+       
+            [spython-writer][docker]
+            [spython-writer][singularity]
+
+        '''
+        base = "[spython-writer]"
+        if hasattr(self, 'name'):
+            base = "%s[%s]" %(base, self.name)
+        return base
+
+    def __repr__(self):
+        return self.__str__()

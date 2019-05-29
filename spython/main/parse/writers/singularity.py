@@ -16,7 +16,7 @@ class SingularityWriter(WriterBase):
 
     name = 'singularity'
 
-    def __init__(self, recipe="Singularity", load=True):
+    def __init__(self, recipe="Singularity"):
         '''a SingularityWriter will take a Recipe as input, and write
            to a Singularity recipe file.
 
@@ -25,7 +25,7 @@ class SingularityWriter(WriterBase):
            recipe: the Recipe object to write to file.
 
         '''
-        super(SingularityWriter, self).__init__(recipe, load)
+        super(SingularityWriter, self).__init__(recipe)
 
 
     def validate(self):
@@ -50,7 +50,7 @@ class SingularityWriter(WriterBase):
         self.validate()
 
         recipe = ['Bootstrap: docker']
-        recipe += [ "From: %s" % self.fromHeader ]
+        recipe += [ "From: %s" % self.recipe.fromHeader ]
   
         # Sections with key value pairs
         recipe += self._create_section('files')
@@ -62,21 +62,21 @@ class SingularityWriter(WriterBase):
         runscript = self._create_runscript(runscript, force)
 
         # If a working directory was used, add it as a cd
-        if self.workdir is not None:
-            runscript = [self.workdir] + [runscript]
+        if self.recipe.workdir is not None:
+            runscript = [self.recipe.workdir] + [runscript]
 
         # Finish the recipe, also add as startscript
         recipe += finish_section(runscript, 'runscript')
         recipe += finish_section(runscript, 'startscript')
 
-        if self.test is not None:
-            recipe += finish_section(self.test, 'test')
+        if self.recipe.test is not None:
+            recipe += finish_section(self.recipe.test, 'test')
 
         # Clean up extra white spaces
         return '\n'.join(recipe).replace('\n\n','\n')
 
 
-    def create_runscript(self, default="/bin/bash", force=False):
+    def _create_runscript(self, default="/bin/bash", force=False):
         '''create_entrypoint is intended to create a singularity runscript
            based on a Docker entrypoint or command. We first use the Docker
            ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
@@ -92,10 +92,19 @@ class SingularityWriter(WriterBase):
 
         # Only look at Docker if not enforcing default
         if not force:
-            if self.entrypoint is not None:
-                entrypoint = ' '.join(self.entrypoint)
-            if self.cmd is not None:
-                entrypoint = entrypoint + ' ' + ' '.join(self.cmd)
+            if self.recipe.entrypoint is not None:
+
+                # The provided entrypoint can be a string or a list
+                if isinstance(self.recipe.entrypoint, list):
+                    entrypoint = ' '.join(self.recipe.entrypoint)
+                else:
+                    entrypoint = ''.join(self.recipe.entrypoint)
+
+            if self.recipe.cmd is not None:
+                if isinstance(self.recipe.cmd, list):
+                    entrypoint = entrypoint + ' ' + ' '.join(self.recipe.cmd)
+                else:
+                    entrypoint = entrypoint + ' ' + ''.join(self.recipe.cmd)
             entrypoint = default + entrypoint
 
         # Entrypoint should use exec
@@ -108,8 +117,7 @@ class SingularityWriter(WriterBase):
         return entrypoint
 
 
-
-    def create_section(self, attribute, name=None):
+    def _create_section(self, attribute, name=None):
         '''create a section based on key, value recipe pairs, 
            This is used for files or label
 
@@ -130,7 +138,7 @@ class SingularityWriter(WriterBase):
 
         # Only continue if we have the section and it's not empty
         try:
-            section = getattr(self, attribute)
+            section = getattr(self.recipe, attribute)
         except AttributeError:
             bot.debug('Recipe does not have section for %s' % attribute)
             return section
@@ -139,8 +147,8 @@ class SingularityWriter(WriterBase):
         if len(section) == 0:
             return section
 
-        # Files or Labels
-        if attribute in ['labels', 'files']:
+        # Files
+        if attribute in ['files']:
             return create_keyval_section(section, name)
 
         # An environment section needs exports
@@ -180,6 +188,7 @@ def create_keyval_section(pairs, name):
     '''
     section = ['%' + name ]
     for pair in pairs:
+        print(pair)
         section.append(' '.join(pair).strip().strip('\\'))
     return section
 
