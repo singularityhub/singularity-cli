@@ -9,7 +9,8 @@
 from spython.logger import bot
 from spython.utils import ( 
     check_install,
-    get_singularity_version
+    get_singularity_version,
+    get_singularity_version_info
 )
 
 import json
@@ -43,9 +44,14 @@ class Client:
         self._init_level()
 
     def version(self):
-        '''a wrapped to get_singularity_version, takes no arguments.
+        '''Shortcut to get_singularity_version, takes no arguments.
         '''
         return get_singularity_version()
+
+    def version_info(self):
+        '''Shortcut to get_singularity_version_info, takes no arguments.
+        '''
+        return get_singularity_version_info()
 
     def _check_install(self):
         '''ensure that singularity is installed, and exit if not.
