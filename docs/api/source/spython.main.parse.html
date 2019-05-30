@@ -340,6 +340,18 @@ the recipe class to build recipes.</p>
 <dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p>
 </dd>
 </dl>
+<dl class="method">
+<dt id="spython.main.parse.recipe.Recipe.json">
+<code class="descname">json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.json" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a dictionary version of the recipe, intended to be parsed
+or printed as json.</p>
+<dl class="simple">
+<dt>Returns: a dictionary of attributes including cmd, comments,</dt><dd><p>entrypoint, environ, files, install, labels, ports,
+test, volumes, and workdir.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>

@@ -159,7 +159,8 @@
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> 
     <span class="n">check_install</span><span class="p">,</span>
-    <span class="n">get_singularity_version</span>
+    <span class="n">get_singularity_version</span><span class="p">,</span>
+    <span class="n">get_singularity_version_info</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">.command</span> <span class="k">import</span> <span class="p">(</span>
@@ -185,7 +186,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
-<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../../source/spython.main.base.html#spython.main.base.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../../source/spython.main.base.html#spython.instance.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;[singularity-python]&quot;</span>
@@ -203,10 +204,15 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_level</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Client.version"><a class="viewcode-back" href="../../../source/spython.main.base.html#spython.main.base.Client.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;a wrapped to get_singularity_version, takes no arguments.</span>
+<div class="viewcode-block" id="Client.version"><a class="viewcode-back" href="../../../source/spython.main.base.html#spython.instance.Client.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Shortcut to get_singularity_version, takes no arguments.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="n">get_singularity_version</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Client.version_info"><a class="viewcode-back" href="../../../source/spython.main.base.html#spython.instance.Client.version_info">[docs]</a>    <span class="k">def</span> <span class="nf">version_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Shortcut to get_singularity_version_info, takes no arguments.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">get_singularity_version_info</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">_check_install</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;ensure that singularity is installed, and exit if not.</span>

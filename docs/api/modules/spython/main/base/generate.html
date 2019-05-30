@@ -161,7 +161,7 @@
 
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
 
-<div class="viewcode-block" id="RobotNamer"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.RobotNamer">[docs]</a><span class="k">class</span> <span class="nc">RobotNamer</span><span class="p">:</span>
+<div class="viewcode-block" id="RobotNamer"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.RobotNamer">[docs]</a><span class="k">class</span> <span class="nc">RobotNamer</span><span class="p">:</span>
 
     <span class="n">_descriptors</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;chunky&#39;</span><span class="p">,</span> <span class="s1">&#39;buttery&#39;</span><span class="p">,</span> <span class="s1">&#39;delicious&#39;</span><span class="p">,</span> <span class="s1">&#39;scruptious&#39;</span><span class="p">,</span> <span class="s1">&#39;dinosaur&#39;</span><span class="p">,</span> <span class="s1">&#39;boopy&#39;</span><span class="p">,</span>
@@ -196,7 +196,7 @@
     <span class="p">]</span>
 
 
-<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;0123456789&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;0123456789&#39;</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Generate a robot name. Inspiration from Haikunator, but much more</span>
 <span class="sd">                 poorly implemented ;)</span>
@@ -221,13 +221,13 @@
 <span class="sd">            ==========</span>
 <span class="sd">            should be a list of things to select from</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">select_from</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">select_from</span><span class="p">:</span>
             <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
         <span class="k">return</span> <span class="n">choice</span><span class="p">(</span><span class="n">select_from</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.generate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">bot</span> <span class="o">=</span> <span class="n">RobotNamer</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">generate</span><span class="p">())</span></div>
 

@@ -166,57 +166,57 @@
 
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_singularity_version</span>
-    <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">Client</span>
+    <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">Client</span> <span class="k">as</span> <span class="n">client</span>
 
-    <span class="n">Client</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
 
     <span class="c1"># Do imports here, can be customized</span>
     <span class="kn">from</span> <span class="nn">.apps</span> <span class="k">import</span> <span class="n">apps</span>
     <span class="kn">from</span> <span class="nn">.build</span> <span class="k">import</span> <span class="n">build</span>
     <span class="kn">from</span> <span class="nn">.execute</span> <span class="k">import</span> <span class="n">execute</span> 
-    <span class="kn">from</span> <span class="nn">.help</span> <span class="k">import</span> <span class="n">help</span>
+    <span class="kn">from</span> <span class="nn">.help</span> <span class="k">import</span> <span class="n">helpcmd</span>
     <span class="kn">from</span> <span class="nn">.inspect</span> <span class="k">import</span> <span class="n">inspect</span>
-    <span class="kn">from</span> <span class="nn">.instances</span> <span class="k">import</span> <span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="n">stopall</span><span class="p">)</span> <span class="c1"># global instance commands</span>
+    <span class="kn">from</span> <span class="nn">.instances</span> <span class="k">import</span> <span class="p">(</span><span class="n">list_instances</span><span class="p">,</span> <span class="n">stopall</span><span class="p">)</span> <span class="c1"># global instance commands</span>
     <span class="kn">from</span> <span class="nn">.run</span> <span class="k">import</span> <span class="n">run</span>
     <span class="kn">from</span> <span class="nn">.pull</span> <span class="k">import</span> <span class="n">pull</span>
     <span class="kn">from</span> <span class="nn">.export</span> <span class="k">import</span> <span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="n">_export</span><span class="p">)</span>
 
     <span class="c1"># Actions</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">apps</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="n">build</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">execute</span> <span class="o">=</span> <span class="n">execute</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">export</span> <span class="o">=</span> <span class="n">export</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">_export</span> <span class="o">=</span> <span class="n">_export</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">help</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">inspect</span> <span class="o">=</span> <span class="n">inspect</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">instances</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">run</span> <span class="o">=</span> <span class="n">run</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">pull</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">apps</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="n">build</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">execute</span> <span class="o">=</span> <span class="n">execute</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">export</span> <span class="o">=</span> <span class="n">export</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">_export</span> <span class="o">=</span> <span class="n">_export</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">helpcmd</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">inspect</span> <span class="o">=</span> <span class="n">inspect</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">list_instances</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">run</span> <span class="o">=</span> <span class="n">run</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">pull</span>
 
     <span class="c1"># Command Groups, Images</span>
     <span class="kn">from</span> <span class="nn">spython.image.cmd</span> <span class="k">import</span> <span class="n">generate_image_commands</span>  <span class="c1"># deprecated</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">generate_image_commands</span><span class="p">()</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">generate_image_commands</span><span class="p">()</span>
 
     <span class="c1"># Commands Groups, Instances</span>
     <span class="kn">from</span> <span class="nn">spython.instance.cmd</span> <span class="k">import</span> <span class="n">generate_instance_commands</span>  <span class="c1"># instance level commands</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">generate_instance_commands</span><span class="p">()</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">instance_stopall</span> <span class="o">=</span> <span class="n">stopall</span>
-    <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">version</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">generate_instance_commands</span><span class="p">()</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">instance_stopall</span> <span class="o">=</span> <span class="n">stopall</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">version</span>
 
     <span class="c1"># Commands Groups, OCI (Singularity version 3 and up)</span>
     <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="n">get_singularity_version</span><span class="p">():</span>
         <span class="kn">from</span> <span class="nn">spython.oci.cmd</span> <span class="k">import</span> <span class="n">generate_oci_commands</span>
-        <span class="n">Client</span><span class="o">.</span><span class="n">oci</span> <span class="o">=</span> <span class="n">generate_oci_commands</span><span class="p">()()</span>  <span class="c1"># first () runs function, second</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">oci</span> <span class="o">=</span> <span class="n">generate_oci_commands</span><span class="p">()()</span>  <span class="c1"># first () runs function, second</span>
                                                 <span class="c1"># initializes OciImage class</span>
-        <span class="n">Client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">debug</span>
-        <span class="n">Client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">quiet</span>
-        <span class="n">Client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">quiet</span>
-        <span class="n">Client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">debug</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
 
 
     <span class="c1"># Initialize</span>
-    <span class="n">cli</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">client</span><span class="p">()</span>
 
     <span class="c1"># Pass on verbosity</span>
     <span class="k">for</span> <span class="n">subclient</span> <span class="ow">in</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">]:</span>
