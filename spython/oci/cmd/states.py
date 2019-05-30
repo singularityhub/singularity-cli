@@ -43,7 +43,6 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
 
     # Get the instance state
     result = self._run_command(cmd, sudo=sudo, quiet=True)
-    print(result)
 
     if result is not None:
 
