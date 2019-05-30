@@ -64,10 +64,12 @@ class TestOci(unittest.TestCase):
 
         print('...Case 3. Execute command to non running bundle.')
         result = self.cli.oci.execute(container_id=self.name, 
-                                      sudo=True, 
-                                      command=['ls','/'])
+                                      sudo=True,
+                                      command=['ls', '/'])
 
         print(result)
+        print(self.cli.version_info())
+
         if self.cli.version_info() >= VersionInfo(3, 2, 1):
             self.assertTrue(result['return_code'] == 255)
         else:
@@ -80,7 +82,7 @@ class TestOci(unittest.TestCase):
         print('...Case 5. Execute command to running bundle.')
         result = self.cli.oci.execute(container_id=self.name, 
                                       sudo=True, 
-                                      command=['ls','/'])
+                                      command=['ls', '/'])
 
         print(result)
         self.assertTrue('bin' in result)
@@ -115,8 +117,7 @@ class TestOci(unittest.TestCase):
         # Bug in singularity that kill doesn't kill completely - this returns 
         # 255. When testsupdated to 3.1.* add signal=K to run
         result = self.cli.oci.delete(self.name, sudo=True)
-        self.assertTrue(result in [0,255])
-
+        self.assertTrue(result in [0, 255])
 
 if __name__ == '__main__':
     unittest.main()
