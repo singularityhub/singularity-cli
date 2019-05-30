@@ -44,7 +44,7 @@ def main(args, options, parser):
             writer = writers.DockerWriter
 
     # Initialize the chosen parser
-    recipe = parser(args.files[0])
+    recipeParser = parser(args.files[0])
 
     # By default, discover entrypoint / cmd from Dockerfile
     entrypoint = "/bin/bash"
@@ -55,7 +55,7 @@ def main(args, options, parser):
         force = True
 
     # Do the conversion
-    recipeWriter = writer(recipe)
+    recipeWriter = writer(recipeParser.recipe)
     result = recipeWriter.convert(runscript=entrypoint, force=force)
 
     # If the user specifies an output file, save to it

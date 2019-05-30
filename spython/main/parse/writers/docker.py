@@ -45,7 +45,7 @@ class DockerWriter(WriterBase):
 
     name = 'docker'
 
-    def __init__(self, recipe="Dockerfile"):
+    def __init__(self, recipe=None):
         '''a DockerWriter will take a Recipe as input, and write
            to a Dockerfile.
 
@@ -99,6 +99,9 @@ class DockerWriter(WriterBase):
 
         # Install routine is added as RUN commands
         recipe += write_lines('RUN', self.recipe.install)
+
+        # Expose ports
+        recipe += write_lines('EXPOSE', self.recipe.ports)
 
         if self.recipe.workdir is not None:
             recipe.append('WORKDIR %s' % self.recipe.workdir)

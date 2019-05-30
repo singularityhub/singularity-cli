@@ -16,7 +16,7 @@ class SingularityWriter(WriterBase):
 
     name = 'singularity'
 
-    def __init__(self, recipe="Singularity"):
+    def __init__(self, recipe=None):
         '''a SingularityWriter will take a Recipe as input, and write
            to a Singularity recipe file.
 
