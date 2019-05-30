@@ -68,7 +68,7 @@ def get_client(quiet=False, debug=False):
 
 
     # Initialize
-    cli = Client()
+    cli = client()
 
     # Pass on verbosity
     for subclient in [cli.image, cli.instance]:
