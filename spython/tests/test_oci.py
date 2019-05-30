@@ -70,7 +70,7 @@ class TestOci(unittest.TestCase):
         print(result)
         print(self.cli.version_info())
 
-        if self.cli.version_info() >= VersionInfo(3, 2, 1):
+        if self.cli.version_info() >= VersionInfo(3, 2, 0):
             self.assertTrue(result['return_code'] == 255)
         else:
             self.assertTrue('bin' in result)
@@ -96,7 +96,7 @@ class TestOci(unittest.TestCase):
         self.assertEqual(state, 0)
 
         # State was still reported as running
-        if self.cli.version_info() >= VersionInfo(3, 2, 1):
+        if self.cli.version_info() >= VersionInfo(3, 2, 0):
             print('...check status of paused bundle.')
             state = self.cli.oci.state(self.name, sudo=True)
             self.assertEqual(state['status'], 'paused')
