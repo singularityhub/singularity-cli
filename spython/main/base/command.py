@@ -6,9 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.utils import ( 
-    run_command as run_cmd
-)
+from spython.utils import run_command as run_cmd
 
 from spython.logger import bot
 

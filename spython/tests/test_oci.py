@@ -13,6 +13,7 @@ import unittest
 import tempfile
 import shutil
 import os
+from semver import VersionInfo
 
 print("############################################################## test_oci")
 
@@ -37,7 +38,7 @@ class TestOci(unittest.TestCase):
         self.assertTrue(os.path.exists(image))
 
         print('Copying OCI config.json to sandbox...')
-        shutil.copyfile(self.config, '%s/config.json' %image)
+        shutil.copyfile(self.config, '%s/config.json' % image)
         return image
 
     def test_oci_image(self):
@@ -61,23 +62,32 @@ class TestOci(unittest.TestCase):
         print(result)
         self.assertEqual(result['status'], 'created')
 
-        print('...Case 3. Execute command to running bundle.')
+        print('...Case 3. Execute command to non running bundle.')
+        result = self.cli.oci.execute(container_id=self.name, 
+                                      sudo=True,
+                                      command=['ls', '/'])
+
+        print(result)
+        print(self.cli.version_info())
+
+        if self.cli.version_info() >= VersionInfo(3, 2, 0):
+            self.assertTrue(result['return_code'] == 255)
+        else:
+            self.assertTrue('bin' in result)
+
+        print('...Case 4. Start container return value 0.')
+        state = self.cli.oci.start(self.name, sudo=True)
+        self.assertEqual(state, 0)
+
+        print('...Case 5. Execute command to running bundle.')
         result = self.cli.oci.execute(container_id=self.name, 
                                       sudo=True, 
-                                      command=['ls','/'])
+                                      command=['ls', '/'])
 
         print(result)
         self.assertTrue('bin' in result)
 
-        print('...Case 4. Check status of existing bundle.')
-        state = self.cli.oci.state(self.name, sudo=True)
-        self.assertEqual(state['status'], 'created')
-
-        print('...Case 5. Start container return value 0.')
-        state = self.cli.oci.start(self.name, sudo=True)
-        self.assertEqual(state, 0)
-
-        print('...Case 6. Testing that state is now running.')
+        print('...Case 6. Check status of existing bundle.')
         state = self.cli.oci.state(self.name, sudo=True)
         self.assertEqual(state['status'], 'running')
 
@@ -85,9 +95,19 @@ class TestOci(unittest.TestCase):
         state = self.cli.oci.pause(self.name, sudo=True)
         self.assertEqual(state, 0)
 
+        # State was still reported as running
+        if self.cli.version_info() >= VersionInfo(3, 2, 0):
+            print('...check status of paused bundle.')
+            state = self.cli.oci.state(self.name, sudo=True)
+            self.assertEqual(state['status'], 'paused')
+
         print('...Case 8. Resume paused container return value 0.')
         state = self.cli.oci.resume(self.name, sudo=True)
         self.assertEqual(state, 0)
+
+        print('...check status of resumed bundle.')
+        state = self.cli.oci.state(self.name, sudo=True)
+        self.assertEqual(state['status'], 'running')
 
         print('...Case 9. Kill container.')
         state = self.cli.oci.kill(self.name, sudo=True)
@@ -97,8 +117,7 @@ class TestOci(unittest.TestCase):
         # Bug in singularity that kill doesn't kill completely - this returns 
         # 255. When testsupdated to 3.1.* add signal=K to run
         result = self.cli.oci.delete(self.name, sudo=True)
-        self.assertTrue(result in [0,255])
-
+        self.assertTrue(result in [0, 255])
 
 if __name__ == '__main__':
     unittest.main()
