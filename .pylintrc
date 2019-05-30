@@ -71,6 +71,7 @@ disable=attribute-defined-outside-init,
         no-member,
         protected-access,
         R,
+        unidiomatic-typecheck,
         trailing-whitespace,
         unused-argument,
         wrong-import-order

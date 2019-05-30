@@ -10,11 +10,10 @@ with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
 import re
-
+import semver
 from spython.logger import bot
 import subprocess
 import sys
-
 
 ################################################################################
 # Local commands and requests
@@ -63,6 +62,15 @@ def get_singularity_version():
                 version = version['message'][0].strip('\n')
 
     return version
+
+def get_singularity_version_info():
+    '''get the full singularity client version as a semantic version"
+    '''
+    version_string = get_singularity_version()
+    prefix = 'singularity version '
+    if version_string.startswith(prefix):
+        version_string = version_string[len(prefix):]
+    return semver.parse_version_info(version_string)
 
 def get_installdir():
     '''get_installdir returns the installation directory of the application
@@ -139,8 +147,9 @@ def run_command(cmd,
 
     for line in process.communicate():
         if line:
-            if isinstance(line, bytes):
-                line = line.decode('utf-8')
+            if type(line) is not str:
+                if isinstance(line, bytes):
+                    line = line.decode('utf-8')                
             lines = lines + (line,)
             if re.search(no_newline_regexp, line) and found_match is True:
                 if quiet is False:

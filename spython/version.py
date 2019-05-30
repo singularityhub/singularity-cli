@@ -16,4 +16,5 @@ DESCRIPTION = "Command line python tool for working with singularity."
 LICENSE = "LICENSE"
 
 INSTALL_REQUIRES = (
+    ('semver', {'min_version': '2.8.0'}),
 )

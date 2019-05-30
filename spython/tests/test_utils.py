@@ -10,6 +10,7 @@ import unittest
 import tempfile
 import shutil
 import os
+from semver import VersionInfo
 
 print("############################################################ test_utils")
 
@@ -84,6 +85,26 @@ class TestUtils(unittest.TestCase):
         else:
             os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
         self.assertTrue(version == "3.0")
+
+    def test_check_get_singularity_version_info(self):
+        '''Check that the version_info is correct'''
+        from spython.utils import get_singularity_version_info
+        oldValue = os.environ.get('SPYTHON_SINGULARITY_VERSION')
+        os.environ['SPYTHON_SINGULARITY_VERSION'] = "2.3.1"
+        version = get_singularity_version_info()
+        assert version == VersionInfo(2, 3, 1)
+        assert version > VersionInfo(2, 3, 0)
+        assert version < VersionInfo(3, 0, 0)
+        os.environ['SPYTHON_SINGULARITY_VERSION'] = "singularity version 3.2.1-1"
+        version = get_singularity_version_info()
+        assert version == VersionInfo(3, 2, 1, "1")
+        assert version > VersionInfo(2, 0, 0)
+        assert version < VersionInfo(3, 3, 0)
+        # Restore for other tests
+        if oldValue is None:
+            del os.environ['SPYTHON_SINGULARITY_VERSION']
+        else:
+            os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
 
 
     def test_get_installdir(self):

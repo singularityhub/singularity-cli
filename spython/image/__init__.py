@@ -50,7 +50,7 @@ class Image(ImageBase):
             image: the image uri to parse (required)
 
         '''
-        super().__init__()
+        super(Image, self).__init__()
         self.parse_image_name(image)
 
 
