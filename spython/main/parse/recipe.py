@@ -49,5 +49,34 @@ class Recipe(object):
             base = "%s[source:%s]" %(base, self.source)
         return base
 
+    def json(self):
+        '''return a dictionary version of the recipe, intended to be parsed
+           or printed as json.
+
+           Returns: a dictionary of attributes including cmd, comments,
+                    entrypoint, environ, files, install, labels, ports,
+                    test, volumes, and workdir.
+        '''
+        attributes = ['cmd',
+                      'comments',
+                      'entrypoint',
+                      'environ',
+                      'files',
+                      'install',
+                      'labels',
+                      'ports',
+                      'test',
+                      'volumes',
+                      'workdir']
+
+        result = {}
+
+        for attrib in attributes:
+            value = getattr(self, attrib)
+            if value:
+                result[attrib] = value
+
+        return result
+
     def __repr__(self):
         return self.__str__()

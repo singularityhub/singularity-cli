@@ -25,11 +25,32 @@ class TestRecipe(unittest.TestCase):
         self.assertEqual(str(recipe), '[spython-recipe]')
 
         attributes = ['cmd', 'comments', 'entrypoint', 'environ', 'files',
-                      'install', 'labels', 'ports', 'source', 'test',
+                      'install', 'labels', 'ports', 'test',
                       'volumes', 'workdir']
  
         for att in attributes:
             self.assertTrue(hasattr(recipe, att))
+
+        print('Checking that empty recipe returns empty')
+        result = recipe.json()
+        self.assertTrue(not result)
+
+        print('Checking that non-empty recipe returns values')
+        recipe.cmd = ['echo', 'hello']
+        recipe.entrypoint = '/bin/bash'
+        recipe.comments = ['This recipe is great', 'Yes it is!']
+        recipe.environ = ['PANCAKES=WITHSYRUP']
+        recipe.files = [['one', 'two']]
+        recipe.test = ['true']
+        recipe.install = ['apt-get update']
+        recipe.labels = ['Maintainer vanessasaur']
+        recipe.ports = ['3031']
+        recipe.volumes = ['/data']
+        recipe.workdir = '/code'
+
+        result = recipe.json()
+        for att in attributes:
+            self.assertTrue(att in result)
 
 if __name__ == '__main__':
     unittest.main()

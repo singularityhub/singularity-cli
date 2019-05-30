@@ -63,7 +63,7 @@ class SingularityWriter(WriterBase):
 
         # If a working directory was used, add it as a cd
         if self.recipe.workdir is not None:
-            runscript = [self.recipe.workdir] + [runscript]
+            runscript = ["cd " + self.recipe.workdir] + [runscript]
 
         # Finish the recipe, also add as startscript
         recipe += finish_section(runscript, 'runscript')
@@ -188,7 +188,6 @@ def create_keyval_section(pairs, name):
     '''
     section = ['%' + name]
     for pair in pairs:
-        print(pair)
         section.append(' '.join(pair).strip().strip('\\'))
     return section
 

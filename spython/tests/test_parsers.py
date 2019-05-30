@@ -26,6 +26,23 @@ class TestClient(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
+
+    def test_parsers(self):
+
+        print('Testing spython.main.parse.parsers.get_parser')
+        from spython.main.parse.parsers import get_parser
+        from spython.main.parse.parsers import DockerParser, SingularityParser
+
+        parser = get_parser('docker')
+        self.assertEqual(parser, DockerParser)
+
+        parser = get_parser('Dockerfile')
+        self.assertEqual(parser, DockerParser)
+
+        parser = get_parser('Singularity')
+        self.assertEqual(parser, SingularityParser)
+
+
     def test_docker_parser(self):
 
         print('Testing spython.main.parse.parsers DockerParser')

@@ -24,6 +24,21 @@ class TestWriters(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
 
+    def test_writers(self):
+
+        print('Testing spython.main.parse.parsers.get_parser')
+        from spython.main.parse.writers import get_writer
+        from spython.main.parse.writers import DockerWriter, SingularityWriter
+
+        writer = get_writer('docker')
+        self.assertEqual(writer, DockerWriter)
+
+        writer = get_writer('Dockerfile')
+        self.assertEqual(writer, DockerWriter)
+
+        writer = get_writer('Singularity')
+        self.assertEqual(writer, SingularityWriter)
+
     def test_docker_writer(self):
 
         print('Testing spython.main.parse.writers DockerWriter')

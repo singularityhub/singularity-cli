@@ -310,7 +310,7 @@ class SingularityParser(ParserBase):
 
 
     def load_recipe(self):
-        '''load will return a loaded in singularity recipe. The idea
+        '''load_recipe will return a loaded in singularity recipe. The idea
            is that these sections can then be parsed into a Dockerfile,
            or printed back into their original form.
 

@@ -35,13 +35,13 @@ class ParserBase(object):
         self._run_checks()
         self.recipe = Recipe(self.filename)
 
-        if self.filename and load is True:
+        if self.filename:
 
             # Read in the raw lines of the file
             self.lines = read_file(self.filename)
 
             # If parsing function defined, parse the recipe
-            if hasattr(self, 'parse'):
+            if load is True and hasattr(self, 'parse'):
                 self.parse()
 
 

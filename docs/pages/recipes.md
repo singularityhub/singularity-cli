@@ -6,17 +6,25 @@ permalink: /recipes
 toc: false
 ---
 
-# Singularity Python Converters
+# Singularity Python Recipes
 
-We will here discuss the Singularity Python converters that will help you
-to convert between recipe files. What kind of things might you want to do?
+We will here discuss the Singularity Python recipe writers and parsers that will
+help you to convert between Singularity and Docker recipes. First, let's
+define what these things are:
+
+ - a *Recipe* is a base class that holds general variables and instructions for a container recipe (e.g., environment, labels, install steps).
+ - a *parser* is a class that knows how to read in a special recipe type (e.g., Dockerfile) and parse it into the Recipe class. 
+ - a *writer* is a class that knows how to use a filled in Recipe to write a special recipe type (e.g., Singularity) with the content.
+
+Now we can answer what kind of things might you want to do:
 
  - convert a Dockerfile to a Singularity Recipe
- - convert a Singularity Recipe to a Dockerfile (TBA)
+ - convert a Singularity Recipe to a Dockerfile
  - read in a recipe of either type, and modify it before doing the above
 
 
 # Command Line Client
+
 You don't need to interact with Python to use the converter! It's sometimes 
 much easier to use the command line and spit something out into the terminal,
 for quick visual inspection or piping into an output file. If you use the 
@@ -24,74 +32,12 @@ for quick visual inspection or piping into an output file. If you use the
 
 
 ```
-spython --help
+spython recipe --help
 
-Singularity Python [v0.0.21]
-
-usage: spython [--debug] [--quiet] [--version] general usage ...
-
-Singularity Client
-
-optional arguments:
-  --debug, -d    use verbose logging to debug.
-  --quiet, -q    suppress all normal output
-  --version      show singularity and spython version
-
-actions:
-  actions for Singularity
-
-  general usage  description
-    recipe       Recipe conversion and parsing
-    shell        Interact with singularity python
-    test         Container testing (TBD)
-```
-
-We can generate a *Singularity recipe* printed to the console by just providing 
-the input Dockerfile
-
-```
-$ spython recipe Dockerfile
-Bootstrap: docker
-From: python:3.5.1
-...
-```
-
-We could pipe that somewhere...
-
-```
-$ spython recipe Dockerfile >> Singularity.snowflake
-```
-
-Or give the filename to the function:
-
-```
-$ spython recipe Dockerfile Singularity.snowflake
-WARNING /tmp/requirements.txt doesn't exist, ensure exists for build
-WARNING requirements.txt doesn't exist, ensure exists for build
-WARNING /code/ doesn't exist, ensure exists for build
-Saving to Singularity.snowflake
-```
-
-The same can be done for converting a Dockerfile to Singularity
-
-```
-$ spython recipe Singularity >> Dockerfile
-```
-
-And don't forget you can interact with Docker images natively with Singularity!
-
-```
-$ singularity pull docker://ubuntu:latest
-```
-
-
-## Custom Generation
-What else can we do, other than giving an input file and optional output file?
-Let's ask for help for the "recipe" command:
-
-```
-$ spython recipe --help
-usage: spython recipe [-h] [--entrypoint ENTRYPOINT] [files [files ...]]
+usage: spython recipe [-h] [--entrypoint ENTRYPOINT] [--json] [--force]
+                      [--parser {auto,docker,singularity}]
+                      [--writer {auto,docker,singularity}]
+                      [files [files ...]]
 
 positional arguments:
   files                 the recipe input file and [optional] output file
@@ -100,13 +46,67 @@ optional arguments:
   -h, --help            show this help message and exit
   --entrypoint ENTRYPOINT
                         define custom entry point and prevent discovery
+  --json                dump the (base) recipe content as json to the terminal
+  --force               if the output file exists, overwrite.
+  --parser {auto,docker,singularity}
+                        Is the input a Dockerfile or Singularity recipe?
+  --writer {auto,docker,singularity}
+                        Should we write to Dockerfile or Singularity recipe?
 ```
 
-See the `--entrypoint` argument? If you **don't** specify it, the recipe will be
-written and use the Dockerfile `ENTRYPOINT` and then `CMD`, in that order. If 
-neither of these exist, it defaults to `/bin/bash`. If you **do** specify it,
-then your custom entrypoint will be used instead. For example, if I instead 
-want to change the shell:
+## Auto Detection
+
+The most basic usage is auto generation - meaning you provide a Dockerfile or
+Singularity recipe, and we automatically detect it and convert to the other type.
+Until we add additional writers and/or parsers, this is reasonable to do:
+
+
+```
+$ spython recipe Dockerfile
+Bootstrap: docker
+From: python:3.5.1
+...
+```
+
+Instead of printing to the screen. we can provide a filename to write to file:
+
+```
+$ spython recipe Dockerfile Singularity.snowflake
+```
+
+The same auto-detection can be done for converting a Dockerfile to Singularity
+
+```
+$ spython recipe Singularity
+$ spython recipe Singularity Dockerfile
+```
+
+And don't forget you can interact with Docker images natively with Singularity!
+
+```
+$ singularity pull docker://ubuntu:latest
+```
+
+## Customize Writers and Parsers
+
+If you want to specify the writer or parser to use, this can be done with
+the `--writer` and `--parser` argument, respectively. The following would
+convert a Dockerfile into a version of itself:
+
+```bash
+$ spython recipe --writer docker Dockerfile
+```
+
+or if our file is named something non-traditional, we would need to specify
+the parser too:
+
+```bash
+$ spython recipe --parser singularity container.def
+```
+
+## Custom Entrypoint
+
+Another customization to a recipe can be modifying the entrypoint on the fly.
 
 ```
 $ spython recipe --entrypoint /bin/sh Dockerfile
@@ -115,23 +115,24 @@ $ spython recipe --entrypoint /bin/sh Dockerfile
 exec /bin/sh "$@"
 ```
 
-Notice that the last line (which usually defaults to `/bin/bash`) is what I 
-specified. Finally, you can ask for help and print with more verbosity! Just ask for `--debug`
+## Debug Generation
 
-```
+Finally, you can ask for help and print with more verbosity! Just ask for `--debug`
+
+```bash
 $ spython --debug recipe Dockerfile 
 DEBUG Logging level DEBUG
-DEBUG Singularity Python Version: 0.0.21
+DEBUG Singularity Python Version: 0.0.63
 DEBUG [in]  FROM python:3.5.1
-DEBUG FROM ['python:3.5.1']
+DEBUG FROM python:3.5.1
 DEBUG [in]  ENV PYTHONUNBUFFERED 1
 DEBUG [in]  RUN apt-get update && apt-get install -y \
-DEBUG [in]  RUN apt-get update && apt-get install -y \
-DEBUG [in]  RUN git clone https://www.github.com/singularityware/singularity.git
-DEBUG [in]  WORKDIR singularity
-DEBUG [in]  RUN ./autogen.sh && ./configure --prefix=/usr/local && make && make install
-DEBUG [in]  ADD requirements.txt /tmp/requirements.txt
-WARNING requirements.txt doesn't exist, ensure exists for build
+DEBUG [in]      pkg-config \
+DEBUG [in]      cmake \
+DEBUG [in]      openssl \
+DEBUG [in]      wget \
+DEBUG [in]      git \
+DEBUG [in]      vim
 ...
 ```
 or less, ask for `--quiet`
@@ -140,314 +141,226 @@ or less, ask for `--quiet`
 $ spython --quiet recipe Dockerfile
 ```
 
-
 # Python API
 
-## Dockerfile Conversion
-We will first review conversion of a Dockerfile, from within Python. 
+# Recipes
 
-### Load the Dockerfile
-Let's say we are running Python interactively from our present working directory,
-in which we have a Dockerfile. 
+If you want to create a generic recipe (without association with a container
+technology) you can do that.
 
-```
-from spython.main.parse import DockerRecipe
-recipe = DockerRecipe('Dockerfile')
+```python
+from spython.main.parse.recipe import Recipe
+recipe = Recipe
 ```
 
-If you don't have the paths locally that are specified in `ADD`, or `COPY` (this
-might be the case if you are building on a different host) you will get a
-warning.
+By default, the recipe starts empty.
 
-```
-WARNING /tmp/requirements.txt doesn't exist, ensure exists for build
-WARNING requirements.txt doesn't exist, ensure exists for build
-WARNING /code/ doesn't exist, ensure exists for build
+```python
+recipe.json()
+{}
 ```
 
-That's all you need to do to load! The loading occurs when you create the object.
-The finished object is a spython recipe
+Generally, you can inspect the attributes to see what can be added! Here
+are some examples:
 
+```python
+recipe.cmd = ['echo', 'hello']
+recipe.entrypoint = '/bin/bash'
+recipe.comments = ['This recipe is great', 'Yes it is!']
+recipe.environ = ['PANCAKES=WITHSYRUP']
+recipe.files = [['one', 'two']]
+recipe.test = ['true']
+recipe.install = ['apt-get update']
+recipe.labels = ['Maintainer vanessasaur']
+recipe.ports = ['3031']
+recipe.volumes = ['/data']
+recipe.workdir = '/code'
 ```
-recipe
-Out[2]: [spython-recipe][/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli/Dockerfile]
+
+And then verify they are added:
+
+```python
+recipe.json()
+{'cmd': ['echo', 'hello'],
+ 'comments': ['This recipe is great', 'Yes it is!'],
+ 'entrypoint': '/bin/bash',
+ 'environ': ['PANCAKES=WITHSYRUP'],
+ 'files': [['one', 'two']],
+ 'install': ['apt-get update'],
+ 'labels': ['Maintainer vanessasaur'],
+ 'ports': ['3031'],
+ 'test': ['true'],
+ 'volumes': ['/data'],
+ 'workdir': '/code'}
 ```
 
-and we can remember it's from a docker base
+And then you can use a [writer](#writer) to print a custom recipe type to file.
 
+# Parsers
+
+Your first interaction will be with a parser, all of which are defined at
+`spython.main.parse.parsers`. If you know the parser you want directly, you 
+can import it:
+
+```python
+from spython.main.parse.parsers import DockerParser
 ```
-$ recipe.name
-'docker'
+
+or you can use a helper function to get it:
+
+```python
+from spython.main.parse.parsers import get_parser
+DockerParser = get_parser('docker')
+# spython.main.parse.parsers.docker.DockerParser
 ```
 
-It has all of the parsed sections from the Dockerfile,
-named as you would expect them! These are generally lists and dictionary 
-data structure that can be easily parsed into another recipe type. At this point 
-you could inspect them, and modify as needed before doing the conversion.
+then give it a Dockerfile to munch on. 
 
-
+```python
+parser=DockerParser('Dockerfile')
 ```
-$ recipe.environ
-['PYTHONUNBUFFERED=1']
 
-$ recipe.files
-[['requirements.txt', '/tmp/requirements.txt'],
- ['/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli', '/code/']]
+By default, it will parse the Dockerfile (or other container recipe) into a `Recipe`
+class, provided at `parser.recipe`:
 
-$ recipe.cmd
-['/code/run_uwsgi.sh']
+```python
+parser.recipe
+[spython-recipe][source:/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli/Dockerfile]
+```
 
-$ recipe.install
-['PYTHONUNBUFFERED=1',
- '\n',
- '################################################################################\n',
- '# CORE\n',
- '# Do not modify this section\n']
+You can quickly see the fields with the .json function:
+
+```python
+parser.recipe.json()
+{'cmd': '/code/run_uwsgi.sh',
+ 'environ': ['PYTHONUNBUFFERED=1'],
+ 'files': [['requirements.txt', '/tmp/requirements.txt'],
+  ['/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli',
+   '/code/']],
+ 'install': ['PYTHONUNBUFFERED=1',
 ...
 ```
 
-Since Dockerfiles handle defining environment variables at build time and setting
-them for the container at runtime, when we encounter an `ENV` section we add
-the variable both to the `environ` list *and* as a command for the install 
-section.
+All of these fields are attributes of the recipe, so you could change or otherwise
+interact with them:
 
-### Convert to Singularity Recipe
-To do the conversion from the Dockerfile to a Singularity recipe, simply call 
-"convert." This function estimates your desired output based on the input (i.e.,
-a Dockerfile base is expected to be desired to convert to Singularity Recipe,
-and vice versa). This will return a string to the console of your recipe.
+```python
+parser.recipe.entrypoint = '/bin/sh'
+```
+
+or if you don't want to, you can skip automatic parsing:
+
+```python
+parser = DockerParser('Dockerfile', load=False)
+parser.recipe.json()
+```
+
+And then parse it later:
+
+```python
+parser.parse()
+```
+
+The same is available for Singularity recipes:
+
+```python
+SingularityParser = get_parser("Singularity")
+parser = SingularityParser("Singularity")
+```
+```python
+parser.recipe.json()
+Out[16]: 
+{'cmd': 'exec /opt/conda/bin/spython "$@"',
+ 'install': ['apt-get update && apt-get install -y git',
+  '# Dependencies',
+  'cd /opt',
+  'git clone https://www.github.com/singularityhub/singularity-cli',
+  'cd singularity-cli',
+  '/opt/conda/bin/pip install setuptools',
+  '/opt/conda/bin/python setup.py install'],
+ 'labels': ['maintainer vsochat@stanford.edu']}
 
 ```
-result = recipe.convert()
-print(result)
 
+# Writers
+
+Once you have loaded a recipe and possibly made changes, what comes next?
+You would want to write it to a possibly different recipe file. For example,
+let's read in some Dockerfile, and then hand off the recipe to a SingularityWriter.
+The same functions are available to get a writer, or you can import directly.
+
+```python
+from spython.main.parse.writers import get_writer
+from spython.main.parse.parsers import get_parser
+
+DockerParser = get_parser('docker')
+SingularityWriter = get_writer('singularity')
+# from spython.main.parse.writers import SingularityWriter
+```
+
+First, again parse the Dockerfile:
+
+```python
+parser = DockerParser('Dockerfile')
+```
+
+And then give the recipe object at `parser.recipe` to the writer!
+
+```python
+writer = SingularityWriter(parser.recipe)
+```
+
+How do you generate the new recipe? You can do:
+
+```python
+writer.convert()
+```
+
+To better print it to the screen, you can use print:
+
+```python
+print(writer.convert())
 Bootstrap: docker
 From: python:3.5.1
 %files
 requirements.txt /tmp/requirements.txt
-/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli /code/
-%labels
-%post
-PYTHONUNBUFFERED=1
+...
 
-################################################################################
-# CORE
-# Do not modify this section
-
-apt-get update && apt-get install -y \
-    pkg-config \
-    cmake \
-    openssl \
-    wget \
-    git \
-    vim
-
-apt-get update && apt-get install -y \
-    anacron \
-    autoconf \
-    automake \
-    libtool \
-    libopenblas-dev \
-    libglib2.0-dev \
-    gfortran \
-    libxml2-dev \
-    libxmlsec1-dev \
-    libhdf5-dev \
-    libgeos-dev \
-    libsasl2-dev \
-    libldap2-dev \
-    build-essential
-
-# Install Singularity
-git clone https://www.github.com/singularityware/singularity.git
-cd singularity
-./autogen.sh && ./configure --prefix=/usr/local && make && make install
-
-# Install Python requirements out of /tmp so not triggered if other contents of /code change
-pip install -r /tmp/requirements.txt
-
-
-################################################################################
-# PLUGINS
-# You are free to comment out those plugins that you don't want to use
-
-# Install LDAP (uncomment if wanted)
-# RUN pip install python3-ldap
-# RUN pip install django-auth-ldap
-
-
-mkdir /code
-mkdir -p /var/www/images
-
-cd /code
-apt-get remove -y gfortran
-
-apt-get autoremove -y
-apt-get clean
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
-# Install crontab to setup job
-echo "0 0 * * * /usr/bin/python /code/manage.py generate_tree" >> /code/cronjob
-crontab /code/cronjob
-rm /code/cronjob
-
-
-# EXPOSE 3031
 %environment
 export PYTHONUNBUFFERED=1
 %runscript
-exec /code/run_uwsgi.sh "$@"
+cd /code
+exec /bin/bash/bin/bash /code/run_uwsgi.sh "$@"
+%startscript
+cd /code
+exec /bin/bash/bin/bash /code/run_uwsgi.sh "$@"
 ```
 
-Note in the above because Singularity recipes do not understand labels like
-`EXPOSE` and `VOLUME` they are commented out. 
-You can also ask for a specific type, either of these would work.
+Or return to a string, and save to file as you normally would.
 
-```
-recipe.convert(convert_to='docker')         # convert to Docker
-recipe.convert(convert_to='singularity')    # convert to Singularity
+```python
+result = writer.convert()
 ```
 
+The same works for a DockerWriter.
 
-### Save to Singularity Recipe
-if you want to save to file, the same logic applies as above, except you can
-use the "save" function. If you don't specify an output file, one will
-be generated for you in the present working directory, a Singularity or 
-Dockerfile with a randomly generated extension.
-
-```
-$ recipe.save()
-Saving to Singularity.8q5lkg1n
-```
-
-And you can also name it whatever you like :)
-
-```
-$ recipe.save('Singularity.special-snowflake')
-Saving to Singularity.special-snowflake
-```
-
-<hr>
-
-
-## Singularity Conversion
-We will do the same action, but in the opposite direction, convering a Singularity recipe
-to a Dockerfile! This is a harder direction because we have to convert each line
-from `%post` into a Dockerfile, and we are going from a "chunk" representation to
-a "lines" one that warrants more detail. We do our best estimate of ordering by
-doing the following:
-
- - files and labels come first, assuming that content should be added to the container at the beginning.
- - any change of directory (cd) at the beginning of a line is replaced with `WORKDIR`
-
-
-### Load the Singularity Recipe
-
-
-```
-from spython.main.parse import SingularityRecipe
-recipe = SingularityRecipe('Singularity')
-
-FROM willmclaren/ensembl-vep
-```
-
-We know we have read in a Singularity file!
-
-```
-$ recipe.name
-'singularity'
-```
-
-If you peek at the loaded configuration, you will see that it gets parsed into
-the Singularity sections.
-
-```
-$ recipe.config 
-{'comments': ['# sudo singularity build ensembl-vep Singularity'],
- 'environment': ['LANGUAGE=en_US',
-  'LANG="en_US.UTF-8"',
-  'LC_ALL=C',
-  'export LANGUAGE LANG LC_ALL',
-  ''],
- 'from': 'willmclaren/ensembl-vep',
- 'help': ['This is a singularity file for VEP docker (v1)', ''],
- 'labels': ['DARTH VADER', 'QUASI MODO', 'LizardLips NoThankYou', ''],
- 'post': ['mkdir /.vep;',
-  'mkdir /vep_genomes;',
-  'git clone https://github.com/Ensembl/VEP_plugins.git;',
-  'git clone https://github.com/griffithlab/pVAC-Seq.git;',
-  'cp /pVAC-Seq/pvacseq/VEP_plugins/Wildtype.pm /VEP_plugins;',
-  'rm -r /pVAC-Seq;',
-  ''],
- 'runscript': ['exec /home/vep/src/ensembl-vep/vep "$@"']}
-```
-
-### Convert to Dockerfile
-You can then use the same convert function to generate your Dockerfile.
-
-```
-$ dockerfile = recipe.convert()
-$ print(dockerfile)
-print(recipe.convert())
-FROM: willmclaren/ensembl-vep
-# This is a singularity file for VEP docker (v1)
-#  sudo singularity build ensembl-vep Singularity
-LABEL DARTH VADER
-LABEL QUASI MODO
-LABEL LizardLips NoThankYou
-ENV LANGUAGE=en_US
-ENV LANG="en_US.UTF-8"
-ENV LC_ALL=C
-RUN mkdir /.vep;
-RUN mkdir /vep_genomes;
-RUN git clone https://github.com/Ensembl/VEP_plugins.git;
-RUN git clone https://github.com/griffithlab/pVAC-Seq.git;
-RUN cp /pVAC-Seq/pvacseq/VEP_plugins/Wildtype.pm /VEP_plugins;
-RUN rm -r /pVAC-Seq;
-CMD exec /home/vep/src/ensembl-vep/vep "$@"
-```
-
-or instead save it to file:
-
-```
-$ recipe.save('Dockerfile')
-```
-
-## Python Shell
-You can also interact with the above functions most quickly via `spython shell`.
-
-```
-$ spython shell
-Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
-Type "copyright", "credits" or "license" for more information.
-
-IPython 5.1.0 -- An enhanced Interactive Python.
-?         -> Introduction and overview of IPython's features.
-%quickref -> Quick reference.
-help      -> Python's own help system.
-object?   -> Details about 'object', use 'object??' for extra details.
-
-```
-
-The parser is added to the client, and you can use it just like before!
-
-```
-In [1]: parser = client.DockerRecipe('Dockerfile')
-WARNING /tmp/requirements.txt doesn't exist, ensure exists for build
-WARNING requirements.txt doesn't exist, ensure exists for build
-WARNING /code/ doesn't exist, ensure exists for build
+```python
+SingularityParser = get_parser('singularity')
+DockerWriter = get_writer('docker')
+parser = SingularityParser('Singularity')
+writer = DockerWriter(parser.recipe)
+print(writer.convert())
 ```
 ```
-recipe = parser.convert()
-print(recipe)
-```
-
-or do the same for Singularity:
-
-```
-$ parser = client.SingularityRecipe('Singularity')
-$ recipe.convert()         # convert to Docker
+FROM continuumio/miniconda3
+LABEL maintainer vsochat@stanford.edu
+RUN apt-get update && apt-get install -y git
+RUN cd /opt
+RUN git clone https://www.github.com/singularityhub/singularity-cli
+RUN cd singularity-cli
+RUN /opt/conda/bin/pip install setuptools
+RUN /opt/conda/bin/python setup.py install
+CMD exec /opt/conda/bin/spython "$@"
 ```
 
 <div>

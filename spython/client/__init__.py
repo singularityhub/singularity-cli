@@ -46,14 +46,27 @@ def get_parser():
                          help="define custom entry point and prevent discovery", 
                          default=None, type=str)
 
+    recipe.add_argument('--json', dest="json", 
+                        help="dump the (base) recipe content as json to the terminal", 
+                        default=False, action='store_true')
+
+    recipe.add_argument('--force', dest="force", 
+                        help="if the output file exists, overwrite.", 
+                        default=False, action='store_true')
+
     recipe.add_argument("files", nargs='*',
                         help="the recipe input file and [optional] output file", 
                         type=str)
 
-    parser.add_argument("-i", "--input", type=str, 
-                        default="auto", dest="input",
+    recipe.add_argument("--parser", type=str, 
+                        default="auto", dest="parser",
                         choices=["auto", "docker", "singularity"],
                         help="Is the input a Dockerfile or Singularity recipe?")
+
+    recipe.add_argument("--writer", type=str, 
+                        default="auto", dest="writer",
+                        choices=["auto", "docker", "singularity"],
+                        help="Should we write to Dockerfile or Singularity recipe?")
 
     # General Commands
 
