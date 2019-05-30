@@ -144,7 +144,7 @@ class SingularityWriter(WriterBase):
             return section
 
         # if the section is empty, don't print it
-        if len(section) == 0:
+        if not section:
             return section
 
         # Files
@@ -205,5 +205,5 @@ def create_env_section(pairs, name):
     '''
     section = ['%' + name]
     for pair in pairs:
-        section.append("export %s" %pair)
+        section.append("export %s" % pair)
     return section

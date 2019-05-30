@@ -59,7 +59,7 @@ def get_singularity_version():
             return version
 
         if version['return_code'] == 0:
-            if len(version['message']) > 0:
+            if version['message']:
                 version = version['message'][0].strip('\n')
 
     return version

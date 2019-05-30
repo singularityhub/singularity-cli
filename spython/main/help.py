@@ -6,7 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-def help(self, command=None):
+def helpcmd(self, command=None):
     '''help prints the general function help, or help for a specific command
 
         Parameters
@@ -20,5 +20,4 @@ def help(self, command=None):
     cmd = ['singularity', '--help']
     if command is not None:
         cmd.append(command)
-    help = self._run_command(cmd)
-    return help
+    return self._run_command(cmd)

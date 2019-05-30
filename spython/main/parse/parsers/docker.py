@@ -181,18 +181,18 @@ class DockerParser(ParserBase):
             pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
             pieces = [p for p in pieces if p.strip()]
 
-            while len(pieces) > 0:
+            while pieces:
                 current = pieces.pop(0)
 
                 if current.endswith('='):
 
                     # Case 1: ['A='] --> A=
-                    next = ""
+                    nextone = ""
 
                     # Case 2: ['A=', '"1 2"'] --> A=1 2
-                    if len(pieces) > 0:
-                        next = pieces.pop(0)
-                    exports.append("%s%s" %(current, next))
+                    if pieces:
+                        nextone = pieces.pop(0)
+                    exports.append("%s%s" %(current, nextone))
 
                 # Case 3: ['A=B']     --> A=B
                 elif '=' in current:
@@ -204,8 +204,8 @@ class DockerParser(ParserBase):
 
                 # Case 5: ['A', 'B']  --> A=B
                 else:
-                    next = pieces.pop(0)
-                    exports.append("%s=%s" %(current, next))
+                    nextone = pieces.pop(0)
+                    exports.append("%s=%s" %(current, nextone))
 
         return exports
 
@@ -367,7 +367,7 @@ class DockerParser(ParserBase):
 
         '''
         volumes = self._setup('VOLUME', line)
-        if len(volumes) > 0:
+        if volumes:
             self.recipe.volumes += volumes
         return self._comment("# %s" %line)
 
@@ -381,7 +381,7 @@ class DockerParser(ParserBase):
 
         '''
         ports = self._setup('EXPOSE', line)
-        if len(ports) > 0:
+        if ports:
             self.recipe.ports += ports
         return self._comment("# %s" %line)
 
@@ -483,7 +483,7 @@ class DockerParser(ParserBase):
             line = self._split_line(line)
 
         # No line we will give function to handle empty line
-        if len(line) == 0:
+        if not line:
             return None
 
         cmd = line[0].upper()
@@ -547,7 +547,7 @@ class DockerParser(ParserBase):
            chmod: If true, change permission to make u+x
 
         '''
-        if len(lines) > 0:
+        if lines:
             lastline = lines.pop()
         for line in lines:
             self.recipe.install.append('echo "%s" >> %s' %line %path)

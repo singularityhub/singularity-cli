@@ -106,7 +106,7 @@ def bar(it, label='', width=32, hide=None, empty_char=BAR_EMPTY_CHAR,
 
     with ProgressBar(label=label, width=width, hide=hide, empty_char=BAR_EMPTY_CHAR,
              filled_char=BAR_FILLED_CHAR, expected_size=count, every=every) \
-            as bar:
+            as pbar:
         for i, item in enumerate(it):
             yield item
-            bar.show(i + 1)
+            pbar.show(i + 1)

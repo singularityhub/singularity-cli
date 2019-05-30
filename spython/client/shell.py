@@ -9,12 +9,12 @@
 def main(args, options, parser):
     # If we have options, first is image
     image = None
-    if len(options) > 0:
+    if options:
         image = options.pop(0)
  
     lookup = {'ipython': ipython,
               'python': python,
-              'bpython': bpython}
+              'bpython': run_bpython}
 
     shells = ['ipython', 'python', 'bpython']
 
@@ -53,7 +53,7 @@ def ipython(image):
 
     embed()
 
-def bpython(image):
+def run_bpython(image):
     '''give the user a bpython shell
     '''
     client = prepare_client(image)

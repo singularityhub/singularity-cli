@@ -97,7 +97,7 @@ def main():
 
     parser = get_parser()
 
-    def help(return_code=0):
+    def print_help(return_code=0):
         '''print help, including the software version and active client 
            and exit with return code.
         '''
@@ -107,7 +107,7 @@ def main():
         sys.exit(return_code)
     
     if len(sys.argv) == 1:
-        help()
+        print_help()
     try:
         # We capture all primary arguments, and take secondary to pass on
         args, options = parser.parse_known_args()
@@ -115,7 +115,7 @@ def main():
         sys.exit(0)
 
     # The main function
-    main = None
+    func = None
 
     # If the user wants the version
     if args.version is True:
@@ -126,14 +126,21 @@ def main():
     set_verbosity(args)
 
     # Does the user want help for a subcommand?
-    if args.command == 'recipe': from .recipe import main 
-    elif args.command == 'shell': from .shell import main 
-    elif args.command == 'test': from .test import main 
-    else: help()
+    if args.command == 'recipe': 
+        from .recipe import main as func
+
+    elif args.command == 'shell':
+        from .shell import main as func
+
+    elif args.command == 'test': 
+        from .test import main as func
+
+    else:
+        print_help()
 
     # Pass on to the correct parser
     if args.command is not None:
-        main(args=args, options=options, parser=parser)
+        func(args=args, options=options, parser=parser)
 
 
 if __name__ == '__main__':

@@ -289,7 +289,7 @@ class SingularityParser(ParserBase):
 
         while True:
 
-            if len(lines) == 0:
+            if not lines:
                 break
             next_line = lines[0]                
 
@@ -304,7 +304,7 @@ class SingularityParser(ParserBase):
                     members.append(new_member)
 
         # Add the list to the config
-        if len(members) > 0:
+        if members:
             if section is not None:
                 self.config[section] += members
 
@@ -328,7 +328,7 @@ class SingularityParser(ParserBase):
      
         section = None
 
-        while len(lines) > 0:
+        while lines:
 
             # Clean up white trailing/leading space
             line = lines.pop(0)

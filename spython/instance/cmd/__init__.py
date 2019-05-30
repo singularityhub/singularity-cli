@@ -15,7 +15,7 @@ def generate_instance_commands():
     from spython.instance import Instance
 
     from spython.main.base.logger import println
-    from spython.main.instances import instances
+    from spython.main.instances import list_instances
     from spython.utils import run_command as run_cmd
 
     # run_command uses run_cmd, but wraps to catch error
@@ -28,7 +28,7 @@ def generate_instance_commands():
     Instance._init_command = init_command
     Instance.run_command = run_cmd
     Instance._run_command = run_command
-    Instance._list = instances  # list command is used to get metadata
+    Instance._list = list_instances  # list command is used to get metadata
     Instance._println = println
     Instance.start = start     # intended to be called on init, not by user
     Instance.stop = stop
