@@ -16,6 +16,9 @@
   - title: "OCI Commands"
     url: "/singularity-cli/commands-oci"
     slug: oci
+  - title: "Recipe Generation"
+    url: "/singularity-cli/recipes"
+    slug: recipes
   - title: "Python API Docstring"
     url: "https://singularityhub.github.io/singularity-cli/api/source/spython.main.html"
     slug: docstring
