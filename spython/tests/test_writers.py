@@ -48,7 +48,7 @@ class TestWriters(unittest.TestCase):
         parser = SingularityParser(recipe)
         writer = SingularityWriter(parser.recipe)
 
-        self.assertEqual(str(writer), '[spython-writer][docker]')
+        self.assertEqual(str(writer), '[spython-writer][singularity]')
         print(writer.convert())
 
 

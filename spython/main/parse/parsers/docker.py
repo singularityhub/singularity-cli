@@ -400,7 +400,7 @@ class DockerParser(ParserBase):
         workdir = self._setup('WORKDIR', line)
         workdir_cd = "cd %s" %(''.join(workdir))
         self.recipe.install.append(workdir_cd)
-        self.recipe.workdir = workdir
+        self.recipe.workdir = workdir[0]
 
 # Entrypoint and Command
 

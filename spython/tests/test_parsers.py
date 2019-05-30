@@ -63,7 +63,6 @@ class TestClient(unittest.TestCase):
         self.assertEqual(parser.recipe.entrypoint, None)
         self.assertEqual(parser.recipe.workdir, None)
         self.assertEqual(parser.recipe.volumes, [])
-        self.assertEqual(parser.recipe.ports, ['3031'])
         self.assertEqual(parser.recipe.files, [])
         self.assertEqual(parser.recipe.environ, [])
         self.assertEqual(parser.recipe.source, recipe)
