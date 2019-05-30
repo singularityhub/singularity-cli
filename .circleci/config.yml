@@ -12,7 +12,6 @@ workflows:
           filters:
             branches:
               ignore: master
-      - test-singularity-3-1-python-3: *ignore_master
       - test-singularity-3-python-2: *ignore_master
       - test-singularity-2-python-3: *ignore_master
       - test-singularity-2-python-2: *ignore_master
@@ -106,29 +105,6 @@ jobs:
             - ~/conda
           key: v1-dependencies-py3
       - run: *run_linter
-      - run: *test_spython
-      - run: *test_spython_3
-
-  test-singularity-3-1-python-3:
-    machine: true
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-py3
-      - run: *install_python_3
-      - run: *waitforapt
-      - singularity/install-go:
-          go-version: 1.11.5
-      - singularity/debian-install-3:
-          singularity-version: 3.1.0
-      - run: *install_spython
-      - run: *install_dependencies
-      - save_cache:
-          paths:
-            - ~/conda
-          key: v1-dependencies-py3
       - run: *test_spython
       - run: *test_spython_3
 
