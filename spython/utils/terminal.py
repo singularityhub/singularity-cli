@@ -147,8 +147,9 @@ def run_command(cmd,
 
     for line in process.communicate():
         if line:
-            if isinstance(line, bytes):
-                line = line.decode('utf-8')
+            if type(line) is not str:
+                if isinstance(line, bytes):
+                    line = line.decode('utf-8')                
             lines = lines + (line,)
             if re.search(no_newline_regexp, line) and found_match is True:
                 if quiet is False:
