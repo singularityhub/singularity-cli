@@ -1,0 +1,6 @@
+Bootstrap: docker
+From: busybox:latest
+%runscript
+exec /bin/bash echo hello "$@"
+%startscript
+exec /bin/bash echo hello "$@"

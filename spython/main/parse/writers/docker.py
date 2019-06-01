@@ -114,10 +114,11 @@ class DockerWriter(WriterBase):
             recipe.append('ENTRYPOINT %s' % self.recipe.entrypoint)
 
         if self.recipe.test is not None:
-            recipe.append(write_lines('HEALTHCHECK', self.recipe.test))
+            recipe += write_lines('HEALTHCHECK', self.recipe.test)
 
         # Clean up extra white spaces
-        return '\n'.join(recipe).replace('\n\n', '\n')
+        recipe = '\n'.join(recipe).replace('\n\n', '\n')
+        return recipe.rstrip()
 
 
 def write_files(label, lines):
@@ -130,7 +131,10 @@ def write_files(label, lines):
     '''
     result = []
     for line in lines:
-        result.append('%s %s %s' %(label, line[0], line[1]))            
+        if isinstance(line, list):
+            result.append('%s %s %s' %(label, line[0], line[1]))            
+        else:
+            result.append('%s %s' %(label, line))            
     return result
 
 def write_lines(label, lines):
@@ -141,6 +145,9 @@ def write_lines(label, lines):
        lines: one or more lines to write, with header appended
 
     '''
+    if not isinstance(lines, list):
+        lines = [lines]
+
     result = []
     continued = False
     for line in lines:

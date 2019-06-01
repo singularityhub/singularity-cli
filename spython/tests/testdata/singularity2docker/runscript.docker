@@ -1,0 +1,2 @@
+FROM busybox:latest
+CMD exec /bin/bash echo hello "$@"

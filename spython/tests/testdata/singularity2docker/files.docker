@@ -1,0 +1,3 @@
+FROM busybox:latest
+ADD file.txt /opt/file.txt
+ADD /path/to/thing /opt/thing

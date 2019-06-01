@@ -534,24 +534,3 @@ class DockerParser(ParserBase):
         # A line that is None should return empty string
         line = line or ''
         return line.split('#')[0].strip()
-
-
-    def _write_script(self, path, lines, chmod=True):
-        '''write a script with some lines content to path in the image. This
-           is done by way of adding echo statements to the install section.
-
-           Parameters
-           ==========
-           path: the path to the file to write
-           lines: the lines to echo to the file
-           chmod: If true, change permission to make u+x
-
-        '''
-        if lines:
-            lastline = lines.pop()
-        for line in lines:
-            self.recipe.install.append('echo "%s" >> %s' %line %path)
-        self.recipe.install.append(lastline)     
-
-        if chmod is True:
-            self.recipe.install.append('chmod u+x %s' %path)

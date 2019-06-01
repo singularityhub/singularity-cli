@@ -73,7 +73,8 @@ class SingularityWriter(WriterBase):
             recipe += finish_section(self.recipe.test, 'test')
 
         # Clean up extra white spaces
-        return '\n'.join(recipe).replace('\n\n', '\n')
+        recipe = '\n'.join(recipe).replace('\n\n', '\n')
+        return recipe.rstrip()
 
 
     def _create_runscript(self, default="/bin/bash", force=False):
@@ -92,6 +93,7 @@ class SingularityWriter(WriterBase):
 
         # Only look at Docker if not enforcing default
         if not force:
+
             if self.recipe.entrypoint is not None:
 
                 # The provided entrypoint can be a string or a list
@@ -105,7 +107,6 @@ class SingularityWriter(WriterBase):
                     entrypoint = entrypoint + ' ' + ' '.join(self.recipe.cmd)
                 else:
                     entrypoint = entrypoint + ' ' + ''.join(self.recipe.cmd)
-            entrypoint = default + entrypoint
 
         # Entrypoint should use exec
         if not entrypoint.startswith('exec'):
@@ -148,7 +149,7 @@ class SingularityWriter(WriterBase):
             return section
 
         # Files
-        if attribute in ['files']:
+        if attribute in ['files', 'labels']:
             return create_keyval_section(section, name)
 
         # An environment section needs exports
@@ -168,12 +169,21 @@ def finish_section(section, name):
        section: the section content, without a header
        name: the name of the section for the header
 
-    '''   
+    '''    
+    
     if not isinstance(section, list):
         section = [section]
 
+    # Convert USER lines to change user
+    lines = []
+    for line in section:
+        if "USER" in line:
+            username = line.replace('USER', '').rstrip()
+            line = "su - %s" % username + ' # ' + line
+        lines.append(line)
+
     header = ['%' + name]
-    return header + section
+    return header + lines
 
 
 def create_keyval_section(pairs, name):
