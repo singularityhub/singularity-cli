@@ -1,7 +1,7 @@
 Bootstrap: docker
 From: busybox:latest
 %files
-/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli /opt
+. /opt
 %runscript
 exec /bin/bash "$@"
 %startscript

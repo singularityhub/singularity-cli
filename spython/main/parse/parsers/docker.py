@@ -277,9 +277,6 @@ class DockerParser(ParserBase):
            dest: the destiation
         '''
 
-        def expandPath(path):
-            return os.getcwd() if path == "." else path
-        
         # Warn the user Singularity doesn't support expansion
         if '*' in source:
             bot.warning("Singularity doesn't support expansion, * found in %s" % source)
@@ -289,7 +286,7 @@ class DockerParser(ParserBase):
             bot.warning("%s doesn't exist, ensure exists for build" % source)
         
         # The pair is added to the files as a list
-        self.recipe.files.append([expandPath(source), expandPath(dest)])
+        self.recipe.files.append([source, dest])
 
 
     def _parse_http(self, url, dest):

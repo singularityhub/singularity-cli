@@ -26,7 +26,7 @@ class TestConversion(unittest.TestCase):
         
     def tearDown(self):
         shutil.rmtree(self.tmpdir)
-
+        
     def test_pairs(self):
 
         print('Testing that each recipe file has a pair of the other type.')
