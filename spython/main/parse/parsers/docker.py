@@ -17,17 +17,18 @@ class DockerParser(ParserBase):
 
     name = 'docker'
 
-    def __init__(self, recipe='Dockerfile', load=True):
+    def __init__(self, filename='Dockerfile', load=True):
         '''a docker parser will read in a Dockerfile and put it into a Recipe
            object.
 
            Parameters
            ==========
-           recipe: the Dockerfile to parse. If not defined, deafults to 
-                   Dockerfile assumed to be in the $PWD.
+           filename: the Dockerfile to parse. If not defined, deafults to 
+                     Dockerfile assumed to be in the $PWD.
+           load: whether to load the recipe file (default True)
 
         '''
-        super(DockerParser, self).__init__(recipe, load)
+        super(DockerParser, self).__init__(filename, load)
 
 
     def parse(self):

@@ -45,7 +45,7 @@ class DockerWriter(WriterBase):
 
     name = 'docker'
 
-    def __init__(self, recipe=None):
+    def __init__(self, recipe=None): # pylint: disable=useless-super-delegation
         '''a DockerWriter will take a Recipe as input, and write
            to a Dockerfile.
 

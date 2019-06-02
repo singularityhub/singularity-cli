@@ -16,7 +16,7 @@ class SingularityParser(ParserBase):
 
     name = 'singularity'
 
-    def __init__(self, recipe="Singularity", load=True):
+    def __init__(self, filename="Singularity", load=True):
         '''a SingularityParser parses a Singularity file into expected fields of
            labels, environment, and install/runtime commands. The base class
            ParserBase will instantiate an empty Recipe() object to populate,
@@ -24,11 +24,11 @@ class SingularityParser(ParserBase):
 
            Parameters
            ==========
-           recipe: the recipe file (Singularity) to parse
+           filename: the recipe file (Singularity) to parse
            load: load and parse the recipe (defaults to True)
 
         '''
-        super(SingularityParser, self).__init__(recipe, load)
+        super(SingularityParser, self).__init__(filename, load)
 
 
     def parse(self):

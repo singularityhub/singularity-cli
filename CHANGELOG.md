@@ -18,9 +18,8 @@ singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
  - refactor recipe parsers, writers, and base (0.0.64)
-   - adding testing for recipe convertion
    - paths for files, add, copy, will not be expanded as it adds hardcoded paths
- - updated testing to use pytest, linting fixes, and oci state fixes (0.0.63)
+ - oci state fixes and added Client.version_info() (0.0.63)
  - fix crash in some error conditions (0.0.62)
    - more OCI commands accept sudo parameter
  - working directory, the last one defined, should be added to runscript (0.0.61)

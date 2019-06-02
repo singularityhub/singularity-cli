@@ -16,7 +16,7 @@ class SingularityWriter(WriterBase):
 
     name = 'singularity'
 
-    def __init__(self, recipe=None):
+    def __init__(self, recipe=None): # pylint: disable=useless-super-delegation
         '''a SingularityWriter will take a Recipe as input, and write
            to a Singularity recipe file.
 
