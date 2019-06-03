@@ -95,11 +95,20 @@ class TestUtils(unittest.TestCase):
         assert version == VersionInfo(2, 3, 1)
         assert version > VersionInfo(2, 3, 0)
         assert version < VersionInfo(3, 0, 0)
+
         os.environ['SPYTHON_SINGULARITY_VERSION'] = "singularity version 3.2.1-1"
         version = get_singularity_version_info()
         assert version == VersionInfo(3, 2, 1, "1")
         assert version > VersionInfo(2, 0, 0)
         assert version < VersionInfo(3, 3, 0)
+        assert version > VersionInfo(3, 2, 0)
+        assert version < VersionInfo(3, 2, 1)
+
+        os.environ['SPYTHON_SINGULARITY_VERSION'] = "2.6.1-pull/124.1d068a7"
+        version = get_singularity_version_info()
+        assert version == VersionInfo(2, 6, 1, "pull", "124.1d068a7")
+        assert version > VersionInfo(2, 6, 0)
+        assert version < VersionInfo(2, 7, 0)
         # Restore for other tests
         if oldValue is None:
             del os.environ['SPYTHON_SINGULARITY_VERSION']
