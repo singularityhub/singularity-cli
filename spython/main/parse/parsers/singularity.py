@@ -276,7 +276,7 @@ class SingularityParser(ParserBase):
            exit on fail (there is no other option to convert to Dockerfile!
         '''
         if 'docker' not in line.lower():
-            bot.exit('docker not detected as Bootstrap!')
+            raise NotImplementedError('docker not detected as Bootstrap!')
 
 
     def _load_section(self, lines, section):
