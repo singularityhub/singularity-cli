@@ -147,7 +147,7 @@ def run_command(cmd,
 
     for line in process.communicate():
         if line:
-            if type(line) is not str:
+            if type(line) is not str: # pylint: disable=unidiomatic-typecheck
                 if isinstance(line, bytes):
                     line = line.decode('utf-8')                
             lines = lines + (line,)

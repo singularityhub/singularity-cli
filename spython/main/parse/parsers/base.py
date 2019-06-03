@@ -5,6 +5,7 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import abc
 import os
 
 from spython.logger import bot
@@ -19,20 +20,21 @@ class ParserBase(object):
        object, which can be used to write to file, etc.
     '''
 
-    lines = []
-
-    def __init__(self, filename=None, load=True):
+    def __init__(self, filename, load=True):
         '''a generic recipe parser holds the original file, and provides 
            shared functions for interacting with files. If the subclass has
            a parse function defined, we parse the filename
 
            Parameters
            ==========
-           recipe: the recipe file to parse.
+           filename: the recipe file to parse.
+           load: if True, load the filename into the Recipe. If not loaded,
+                 the user can call self.parse() at a later time.
 
         '''
         self.filename = filename
         self._run_checks()
+        self.lines = []
         self.recipe = Recipe(self.filename)
 
         if self.filename:
@@ -41,8 +43,17 @@ class ParserBase(object):
             self.lines = read_file(self.filename)
 
             # If parsing function defined, parse the recipe
-            if load is True and hasattr(self, 'parse'):
+            if load is True:
                 self.parse()
+
+
+    @abc.abstractmethod
+    def parse(self):
+        '''parse is the base function for parsing an input filename, and
+           extracting elements into the correct Recipe sections. The exact 
+           logic and supporting functions will vary based on the recipe type. 
+        '''
+        return
 
 
     def _run_checks(self):
