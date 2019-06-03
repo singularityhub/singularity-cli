@@ -158,19 +158,17 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
-
-<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">semver</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-
 
 <span class="c1">################################################################################</span>
 <span class="c1"># Local commands and requests</span>
 <span class="c1">################################################################################</span>
 
 
-<div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;check_install will attempt to run the singularity command, and</span>
 <span class="sd">       return True if installed. The command line utils will not run </span>
 <span class="sd">       without this check.</span>
@@ -195,11 +193,10 @@
     <span class="k">return</span> <span class="n">found</span></div>
 
 
-<div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;get the singularity client version. Useful in the case that functionality</span>
-<span class="sd">       has changed, etc. Can be &quot;hacked&quot; if needed by exporting </span>
-<span class="sd">       SPYTHON_SINGULARITY_VERSION, which is checked before checking on the</span>
-<span class="sd">       command line.</span>
+<div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;get the full singularity client version as reported by </span>
+<span class="sd">       singularity --version [...]. For Singularity 3.x, this means:</span>
+<span class="sd">       &quot;singularity version 3.0.1-1&quot;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
@@ -209,18 +206,27 @@
             <span class="k">return</span> <span class="n">version</span>
 
         <span class="k">if</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]:</span>
                 <span class="n">version</span> <span class="o">=</span> <span class="n">version</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">version</span></div>
 
-<div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
+<div class="viewcode-block" id="get_singularity_version_info"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_singularity_version_info">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version_info</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;get the full singularity client version as a semantic version&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">version_string</span> <span class="o">=</span> <span class="n">get_singularity_version</span><span class="p">()</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;singularity version &#39;</span>
+    <span class="k">if</span> <span class="n">version_string</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+        <span class="n">version_string</span> <span class="o">=</span> <span class="n">version_string</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">):]</span>
+    <span class="k">return</span> <span class="n">semver</span><span class="o">.</span><span class="n">parse_version_info</span><span class="p">(</span><span class="n">version_string</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;get_installdir returns the installation directory of the application</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span></div>
 
 
-<div class="viewcode-block" id="stream_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.stream_command">[docs]</a><span class="k">def</span> <span class="nf">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="stream_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.stream_command">[docs]</a><span class="k">def</span> <span class="nf">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;stream a command (yield) back to the user, as each line is available.</span>
 
 <span class="sd">       # Example usage:</span>
@@ -239,9 +245,9 @@
     <span class="k">if</span> <span class="n">sudo</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sudo&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
 
-    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
-                               <span class="n">stdout</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> 
-                               <span class="n">universal_newlines</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">line</span>
@@ -251,7 +257,7 @@
         <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">return_code</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
+<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
                 <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">,</span>
@@ -281,16 +287,17 @@
         <span class="n">stdout</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span>
 
     <span class="c1"># Use the parent stdout and stderr</span>
-    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
-                               <span class="n">stderr</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> 
-                               <span class="n">stdout</span> <span class="o">=</span> <span class="n">stdout</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                               <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">)</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="p">()</span>
     <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>                
             <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span> <span class="o">+</span> <span class="p">(</span><span class="n">line</span><span class="p">,)</span>
             <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span> <span class="ow">and</span> <span class="n">found_match</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">quiet</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -303,7 +310,7 @@
                 <span class="n">found_match</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="n">output</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="n">lines</span><span class="p">,</span>
-              <span class="s1">&#39;return_code&#39;</span><span class="p">:</span> <span class="n">process</span><span class="o">.</span><span class="n">returncode</span> <span class="p">}</span>
+              <span class="s1">&#39;return_code&#39;</span><span class="p">:</span> <span class="n">process</span><span class="o">.</span><span class="n">returncode</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">output</span></div>
 
@@ -315,7 +322,7 @@
 
          
 
-<div class="viewcode-block" id="format_container_name"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.format_container_name">[docs]</a><span class="k">def</span> <span class="nf">format_container_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">special_characters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="format_container_name"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.format_container_name">[docs]</a><span class="k">def</span> <span class="nf">format_container_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">special_characters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;format_container_name will take a name supplied by the user,</span>
 <span class="sd">    remove all special characters (except for those defined by &quot;special-characters&quot;</span>
 <span class="sd">    and return the new image name.</span>
@@ -326,10 +333,25 @@
                    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">special_characters</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+<div class="viewcode-block" id="split_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.split_uri">[docs]</a><span class="k">def</span> <span class="nf">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Split the uri of a container into the protocol and image part</span>
+
+<span class="sd">    An empty protocol is returned if none found.</span>
+<span class="sd">    A trailing slash is removed from the image part.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;://&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">parts</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;remove_uri will remove docker:// or shub:// from the uri</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">container</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;docker://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;shub://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

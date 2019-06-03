@@ -25,7 +25,7 @@ def decompress(self, image_path, quiet=True):
     if not os.path.exists(image_path):
         bot.exit("Cannot find image %s" %image_path)
         
-    extracted_file = image_path.replace('.gz','')
-    cmd = ['gzip','-d','-f', image_path]
+    extracted_file = image_path.replace('.gz', '')
+    cmd = ['gzip', '-d', '-f', image_path]
     self.run_command(cmd, quiet=quiet) # exits if return code != 0
     return extracted_file

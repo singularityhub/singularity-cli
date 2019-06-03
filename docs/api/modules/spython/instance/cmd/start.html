@@ -160,7 +160,7 @@
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
-<div class="viewcode-block" id="start"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.start.start">[docs]</a><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[],</span> <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="start"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.start.start">[docs]</a><span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;start an instance. This is done by default when an instance is created.</span>
 
 <span class="sd">       Parameters</span>
@@ -177,12 +177,11 @@
 <span class="sd">       singularity [...] instance.start [...] &lt;container path&gt; &lt;instance name&gt;</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>        
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> <span class="n">run_command</span><span class="p">,</span> 
-                                <span class="n">check_install</span> <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span><span class="n">run_command</span><span class="p">,</span> <span class="n">check_install</span><span class="p">)</span>
     <span class="n">check_install</span><span class="p">()</span>
 
     <span class="c1"># If name provided, over write robot (default)</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="c1"># If an image isn&#39;t provided, we have an initialized instance</span>
@@ -203,13 +202,13 @@
 
     <span class="c1"># Add options, if they are provided</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">options</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 
     <span class="c1"># Assemble the command!</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">options</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 
     <span class="c1"># If arguments are provided</span>
-    <span class="k">if</span> <span class="n">args</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">args</span>

@@ -9,12 +9,12 @@
 def main(args, options, parser):
     # If we have options, first is image
     image = None
-    if len(options) > 0:
+    if options:
         image = options.pop(0)
  
-    lookup = { 'ipython': ipython,
-               'python': python,
-               'bpython': bpython }
+    lookup = {'ipython': ipython,
+              'python': python,
+              'bpython': run_bpython}
 
     shells = ['ipython', 'python', 'bpython']
 
@@ -25,50 +25,49 @@ def main(args, options, parser):
         except ImportError:
             pass
     
+def prepare_client(image):
+    '''prepare a client to embed in a shell with recipe parsers and writers.
+    '''
+    # The client will announce itself (backend/database) unless it's get
+    from spython.main import get_client
+    from spython.main.parse import parsers
+    from spython.main.parse import writers
+
+    client = get_client()
+    client.load(image)
+
+    # Add recipe parsers
+    client.parsers = parsers
+    client.writers = writers
+    return client
 
 def ipython(image):
     '''give the user an ipython shell
     '''
+    client = prepare_client(image) # pylint: disable=unused-variable
 
-    # The client will announce itself (backend/database) unless it's get
-    from spython.main import get_client
-    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
+    try:
+        from IPython import embed
+    except ImportError:
+        return python(image)
 
-    client = get_client()
-    client.load(image)
-
-    # Add recipe parsers
-    client.DockerRecipe = DockerRecipe
-    client.SingularityRecipe = SingularityRecipe
-
-    from IPython import embed
     embed()
 
-def bpython(image):
+def run_bpython(image):
+    '''give the user a bpython shell
+    '''
+    client = prepare_client(image)
 
-    import bpython
-    from spython.main import get_client
-    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
-
-    client = get_client()
-    client.load(image)
-   
-    # Add recipe parsers
-    client.DockerRecipe = DockerRecipe
-    client.SingularityRecipe = SingularityRecipe
+    try:
+        import bpython
+    except ImportError:
+        return python(image)
 
     bpython.embed(locals_={'client': client})
 
 def python(image):
+    '''give the user a python shell
+    '''
     import code
-    from spython.main import get_client
-    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
-
-    client = get_client()
-    client.load(image)
-
-    # Add recipe parsers
-    client.DockerRecipe = DockerRecipe
-    client.SingularityRecipe = SingularityRecipe
-
+    client = prepare_client(image)
     code.interact(local={"client":client})

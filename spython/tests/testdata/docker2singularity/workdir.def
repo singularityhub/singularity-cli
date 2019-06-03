@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: busybox:latest
+%post
+cd /code
+%runscript
+cd /code
+exec /bin/bash "$@"
+%startscript
+cd /code
+exec /bin/bash "$@"

@@ -18,17 +18,20 @@ class Spinner:
     @staticmethod
     def spinning_cursor():
         while 1: 
-            for cursor in '|/-\\': yield cursor
+            for cursor in '|/-\\':
+                yield cursor
 
     @staticmethod
     def balloons_cursor():
         while 1: 
-            for cursor in '. o O @ *': yield cursor
+            for cursor in '. o O @ *':
+                yield cursor
 
     @staticmethod
     def changing_arrows():
         while 1: 
-            for cursor in '<^>v': yield cursor
+            for cursor in '<^>v':
+                yield cursor
 
     def select_generator(self, generator):
         if generator is None:
@@ -47,7 +50,8 @@ class Spinner:
             self.spinner_generator = self.changing_arrows()
         elif generator == 'balloons':
             self.spinner_generator = self.balloons_cursor()
-            if delay is None: delay = 0.2
+            if delay is None:
+                delay = 0.2
         else:
             self.spinner_generator = self.spinning_cursor()
 

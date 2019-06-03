@@ -158,19 +158,13 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.main.base.logger</span> <span class="k">import</span> <span class="n">println</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> 
-    <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span><span class="p">,</span> 
-    <span class="n">check_install</span> 
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
 <span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
 
 
 
@@ -281,7 +275,7 @@
 
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># First preference to function, then to client setting</span>
-    <span class="k">if</span> <span class="n">quiet</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">quiet</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">quiet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>

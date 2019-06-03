@@ -69,7 +69,7 @@ class RobotNamer:
             ==========
             should be a list of things to select from
         '''
-        if len(select_from) <= 0:
+        if not select_from:
             return ''
 
         return choice(select_from)

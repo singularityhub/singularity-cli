@@ -75,6 +75,9 @@ run_linter: &run_linter
 test_spython: &test_spython
   name: Test Singularity Python (Singularity Version 2 and 3)
   command: |
+      cd ~/repo/spython/tests
+      /bin/bash test_client.sh
+
       cd ~/repo/spython
       pytest -k 'not test_oci'
 

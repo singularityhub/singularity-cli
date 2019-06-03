@@ -5,17 +5,25 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from spython.main.parse.writers import get_writer
+from spython.main.parse.parsers import get_parser
 
+from spython.logger import bot
+from spython.utils import (
+    write_file, 
+    write_json
+)
+
+import json
 import sys
+import os
 
 def main(args, options, parser):
-    '''This function serves as a wrapper around the DockerRecipe and
-       SingularityRecipe converters. We can either save to file if
-       args.outfile is defined, or print to the console if not.
+    '''This function serves as a wrapper around the DockerParser, 
+       SingularityParser, DockerWriter, and SingularityParser converters. 
+       We can either save to file if args.outfile is defined, or print 
+       to the console if not.
     '''
-
-    from spython.main.parse import ( DockerRecipe, SingularityRecipe )
-
     # We need something to work with
     if not args.files:
         parser.print_help()
@@ -26,18 +34,34 @@ def main(args, options, parser):
     if len(args.files) > 1:
         outfile = args.files[1]
 
-    # Choose the recipe parser
-    parser = SingularityRecipe
-    if args.input == "docker":
-        parser = DockerRecipe
-    elif args.input == "singularity":
-        parser = SingularityRecipe(args.files[0])
-    else:
+    # First try to get writer and parser, if not defined will return None
+    writer = get_writer(args.writer)
+    parser = get_parser(args.parser)
+
+    # If the user wants to auto-detect the type
+    if args.parser == "auto":
         if "dockerfile" in args.files[0].lower():
-            parser = DockerRecipe
+            parser = get_parser('docker')
+        elif "singularity" in args.files[0].lower():
+            parser = get_parser('singularity')
+
+    # If the parser still isn't defined, no go.
+    if parser is None:
+        bot.exit('Please provide a Dockerfile or Singularity recipe, or define the --parser type.')
+
+    # If the writer needs auto-detect
+    if args.writer == "auto":
+        if parser.name == "docker":
+            writer = get_writer('singularity')
+        else:
+            writer = get_writer('docker')
+
+    # If the writer still isn't defined, no go
+    if writer is None:
+        bot.exit('Please define the --writer type.')
 
     # Initialize the chosen parser
-    parser = parser(args.files[0])
+    recipeParser = parser(args.files[0])
 
     # By default, discover entrypoint / cmd from Dockerfile
     entrypoint = "/bin/bash"
@@ -45,13 +69,33 @@ def main(args, options, parser):
 
     if args.entrypoint is not None:
         entrypoint = args.entrypoint
+
+        # This is only done if the user intended to print json here
+        recipeParser.entrypoint = args.entrypoint
+        recipeParser.cmd = None
         force = True
 
-    # If the user specifies an output file, save to it
-    if outfile is not None:
-        parser.save(outfile, runscript=entrypoint, force=force)
+    if args.json is True:
 
-    # Otherwise, convert and print to screen
+        if outfile is not None:
+            if not os.path.exists(outfile):
+                if force:
+                    write_json(outfile, recipeParser.recipe.json())
+                else:
+                    bot.exit('%s exists, set --force to overwrite.' % outfile)
+        else:
+            print(json.dumps(recipeParser.recipe.json(), indent=4))
+
     else:
-        recipe = parser.convert(runscript=entrypoint, force=force)
-        print(recipe)
+ 
+        # Do the conversion
+        recipeWriter = writer(recipeParser.recipe)
+        result = recipeWriter.convert(runscript=entrypoint, force=force)
+
+        # If the user specifies an output file, save to it
+        if outfile is not None:
+            write_file(outfile, result)
+
+        # Otherwise, convert and print to screen
+        else:
+            print(result)

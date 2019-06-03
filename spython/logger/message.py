@@ -276,7 +276,7 @@ class SingularityMessage:
         not, a numbered list is used.
         '''
 
-        labels = [str(x) for x in range(1,len(rows)+1)]
+        labels = [str(x) for x in range(1, len(rows) + 1)]
         if isinstance(rows, dict):
             labels = list(rows.keys())
             rows = list(rows.values())

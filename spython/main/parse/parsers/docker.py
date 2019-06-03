@@ -9,25 +9,58 @@ import json
 import os
 import re
 
-from .environment import parse_env
-from .recipe import Recipe
 from spython.logger import bot
+from .base import ParserBase
 
-class DockerRecipe(Recipe):
 
-    def __init__(self, recipe=None):
-        '''a Docker recipe parses a Docker Recipe into the expected fields of
-           labels, environment, and install/runtime commands. We save working
-           directory as we parse, and the last one can be added to the runscript
-           of a Singularity recipe.
+class DockerParser(ParserBase):
+
+    name = 'docker'
+
+    def __init__(self, filename='Dockerfile', load=True):
+        '''a docker parser will read in a Dockerfile and put it into a Recipe
+           object.
 
            Parameters
            ==========
-           recipe: the recipe file (Dockerfile) to parse
+           filename: the Dockerfile to parse. If not defined, deafults to 
+                     Dockerfile assumed to be in the $PWD.
+           load: whether to load the recipe file (default True)
 
         '''
-        self.name = "docker"
-        super(DockerRecipe, self).__init__(recipe)
+        super(DockerParser, self).__init__(filename, load)
+
+
+    def parse(self):
+        '''parse is the base function for parsing the Dockerfile, and extracting
+           elements into the correct data structures. Everything is parsed into
+           lists or dictionaries that can be assembled again on demand. 
+
+           Environment: Since Docker also exports environment as we go, 
+                        we add environment to the environment section and 
+                        install
+
+           Labels: include anything that is a LABEL, ARG, or (deprecated)
+                   maintainer.
+
+           Add/Copy: are treated the same
+
+        '''
+        parser = None
+        previous = None
+
+        for line in self.lines:
+
+            parser = self._get_mapping(line, parser, previous)
+
+            # Parse it, if appropriate
+            if parser:
+                parser(line)
+
+            previous = line
+
+        # Instantiated by ParserBase
+        return self.recipe
 
 
 # Setup for each Parser
@@ -56,16 +89,16 @@ class DockerRecipe(Recipe):
            Parameters
            ==========
            line: the line from the recipe file to parse for FROM
-
+           recipe: the recipe object to populate.
         '''
         fromHeader = self._setup('FROM', line)
 
         # Singularity does not support AS level
-        self.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
+        self.recipe.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
 
-        if "scratch" in self.fromHeader:
+        if "scratch" in self.recipe.fromHeader:
             bot.warning('scratch is no longer available on Docker Hub.')
-        bot.debug('FROM %s' %self.fromHeader) 
+        bot.debug('FROM %s' % self.recipe.fromHeader) 
 
 
 # Run and Test Parser
@@ -79,7 +112,7 @@ class DockerRecipe(Recipe):
 
         '''
         line = self._setup('RUN', line)
-        self.install += line
+        self.recipe.install += line
 
 
     def _test(self, line):
@@ -90,7 +123,7 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse for FROM
 
         '''
-        self.test  = self._setup('HEALTHCHECK', line)
+        self.recipe.test = self._setup('HEALTHCHECK', line)
 
 
 # Arg Parser
@@ -123,13 +156,59 @@ class DockerRecipe(Recipe):
         line = self._setup('ENV', line)
 
         # Extract environment (list) from the line
-        environ = parse_env(line)
+        environ = self.parse_env(line)
 
         # Add to global environment, run during install
-        self.install += environ
+        self.recipe.install += environ
 
         # Also define for global environment
-        self.environ += environ
+        self.recipe.environ += environ
+
+
+    def parse_env(self, envlist):
+        '''parse_env will parse a single line (with prefix like ENV removed) to
+            a list of commands in the format KEY=VALUE For example:
+
+            ENV PYTHONBUFFER 1 --> [PYTHONBUFFER=1]
+            Docker: https://docs.docker.com/engine/reference/builder/#env
+        '''
+        if not isinstance(envlist, list):
+            envlist = [envlist]
+
+        exports = [] 
+
+        for env in envlist:
+
+            pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
+            pieces = [p for p in pieces if p.strip()]
+
+            while pieces:
+                current = pieces.pop(0)
+
+                if current.endswith('='):
+
+                    # Case 1: ['A='] --> A=
+                    nextone = ""
+
+                    # Case 2: ['A=', '"1 2"'] --> A=1 2
+                    if pieces:
+                        nextone = pieces.pop(0)
+                    exports.append("%s%s" %(current, nextone))
+
+                # Case 3: ['A=B']     --> A=B
+                elif '=' in current:
+                    exports.append(current)
+
+                # Case 4: ENV \\
+                elif current.endswith('\\'):
+                    continue
+
+                # Case 5: ['A', 'B']  --> A=B
+                else:
+                    nextone = pieces.pop(0)
+                    exports.append("%s=%s" %(current, nextone))
+
+        return exports
 
 
 # Add and Copy Parser
@@ -199,9 +278,6 @@ class DockerRecipe(Recipe):
            dest: the destiation
         '''
 
-        def expandPath(path):
-            return os.getcwd() if path == "." else path
-        
         # Warn the user Singularity doesn't support expansion
         if '*' in source:
             bot.warning("Singularity doesn't support expansion, * found in %s" % source)
@@ -211,7 +287,7 @@ class DockerRecipe(Recipe):
             bot.warning("%s doesn't exist, ensure exists for build" % source)
         
         # The pair is added to the files as a list
-        self.files.append([expandPath(source), expandPath(dest)])
+        self.recipe.files.append([source, dest])
 
 
     def _parse_http(self, url, dest):
@@ -227,7 +303,7 @@ class DockerRecipe(Recipe):
         file_name = os.path.basename(url)
         download_path = "%s/%s" %(dest, file_name)
         command = "curl %s -o %s" %(url, download_path)
-        self.install.append(command)
+        self.recipe.install.append(command)
 
 
     def _parse_archive(self, targz, dest):
@@ -242,7 +318,7 @@ class DockerRecipe(Recipe):
         '''
 
         # Add command to extract it
-        self.install.append("tar -zvf %s %s" %(targz, dest))
+        self.recipe.install.append("tar -zvf %s %s" %(targz, dest))
 
         # Ensure added to container files
         return self._add_files(targz, dest)
@@ -260,7 +336,7 @@ class DockerRecipe(Recipe):
            line: the line from the recipe file to parse to INSTALL
 
         '''
-        self.install.append(line)
+        self.recipe.install.append(line)
 
 
     def _default(self, line):
@@ -273,7 +349,7 @@ class DockerRecipe(Recipe):
         '''
         if line.strip().startswith('#'):
             return self._comment(line)
-        self.install.append(line)
+        self.recipe.install.append(line)
         
 
 # Ports and Volumes
@@ -289,8 +365,8 @@ class DockerRecipe(Recipe):
 
         '''
         volumes = self._setup('VOLUME', line)
-        if len(volumes) > 0:
-            self.volumes += volumes
+        if volumes:
+            self.recipe.volumes += volumes
         return self._comment("# %s" %line)
 
 
@@ -303,8 +379,8 @@ class DockerRecipe(Recipe):
 
         '''
         ports = self._setup('EXPOSE', line)
-        if len(ports) > 0:
-            self.ports += ports
+        if ports:
+            self.recipe.ports += ports
         return self._comment("# %s" %line)
 
 
@@ -320,9 +396,9 @@ class DockerRecipe(Recipe):
         '''
         # Save the last working directory to add to the runscript
         workdir = self._setup('WORKDIR', line)
-        self.workdir = "cd %s" %(''.join(workdir))
-        self.install.append(self.workdir)
-
+        workdir_cd = "cd %s" %(''.join(workdir))
+        self.recipe.install.append(workdir_cd)
+        self.recipe.workdir = workdir[0]
 
 # Entrypoint and Command
 
@@ -338,7 +414,7 @@ class DockerRecipe(Recipe):
 
         '''
         cmd = self._setup('CMD', line)[0]
-        self.cmd = self._load_list(cmd)
+        self.recipe.cmd = self._load_list(cmd)
 
 
     def _load_list(self, line):
@@ -350,7 +426,7 @@ class DockerRecipe(Recipe):
         '''
         try:
             line = json.loads(line)
-        except json.JSONDecodeError:
+        except: # json.JSONDecodeError
             pass
         return line
 
@@ -364,7 +440,7 @@ class DockerRecipe(Recipe):
 
         '''
         entrypoint = self._setup('ENTRYPOINT', line)[0]
-        self.entrypoint = self._load_list(entrypoint)
+        self.recipe.entrypoint = self._load_list(entrypoint)
 
 
 # Labels
@@ -378,7 +454,7 @@ class DockerRecipe(Recipe):
 
         '''
         label = self._setup('LABEL', line)
-        self.labels += [ label ]
+        self.recipe.labels += [label]
 
 
 # Main Parsing Functions        
@@ -405,7 +481,7 @@ class DockerRecipe(Recipe):
             line = self._split_line(line)
 
         # No line we will give function to handle empty line
-        if len(line) == 0:
+        if not line:
             return None
 
         cmd = line[0].upper()
@@ -440,30 +516,19 @@ class DockerRecipe(Recipe):
         return self._default
  
 
-    def _parse(self):
-        '''parse is the base function for parsing the Dockerfile, and extracting
-           elements into the correct data structures. Everything is parsed into
-           lists or dictionaries that can be assembled again on demand. 
+    def _clean_line(self, line):
+        '''clean line will remove comments, and strip the line of newlines 
+           or spaces.
 
-           Environment: Since Docker also exports environment as we go, 
-                        we add environment to the environment section and 
-                        install
+           Parameters
+           ==========
+           line: the string to parse into parts
 
-           Labels: include anything that is a LABEL, ARG, or (deprecated)
-                   maintainer.
-
-           Add/Copy: are treated the same
+           Returns
+           =======
+           line: a cleaned line
 
         '''
-        parser = None
-        previous = None
-
-        for line in self.lines:
-
-            parser = self._get_mapping(line, parser, previous)
-
-            # Parse it, if appropriate
-            if parser:
-                parser(line)
-
-            previous = line
+        # A line that is None should return empty string
+        line = line or ''
+        return line.split('#')[0].strip()

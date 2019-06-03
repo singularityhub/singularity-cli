@@ -158,21 +158,18 @@
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">stream_command</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
 
 <div class="viewcode-block" id="execute"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.execute.execute">[docs]</a><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-            <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
-            <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">app</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">writable</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">contain</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">bind</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">stream</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">nv</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+            <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">contain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-
     <span class="sd">&#39;&#39;&#39; execute: send a command to a container</span>
 <span class="sd">    </span>
 <span class="sd">        Parameters</span>
@@ -215,6 +212,10 @@
         <span class="c1"># If an instance is provided, grab it&#39;s name</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">):</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span>
+
+        <span class="c1"># If image is still None, not defined by user or previously with client</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please load or provide an image.&#39;</span><span class="p">)</span>
 
         <span class="c1"># Does the user want to use bind paths option?</span>
         <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

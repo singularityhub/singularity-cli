@@ -18,57 +18,57 @@ def get_client(quiet=False, debug=False):
 
     '''
     from spython.utils import get_singularity_version
-    from .base import Client
+    from .base import Client as client
 
-    Client.quiet = quiet
-    Client.debug = debug
+    client.quiet = quiet
+    client.debug = debug
 
     # Do imports here, can be customized
     from .apps import apps
     from .build import build
     from .execute import execute 
-    from .help import help
+    from .help import helpcmd
     from .inspect import inspect
-    from .instances import ( instances, stopall ) # global instance commands
+    from .instances import (list_instances, stopall) # global instance commands
     from .run import run
     from .pull import pull
-    from .export import ( export, _export )
+    from .export import (export, _export)
 
     # Actions
-    Client.apps = apps
-    Client.build = build
-    Client.execute = execute
-    Client.export = export
-    Client._export = _export
-    Client.help = help
-    Client.inspect = inspect
-    Client.instances = instances
-    Client.run = run
-    Client.pull = pull
+    client.apps = apps
+    client.build = build
+    client.execute = execute
+    client.export = export
+    client._export = _export
+    client.help = helpcmd
+    client.inspect = inspect
+    client.instances = list_instances
+    client.run = run
+    client.pull = pull
 
     # Command Groups, Images
     from spython.image.cmd import generate_image_commands  # deprecated
-    Client.image = generate_image_commands()
+    client.image = generate_image_commands()
 
     # Commands Groups, Instances
     from spython.instance.cmd import generate_instance_commands  # instance level commands
-    Client.instance = generate_instance_commands()
-    Client.instance_stopall = stopall
-    Client.instance.version = Client.version
+    client.instance = generate_instance_commands()
+    client.instance_stopall = stopall
+    client.instance.version = client.version
 
     # Commands Groups, OCI (Singularity version 3 and up)
     if "version 3" in get_singularity_version():
         from spython.oci.cmd import generate_oci_commands
-        Client.oci = generate_oci_commands()()  # first () runs function, second
+        client.oci = generate_oci_commands()()  # first () runs function, second
                                                 # initializes OciImage class
-        Client.oci.debug = Client.debug
-        Client.oci.quiet = Client.quiet
-        Client.oci.OciImage.quiet = Client.quiet
-        Client.oci.OciImage.debug = Client.debug
+        client.oci.debug = client.debug
+        client.oci.quiet = client.quiet
+        client.oci.OciImage.quiet = client.quiet
+        client.oci.OciImage.debug = client.debug
 
 
     # Initialize
-    cli = Client()
+    cli = client()
 
     # Pass on verbosity
     for subclient in [cli.image, cli.instance]:

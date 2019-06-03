@@ -31,31 +31,31 @@ class TestUtils(unittest.TestCase):
         import json
         tmpfile = tempfile.mkstemp()[1]
         os.remove(tmpfile)
-        write_file(tmpfile,"hello!")
+        write_file(tmpfile, "hello!")
         self.assertTrue(os.path.exists(tmpfile))        
 
         print("Testing utils.read_file...")
         from spython.utils import read_file
         content = read_file(tmpfile)[0]
-        self.assertEqual("hello!",content)
+        self.assertEqual("hello!", content)
 
         from spython.utils import write_json
         print("Testing utils.write_json...")
         print("...Case 1: Providing bad json")
-        bad_json = {"Wakkawakkawakka'}":[{True},"2",3]}
+        bad_json = {"Wakkawakkawakka'}": [{True}, "2", 3]}
         tmpfile = tempfile.mkstemp()[1]
         os.remove(tmpfile)        
         with self.assertRaises(TypeError):
-            write_json(bad_json,tmpfile)
+            write_json(bad_json, tmpfile)
 
         print("...Case 2: Providing good json")        
-        good_json = {"Wakkawakkawakka":[True,"2",3]}
+        good_json = {"Wakkawakkawakka": [True, "2", 3]}
         tmpfile = tempfile.mkstemp()[1]
         os.remove(tmpfile)
-        write_json(good_json,tmpfile)
-        with open(tmpfile,'r') as filey:
+        write_json(good_json, tmpfile)
+        with open(tmpfile, 'r') as filey:
             content = json.loads(filey.read())
-        self.assertTrue(isinstance(content,dict))
+        self.assertTrue(isinstance(content, dict))
         self.assertTrue("Wakkawakkawakka" in content)
 
 
@@ -135,10 +135,9 @@ class TestUtils(unittest.TestCase):
     def test_remove_uri(self):
         print("Testing utils.remove_uri")
         from spython.utils import remove_uri
-        self.assertEqual(remove_uri('docker://ubuntu'),'ubuntu')
-        self.assertEqual(remove_uri('shub://vanessa/singularity-images'),'vanessa/singularity-images')
-        self.assertEqual(remove_uri('vanessa/singularity-images'),'vanessa/singularity-images')
-
+        self.assertEqual(remove_uri('docker://ubuntu'), 'ubuntu')
+        self.assertEqual(remove_uri('shub://vanessa/singularity-images'), 'vanessa/singularity-images')
+        self.assertEqual(remove_uri('vanessa/singularity-images'), 'vanessa/singularity-images')
 
 
 if __name__ == '__main__':

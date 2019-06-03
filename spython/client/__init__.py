@@ -19,11 +19,11 @@ def get_parser():
                                 add_help=False)
 
     # Global Options
-    parser.add_argument('--debug','-d', dest="debug", 
+    parser.add_argument('--debug', '-d', dest="debug", 
                         help="use verbose logging to debug.", 
                         default=False, action='store_true')
 
-    parser.add_argument('--quiet','-q', dest="quiet", 
+    parser.add_argument('--quiet', '-q', dest="quiet", 
                         help="suppress all normal output", 
                         default=False, action='store_true')
 
@@ -46,14 +46,27 @@ def get_parser():
                          help="define custom entry point and prevent discovery", 
                          default=None, type=str)
 
+    recipe.add_argument('--json', dest="json", 
+                        help="dump the (base) recipe content as json to the terminal", 
+                        default=False, action='store_true')
+
+    recipe.add_argument('--force', dest="force", 
+                        help="if the output file exists, overwrite.", 
+                        default=False, action='store_true')
+
     recipe.add_argument("files", nargs='*',
                         help="the recipe input file and [optional] output file", 
                         type=str)
 
-    parser.add_argument("-i", "--input", type=str, 
-                        default="auto", dest="input",
+    recipe.add_argument("--parser", type=str, 
+                        default="auto", dest="parser",
                         choices=["auto", "docker", "singularity"],
                         help="Is the input a Dockerfile or Singularity recipe?")
+
+    recipe.add_argument("--writer", type=str, 
+                        default="auto", dest="writer",
+                        choices=["auto", "docker", "singularity"],
+                        help="Should we write to Dockerfile or Singularity recipe?")
 
     # General Commands
 
@@ -97,7 +110,7 @@ def main():
 
     parser = get_parser()
 
-    def help(return_code=0):
+    def print_help(return_code=0):
         '''print help, including the software version and active client 
            and exit with return code.
         '''
@@ -107,7 +120,7 @@ def main():
         sys.exit(return_code)
     
     if len(sys.argv) == 1:
-        help()
+        print_help()
     try:
         # We capture all primary arguments, and take secondary to pass on
         args, options = parser.parse_known_args()
@@ -115,7 +128,7 @@ def main():
         sys.exit(0)
 
     # The main function
-    main = None
+    func = None
 
     # If the user wants the version
     if args.version is True:
@@ -126,14 +139,21 @@ def main():
     set_verbosity(args)
 
     # Does the user want help for a subcommand?
-    if args.command == 'recipe': from .recipe import main 
-    elif args.command == 'shell': from .shell import main 
-    elif args.command == 'test': from .test import main 
-    else: help()
+    if args.command == 'recipe': 
+        from .recipe import main as func
+
+    elif args.command == 'shell':
+        from .shell import main as func
+
+    elif args.command == 'test': 
+        from .test import main as func
+
+    else:
+        print_help()
 
     # Pass on to the correct parser
     if args.command is not None:
-        main(args=args, options=options, parser=parser)
+        func(args=args, options=options, parser=parser)
 
 
 if __name__ == '__main__':

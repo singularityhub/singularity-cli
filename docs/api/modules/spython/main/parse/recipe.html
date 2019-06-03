@@ -155,107 +155,23 @@
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> <span class="n">read_file</span><span class="p">,</span> <span class="n">write_file</span> <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">spython.main.parse.converters</span> <span class="k">import</span> <span class="p">(</span>
-    <span class="n">create_runscript</span><span class="p">,</span>
-    <span class="n">create_section</span><span class="p">,</span>
-    <span class="n">docker2singularity</span><span class="p">,</span>
-    <span class="n">singularity2docker</span>
-<span class="p">)</span>
-
 
 <div class="viewcode-block" id="Recipe"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe">[docs]</a><span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;a recipe includes an environment, labels, runscript or command,</span>
-<span class="sd">       and install sequence. This object is subclassed by a Singularity or</span>
-<span class="sd">       Docker recipe, and can be used to convert between the two. The user</span>
-<span class="sd">       can read in one recipe type to convert to another, or provide raw</span>
-<span class="sd">       commands and metadata for generating a recipe.</span>
+<span class="sd">       and install sequence. This object is interacted with by a Parser </span>
+<span class="sd">       (intended to popualte the recipe with content) and a Writer (intended</span>
+<span class="sd">       to write a recipe to file). The parsers and writers are located in</span>
+<span class="sd">       parsers.py, and writers.py, respectively. The user is also free to use</span>
+<span class="sd">       the recipe class to build recipes.</span>
 
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       recipe: the original recipe file, parsed by the subclass either</span>
-<span class="sd">               DockerRecipe or SingularityRecipe</span>
+<span class="sd">               DockerParser or SingularityParser</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Recipe.load"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;load a recipe file into the client, first performing checks, and</span>
-<span class="sd">           then parsing the file.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           recipe: the original recipe file, parsed by the subclass either</span>
-<span class="sd">               DockerRecipe or SingularityRecipe</span>
-<span class="sd"> </span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">recipe</span>           <span class="c1"># the recipe file</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_run_checks</span><span class="p">()</span>             <span class="c1"># does the recipe file exist?</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span></div>
-
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; show the user the recipe object, along with the type. E.g.,</span>
-<span class="sd">       </span>
-<span class="sd">            [spython-recipe][docker]</span>
-<span class="sd">            [spython-recipe][singularity]</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-
-        <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;[spython-recipe]&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
-            <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">base</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
-
-
-    <span class="k">def</span> <span class="nf">_run_checks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;basic sanity checks for the file name (and others if needed) before</span>
-<span class="sd">           attempting parsing.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-            <span class="c1"># Does the recipe provided exist?</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">):</span>
-                <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot find </span><span class="si">%s</span><span class="s2">, is the path correct?&quot;</span> <span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">)</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-            <span class="c1"># Ensure we carry fullpath</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">)</span>
-
-
-<span class="c1"># Parse</span>
-
-<div class="viewcode-block" id="Recipe.parse"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;parse is the base function for parsing the recipe, whether it be</span>
-<span class="sd">           a Dockerfile or Singularity recipe. The recipe is read in as lines,</span>
-<span class="sd">           and saved to a list if needed for the future. If the client has</span>
-<span class="sd">           it, the recipe type specific _parse function is called.</span>
-
-<span class="sd">           Instructions for making a client subparser:</span>
-
-<span class="sd">               It should have a main function _parse that parses a list of lines</span>
-<span class="sd">               from some recipe text file into the appropriate sections, e.g.,</span>
-<span class="sd">               </span>
-<span class="sd">               self.fromHeader</span>
-<span class="sd">               self.environ</span>
-<span class="sd">               self.labels</span>
-<span class="sd">               self.install</span>
-<span class="sd">               self.files</span>
-<span class="sd">               self.test</span>
-<span class="sd">               self.entrypoint</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="p">[]</span>
@@ -267,197 +183,53 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workdir</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">recipe</span>
 
-            <span class="c1"># Read in the raw lines of the file</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">read_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe</span><span class="p">)</span>
-
-            <span class="c1"># If properly instantiated by Docker or Singularity Recipe, parse</span>
-            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_parse&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_parse</span><span class="p">()</span></div>
-
-
-<span class="c1"># Convert and Save</span>
-
-
-<div class="viewcode-block" id="Recipe.save"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                   <span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                   <span class="n">runscript</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span>
-                   <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-
-        <span class="sd">&#39;&#39;&#39;save will convert a recipe to a specified format (defaults to the</span>
-<span class="sd">           opposite of the recipe type originally loaded, (e.g., docker--&gt;</span>
-<span class="sd">           singularity and singularity--&gt;docker) and write to an output file,</span>
-<span class="sd">           if specified. If not specified, a temporary file is used.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           output_file: the file to save to, not required (estimates default)</span>
-<span class="sd">           convert_to: can be manually forced (docker or singularity)</span>
-<span class="sd">           runscript: default runscript (entrypoint) to use</span>
-<span class="sd">           force: if True, override discovery from Dockerfile</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; show the user the recipe object, along with the type. E.g.,</span>
+<span class="sd">       </span>
+<span class="sd">            [spython-recipe][source:Singularity]</span>
+<span class="sd">            [spython-recipe][source:Dockerfile]</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;[spython-recipe]&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">[source:</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base</span>
 
-        <span class="n">converted</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">convert_to</span><span class="p">,</span> <span class="n">runscript</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">output_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">output_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conversion_outfile</span><span class="p">(</span><span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Saving to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">output_file</span><span class="p">)</span>
-        <span class="n">write_file</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">converted</span><span class="p">)</span></div>
-        
+<div class="viewcode-block" id="Recipe.json"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;return a dictionary version of the recipe, intended to be parsed</span>
+<span class="sd">           or printed as json.</span>
 
-<div class="viewcode-block" id="Recipe.convert"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                      <span class="n">runscript</span><span class="o">=</span><span class="s2">&quot;/bin/bash&quot;</span><span class="p">,</span> 
-                      <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-
-        <span class="sd">&#39;&#39;&#39;This is a convenience function for the user to easily call to get</span>
-<span class="sd">           the most likely desired result, conversion to the opposite format.</span>
-<span class="sd">           We choose the selection based on the recipe name - meaning that we</span>
-<span class="sd">           perform conversion with default based on recipe name. If the recipe</span>
-<span class="sd">           object is DockerRecipe, we convert to Singularity. If the recipe</span>
-<span class="sd">           object is SingularityRecipe, we convert to Docker. The user can</span>
-<span class="sd">           override this by setting the variable convert_to</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           convert_to: can be manually forced (docker or singularity)</span>
-<span class="sd">           runscript: default runscript (entrypoint) to use</span>
-<span class="sd">           force: if True, override discovery from Dockerfile</span>
-
+<span class="sd">           Returns: a dictionary of attributes including cmd, comments,</span>
+<span class="sd">                    entrypoint, environ, files, install, labels, ports,</span>
+<span class="sd">                    test, volumes, and workdir.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">converter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_converter</span><span class="p">(</span><span class="n">convert_to</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">converter</span><span class="p">(</span><span class="n">runscript</span><span class="o">=</span><span class="n">runscript</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span></div>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cmd&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;comments&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;entrypoint&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;environ&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;files&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;install&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;labels&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;ports&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;test&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;volumes&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;workdir&#39;</span><span class="p">]</span>
 
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
 
+        <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-<span class="c1"># Internal Helpers</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-
-    <span class="k">def</span> <span class="nf">_get_converter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;see convert and save. This is a helper function that returns </span>
-<span class="sd">           the proper conversion function, but doesn&#39;t call it. We do this</span>
-<span class="sd">           so that in the case of convert, we do the conversion and return</span>
-<span class="sd">           a string. In the case of save, we save the recipe to file for the </span>
-<span class="sd">           user.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           convert_to: a string either docker or singularity, if a different</span>
-
-<span class="sd">           Returns</span>
-<span class="sd">           =======</span>
-<span class="sd">           converter: the function to do the conversion</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">conversion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conversion_type</span><span class="p">(</span><span class="n">convert_to</span><span class="p">)</span>
-
-        <span class="c1"># Perform conversion</span>
-        <span class="k">if</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s2">&quot;singularity&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">docker2singularity</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">singularity2docker</span>
-
-
-
-    <span class="k">def</span> <span class="nf">_get_conversion_outfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;a helper function to return a conversion temporary output file</span>
-<span class="sd">           based on kind of conversion</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           convert_to: a string either docker or singularity, if a different</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">conversion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conversion_type</span><span class="p">(</span><span class="n">convert_to</span><span class="p">)</span>
-        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;Singularity&quot;</span>
-        <span class="k">if</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s2">&quot;docker&quot;</span><span class="p">:</span>
-            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;Dockerfile&quot;</span>
-        <span class="n">suffix</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">_get_candidate_names</span><span class="p">())</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
-
-
-
-    <span class="k">def</span> <span class="nf">_get_conversion_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">convert_to</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;a helper function to return the conversion type based on user </span>
-<span class="sd">           preference and input recipe.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           convert_to: a string either docker or singularity (default None)</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">acceptable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="s1">&#39;docker&#39;</span><span class="p">]</span>
-
-        <span class="c1"># Default is to convert to opposite kind</span>
-        <span class="n">conversion</span> <span class="o">=</span> <span class="s2">&quot;singularity&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;singularity&quot;</span><span class="p">:</span>
-            <span class="n">conversion</span> <span class="o">=</span> <span class="s2">&quot;docker&quot;</span>
-
-        <span class="c1"># Unless the user asks for a specific type</span>
-        <span class="k">if</span> <span class="n">convert_to</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">convert_to</span> <span class="ow">in</span> <span class="n">acceptable</span><span class="p">:</span>
-            <span class="n">conversion</span> <span class="o">=</span> <span class="n">convert_to</span>
-        <span class="k">return</span> <span class="n">conversion</span>
-
-
-
-    <span class="k">def</span> <span class="nf">_split_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;clean a line to prepare it for parsing, meaning separation</span>
-<span class="sd">           of commands. We remove newlines (from ends) along with extra spaces.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           line: the string to parse into parts</span>
-<span class="sd">    </span>
-<span class="sd">           Returns</span>
-<span class="sd">           =======</span>
-<span class="sd">           parts: a list of line pieces, the command is likely first</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
-
-
-    <span class="k">def</span> <span class="nf">_clean_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;clean line will remove comments, and strip the line of newlines </span>
-<span class="sd">           or spaces.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           line: the string to parse into parts</span>
-
-<span class="sd">           Returns</span>
-<span class="sd">           =======</span>
-<span class="sd">           line: a cleaned line</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1"># A line that is None should return empty string</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
-
-    <span class="k">def</span> <span class="nf">_write_script</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">chmod</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;write a script with some lines content to path in the image. This</span>
-<span class="sd">           is done by way of adding echo statements to the install section.</span>
-
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           path: the path to the file to write</span>
-<span class="sd">           lines: the lines to echo to the file</span>
-<span class="sd">           chmod: If true, change permission to make u+x</span>
-
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">lastline</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;echo &quot;</span><span class="si">%s</span><span class="s1">&quot; &gt;&gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lastline</span><span class="p">)</span>     
-
-        <span class="k">if</span> <span class="n">chmod</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;chmod u+x </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">path</span><span class="p">)</span></div>
-
-<span class="n">Recipe</span><span class="o">.</span><span class="n">docker2singularity</span> <span class="o">=</span> <span class="n">docker2singularity</span>
-<span class="n">Recipe</span><span class="o">.</span><span class="n">singularity2docker</span> <span class="o">=</span> <span class="n">singularity2docker</span>
-<span class="n">Recipe</span><span class="o">.</span><span class="n">_create_section</span> <span class="o">=</span> <span class="n">create_section</span>
-<span class="n">Recipe</span><span class="o">.</span><span class="n">_create_runscript</span> <span class="o">=</span> <span class="n">create_runscript</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

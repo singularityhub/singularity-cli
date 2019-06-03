@@ -1,0 +1,3 @@
+FROM busybox:latest
+LABEL Maintainer dinosaur
+LABEL Version 1.0.0

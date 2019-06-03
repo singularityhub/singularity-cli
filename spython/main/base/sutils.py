@@ -55,7 +55,7 @@ def get_filename(self, image, ext='sif', pwd=True):
     '''
     if pwd is True:
         image = os.path.basename(image)
-    image = re.sub('^.*://','', image)
+    image = re.sub('^.*://', '', image)
     if not image.endswith(ext):
         image = "%s.%s" %(image, ext)
     return image

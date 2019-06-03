@@ -42,7 +42,7 @@ class TestOci(unittest.TestCase):
         return image
 
     def test_oci_image(self):
-        image=self.cli.oci.OciImage('oci://imagename')
+        image = self.cli.oci.OciImage('oci://imagename')
         self.assertEqual(image.get_uri(), '[singularity-python-oci:oci://imagename]')
 
     def test_oci(self):
@@ -68,7 +68,6 @@ class TestOci(unittest.TestCase):
                                       command=['ls', '/'])
 
         print(result)
-        print(self.cli.version_info())
 
         if self.cli.version_info() >= VersionInfo(3, 2, 0, "1"):
             self.assertTrue(result['return_code'] == 255)

@@ -116,7 +116,7 @@ class OciImage(ImageBase):
                                    return_result=True)
 
         # Successful return with no output
-        if len(result) == 0:
+        if not result:
             return 
 
         # Show the response to the user, only if not quiet.

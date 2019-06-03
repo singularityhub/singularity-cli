@@ -251,10 +251,15 @@ and return the new image name.</p>
 <dl class="function">
 <dt id="spython.utils.terminal.get_singularity_version">
 <code class="descclassname">spython.utils.terminal.</code><code class="descname">get_singularity_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_singularity_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_singularity_version" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the singularity client version. Useful in the case that functionality
-has changed, etc. Can be “hacked” if needed by exporting
-SPYTHON_SINGULARITY_VERSION, which is checked before checking on the
-command line.</p>
+<dd><p>get the full singularity client version as reported by
+singularity –version […]. For Singularity 3.x, this means:
+“singularity version 3.0.1-1”</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.get_singularity_version_info">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">get_singularity_version_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_singularity_version_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_singularity_version_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the full singularity client version as a semantic version”</p>
 </dd></dl>
 
 <dl class="function">
@@ -281,6 +286,14 @@ as output.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.split_uri">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">split_uri</code><span class="sig-paren">(</span><em>container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#split_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.split_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the uri of a container into the protocol and image part</p>
+<p>An empty protocol is returned if none found.
+A trailing slash is removed from the image part.</p>
 </dd></dl>
 
 <dl class="function">

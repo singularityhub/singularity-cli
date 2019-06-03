@@ -154,9 +154,6 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">threading</span>
@@ -169,20 +166,23 @@
 <div class="viewcode-block" id="Spinner.spinning_cursor"><a class="viewcode-back" href="../../../source/spython.logger.html#spython.logger.message.Spinner.spinning_cursor">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">spinning_cursor</span><span class="p">():</span>
         <span class="k">while</span> <span class="mi">1</span><span class="p">:</span> 
-            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;|/-</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span> <span class="k">yield</span> <span class="n">cursor</span></div>
+            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;|/-</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">cursor</span></div>
 
 <div class="viewcode-block" id="Spinner.balloons_cursor"><a class="viewcode-back" href="../../../source/spython.logger.html#spython.logger.message.Spinner.balloons_cursor">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">balloons_cursor</span><span class="p">():</span>
         <span class="k">while</span> <span class="mi">1</span><span class="p">:</span> 
-            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;. o O @ *&#39;</span><span class="p">:</span> <span class="k">yield</span> <span class="n">cursor</span></div>
+            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;. o O @ *&#39;</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">cursor</span></div>
 
 <div class="viewcode-block" id="Spinner.changing_arrows"><a class="viewcode-back" href="../../../source/spython.logger.html#spython.logger.message.Spinner.changing_arrows">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">changing_arrows</span><span class="p">():</span>
         <span class="k">while</span> <span class="mi">1</span><span class="p">:</span> 
-            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;&lt;^&gt;v&#39;</span><span class="p">:</span> <span class="k">yield</span> <span class="n">cursor</span></div>
+            <span class="k">for</span> <span class="n">cursor</span> <span class="ow">in</span> <span class="s1">&#39;&lt;^&gt;v&#39;</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">cursor</span></div>
 
 <div class="viewcode-block" id="Spinner.select_generator"><a class="viewcode-back" href="../../../source/spython.logger.html#spython.logger.message.Spinner.select_generator">[docs]</a>    <span class="k">def</span> <span class="nf">select_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">generator</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">generator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">generator</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="s1">&#39;cursor&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;arrow&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;balloons&#39;</span><span class="p">])</span>
@@ -198,7 +198,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">spinner_generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">changing_arrows</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">generator</span> <span class="o">==</span> <span class="s1">&#39;balloons&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">spinner_generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">balloons_cursor</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">delay</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">delay</span> <span class="o">=</span> <span class="mf">0.2</span>
+            <span class="k">if</span> <span class="n">delay</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">delay</span> <span class="o">=</span> <span class="mf">0.2</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">spinner_generator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spinning_cursor</span><span class="p">()</span>
 

@@ -26,14 +26,14 @@ def apps(self, image=None, full_path=False, root=''):
     if image is None:
         image = self._get_uri()
 
-    cmd = self._init_command('apps') + [ image ]
+    cmd = self._init_command('apps') + [image]
     output = self._run_command(cmd)
 
     if full_path is True:
         root = '/scif/apps/'
 
-    if len(output) > 0:
+    if output:
         output = ''.join(output).split('\n')
-        output = ['%s%s' %(root,x) for x in output if x]
+        output = ['%s%s' %(root, x) for x in output if x]
 
     return output

@@ -11,17 +11,16 @@ from spython.utils import stream_command
 import json
 
 def run(self, 
-        image = None,
-        args = None,
-        app = None,
-        sudo = False,
-        writable = False,
-        contain = False,
-        bind = None,
-        stream = False,
-        nv = False,
+        image=None,
+        args=None,
+        app=None,
+        sudo=False,
+        writable=False,
+        contain=False,
+        bind=None,
+        stream=False,
+        nv=False,
         return_result=False):
-
     '''
         run will run the container, with or withour arguments (which
         should be provided in a list)

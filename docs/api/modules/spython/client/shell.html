@@ -156,20 +156,15 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">import</span> <span class="nn">sys</span>
-
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
-
-    <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">Client</span> <span class="k">as</span> <span class="n">cli</span>
-
     <span class="c1"># If we have options, first is image</span>
     <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">options</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
  
-    <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;ipython&#39;</span><span class="p">:</span> <span class="n">ipython</span><span class="p">,</span>
-               <span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span>
-               <span class="s1">&#39;bpython&#39;</span><span class="p">:</span> <span class="n">bpython</span> <span class="p">}</span>
+    <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ipython&#39;</span><span class="p">:</span> <span class="n">ipython</span><span class="p">,</span>
+              <span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span>
+              <span class="s1">&#39;bpython&#39;</span><span class="p">:</span> <span class="n">run_bpython</span><span class="p">}</span>
 
     <span class="n">shells</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ipython&#39;</span><span class="p">,</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;bpython&#39;</span><span class="p">]</span>
 
@@ -180,52 +175,51 @@
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="k">pass</span></div>
     
+<div class="viewcode-block" id="prepare_client"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.prepare_client">[docs]</a><span class="k">def</span> <span class="nf">prepare_client</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;prepare a client to embed in a shell with recipe parsers and writers.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># The client will announce itself (backend/database) unless it&#39;s get</span>
+    <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">get_client</span>
+    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="n">parsers</span>
+    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="n">writers</span>
+
+    <span class="n">client</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">()</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+    <span class="c1"># Add recipe parsers</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">parsers</span> <span class="o">=</span> <span class="n">parsers</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">writers</span> <span class="o">=</span> <span class="n">writers</span>
+    <span class="k">return</span> <span class="n">client</span></div>
 
 <div class="viewcode-block" id="ipython"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.ipython">[docs]</a><span class="k">def</span> <span class="nf">ipython</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;give the user an ipython shell</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">prepare_client</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="c1"># pylint: disable=unused-variable</span>
 
-    <span class="c1"># The client will announce itself (backend/database) unless it&#39;s get</span>
-    <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">get_client</span>
-    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="p">(</span> <span class="n">DockerRecipe</span><span class="p">,</span> <span class="n">SingularityRecipe</span> <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">IPython</span> <span class="k">import</span> <span class="n">embed</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">python</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-    <span class="n">client</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">()</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-    <span class="c1"># Add recipe parsers</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">DockerRecipe</span> <span class="o">=</span> <span class="n">DockerRecipe</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">SingularityRecipe</span> <span class="o">=</span> <span class="n">SingularityRecipe</span>
-
-    <span class="kn">from</span> <span class="nn">IPython</span> <span class="k">import</span> <span class="n">embed</span>
     <span class="n">embed</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="bpython"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.bpython">[docs]</a><span class="k">def</span> <span class="nf">bpython</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+<div class="viewcode-block" id="run_bpython"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.run_bpython">[docs]</a><span class="k">def</span> <span class="nf">run_bpython</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;give the user a bpython shell</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">prepare_client</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
-    <span class="kn">import</span> <span class="nn">bpython</span>
-    <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">get_client</span>
-    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="p">(</span> <span class="n">DockerRecipe</span><span class="p">,</span> <span class="n">SingularityRecipe</span> <span class="p">)</span>
-
-    <span class="n">client</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">()</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-   
-    <span class="c1"># Add recipe parsers</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">DockerRecipe</span> <span class="o">=</span> <span class="n">DockerRecipe</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">SingularityRecipe</span> <span class="o">=</span> <span class="n">SingularityRecipe</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">bpython</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">python</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
     <span class="n">bpython</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">locals_</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;client&#39;</span><span class="p">:</span> <span class="n">client</span><span class="p">})</span></div>
 
 <div class="viewcode-block" id="python"><a class="viewcode-back" href="../../../source/spython.client.html#spython.client.shell.python">[docs]</a><span class="k">def</span> <span class="nf">python</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;give the user a python shell</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">import</span> <span class="nn">code</span>
-    <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">get_client</span>
-    <span class="kn">from</span> <span class="nn">spython.main.parse</span> <span class="k">import</span> <span class="p">(</span> <span class="n">DockerRecipe</span><span class="p">,</span> <span class="n">SingularityRecipe</span> <span class="p">)</span>
-
-    <span class="n">client</span> <span class="o">=</span> <span class="n">get_client</span><span class="p">()</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-    <span class="c1"># Add recipe parsers</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">DockerRecipe</span> <span class="o">=</span> <span class="n">DockerRecipe</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">SingularityRecipe</span> <span class="o">=</span> <span class="n">SingularityRecipe</span>
-
+    <span class="n">client</span> <span class="o">=</span> <span class="n">prepare_client</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">code</span><span class="o">.</span><span class="n">interact</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;client&quot;</span><span class="p">:</span><span class="n">client</span><span class="p">})</span></div>
 </pre></div>
 

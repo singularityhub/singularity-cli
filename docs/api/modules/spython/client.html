@@ -167,11 +167,11 @@
                                 <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># Global Options</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> 
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use verbose logging to debug.&quot;</span><span class="p">,</span> 
                         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
 
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">,</span><span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--quiet&#39;</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> 
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;suppress all normal output&quot;</span><span class="p">,</span> 
                         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
 
@@ -194,14 +194,27 @@
                          <span class="n">help</span><span class="o">=</span><span class="s2">&quot;define custom entry point and prevent discovery&quot;</span><span class="p">,</span> 
                          <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 
+    <span class="n">recipe</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--json&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> 
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;dump the (base) recipe content as json to the terminal&quot;</span><span class="p">,</span> 
+                        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+
+    <span class="n">recipe</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--force&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> 
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;if the output file exists, overwrite.&quot;</span><span class="p">,</span> 
+                        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+
     <span class="n">recipe</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;the recipe input file and [optional] output file&quot;</span><span class="p">,</span> 
                         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
-                        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;input&quot;</span><span class="p">,</span>
+    <span class="n">recipe</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--parser&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+                        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;parser&quot;</span><span class="p">,</span>
                         <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;docker&quot;</span><span class="p">,</span> <span class="s2">&quot;singularity&quot;</span><span class="p">],</span>
                         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Is the input a Dockerfile or Singularity recipe?&quot;</span><span class="p">)</span>
+
+    <span class="n">recipe</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--writer&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> 
+                        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;writer&quot;</span><span class="p">,</span>
+                        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;docker&quot;</span><span class="p">,</span> <span class="s2">&quot;singularity&quot;</span><span class="p">],</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Should we write to Dockerfile or Singularity recipe?&quot;</span><span class="p">)</span>
 
     <span class="c1"># General Commands</span>
 
@@ -209,23 +222,6 @@
     <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Container testing (TBD)&#39;&#39;&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">parser</span></div>
-
-
-
-<div class="viewcode-block" id="get_subparsers"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.get_subparsers">[docs]</a><span class="k">def</span> <span class="nf">get_subparsers</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;get_subparser will get a dictionary of subparsers, to help with printing help</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">_actions</span> 
-               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_SubParsersAction</span><span class="p">)]</span>
-
-    <span class="n">subparsers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
-        <span class="c1"># get all subparsers and print help</span>
-        <span class="k">for</span> <span class="n">choice</span><span class="p">,</span> <span class="n">subparser</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">choices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">subparsers</span><span class="p">[</span><span class="n">choice</span><span class="p">]</span> <span class="o">=</span> <span class="n">subparser</span>
-
-    <span class="k">return</span> <span class="n">subparsers</span></div>
 
 
 <div class="viewcode-block" id="set_verbosity"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.set_verbosity">[docs]</a><span class="k">def</span> <span class="nf">set_verbosity</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
@@ -261,9 +257,8 @@
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/spython.client.html#spython.client.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
     <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
-    <span class="n">subparsers</span> <span class="o">=</span> <span class="n">get_subparsers</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">print_help</span><span class="p">(</span><span class="n">return_code</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;print help, including the software version and active client </span>
 <span class="sd">           and exit with return code.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -273,7 +268,7 @@
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">return_code</span><span class="p">)</span>
     
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">help</span><span class="p">()</span>
+        <span class="n">print_help</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># We capture all primary arguments, and take secondary to pass on</span>
         <span class="n">args</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
@@ -281,7 +276,7 @@
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># The main function</span>
-    <span class="n">main</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># If the user wants the version</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">version</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -292,14 +287,21 @@
     <span class="n">set_verbosity</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
     <span class="c1"># Does the user want help for a subcommand?</span>
-    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">.recipe</span> <span class="k">import</span> <span class="n">main</span> 
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;shell&#39;</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">.shell</span> <span class="k">import</span> <span class="n">main</span> 
-    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">.test</span> <span class="k">import</span> <span class="n">main</span> 
-    <span class="k">else</span><span class="p">:</span> <span class="n">help</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;recipe&#39;</span><span class="p">:</span> 
+        <span class="kn">from</span> <span class="nn">.recipe</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;shell&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">.shell</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;test&#39;</span><span class="p">:</span> 
+        <span class="kn">from</span> <span class="nn">.test</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">print_help</span><span class="p">()</span>
 
     <span class="c1"># Pass on to the correct parser</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></div>
+        <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
