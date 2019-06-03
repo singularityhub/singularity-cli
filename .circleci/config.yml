@@ -73,20 +73,8 @@ run_linter: &run_linter
       pylint spython
 
 test_spython: &test_spython
-  name: Test Singularity Python (Singularity Version 2 and 3)
-  command: |
-      cd ~/repo/spython/tests
-      /bin/bash test_client.sh
-
-      cd ~/repo/spython
-      pytest -k 'not test_oci'
-
-test_spython_3: &test_spython_3
-  name: Test Singularity Python (Singularity Version 3 Only)
-  command: |
-      cd ~/repo/spython
-      pytest -k 'test_oci'
-
+  name: Test Singularity Python
+  command: pytest ~/repo/spython
 
 jobs:
   test-singularity-3-python-3:
@@ -111,7 +99,6 @@ jobs:
           key: v1-dependencies-py3
       - run: *run_linter
       - run: *test_spython
-      - run: *test_spython_3
 
   test-singularity-3-1-python-3:
     machine: true
@@ -134,7 +121,6 @@ jobs:
             - ~/conda
           key: v1-dependencies-py3
       - run: *test_spython
-      - run: *test_spython_3
 
   test-singularity-3-2-python-3:
     machine: true
@@ -157,7 +143,6 @@ jobs:
             - ~/conda
           key: v1-dependencies-py3
       - run: *test_spython
-      - run: *test_spython_3
 
   test-singularity-3-python-2:
     machine: true
@@ -180,7 +165,6 @@ jobs:
             - ~/conda
           key: v1-dependencies-py2
       - run: *test_spython
-      - run: *test_spython_3
 
   test-singularity-2-python-3:
     machine: true
