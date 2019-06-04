@@ -57,13 +57,13 @@ def parse_verbosity(self, args):
 
     flags = []
 
-    if args.silent is True:
+    if args.silent:
         flags.append('--silent')
-    elif args.quiet is True:
+    elif args.quiet:
         flags.append('--quiet')
-    elif args.debug is True:
+    elif args.debug:
         flags.append('--debug')
-    elif args.verbose is True:
+    elif args.verbose:
         flags.append('-' + 'v' * args.verbose)
 
     return flags

@@ -6,7 +6,9 @@ from .fileio import (
     read_json
 )
 
-from .terminal import ( 
+from .misc import ScopedEnvVar
+
+from .terminal import (
     check_install, 
     get_installdir,
     get_singularity_version,

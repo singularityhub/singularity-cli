@@ -43,7 +43,7 @@ class ParserBase(object):
             self.lines = read_file(self.filename)
 
             # If parsing function defined, parse the recipe
-            if load is True:
+            if load:
                 self.parse()
 
 

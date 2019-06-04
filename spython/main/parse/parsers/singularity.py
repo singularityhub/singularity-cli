@@ -399,5 +399,5 @@ class SingularityParser(ParserBase):
         for line in lines:
             self.recipe.install.append('echo "%s" >> %s' % (line, path))
 
-        if chmod is True:
+        if chmod:
             self.recipe.install.append('chmod u+x %s' % path)

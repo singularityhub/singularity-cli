@@ -32,7 +32,7 @@ class Instance(ImageBase):
         self.cmd = []
 
         # Start the instance
-        if start is True:
+        if start:
             self.start(**kwargs)
 
 # Unique resource identifier

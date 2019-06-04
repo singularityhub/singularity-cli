@@ -7,7 +7,7 @@
 
 
 from spython.logger import bot
-from spython.utils import stream_command
+from spython.utils import stream_command, ScopedEnvVar
 import os
 import re
 
@@ -15,7 +15,7 @@ def pull(self,
          image=None,
          name=None,
          pull_folder='',
-         ext="simg",
+         ext=None,
          force=False,
          capture=False,
          stream=False):
@@ -39,9 +39,8 @@ def pull(self,
 
     cmd = self._init_command('pull')
 
-    # If Singularity version > 3.0, we have sif format
-    if 'version 3' in self.version():
-        ext = 'sif'
+    if not ext:
+        ext = 'sif' if 'version 3' in self.version() else 'simg'
 
     # No image provided, default to use the client's loaded image
     if image is None:
@@ -61,32 +60,33 @@ def pull(self,
 
     print('name is %s' % name)        
 
-    # Regression Singularity 3.* onward, PULLFOLDER not honored
-    # https://github.com/sylabs/singularity/issues/2788
-    if pull_folder and 'version 3' in self.version():
+    if pull_folder:
         final_image = os.path.join(pull_folder, os.path.basename(name))
-        cmd = cmd + ["--name", final_image]          
+    
+        # Regression Singularity 3.* onward, PULLFOLDER not honored
+        # https://github.com/sylabs/singularity/issues/2788
+        if 'version 3' in self.version():
+            name = final_image
+            pull_folder = None # Don't use pull_folder
     else:
         final_image = name
-        cmd = cmd + ["--name", name]
 
-    if force is True:
+    cmd = cmd + ["--name", name]
+
+    if force:
         cmd = cmd + ["--force"]
-   
+
     cmd.append(image)
     bot.info(' '.join(cmd))
 
-    # If name is still None, make empty string
-    if name is None:
-        name = ''
+    with ScopedEnvVar('SINGULARITY_PULLFOLDER', pull_folder):
+        # Option 1: Streaming we just run to show user
+        if not stream:
+            self._run_command(cmd, capture=capture)
 
-    # Option 1: Streaming we just run to show user
-    if stream is False:
-        self._run_command(cmd, capture=capture)
-
-    # Option 3: A custom name we can predict (not commit/hash) and can also show
-    else:
-        return final_image, stream_command(cmd, sudo=False)
+        # Option 3: A custom name we can predict (not commit/hash) and can also show
+        else:
+            return final_image, stream_command(cmd, sudo=False)
 
     if os.path.exists(final_image):
         bot.info(final_image)

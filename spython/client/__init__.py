@@ -81,9 +81,9 @@ def set_verbosity(args):
     '''
     level = "INFO"
 
-    if args.debug is True:
+    if args.debug:
         level = "DEBUG"
-    elif args.quiet is True:
+    elif args.quiet:
         level = "QUIET"
 
     os.environ['MESSAGELEVEL'] = level
@@ -131,7 +131,7 @@ def main():
     func = None
 
     # If the user wants the version
-    if args.version is True:
+    if args.version:
         print(version())
         sys.exit(0)
 

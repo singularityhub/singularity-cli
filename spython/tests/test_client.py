@@ -6,86 +6,58 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
 from spython.main import Client
-import unittest
-import tempfile
 import shutil
 import os
 
 
-print("########################################################### test_client")
+def test_build_from_docker(tmp_path):
+    container = str(tmp_path / "container.sif")
 
-class TestClient(unittest.TestCase):
+    created_container = Client.build('docker://busybox:1.30.1', 
+                                     image=container,
+                                     sudo=False)
+    assert created_container == container
+    assert os.path.exists(created_container)
 
-    def setUp(self):
-        self.pwd = get_installdir()
-        self.cli = Client
-        self.tmpdir = tempfile.mkdtemp()
+def test_export():
+    sandbox = "busybox:1.30.sandbox"
+    created_sandbox = Client.export('docker://busybox:1.30.1')
+    assert created_sandbox == sandbox
+    assert os.path.exists(created_sandbox)
+    shutil.rmtree(created_sandbox)
 
-    def tearDown(self):
-        shutil.rmtree(self.tmpdir)
+def test_pull_and_run(tmp_path):
+    image = Client.pull("shub://vsoch/singularity-images", 
+                        pull_folder=str(tmp_path))
+    print(image)
+    assert os.path.exists(image)
+    ext = 'sif' if Client.version_info().major >= 3 else 'simg'
+    assert image == str(tmp_path / ('singularity-images.' + ext))
 
-    def test_commands(self):
+    result = Client.run(image)
+    print(result)
+    assert 'You say please, but all I see is pizza..' in result
 
-        print('Testing client.build command')
-        container = "%s/container.sif" %(self.tmpdir)
+def test_docker_pull(docker_container):
+    tmp_path, container = docker_container
+    print(container)
+    ext = 'sif' if Client.version_info().major >= 3 else 'simg'
+    assert container == str(tmp_path / ("busybox:1.30.1." + ext))
+    assert os.path.exists(container)
 
-        print("...Case 1: Build from docker uri")
-        created_container = self.cli.build('docker://busybox:1.30.1', 
-                                           image=container,
-                                           sudo=False)
-        self.assertEqual(created_container, container)
-        self.assertTrue(os.path.exists(created_container))
-        os.remove(container)
+def test_execute(docker_container):
+    result = Client.execute(docker_container[1], 'ls /')
+    print(result)
+    assert 'tmp\nusr\nvar' in result
 
-        print('Testing client.export command')
-        sandbox = "busybox:1.30.sandbox"
-        created_sandbox = self.cli.export('docker://busybox:1.30.1')
-        self.assertEqual(created_sandbox, sandbox)
-        self.assertTrue(os.path.exists(created_sandbox))
-        shutil.rmtree(created_sandbox)
+def test_execute_with_return_code(docker_container):
+    result = Client.execute(docker_container[1], 'ls /', return_result=True)
+    print(result)
+    assert 'tmp\nusr\nvar' in result['message']
+    assert result['return_code'] == 0
 
-        print("Testing client.pull command")
-        print("...Case 1: Testing naming pull by image name")
-        image = self.cli.pull("shub://vsoch/singularity-images", 
-                              pull_folder=self.tmpdir)
-        self.assertTrue(os.path.exists(image))
-        self.assertTrue('singularity-images' in image)
-        print(image)
-
-        print('Testing client.run command')
-        result = self.cli.run(image)
-        print(result)
-        self.assertTrue('You say please, but all I see is pizza..' in result)
-        os.remove(image)
-
-        print("...Case 2: Testing docker pull")
-        container = self.cli.pull("docker://busybox:1.30.1",
-                                   pull_folder=self.tmpdir)
-        self.assertTrue("busybox:1.30.1" in container)
-
-        print(container)
-        self.assertTrue(os.path.exists(container))
-
-        print('Testing client.execute command')
-        result = self.cli.execute(container, 'ls /')
-        print(result)
-        self.assertTrue('tmp\nusr\nvar' in result)
-
-        print('Testing client.execute command with return code')
-        result = self.cli.execute(container, 'ls /', return_result=True)
-        print(result)
-        self.assertTrue('tmp\nusr\nvar' in result['message'])
-        self.assertEqual(result['return_code'], 0)
-
-        print("Testing client.inspect command")
-        result = self.cli.inspect(container)
-        self.assertEqual(result['type'], 'container')
-        self.assertTrue('attributes' in result)
-
-        os.remove(container)
-
-
-if __name__ == '__main__':
-    unittest.main()
+def test_inspect(docker_container):
+    result = Client.inspect(docker_container[1])
+    assert result['type'] == 'container'
+    assert 'attributes' in result

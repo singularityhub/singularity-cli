@@ -73,7 +73,7 @@ def read_file(filename, mode="r", readlines=True):
     and properly close the file
     '''
     with open(filename, mode) as filey:
-        if readlines is True:
+        if readlines:
             content = filey.readlines()
         else:
             content = filey.read()

@@ -8,6 +8,7 @@
 import os
 import sys
 from .spinner import Spinner
+from spython.logger import decodeUtf8String
 
 ABORT = -5
 CRITICAL = -4
@@ -150,9 +151,7 @@ class SingularityMessage:
         '''write will write a message to a stream,
         first checking the encoding
         '''
-        if isinstance(message, bytes):
-            message = message.decode('utf-8')
-        stream.write(message)
+        stream.write(decodeUtf8String(message))
 
     def get_logs(self, join_newline=True):
         ''''get_logs will return the complete history, joined by newline

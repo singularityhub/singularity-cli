@@ -7,6 +7,7 @@
 
 
 import os
+from spython.logger import decodeUtf8String
 
 def init_level(self, quiet=False):
     '''set the logging level based on the environment
@@ -35,7 +36,5 @@ def println(self, output, quiet=False):
        quiet: a runtime variable to over-ride the default.
 
     '''
-    if isinstance(output, bytes):
-        output = output.decode('utf-8')
-    if self.quiet is False and quiet is False:
-        print(output)
+    if not self.quiet and not quiet:
+        print(decodeUtf8String(output))

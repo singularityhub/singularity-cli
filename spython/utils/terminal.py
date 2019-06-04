@@ -12,6 +12,7 @@ import os
 import re
 import semver
 from spython.logger import bot
+from spython.logger import decodeUtf8String
 import subprocess
 import sys
 
@@ -38,7 +39,7 @@ def check_install(software='singularity', quiet=True):
         if version['return_code'] == 0:
             found = True
 
-        if quiet is False:
+        if not quiet:
             version = version['message']
             bot.info("Found %s version %s" % (software.upper(), version))
 
@@ -70,6 +71,8 @@ def get_singularity_version_info():
     prefix = 'singularity version '
     if version_string.startswith(prefix):
         version_string = version_string[len(prefix):]
+    elif '/' in version_string: # Handle old stuff like "x.y.z-pull/123-0a5d"
+        version_string = version_string.replace('/', '+', 1)
     return semver.parse_version_info(version_string)
 
 def get_installdir():
@@ -94,7 +97,7 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
                           newline. Defaults to finding Progress
 
     '''
-    if sudo is True:
+    if sudo:
         cmd = ['sudo'] + cmd
 
     process = subprocess.Popen(cmd,
@@ -131,32 +134,30 @@ def run_command(cmd,
                 as output.
     '''
 
-    if sudo is True:
+    if sudo:
         cmd = ['sudo'] + cmd
 
     stdout = None
-    if capture is True:
+    if capture:
         stdout = subprocess.PIPE
 
     # Use the parent stdout and stderr
     process = subprocess.Popen(cmd,
                                stderr=subprocess.PIPE,
                                stdout=stdout)
-    lines = ()
+    lines = []
     found_match = False
 
     for line in process.communicate():
         if line:
-            if type(line) is not str: # pylint: disable=unidiomatic-typecheck
-                if isinstance(line, bytes):
-                    line = line.decode('utf-8')                
-            lines = lines + (line,)
-            if re.search(no_newline_regexp, line) and found_match is True:
-                if quiet is False:
+            line = decodeUtf8String(line)
+            lines.append(line)
+            if re.search(no_newline_regexp, line) and found_match:
+                if not quiet:
                     sys.stdout.write(line)
                 found_match = True
             else:
-                if quiet is False:
+                if not quiet:
                     sys.stdout.write(line)
                     print(line.rstrip())
                 found_match = False

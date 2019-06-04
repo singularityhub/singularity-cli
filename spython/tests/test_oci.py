@@ -9,114 +9,104 @@
 from spython.utils import get_installdir
 from spython.main.base.generate import RobotNamer
 from spython.main import Client
-import unittest
-import tempfile
 import shutil
 import os
+import pytest
 from semver import VersionInfo
 
-print("############################################################## test_oci")
 
-class TestOci(unittest.TestCase):
+pytestmark = pytest.mark.skipif(
+    Client.version_info() < VersionInfo(3, 0, 0),
+    reason='OCI command group introduced in singularity 3'
+)
 
-    def setUp(self):
-        self.pwd = get_installdir()
-        self.cli = Client
-        self.tmpdir = tempfile.mkdtemp()
-        shutil.rmtree(self.tmpdir) # bundle will be created here
-        self.config = os.path.join(self.pwd, 'oci', 'config.json')
-        self.name = RobotNamer().generate()
+@pytest.fixture
+def sandbox(tmp_path):
+    image = Client.build("docker://busybox:1.30.1", 
+                            image=str(tmp_path / 'sandbox'),
+                            sandbox=True,
+                            sudo=False)
 
-    def _build_sandbox(self):
+    assert os.path.exists(image)
 
-        print('Building testing sandbox')
-        image = self.cli.build("docker://busybox:1.30.1", 
-                               image=self.tmpdir,
-                               sandbox=True,
-                               sudo=False)
+    config = os.path.join(get_installdir(), 'oci', 'config.json')
+    shutil.copyfile(config, os.path.join(image, 'config.json'))
+    return image
 
-        self.assertTrue(os.path.exists(image))
+def test_oci_image():
+    image = Client.oci.OciImage('oci://imagename')
+    assert image.get_uri() == '[singularity-python-oci:oci://imagename]'
 
-        print('Copying OCI config.json to sandbox...')
-        shutil.copyfile(self.config, '%s/config.json' % image)
-        return image
+def test_oci(sandbox): # pylint: disable=redefined-outer-name
+    image = sandbox
+    container_id = RobotNamer().generate()
 
-    def test_oci_image(self):
-        image = self.cli.oci.OciImage('oci://imagename')
-        self.assertEqual(image.get_uri(), '[singularity-python-oci:oci://imagename]')
-
-    def test_oci(self):
-
-        image = self._build_sandbox()
-
-        # A non existing process should not have a state
-        print('...Case 1. Check status of non-existing bundle.')
-        state = self.cli.oci.state('mycontainer')
-        self.assertEqual(state, None)
+    # A non existing process should not have a state
+    print('...Case 1. Check status of non-existing bundle.')
+    state = Client.oci.state('mycontainer')
+    assert state is None
         
-        # This will use sudo
-        print("...Case 2: Create OCI image from bundle")
-        result = self.cli.oci.create(bundle=image,
-                                     container_id=self.name)
+    # This will use sudo
+    print("...Case 2: Create OCI image from bundle")
+    result = Client.oci.create(bundle=image,
+                               container_id=container_id)
 
-        print(result)
-        self.assertEqual(result['status'], 'created')
+    print(result)
+    assert result['status'] == 'created'
 
-        print('...Case 3. Execute command to non running bundle.')
-        result = self.cli.oci.execute(container_id=self.name, 
-                                      sudo=True,
-                                      command=['ls', '/'])
+    print('...Case 3. Execute command to non running bundle.')
+    result = Client.oci.execute(container_id=container_id, 
+                                sudo=True,
+                                command=['ls', '/'])
 
-        print(result)
+    print(result)
+    print(Client.version_info())
 
-        if self.cli.version_info() >= VersionInfo(3, 2, 0, "1"):
-            self.assertTrue(result['return_code'] == 255)
-        else:
-            self.assertTrue('bin' in result)
+    if Client.version_info() >= VersionInfo(3, 2, 0, '1'):
+        assert result['return_code'] == 255
+    else:
+        assert 'bin' in result
 
-        print('...Case 4. Start container return value 0.')
-        state = self.cli.oci.start(self.name, sudo=True)
-        self.assertEqual(state, 0)
+    print('...Case 4. Start container return value 0.')
+    state = Client.oci.start(container_id, sudo=True)
+    assert state == 0
 
-        print('...Case 5. Execute command to running bundle.')
-        result = self.cli.oci.execute(container_id=self.name, 
-                                      sudo=True, 
-                                      command=['ls', '/'])
+    print('...Case 5. Execute command to running bundle.')
+    result = Client.oci.execute(container_id=container_id, 
+                                sudo=True, 
+                                command=['ls', '/'])
 
-        print(result)
-        self.assertTrue('bin' in result)
+    print(result)
+    assert 'bin' in result
 
-        print('...Case 6. Check status of existing bundle.')
-        state = self.cli.oci.state(self.name, sudo=True)
-        self.assertEqual(state['status'], 'running')
+    print('...Case 6. Check status of existing bundle.')
+    state = Client.oci.state(container_id, sudo=True)
+    assert state['status'] == 'running'
 
-        print('...Case 7. Pause running container return value 0.')
-        state = self.cli.oci.pause(self.name, sudo=True)
-        self.assertEqual(state, 0)
+    print('...Case 7. Pause running container return value 0.')
+    state = Client.oci.pause(container_id, sudo=True)
+    assert state == 0
 
-        # State was still reported as running
-        if self.cli.version_info() >= VersionInfo(3, 2, 0, "1"):
-            print('...check status of paused bundle.')
-            state = self.cli.oci.state(self.name, sudo=True)
-            self.assertEqual(state['status'], 'paused')
+    # State was still reported as running
+    if Client.version_info() >= VersionInfo(3, 2, 0, '1'):
+        print('...check status of paused bundle.')
+        state = Client.oci.state(container_id, sudo=True)
+        assert state['status'] == 'paused'
 
-        print('...Case 8. Resume paused container return value 0.')
-        state = self.cli.oci.resume(self.name, sudo=True)
-        self.assertEqual(state, 0)
+    print('...Case 8. Resume paused container return value 0.')
+    state = Client.oci.resume(container_id, sudo=True)
+    assert state == 0
 
-        print('...check status of resumed bundle.')
-        state = self.cli.oci.state(self.name, sudo=True)
-        self.assertEqual(state['status'], 'running')
+    print('...check status of resumed bundle.')
+    state = Client.oci.state(container_id, sudo=True)
+    assert state['status'] == 'running'
 
-        print('...Case 9. Kill container.')
-        state = self.cli.oci.kill(self.name, sudo=True)
-        self.assertEqual(state, 0)
+    print('...Case 9. Kill container.')
+    state = Client.oci.kill(container_id, sudo=True)
+    assert state == 0
 
-        # Clean up the image (should still use sudo)
-        # Bug in singularity that kill doesn't kill completely - this returns 
-        # 255. When testsupdated to 3.1.* add signal=K to run
-        result = self.cli.oci.delete(self.name, sudo=True)
-        self.assertTrue(result in [0, 255])
-
-if __name__ == '__main__':
-    unittest.main()
+    # Clean up the image (should still use sudo)
+    # Bug in singularity that kill doesn't kill completely - this returns 
+    # 255. When testsupdated to 3.1.* add signal=K to run
+    result = Client.oci.delete(container_id, sudo=True)
+    assert result in [0, 255]
