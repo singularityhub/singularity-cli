@@ -43,7 +43,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     for x in options:
         cmd.append('-%s' % x)
 
-    if json is True:
+    if json:
         cmd.append('--json')
 
     cmd.append(image)

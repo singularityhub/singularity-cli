@@ -38,7 +38,7 @@ def check_install(software='singularity', quiet=True):
         if version['return_code'] == 0:
             found = True
 
-        if quiet is False:
+        if not quiet:
             version = version['message']
             bot.info("Found %s version %s" % (software.upper(), version))
 
@@ -96,7 +96,7 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
                           newline. Defaults to finding Progress
 
     '''
-    if sudo is True:
+    if sudo:
         cmd = ['sudo'] + cmd
 
     process = subprocess.Popen(cmd,
@@ -133,11 +133,11 @@ def run_command(cmd,
                 as output.
     '''
 
-    if sudo is True:
+    if sudo:
         cmd = ['sudo'] + cmd
 
     stdout = None
-    if capture is True:
+    if capture:
         stdout = subprocess.PIPE
 
     # Use the parent stdout and stderr
@@ -149,16 +149,15 @@ def run_command(cmd,
 
     for line in process.communicate():
         if line:
-            if type(line) is not str: # pylint: disable=unidiomatic-typecheck
-                if isinstance(line, bytes):
-                    line = line.decode('utf-8')                
+            if isinstance(line, bytes):
+                line = line.decode('utf-8')
             lines = lines + (line,)
-            if re.search(no_newline_regexp, line) and found_match is True:
-                if quiet is False:
+            if re.search(no_newline_regexp, line) and found_match:
+                if not quiet:
                     sys.stdout.write(line)
                 found_match = True
             else:
-                if quiet is False:
+                if not quiet:
                     sys.stdout.write(line)
                     print(line.rstrip())
                 found_match = False

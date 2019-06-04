@@ -53,7 +53,7 @@ def get_filename(self, image, ext='sif', pwd=True):
        ext: the extension to use
        pwd: derive a filename for the pwd
     '''
-    if pwd is True:
+    if pwd:
         image = os.path.basename(image)
     image = re.sub('^.*://', '', image)
     if not image.endswith(ext):

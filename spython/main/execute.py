@@ -36,7 +36,7 @@ def execute(self,
              directories within your container using bind mounts
         nv: if True, load Nvidia Drivers in runtime (default False)
         return_result: if True, return entire json object with return code
-                       and message result (default is False)
+                       and message result not (default)
     '''
     from spython.utils import check_install
     check_install()
@@ -44,7 +44,7 @@ def execute(self,
     cmd = self._init_command('exec')
 
     # nv option leverages any GPU cards
-    if nv is True:
+    if nv:
         cmd += ['--nv']
     
     # If the image is given as a list, it's probably the command
@@ -76,7 +76,7 @@ def execute(self,
             cmd = cmd + ['--app', app]
 
         sudo = False
-        if writable is True:
+        if writable:
             sudo = True
 
         if not isinstance(command, list):
@@ -84,7 +84,7 @@ def execute(self,
 
         cmd = cmd + [image] + command
  
-        if stream is False:
+        if not stream:
             return self._run_command(cmd,
                                      sudo=sudo,
                                      return_result=return_result)

@@ -30,9 +30,9 @@ def init_command(self, action, flags=None):
         action = [action]      
     cmd = ['singularity'] + action
 
-    if self.quiet is True:
+    if self.quiet:
         cmd.insert(1, '--quiet')
-    if self.debug is True:
+    if self.debug:
         cmd.insert(1, '--debug')
 
     return cmd
@@ -94,7 +94,7 @@ def send_command(self, cmd, sudo=False, stderr=None, stdout=None):
        sudo: use sudo (or not)
     '''
     
-    if sudo is True:
+    if sudo:
         cmd = ['sudo'] + cmd
 
     process = subprocess.Popen(cmd, stderr=stderr, stdout=stdout)
@@ -133,7 +133,7 @@ def run_command(self, cmd,
         result['message'] = result['message'][0]
 
     # If the user wants to return the result, just return it
-    if return_result is True:
+    if return_result:
         return result
 
     # On success, return result

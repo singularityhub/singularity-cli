@@ -70,7 +70,7 @@ def pull(self,
         final_image = name
         cmd = cmd + ["--name", name]
 
-    if force is True:
+    if force:
         cmd = cmd + ["--force"]
    
     cmd.append(image)
@@ -81,7 +81,7 @@ def pull(self,
         name = ''
 
     # Option 1: Streaming we just run to show user
-    if stream is False:
+    if not stream:
         self._run_command(cmd, capture=capture)
 
     # Option 3: A custom name we can predict (not commit/hash) and can also show

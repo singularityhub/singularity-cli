@@ -48,7 +48,7 @@ def run(self,
     cmd = self._init_command('run')
    
     # nv option leverages any GPU cards
-    if nv is True:
+    if nv:
         cmd += ['--nv']
 
     # No image provided, default to use the client's loaded image
@@ -74,7 +74,7 @@ def run(self,
     cmd = cmd + [image]
 
     # Conditions for needing sudo
-    if writable is True:
+    if writable:
         sudo = True
         
     if args is not None:        
@@ -82,7 +82,7 @@ def run(self,
             args = args.split(' ')
         cmd = cmd + args
 
-    if stream is False:
+    if not stream:
         result = self._run_command(cmd, 
                                    sudo=sudo, 
                                    return_result=return_result)

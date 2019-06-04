@@ -29,7 +29,7 @@ def apps(self, image=None, full_path=False, root=''):
     cmd = self._init_command('apps') + [image]
     output = self._run_command(cmd)
 
-    if full_path is True:
+    if full_path:
         root = '/scif/apps/'
 
     if output:

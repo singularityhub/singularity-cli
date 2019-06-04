@@ -58,7 +58,7 @@ def get(self, name, return_json=False, quiet=False):
     if output['return_code'] == 0:
 
         # Only print the table if we are returning json
-        if quiet is False:
+        if not quiet:
             print(''.join(output['message']))
 
         # Prepare json result from table
@@ -68,7 +68,7 @@ def get(self, name, return_json=False, quiet=False):
 
         # Does the user want instance objects instead?
         listing = []
-        if return_json is False:
+        if not return_json:
             for i in instances:
                 new_instance = Instance(pid=i['pid'],
                                         name=i['daemon_name'],

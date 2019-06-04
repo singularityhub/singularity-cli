@@ -75,7 +75,7 @@ def main(args, options, parser):
         recipeParser.cmd = None
         force = True
 
-    if args.json is True:
+    if args.json:
 
         if outfile is not None:
             if not os.path.exists(outfile):

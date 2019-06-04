@@ -37,5 +37,5 @@ def println(self, output, quiet=False):
     '''
     if isinstance(output, bytes):
         output = output.decode('utf-8')
-    if self.quiet is False and quiet is False:
+    if not self.quiet and not quiet:
         print(output)

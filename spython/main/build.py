@@ -55,7 +55,7 @@ def build(self, recipe=None,
         ext = 'sif'
         
     # Force the build if the image / sandbox exists
-    if force is True:
+    if force:
         cmd.append('--force')
 
     # No image provided, default to use the client's loaded image
@@ -70,7 +70,7 @@ def build(self, recipe=None,
             bot.exit('Cannot find %s, exiting.' %image)
 
     if image is None:
-        if re.search('(docker|shub)://', recipe) and robot_name is False:
+        if re.search('(docker|shub)://', recipe) and not robot_name:
             image = self._get_filename(recipe, ext)
         else:
             image = "%s.%s" %(self.RobotNamer.generate(), ext)
@@ -82,17 +82,17 @@ def build(self, recipe=None,
         image = os.path.join(build_folder, image)
         
     # The user wants to run an isolated build
-    if isolated is True:
+    if isolated:
         cmd.append('--isolated')
 
-    if sandbox is True:
+    if sandbox:
         cmd.append('--sandbox')
-    elif sandbox is True:
+    elif sandbox:
         cmd.append('--writable')
 
     cmd = cmd + [image, recipe]
 
-    if stream is False:
+    if not stream:
         self._run_command(cmd, sudo=sudo, capture=False)
     else:
         # Here we return the expected image, and an iterator! 
