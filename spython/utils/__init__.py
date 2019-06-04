@@ -6,6 +6,8 @@ from .fileio import (
     read_json
 )
 
+from .misc import ScopedEnvVar
+
 from .terminal import (
     check_install, 
     get_installdir,

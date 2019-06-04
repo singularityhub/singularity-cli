@@ -9,6 +9,7 @@
 import os
 import pytest
 from semver import VersionInfo
+from spython.utils import ScopedEnvVar
         
 
 def test_write_read_files(tmp_path):
@@ -60,48 +61,35 @@ def test_check_install():
 
 def test_check_get_singularity_version():
     '''check that the singularity version is found to be that installed'''
-    print("Testing utils.get_singularity_version")
     from spython.utils import get_singularity_version
     version = get_singularity_version()
     assert version != ""
-    oldValue = os.environ.get('SPYTHON_SINGULARITY_VERSION')
-    os.environ['SPYTHON_SINGULARITY_VERSION'] = "3.0"
-    version = get_singularity_version()
-    # Restore for other tests
-    if oldValue is None:
-        del os.environ['SPYTHON_SINGULARITY_VERSION']
-    else:
-        os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
+    with ScopedEnvVar('SPYTHON_SINGULARITY_VERSION', "3.0"):
+        version = get_singularity_version()
     assert version == "3.0"
 
 def test_check_get_singularity_version_info():
     '''Check that the version_info is correct'''
     from spython.utils import get_singularity_version_info
-    oldValue = os.environ.get('SPYTHON_SINGULARITY_VERSION')
-    os.environ['SPYTHON_SINGULARITY_VERSION'] = "2.3.1"
-    version = get_singularity_version_info()
+    with ScopedEnvVar('SPYTHON_SINGULARITY_VERSION', "2.3.1"):
+        version = get_singularity_version_info()
     assert version == VersionInfo(2, 3, 1)
     assert version > VersionInfo(2, 3, 0)
     assert version < VersionInfo(3, 0, 0)
 
-    os.environ['SPYTHON_SINGULARITY_VERSION'] = "singularity version 3.2.1-1"
-    version = get_singularity_version_info()
+    with ScopedEnvVar('SPYTHON_SINGULARITY_VERSION', "singularity version 3.2.1-1"):
+        version = get_singularity_version_info()
     assert version == VersionInfo(3, 2, 1, "1")
     assert version > VersionInfo(2, 0, 0)
     assert version < VersionInfo(3, 3, 0)
     assert version > VersionInfo(3, 2, 0)
     assert version < VersionInfo(3, 2, 1)
 
-    os.environ['SPYTHON_SINGULARITY_VERSION'] = "2.6.1-pull/124.1d068a7"
-    version = get_singularity_version_info()
+    with ScopedEnvVar('SPYTHON_SINGULARITY_VERSION', "2.6.1-pull/124.1d068a7"):
+        version = get_singularity_version_info()
     assert version == VersionInfo(2, 6, 1, "pull", "124.1d068a7")
     assert version > VersionInfo(2, 6, 0)
     assert version < VersionInfo(2, 7, 0)
-    # Restore for other tests
-    if oldValue is None:
-        del os.environ['SPYTHON_SINGULARITY_VERSION']
-    else:
-        os.environ['SPYTHON_SINGULARITY_VERSION'] = oldValue
 
 
 def test_get_installdir():
@@ -144,3 +132,25 @@ def test_decode():
     out = decodeUtf8String(bytes(b"Hello"))
     assert isinstance(out, str)
     assert out == "Hello"
+
+def test_ScopedEnvVar():
+    assert 'FOO' not in os.environ
+    with ScopedEnvVar('FOO', 'bar') as e:
+        assert e.name == 'FOO'
+        assert e.value == 'bar'
+        assert os.environ['FOO'] == 'bar'
+        with ScopedEnvVar('FOO', 'baz'):
+            assert os.environ['FOO'] == 'baz'
+        assert os.environ['FOO'] == 'bar'
+        # None removes it
+        with ScopedEnvVar('FOO', None):
+            assert 'FOO' not in os.environ
+        # But empty string is allowed
+        with ScopedEnvVar('FOO', ''):
+            assert os.environ['FOO'] == ''
+        assert os.environ['FOO'] == 'bar'
+    assert 'FOO' not in os.environ
+    # Unset a non-existing variable
+    with ScopedEnvVar('FOO', None):
+        assert 'FOO' not in os.environ
+    assert 'FOO' not in os.environ

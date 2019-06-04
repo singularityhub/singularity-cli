@@ -15,7 +15,7 @@ def pull(self,
          image=None,
          name=None,
          pull_folder='',
-         ext="simg",
+         ext=None,
          force=False,
          capture=False,
          stream=False):
@@ -39,9 +39,8 @@ def pull(self,
 
     cmd = self._init_command('pull')
 
-    # If Singularity version > 3.0, we have sif format
-    if 'version 3' in self.version():
-        ext = 'sif'
+    if not ext:
+        ext = 'sif' if 'version 3' in self.version() else 'simg'
 
     # No image provided, default to use the client's loaded image
     if image is None:
