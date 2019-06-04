@@ -32,7 +32,8 @@ def test_pull_and_run(tmp_path):
                         pull_folder=str(tmp_path))
     print(image)
     assert os.path.exists(image)
-    assert image == str(tmp_path / 'singularity-images.sif')
+    ext = 'sif' if Client.version_info().major >= 3 else 'simg'
+    assert image == str(tmp_path / ('singularity-images.' + ext))
 
     result = Client.run(image)
     print(result)
@@ -41,7 +42,8 @@ def test_pull_and_run(tmp_path):
 def test_docker_pull(docker_container):
     tmp_path, container = docker_container
     print(container)
-    assert container == str(tmp_path / "busybox:1.30.1.sif")
+    ext = 'sif' if Client.version_info().major >= 3 else 'simg'
+    assert container == str(tmp_path / ("busybox:1.30.1." + ext))
     assert os.path.exists(container)
 
 def test_execute(docker_container):
