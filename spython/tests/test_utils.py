@@ -148,6 +148,14 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(remove_uri('shub://vanessa/singularity-images'), 'vanessa/singularity-images')
         self.assertEqual(remove_uri('vanessa/singularity-images'), 'vanessa/singularity-images')
 
+    def test_decode(self):
+        from spython.logger import decodeUtf8String
+        out = decodeUtf8String(str("Hello"))
+        assert isinstance(out, str)
+        assert out == "Hello"
+        out = decodeUtf8String(bytes(b"Hello"))
+        assert isinstance(out, str)
+        assert out == "Hello"
 
 if __name__ == '__main__':
     unittest.main()

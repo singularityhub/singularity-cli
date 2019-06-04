@@ -6,7 +6,7 @@ from .fileio import (
     read_json
 )
 
-from .terminal import ( 
+from .terminal import (
     check_install, 
     get_installdir,
     get_singularity_version,

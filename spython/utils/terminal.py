@@ -12,6 +12,7 @@ import os
 import re
 import semver
 from spython.logger import bot
+from spython.logger import decodeUtf8String
 import subprocess
 import sys
 
@@ -144,14 +145,13 @@ def run_command(cmd,
     process = subprocess.Popen(cmd,
                                stderr=subprocess.PIPE,
                                stdout=stdout)
-    lines = ()
+    lines = []
     found_match = False
 
     for line in process.communicate():
         if line:
-            if isinstance(line, bytes):
-                line = line.decode('utf-8')
-            lines = lines + (line,)
+            line = decodeUtf8String(line)
+            lines.append(line)
             if re.search(no_newline_regexp, line) and found_match:
                 if not quiet:
                     sys.stdout.write(line)
