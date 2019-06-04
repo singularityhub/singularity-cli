@@ -16,7 +16,6 @@ def test_write_read_files(tmp_path):
     '''
     print("Testing utils.write_file...")
     from spython.utils import write_file
-    import json
     tmpfile = str(tmp_path / 'written_file.txt')
     assert not os.path.exists(tmpfile)
     write_file(tmpfile, "hello!")
@@ -27,22 +26,23 @@ def test_write_read_files(tmp_path):
     content = read_file(tmpfile)[0]
     assert content == "hello!"
 
+def test_write_bad_json(tmp_path):
     from spython.utils import write_json
-    print("Testing utils.write_json...")
-    print("...Case 1: Providing bad json")
     bad_json = {"Wakkawakkawakka'}": [{True}, "2", 3]}
     tmpfile = str(tmp_path / 'json_file.txt')
     assert not os.path.exists(tmpfile)   
     with pytest.raises(TypeError):
         write_json(bad_json, tmpfile)
 
-    print("...Case 2: Providing good json")        
+def test_write_json(tmp_path):
+    import json
+    from spython.utils import write_json
     good_json = {"Wakkawakkawakka": [True, "2", 3]}
     tmpfile = str(tmp_path / 'good_json_file.txt')
     assert not os.path.exists(tmpfile)
     write_json(good_json, tmpfile)
-    with open(tmpfile, 'r') as filey:
-        content = json.loads(filey.read())
+    with open(tmpfile, 'r') as f:
+        content = json.loads(f.read())
     assert isinstance(content, dict)
     assert "Wakkawakkawakka" in content
 

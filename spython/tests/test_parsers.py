@@ -6,84 +6,52 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
-from spython.main import Client
-import unittest
-import tempfile
-import shutil
 import os
+from spython.main.parse.parsers import DockerParser, SingularityParser
 
 
-print("########################################################### test_client")
+def test_get_parser():
+    from spython.main.parse.parsers import get_parser
 
-class TestClient(unittest.TestCase):
+    parser = get_parser('docker')
+    assert parser == DockerParser
 
-    def setUp(self):
-        self.pwd = get_installdir()
-        self.cli = Client
-        self.tmpdir = tempfile.mkdtemp()
+    parser = get_parser('Dockerfile')
+    assert parser == DockerParser
 
-    def tearDown(self):
-        shutil.rmtree(self.tmpdir)
-
-
-    def test_parsers(self):
-
-        print('Testing spython.main.parse.parsers.get_parser')
-        from spython.main.parse.parsers import get_parser
-        from spython.main.parse.parsers import DockerParser, SingularityParser
-
-        parser = get_parser('docker')
-        self.assertEqual(parser, DockerParser)
-
-        parser = get_parser('Dockerfile')
-        self.assertEqual(parser, DockerParser)
-
-        parser = get_parser('Singularity')
-        self.assertEqual(parser, SingularityParser)
+    parser = get_parser('Singularity')
+    assert parser == SingularityParser
 
 
-    def test_docker_parser(self):
+def test_docker_parser(test_data):
+    dockerfile = os.path.join(test_data['root'], 'Dockerfile')        
+    parser = DockerParser(dockerfile)
 
-        print('Testing spython.main.parse.parsers DockerParser')
-        from spython.main.parse.parsers import DockerParser
+    assert str(parser) == '[spython-parser][docker]'
 
-        dockerfile = os.path.join(self.pwd, 'tests', 'testdata', 'Dockerfile')        
-        parser = DockerParser(dockerfile)
+    # Test all fields from recipe
+    assert parser.recipe.fromHeader == 'python:3.5.1'
+    assert parser.recipe.cmd == '/code/run_uwsgi.sh'
+    assert parser.recipe.entrypoint is None
+    assert parser.recipe.workdir == '/code'
+    assert parser.recipe.volumes == []
+    assert parser.recipe.ports == ['3031']
+    assert parser.recipe.files[0] == ['requirements.txt', '/tmp/requirements.txt']
+    assert parser.recipe.environ == ['PYTHONUNBUFFERED=1']
+    assert parser.recipe.source == dockerfile
 
-        self.assertEqual(str(parser), '[spython-parser][docker]')
+def test_singularity_parser(test_data):
+    recipe = os.path.join(test_data['root'], 'Singularity')  
+    parser = SingularityParser(recipe)
 
-        # Test all fields from recipe
-        self.assertEqual(parser.recipe.fromHeader, 'python:3.5.1')
-        self.assertEqual(parser.recipe.cmd, '/code/run_uwsgi.sh')
-        self.assertEqual(parser.recipe.entrypoint, None)
-        self.assertEqual(parser.recipe.workdir, '/code')
-        self.assertEqual(parser.recipe.volumes, [])
-        self.assertEqual(parser.recipe.ports, ['3031'])
-        self.assertEqual(parser.recipe.files[0], ['requirements.txt', '/tmp/requirements.txt'])
-        self.assertEqual(parser.recipe.environ, ['PYTHONUNBUFFERED=1'])
-        self.assertEqual(parser.recipe.source, dockerfile)
+    assert str(parser) == '[spython-parser][singularity]'
 
-    def test_singularity_parser(self):
-
-        print('Testing spython.main.parse.parsers SingularityParser')
-        from spython.main.parse.parsers import SingularityParser
-
-        recipe = os.path.join(self.pwd, 'tests', 'testdata', 'Singularity')  
-        parser = SingularityParser(recipe)
-
-        self.assertEqual(str(parser), '[spython-parser][singularity]')
-
-        # Test all fields from recipe
-        self.assertEqual(parser.recipe.fromHeader, 'continuumio/miniconda3')
-        self.assertEqual(parser.recipe.cmd, 'exec /opt/conda/bin/spython "$@"')
-        self.assertEqual(parser.recipe.entrypoint, None)
-        self.assertEqual(parser.recipe.workdir, None)
-        self.assertEqual(parser.recipe.volumes, [])
-        self.assertEqual(parser.recipe.files, [])
-        self.assertEqual(parser.recipe.environ, [])
-        self.assertEqual(parser.recipe.source, recipe)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    # Test all fields from recipe
+    assert parser.recipe.fromHeader == 'continuumio/miniconda3'
+    assert parser.recipe.cmd == 'exec /opt/conda/bin/spython "$@"'
+    assert parser.recipe.entrypoint is None
+    assert parser.recipe.workdir is None
+    assert parser.recipe.volumes == []
+    assert parser.recipe.files == []
+    assert parser.recipe.environ == []
+    assert parser.recipe.source == recipe
