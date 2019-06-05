@@ -19,12 +19,12 @@ workflows:
           singularity-3: true
       - run-spython-ci-tests:
           <<: *base_job
-          name: "Oldest Singularity - Python 3"
+          name: "Singularity 3.1.0 - Python 3"
           singularity: 3.1.0
           run-linter: true # Use any job to run linter once
       - run-spython-ci-tests:
           <<: *base_job
-          name: "Singularity after OCI change - Python 3"
+          name: "Singularity 3.2.0 - Python 3"
           singularity: 3.2.0
       - run-spython-ci-tests:
           <<: *base_job

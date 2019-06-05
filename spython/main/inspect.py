@@ -6,6 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import json as jsonp
+from spython.logger import bot
 
 from spython.utils import ( 
     check_install, 
@@ -26,11 +27,15 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     check_install()
 
     # No image provided, default to use the client's loaded image
-    if image is None:
+    if not image:
         image = self._get_uri()
 
+    # If there still isn't an image, exit on error
+    if not image:
+        bot.exit('Please provide an image to inspect.')
+
     cmd = self._init_command('inspect')
-    if app is not None:
+    if app:
         cmd = cmd + ['--app', app]
 
     options = ['e', 'd', 'l', 'r', 'hf', 't']
@@ -47,7 +52,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
         cmd.append('--json')
 
     cmd.append(image)
-    result = run_command(cmd, quiet=False)
+    result = run_command(cmd, quiet=quiet)
 
     if result['return_code'] == 0:
         result = jsonp.loads(result['message'][0])
