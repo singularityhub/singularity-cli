@@ -6,7 +6,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-__version__ = "0.0.65"
+__version__ = "0.0.66"
 AUTHOR = 'Vanessa Sochat'
 AUTHOR_EMAIL = 'vsochat@stanford.edu'
 NAME = 'spython'
@@ -17,4 +17,10 @@ LICENSE = "LICENSE"
 
 INSTALL_REQUIRES = (
     ('semver', {'min_version': '2.8.0'}),
+)
+
+TESTS_REQUIRES = (
+    ('pytest', {'min_version': '4.6.2'}),
+    ('pytest-cov', {'min_version': '2.5.1'}),
+    ('pytest-fixtures', {'min_version': '0.1.0'}),
 )
