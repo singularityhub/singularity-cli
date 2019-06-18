@@ -26,7 +26,7 @@ def get_client(quiet=False, debug=False):
     # Do imports here, can be customized
     from .apps import apps
     from .build import build
-    from .execute import execute 
+    from .execute import (execute, shell) 
     from .help import helpcmd
     from .inspect import inspect
     from .instances import (list_instances, stopall) # global instance commands
@@ -44,6 +44,7 @@ def get_client(quiet=False, debug=False):
     client.inspect = inspect
     client.instances = list_instances
     client.run = run
+    client.shell = shell
     client.pull = pull
 
     # Command Groups, Images

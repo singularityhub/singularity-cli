@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - client should support shell (0.0.67)
  - adding test for entrypoint + cmd and fixing testing requirements (0.0.66)
  - fixing bug that inspect does not honor quiet (0.0.65)
  - refactor recipe parsers, writers, and base (0.0.64)
