@@ -10,12 +10,13 @@ from .misc import ScopedEnvVar
 
 from .terminal import (
     check_install, 
+    format_container_name,
     get_installdir,
     get_singularity_version,
     get_singularity_version_info,
-    stream_command,
+    remove_uri,
     run_command,
-    format_container_name,
+    stream_command,
     split_uri,
-    remove_uri
+    which
 )

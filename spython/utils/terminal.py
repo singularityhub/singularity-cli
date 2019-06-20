@@ -46,6 +46,14 @@ def check_install(software='singularity', quiet=True):
     return found
 
 
+def which(software='singularity'):
+    '''which returns the full path to where software is installed.
+    '''
+    cmd = ['which', software]
+    result = run_command(cmd, quiet=True)['message'][0]
+    return result.strip('\n')
+    
+
 def get_singularity_version():
     '''get the full singularity client version as reported by 
        singularity --version [...]. For Singularity 3.x, this means:
@@ -172,8 +180,6 @@ def run_command(cmd,
 # Parsing and Formatting
 ################################################################################
 
-
-         
 
 def format_container_name(name, special_characters=None):
     '''format_container_name will take a name supplied by the user,

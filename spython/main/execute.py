@@ -7,8 +7,12 @@
 
 
 from spython.logger import bot
-from spython.utils import stream_command
+from spython.utils import (
+    stream_command, 
+    which
+)
 
+import os
 
 def execute(self, 
             image=None, 
@@ -19,7 +23,9 @@ def execute(self,
             bind=None,
             stream=False,
             nv=False,
-            return_result=False):
+            return_result=False,
+            sudo=False,
+            quiet=True):
     ''' execute: send a command to a container
     
         Parameters
@@ -75,7 +81,6 @@ def execute(self,
         if app is not None:
             cmd = cmd + ['--app', app]
 
-        sudo = False
         if writable:
             sudo = True
 
@@ -87,7 +92,60 @@ def execute(self,
         if not stream:
             return self._run_command(cmd,
                                      sudo=sudo,
-                                     return_result=return_result)
+                                     return_result=return_result,
+                                     quiet=quiet)
         return stream_command(cmd, sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')
+
+
+def shell(self, 
+          image, 
+          app=None,
+          writable=False,
+          contain=False,
+          bind=None,
+          nv=False,
+          sudo=False):
+    ''' shell into a container. A user is advised to use singularity to do
+        this directly, however this function is useful for supporting tools.
+    
+        Parameters
+        ==========
+
+        image: full path to singularity image
+        app: if not None, execute a shell in context of an app
+        writable: This option makes the file system accessible as read/write
+        contain: This option disables the automatic sharing of writable
+                 filesystems on your host
+        bind: list or single string of bind paths.
+             This option allows you to map directories on your host system to
+             directories within your container using bind mounts
+        nv: if True, load Nvidia Drivers in runtime (default False)
+    '''
+    from spython.utils import check_install
+    check_install()
+
+    cmd = self._init_command('shell')
+
+    # nv option leverages any GPU cards
+    if nv:
+        cmd += ['--nv']
+    
+    # Does the user want to use bind paths option?
+    if bind is not None:
+        cmd += self._generate_bind_list(bind)
+
+    # Does the user want to run an app?
+    if app is not None:
+        cmd = cmd + ['--app', app]
+
+    # Finally, add the image or uri
+    cmd.append(image)
+    singularity = which('singularity')
+
+    if writable or sudo:
+        os.execvp("sudo", ["sudo"] + cmd)
+
+    else:
+        os.execvp(singularity, cmd)
