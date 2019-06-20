@@ -23,7 +23,9 @@ def execute(self,
             bind=None,
             stream=False,
             nv=False,
-            return_result=False):
+            return_result=False,
+            sudo=False,
+            quiet=True):
     ''' execute: send a command to a container
     
         Parameters
@@ -79,7 +81,6 @@ def execute(self,
         if app is not None:
             cmd = cmd + ['--app', app]
 
-        sudo = False
         if writable:
             sudo = True
 
@@ -91,7 +92,8 @@ def execute(self,
         if not stream:
             return self._run_command(cmd,
                                      sudo=sudo,
-                                     return_result=return_result)
+                                     return_result=return_result,
+                                     quiet=quiet)
         return stream_command(cmd, sudo=sudo)
 
     bot.error('Please include a command (list) to execute.')
@@ -103,7 +105,8 @@ def shell(self,
           writable=False,
           contain=False,
           bind=None,
-          nv=False):
+          nv=False,
+          sudo=False):
     ''' shell into a container. A user is advised to use singularity to do
         this directly, however this function is useful for supporting tools.
     
@@ -141,7 +144,7 @@ def shell(self,
     cmd.append(image)
     singularity = which('singularity')
 
-    if writable:
+    if writable or sudo:
         os.execvp("sudo", ["sudo"] + cmd)
 
     else:
