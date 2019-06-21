@@ -22,7 +22,9 @@ def build(self, recipe=None,
                 sudo=True,
                 stream=False,
                 force=False,
-                options=None):
+                options=None,
+                quiet=False,
+                return_result=False):
 
     '''build a singularity image, optionally for an isolated build
        (requires sudo). If you specify to stream, expect the image name
@@ -46,6 +48,8 @@ def build(self, recipe=None,
                    instead. Highly recommended :) 
        sudo: give sudo to the command (or not) default is True for build
        options: for all other options, specify them in this list.   
+       quiet: quiet verbose printing from the client.
+       return_result: if True, return complete error code / message dictionary
     '''
     from spython.utils import check_install
     check_install()
@@ -98,7 +102,11 @@ def build(self, recipe=None,
     cmd = cmd + options + [image, recipe]
 
     if not stream:
-        self._run_command(cmd, sudo=sudo, capture=False)
+        self._run_command(cmd, sudo=sudo, 
+                          quiet=quiet, 
+                          return_result=return_result, 
+                          capture=False)
+
     else:
         # Here we return the expected image, and an iterator! 
         # The caller must iterate over
