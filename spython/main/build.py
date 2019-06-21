@@ -21,7 +21,8 @@ def build(self, recipe=None,
                 ext='sif',
                 sudo=True,
                 stream=False,
-                force=False):
+                force=False,
+                options=None):
 
     '''build a singularity image, optionally for an isolated build
        (requires sudo). If you specify to stream, expect the image name
@@ -44,12 +45,16 @@ def build(self, recipe=None,
                    name (with "image") then a fun robot name will be generated
                    instead. Highly recommended :) 
        sudo: give sudo to the command (or not) default is True for build
-    
+       options: for all other options, specify them in this list.   
     '''
     from spython.utils import check_install
     check_install()
 
     cmd = self._init_command('build')
+
+    # If no extra options
+    if not options:
+        options = []
 
     if 'version 3' in self.version():
         ext = 'sif'
@@ -87,10 +92,10 @@ def build(self, recipe=None,
 
     if sandbox:
         cmd.append('--sandbox')
-    elif sandbox:
+    elif writable:
         cmd.append('--writable')
 
-    cmd = cmd + [image, recipe]
+    cmd = cmd + options + [image, recipe]
 
     if not stream:
         self._run_command(cmd, sudo=sudo, capture=False)
