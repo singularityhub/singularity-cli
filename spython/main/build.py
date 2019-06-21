@@ -102,10 +102,11 @@ def build(self, recipe=None,
     cmd = cmd + options + [image, recipe]
 
     if not stream:
-        self._run_command(cmd, sudo=sudo, 
-                          quiet=quiet, 
-                          return_result=return_result, 
-                          capture=False)
+        return self._run_command(cmd, 
+                                 sudo=sudo, 
+                                 quiet=quiet, 
+                                 return_result=return_result, 
+                                 capture=False)
 
     else:
         # Here we return the expected image, and an iterator! 
