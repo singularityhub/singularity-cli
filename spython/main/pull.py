@@ -18,7 +18,8 @@ def pull(self,
          ext=None,
          force=False,
          capture=False,
-         stream=False):
+         stream=False,
+         quiet=False):
 
     '''pull will pull a singularity hub or Docker image
         
@@ -38,6 +39,9 @@ def pull(self,
     check_install()
 
     cmd = self._init_command('pull')
+
+    # Quiet is honored if set by the client, or user
+    quiet = quiet or self.quiet
 
     if not ext:
         ext = 'sif' if 'version 3' in self.version() else 'simg'
@@ -75,17 +79,21 @@ def pull(self,
         cmd = cmd + ["--force"]
 
     cmd.append(image)
-    bot.info(' '.join(cmd))
+
+    if not quiet:
+        bot.info(' '.join(cmd))
 
     with ScopedEnvVar('SINGULARITY_PULLFOLDER', pull_folder):
         # Option 1: Streaming we just run to show user
         if not stream:
-            self._run_command(cmd, capture=capture)
+            self._run_command(cmd,
+                              capture=capture,
+                              quiet=quiet)
 
         # Option 3: A custom name we can predict (not commit/hash) and can also show
         else:
             return final_image, stream_command(cmd, sudo=False)
 
-    if os.path.exists(final_image):
+    if os.path.exists(final_image) and not quiet:
         bot.info(final_image)
     return final_image

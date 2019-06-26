@@ -25,7 +25,6 @@ def init_level(self, quiet=False):
     self.quiet = quiet
 
 
-
 def println(self, output, quiet=False):
     '''print will print the output, given that quiet is not True. This
        function also serves to convert output in bytes to utf-8
