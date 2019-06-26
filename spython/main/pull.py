@@ -40,6 +40,9 @@ def pull(self,
 
     cmd = self._init_command('pull')
 
+    # Quiet is honored if set by the client, or user
+    quiet = quiet or self.quiet
+
     if not ext:
         ext = 'sif' if 'version 3' in self.version() else 'simg'
 
