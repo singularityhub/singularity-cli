@@ -8,6 +8,7 @@
 
 import os
 from spython.logger import decodeUtf8String
+from spython.logger import bot
 
 def init_level(self, quiet=False):
     '''set the logging level based on the environment
@@ -23,7 +24,6 @@ def init_level(self, quiet=False):
         quiet = True
 
     self.quiet = quiet
-
 
 
 def println(self, output, quiet=False):
