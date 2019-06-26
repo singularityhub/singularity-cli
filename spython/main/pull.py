@@ -58,8 +58,6 @@ def pull(self,
     if name is None:
         name = self._get_filename(image, ext)
 
-    print('name is %s' % name)        
-
     if pull_folder:
         final_image = os.path.join(pull_folder, os.path.basename(name))
     
