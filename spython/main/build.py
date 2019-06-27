@@ -96,6 +96,7 @@ def build(self, recipe=None,
 
     if sandbox:
         cmd.append('--sandbox')
+
     elif writable:
         cmd.append('--writable')
 

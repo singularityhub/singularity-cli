@@ -24,6 +24,7 @@ def execute(self,
             stream=False,
             nv=False,
             return_result=False,
+            options=None,
             sudo=False,
             quiet=True):
     ''' execute: send a command to a container
@@ -37,6 +38,7 @@ def execute(self,
         writable: This option makes the file system accessible as read/write
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
+        options: an optional list of options to provide to execute.
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
@@ -82,7 +84,11 @@ def execute(self,
             cmd = cmd + ['--app', app]
 
         if writable:
-            sudo = True
+            cmd.append('--writable')
+
+        # Add additional options
+        if options is not None:
+            cmd = cmd + options
 
         if not isinstance(command, list):
             command = command.split(' ')
@@ -96,7 +102,7 @@ def execute(self,
                                      quiet=quiet)
         return stream_command(cmd, sudo=sudo)
 
-    bot.error('Please include a command (list) to execute.')
+    bot.exit('Please include a command (list) to execute.')
 
 
 def shell(self, 
@@ -106,6 +112,7 @@ def shell(self,
           contain=False,
           bind=None,
           nv=False,
+          options=None,
           sudo=False):
     ''' shell into a container. A user is advised to use singularity to do
         this directly, however this function is useful for supporting tools.
@@ -118,6 +125,7 @@ def shell(self,
         writable: This option makes the file system accessible as read/write
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
+        options: an optional list of options to provide to shell.
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
@@ -139,6 +147,13 @@ def shell(self,
     # Does the user want to run an app?
     if app is not None:
         cmd = cmd + ['--app', app]
+
+    # Add additional options
+    if options is not None:
+        cmd = cmd + options
+
+    if writable:
+        cmd.append('--writable')
 
     # Finally, add the image or uri
     cmd.append(image)

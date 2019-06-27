@@ -20,6 +20,7 @@ def run(self,
         bind=None,
         stream=False,
         nv=False,
+        options=None,
         return_result=False):
     '''
         run will run the container, with or withour arguments (which
@@ -31,6 +32,7 @@ def run(self,
         args: args to include with the run 
         app: if not None, execute a command in context of an app
         writable: This option makes the file system accessible as read/write
+        options: an optional list of options to provide to run.
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
         bind: list or single string of bind paths.
@@ -71,11 +73,15 @@ def run(self,
     if app is not None:
         cmd = cmd + ['--app', app]
 
-    cmd = cmd + [image]
-
-    # Conditions for needing sudo
+    # Does the user want writable?
     if writable:
-        sudo = True
+        cmd.append('--writable')
+
+    # Add options
+    if options is not None:
+        cmd = cmd + options
+
+    cmd = cmd + [image]
         
     if args is not None:        
         if not isinstance(args, list):
