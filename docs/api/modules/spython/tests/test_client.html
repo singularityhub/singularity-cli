@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../assets/jquery.js"></script>
+        <script type="text/javascript" src="../../../assets/underscore.js"></script>
+        <script type="text/javascript" src="../../../assets/doctools.js"></script>
+        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -154,89 +156,61 @@
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_installdir</span>
 <span class="kn">from</span> <span class="nn">spython.main</span> <span class="k">import</span> <span class="n">Client</span>
-<span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;########################################################### test_client&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="test_build_from_docker"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_build_from_docker">[docs]</a><span class="k">def</span> <span class="nf">test_build_from_docker</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;container.sif&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TestClient"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.TestClient">[docs]</a><span class="k">class</span> <span class="nc">TestClient</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="n">created_container</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> 
+                                     <span class="n">image</span><span class="o">=</span><span class="n">container</span><span class="p">,</span>
+                                     <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">created_container</span> <span class="o">==</span> <span class="n">container</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_container</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestClient.setUp"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.TestClient.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pwd</span> <span class="o">=</span> <span class="n">get_installdir</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cli</span> <span class="o">=</span> <span class="n">Client</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span></div>
+<div class="viewcode-block" id="test_export"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_export">[docs]</a><span class="k">def</span> <span class="nf">test_export</span><span class="p">():</span>
+    <span class="n">sandbox</span> <span class="o">=</span> <span class="s2">&quot;busybox:1.30.sandbox&quot;</span>
+    <span class="n">created_sandbox</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">created_sandbox</span> <span class="o">==</span> <span class="n">sandbox</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestClient.tearDown"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.TestClient.tearDown">[docs]</a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span></div>
+<div class="viewcode-block" id="test_pull_and_run"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_pull_and_run">[docs]</a><span class="k">def</span> <span class="nf">test_pull_and_run</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;shub://vsoch/singularity-images&quot;</span><span class="p">,</span> 
+                        <span class="n">pull_folder</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span> <span class="k">if</span> <span class="n">Client</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s1">&#39;simg&#39;</span>
+    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="p">(</span><span class="s1">&#39;singularity-images.&#39;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">))</span>
 
-<div class="viewcode-block" id="TestClient.test_commands"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.TestClient.test_commands">[docs]</a>    <span class="k">def</span> <span class="nf">test_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;You say please, but all I see is pizza..&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.build command&#39;</span><span class="p">)</span>
-        <span class="n">container</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/container.sif&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
+<div class="viewcode-block" id="test_docker_pull"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_docker_pull">[docs]</a><span class="k">def</span> <span class="nf">test_docker_pull</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
+    <span class="n">tmp_path</span><span class="p">,</span> <span class="n">container</span> <span class="o">=</span> <span class="n">docker_container</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span> <span class="k">if</span> <span class="n">Client</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s1">&#39;simg&#39;</span>
+    <span class="k">assert</span> <span class="n">container</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="p">(</span><span class="s2">&quot;busybox:1.30.1.&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">container</span><span class="p">)</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 1: Build from docker uri&quot;</span><span class="p">)</span>
-        <span class="n">created_container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> 
-                                           <span class="n">image</span><span class="o">=</span><span class="n">container</span><span class="p">,</span>
-                                           <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">created_container</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_container</span><span class="p">))</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<div class="viewcode-block" id="test_execute"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_execute">[docs]</a><span class="k">def</span> <span class="nf">test_execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ls /&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.export command&#39;</span><span class="p">)</span>
-        <span class="n">sandbox</span> <span class="o">=</span> <span class="s2">&quot;busybox:1.30.sandbox&quot;</span>
-        <span class="n">created_sandbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">,</span> <span class="n">sandbox</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">))</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">)</span>
+<div class="viewcode-block" id="test_execute_with_return_code"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_execute_with_return_code">[docs]</a><span class="k">def</span> <span class="nf">test_execute_with_return_code</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing client.pull command&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 1: Testing naming pull by image name&quot;</span><span class="p">)</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;shub://vsoch/singularity-images&quot;</span><span class="p">,</span> 
-                              <span class="n">pull_folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;singularity-images&#39;</span> <span class="ow">in</span> <span class="n">image</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.run command&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;You say please, but all I see is pizza..&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 2: Testing docker pull&quot;</span><span class="p">)</span>
-        <span class="n">container</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span>
-                                   <span class="n">pull_folder</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpdir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s2">&quot;busybox:1.30.1&quot;</span> <span class="ow">in</span> <span class="n">container</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">container</span><span class="p">))</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.execute command&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="s1">&#39;ls /&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Testing client.execute command with return code&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing client.inspect command&quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">],</span> <span class="s1">&#39;container&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="s1">&#39;attributes&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
-
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">container</span><span class="p">)</span></div></div>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<div class="viewcode-block" id="test_inspect"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_inspect">[docs]</a><span class="k">def</span> <span class="nf">test_inspect</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;container&#39;</span>
+    <span class="k">assert</span> <span class="s1">&#39;attributes&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
 </pre></div>
 
            </div>
@@ -249,7 +223,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -266,33 +240,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../assets/jquery.js"></script>
-      <script type="text/javascript" src="../../../assets/underscore.js"></script>
-      <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="../../../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

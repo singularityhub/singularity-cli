@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../assets/jquery.js"></script>
+        <script type="text/javascript" src="../assets/underscore.js"></script>
+        <script type="text/javascript" src="../assets/doctools.js"></script>
+        <script type="text/javascript" src="../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="spython.utils package" href="spython.utils.html" />
     <link rel="prev" title="spython.main.base package" href="spython.main.base.html" /> 
-
-  
-  <script src="../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -206,20 +208,23 @@ and install sequence. This object is interacted with by a Parser
 to write a recipe to file). The parsers and writers are located in
 parsers.py, and writers.py, respectively. The user is also free to use
 the recipe class to build recipes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="spython.main.parse.recipe.Recipe.json">
 <code class="descname">json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.json" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a dictionary version of the recipe, intended to be parsed
 or printed as json.</p>
-<dl class="simple">
-<dt>Returns: a dictionary of attributes including cmd, comments,</dt><dd><p>entrypoint, environ, files, install, labels, ports,
-test, volumes, and workdir.</p>
-</dd>
+<dl class="docutils">
+<dt>Returns: a dictionary of attributes including cmd, comments,</dt>
+<dd>entrypoint, environ, files, install, labels, ports,
+test, volumes, and workdir.</dd>
 </dl>
 </dd></dl>
 
@@ -249,7 +254,7 @@ with this file, You can obtain one at <a class="reference external" href="http:/
         <a href="spython.utils.html" class="btn btn-neutral float-right" title="spython.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="spython.main.base.html" class="btn btn-neutral" title="spython.main.base package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="spython.main.base.html" class="btn btn-neutral float-left" title="spython.main.base package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -258,7 +263,7 @@ with this file, You can obtain one at <a class="reference external" href="http:/
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -275,33 +280,16 @@ with this file, You can obtain one at <a class="reference external" href="http:/
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../assets/jquery.js"></script>
-      <script type="text/javascript" src="../assets/underscore.js"></script>
-      <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

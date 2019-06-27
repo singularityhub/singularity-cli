@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../assets/jquery.js"></script>
+        <script type="text/javascript" src="../../../assets/underscore.js"></script>
+        <script type="text/javascript" src="../../../assets/doctools.js"></script>
+        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -157,7 +159,7 @@
 
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">stream_command</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">stream_command</span><span class="p">,</span> <span class="n">ScopedEnvVar</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
@@ -165,10 +167,11 @@
          <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">pull_folder</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-         <span class="n">ext</span><span class="o">=</span><span class="s2">&quot;simg&quot;</span><span class="p">,</span>
+         <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
          <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
          <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-         <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+         <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="sd">&#39;&#39;&#39;pull will pull a singularity hub or Docker image</span>
 <span class="sd">        </span>
@@ -189,9 +192,11 @@
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;pull&#39;</span><span class="p">)</span>
 
-    <span class="c1"># If Singularity version &gt; 3.0, we have sif format</span>
-    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span>
+    <span class="c1"># Quiet is honored if set by the client, or user</span>
+    <span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ext</span><span class="p">:</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span> <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;simg&#39;</span>
 
     <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -209,36 +214,39 @@
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filename</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;name is </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>        
-
-    <span class="c1"># Regression Singularity 3.* onward, PULLFOLDER not honored</span>
-    <span class="c1"># https://github.com/sylabs/singularity/issues/2788</span>
-    <span class="k">if</span> <span class="n">pull_folder</span> <span class="ow">and</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">pull_folder</span><span class="p">:</span>
         <span class="n">final_image</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pull_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">final_image</span><span class="p">]</span>          
+    
+        <span class="c1"># Regression Singularity 3.* onward, PULLFOLDER not honored</span>
+        <span class="c1"># https://github.com/sylabs/singularity/issues/2788</span>
+        <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">final_image</span>
+            <span class="n">pull_folder</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Don&#39;t use pull_folder</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">final_image</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--force&quot;</span><span class="p">]</span>
-   
+
     <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
 
-    <span class="c1"># If name is still None, make empty string</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
 
-    <span class="c1"># Option 1: Streaming we just run to show user</span>
-    <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;SINGULARITY_PULLFOLDER&#39;</span><span class="p">,</span> <span class="n">pull_folder</span><span class="p">):</span>
+        <span class="c1"># Option 1: Streaming we just run to show user</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
+                              <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span>
+                              <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
 
-    <span class="c1"># Option 3: A custom name we can predict (not commit/hash) and can also show</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">final_image</span><span class="p">,</span> <span class="n">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Option 3: A custom name we can predict (not commit/hash) and can also show</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">final_image</span><span class="p">,</span> <span class="n">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">final_image</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">final_image</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">final_image</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">final_image</span></div>
 </pre></div>
@@ -253,7 +261,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -270,33 +278,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../assets/jquery.js"></script>
-      <script type="text/javascript" src="../../../assets/underscore.js"></script>
-      <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="../../../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
