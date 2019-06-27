@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../assets/jquery.js"></script>
+        <script type="text/javascript" src="../../../assets/underscore.js"></script>
+        <script type="text/javascript" src="../../../assets/doctools.js"></script>
+        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -170,6 +172,7 @@
         <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        run will run the container, with or withour arguments (which</span>
@@ -181,6 +184,7 @@
 <span class="sd">        args: args to include with the run </span>
 <span class="sd">        app: if not None, execute a command in context of an app</span>
 <span class="sd">        writable: This option makes the file system accessible as read/write</span>
+<span class="sd">        options: an optional list of options to provide to run.</span>
 <span class="sd">        contain: This option disables the automatic sharing of writable</span>
 <span class="sd">                 filesystems on your host</span>
 <span class="sd">        bind: list or single string of bind paths.</span>
@@ -198,7 +202,7 @@
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">)</span>
    
     <span class="c1"># nv option leverages any GPU cards</span>
-    <span class="k">if</span> <span class="n">nv</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">nv</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;--nv&#39;</span><span class="p">]</span>
 
     <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
@@ -221,18 +225,22 @@
     <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;--app&#39;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">]</span>
+    <span class="c1"># Does the user want writable?</span>
+    <span class="k">if</span> <span class="n">writable</span><span class="p">:</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--writable&#39;</span><span class="p">)</span>
 
-    <span class="c1"># Conditions for needing sudo</span>
-    <span class="k">if</span> <span class="n">writable</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">sudo</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1"># Add options</span>
+    <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">options</span>
+
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">]</span>
         
     <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>        
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">args</span>
 
-    <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">stream</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
                                    <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> 
                                    <span class="n">return_result</span><span class="o">=</span><span class="n">return_result</span><span class="p">)</span>
@@ -264,7 +272,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -281,33 +289,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../assets/jquery.js"></script>
-      <script type="text/javascript" src="../../../assets/underscore.js"></script>
-      <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="../../../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

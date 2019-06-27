@@ -17,8 +17,17 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - list of options and writable added to shell, execute, and run (0.0.72)
+ - client is not honoring quiet for pull (0.0.71)
+ - removing debugging line in pull (0.0.70)
+ - adding quiet argument to build to override client (0.0.69)
+ - adding additional options to build to support singularity-compose (0.0.68)
+ - client should support shell (0.0.67)
+ - adding test for entrypoint + cmd and fixing testing requirements (0.0.66)
+ - fixing bug that inspect does not honor quiet (0.0.65)
  - refactor recipe parsers, writers, and base (0.0.64)
- - updated testing to use pytest, linting fixes, and oci state fixes (0.0.63)
+   - paths for files, add, copy, will not be expanded as it adds hardcoded paths
+ - oci state fixes and added Client.version_info() (0.0.63)
  - fix crash in some error conditions (0.0.62)
    - more OCI commands accept sudo parameter
  - working directory, the last one defined, should be added to runscript (0.0.61)

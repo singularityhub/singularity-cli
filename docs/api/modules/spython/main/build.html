@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../assets/jquery.js"></script>
+        <script type="text/javascript" src="../../../assets/underscore.js"></script>
+        <script type="text/javascript" src="../../../assets/doctools.js"></script>
+        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -168,10 +170,13 @@
                 <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">build_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">robot_name</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;simg&#39;</span><span class="p">,</span>
+                <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;sif&#39;</span><span class="p">,</span>
                 <span class="n">sudo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
     <span class="sd">&#39;&#39;&#39;build a singularity image, optionally for an isolated build</span>
 <span class="sd">       (requires sudo). If you specify to stream, expect the image name</span>
@@ -194,18 +199,24 @@
 <span class="sd">                   name (with &quot;image&quot;) then a fun robot name will be generated</span>
 <span class="sd">                   instead. Highly recommended :) </span>
 <span class="sd">       sudo: give sudo to the command (or not) default is True for build</span>
-<span class="sd">    </span>
+<span class="sd">       options: for all other options, specify them in this list.   </span>
+<span class="sd">       quiet: quiet verbose printing from the client.</span>
+<span class="sd">       return_result: if True, return complete error code / message dictionary</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
     <span class="n">check_install</span><span class="p">()</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">)</span>
 
+    <span class="c1"># If no extra options</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+
     <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span>
         
     <span class="c1"># Force the build if the image / sandbox exists</span>
-    <span class="k">if</span> <span class="n">force</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--force&#39;</span><span class="p">)</span>
 
     <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
@@ -220,7 +231,7 @@
             <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Cannot find </span><span class="si">%s</span><span class="s1">, exiting.&#39;</span> <span class="o">%</span><span class="n">image</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(docker|shub)://&#39;</span><span class="p">,</span> <span class="n">recipe</span><span class="p">)</span> <span class="ow">and</span> <span class="n">robot_name</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;(docker|shub)://&#39;</span><span class="p">,</span> <span class="n">recipe</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">robot_name</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filename</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RobotNamer</span><span class="o">.</span><span class="n">generate</span><span class="p">(),</span> <span class="n">ext</span><span class="p">)</span>
@@ -232,18 +243,24 @@
         <span class="n">image</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
         
     <span class="c1"># The user wants to run an isolated build</span>
-    <span class="k">if</span> <span class="n">isolated</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">isolated</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--isolated&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">sandbox</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">sandbox</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--sandbox&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">sandbox</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+    <span class="k">elif</span> <span class="n">writable</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--writable&#39;</span><span class="p">)</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">,</span> <span class="n">recipe</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">options</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">,</span> <span class="n">recipe</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">stream</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> 
+                          <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> 
+                          <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span> 
+                          <span class="n">return_result</span><span class="o">=</span><span class="n">return_result</span><span class="p">,</span> 
+                          <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Here we return the expected image, and an iterator! </span>
         <span class="c1"># The caller must iterate over</span>
@@ -263,7 +280,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -280,33 +297,16 @@
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../../assets/jquery.js"></script>
-      <script type="text/javascript" src="../../../assets/underscore.js"></script>
-      <script type="text/javascript" src="../../../assets/doctools.js"></script>
-      <script type="text/javascript" src="../../../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

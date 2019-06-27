@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../assets/jquery.js"></script>
+        <script type="text/javascript" src="../assets/underscore.js"></script>
+        <script type="text/javascript" src="../assets/doctools.js"></script>
+        <script type="text/javascript" src="../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="CHANGELOG" href="../changelog.html" />
     <link rel="prev" title="spython.main.parse package" href="spython.main.parse.html" /> 
-
-  
-  <script src="../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -275,17 +277,21 @@ singularity –version […]. For Singularity 3.x, this means:
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
 don’t return the output to parse.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</p></li>
-<li><p><strong>sudo</strong> (<em>if needed, add to start of command</em>)</p></li>
-<li><p><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</p></li>
-<li><p><strong>capture</strong> (<em>if True, don’t set stdout and have it go to console. This</em>) – option can print a progress bar, but won’t return the lines
-as output.</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
+<li><strong>sudo</strong> (<em>if needed, add to start of command</em>)</li>
+<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
+<li><strong>capture</strong> (<em>if True, don’t set stdout and have it go to console. This</em>) – option can print a progress bar, but won’t return the lines
+as output.</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -304,17 +310,26 @@ A trailing slash is removed from the image part.</p>
 results = []
 for line in stream_command(cmd):</p>
 <blockquote>
-<div><p>print(line, end=”“)
-results.append(line)</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</p></li>
-<li><p><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</p></li>
+<div>print(line, end=”“)
+results.append(line)</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cmd</strong> (<em>the command to send, should be a list for subprocess</em>)</li>
+<li><strong>no_newline_regexp</strong> (<em>the regular expression to determine skipping a</em>) – newline. Defaults to finding Progress</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="spython.utils.terminal.which">
+<code class="descclassname">spython.utils.terminal.</code><code class="descname">which</code><span class="sig-paren">(</span><em>software='singularity'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#which"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.which" title="Permalink to this definition">¶</a></dt>
+<dd><p>which returns the full path to where software is installed.</p>
 </dd></dl>
 
 </div>
@@ -334,7 +349,7 @@ results.append(line)</p>
         <a href="../changelog.html" class="btn btn-neutral float-right" title="CHANGELOG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="spython.main.parse.html" class="btn btn-neutral" title="spython.main.parse package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="spython.main.parse.html" class="btn btn-neutral float-left" title="spython.main.parse package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -343,7 +358,7 @@ results.append(line)</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -360,33 +375,16 @@ results.append(line)</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../assets/jquery.js"></script>
-      <script type="text/javascript" src="../assets/underscore.js"></script>
-      <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

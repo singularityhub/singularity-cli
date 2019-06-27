@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
+        <script type="text/javascript" src="../assets/jquery.js"></script>
+        <script type="text/javascript" src="../assets/underscore.js"></script>
+        <script type="text/javascript" src="../assets/doctools.js"></script>
+        <script type="text/javascript" src="../assets/language_data.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
-
-  
-  <script src="../assets/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -154,121 +156,133 @@
 </div>
 <div class="section" id="module-spython.tests.test_client">
 <span id="spython-tests-test-client-module"></span><h2>spython.tests.test_client module<a class="headerlink" href="#module-spython.tests.test_client" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="spython.tests.test_client.TestClient">
-<em class="property">class </em><code class="descclassname">spython.tests.test_client.</code><code class="descname">TestClient</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#TestClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.TestClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="spython.tests.test_client.TestClient.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#TestClient.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.TestClient.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.tests.test_client.TestClient.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#TestClient.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.TestClient.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.tests.test_client.TestClient.test_commands">
-<code class="descname">test_commands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#TestClient.test_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.TestClient.test_commands" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_client.test_build_from_docker">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_build_from_docker</code><span class="sig-paren">(</span><em>tmp_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_build_from_docker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_build_from_docker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
+<dl class="function">
+<dt id="spython.tests.test_client.test_docker_pull">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_docker_pull</code><span class="sig-paren">(</span><em>docker_container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_docker_pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_docker_pull" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_client.test_execute">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_execute</code><span class="sig-paren">(</span><em>docker_container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_client.test_execute_with_return_code">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_execute_with_return_code</code><span class="sig-paren">(</span><em>docker_container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_execute_with_return_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_execute_with_return_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_client.test_export">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_export" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_client.test_inspect">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_inspect</code><span class="sig-paren">(</span><em>docker_container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_inspect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_inspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_client.test_pull_and_run">
+<code class="descclassname">spython.tests.test_client.</code><code class="descname">test_pull_and_run</code><span class="sig-paren">(</span><em>tmp_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_client.html#test_pull_and_run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_client.test_pull_and_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-spython.tests.test_instances">
 <span id="spython-tests-test-instances-module"></span><h2>spython.tests.test_instances module<a class="headerlink" href="#module-spython.tests.test_instances" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="spython.tests.test_instances.TestInstances">
-<em class="property">class </em><code class="descclassname">spython.tests.test_instances.</code><code class="descname">TestInstances</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstances" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dt id="spython.tests.test_instances.TestInstanceFuncs">
+<em class="property">class </em><code class="descclassname">spython.tests.test_instances.</code><code class="descname">TestInstanceFuncs</code><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstanceFuncs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstanceFuncs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
-<dt id="spython.tests.test_instances.TestInstances.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstances.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstances.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.tests.test_instances.TestInstances.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstances.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstances.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.tests.test_instances.TestInstances.test_instance_class">
-<code class="descname">test_instance_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstances.test_instance_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstances.test_instance_class" title="Permalink to this definition">¶</a></dt>
+<dt id="spython.tests.test_instances.TestInstanceFuncs.cleanup">
+<code class="descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstanceFuncs.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstanceFuncs.cleanup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="spython.tests.test_instances.TestInstances.test_instances">
-<code class="descname">test_instances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstances.test_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstances.test_instances" title="Permalink to this definition">¶</a></dt>
+<dt id="spython.tests.test_instances.TestInstanceFuncs.test_instance_cmds">
+<code class="descname">test_instance_cmds</code><span class="sig-paren">(</span><em>docker_container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#TestInstanceFuncs.test_instance_cmds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.TestInstanceFuncs.test_instance_cmds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_instances.test_has_no_instances">
+<code class="descclassname">spython.tests.test_instances.</code><code class="descname">test_has_no_instances</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#test_has_no_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.test_has_no_instances" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_instances.test_instance_class">
+<code class="descclassname">spython.tests.test_instances.</code><code class="descname">test_instance_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_instances.html#test_instance_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_instances.test_instance_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="module-spython.tests.test_utils">
 <span id="spython-tests-test-utils-module"></span><h2>spython.tests.test_utils module<a class="headerlink" href="#module-spython.tests.test_utils" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="spython.tests.test_utils.TestUtils">
-<em class="property">class </em><code class="descclassname">spython.tests.test_utils.</code><code class="descname">TestUtils</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
-</dd></dl>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_ScopedEnvVar">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_ScopedEnvVar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_ScopedEnvVar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_ScopedEnvVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.tearDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_check_get_singularity_version">
-<code class="descname">test_check_get_singularity_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_check_get_singularity_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_check_get_singularity_version" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_check_get_singularity_version">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_check_get_singularity_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_check_get_singularity_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_check_get_singularity_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>check that the singularity version is found to be that installed</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_check_get_singularity_version_info">
-<code class="descname">test_check_get_singularity_version_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_check_get_singularity_version_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_check_get_singularity_version_info" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_check_get_singularity_version_info">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_check_get_singularity_version_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_check_get_singularity_version_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_check_get_singularity_version_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check that the version_info is correct</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_check_install">
-<code class="descname">test_check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_check_install" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_check_install">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_check_install</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_check_install" title="Permalink to this definition">¶</a></dt>
 <dd><p>check install is used to check if a particular software is installed.
 If no command is provided, singularity is assumed to be the test case</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_get_installdir">
-<code class="descname">test_get_installdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_get_installdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_get_installdir" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_decode">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_decode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_decode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_utils.test_get_installdir">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_get_installdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_get_installdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_get_installdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>get install directory should return the base of where singularity
 is installed</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_remove_uri">
-<code class="descname">test_remove_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_remove_uri" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_remove_uri">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_remove_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_remove_uri" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_split_uri">
-<code class="descname">test_split_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_split_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_split_uri" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_split_uri">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_split_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_split_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_split_uri" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="spython.tests.test_utils.TestUtils.test_write_read_files">
-<code class="descname">test_write_read_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#TestUtils.test_write_read_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.TestUtils.test_write_read_files" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="spython.tests.test_utils.test_write_bad_json">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_write_bad_json</code><span class="sig-paren">(</span><em>tmp_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_write_bad_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_write_bad_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_utils.test_write_json">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_write_json</code><span class="sig-paren">(</span><em>tmp_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_write_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="spython.tests.test_utils.test_write_read_files">
+<code class="descclassname">spython.tests.test_utils.</code><code class="descname">test_write_read_files</code><span class="sig-paren">(</span><em>tmp_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/tests/test_utils.html#test_write_read_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.tests.test_utils.test_write_read_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>test_write_read_files will test the functions write_file and read_file</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -288,7 +302,7 @@ is installed</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat.
+        &copy; Copyright 2018, Vanessa Sochat
 
     </p>
   </div>
@@ -305,33 +319,16 @@ is installed</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../assets/jquery.js"></script>
-      <script type="text/javascript" src="../assets/underscore.js"></script>
-      <script type="text/javascript" src="../assets/doctools.js"></script>
-      <script type="text/javascript" src="../assets/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../assets/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
