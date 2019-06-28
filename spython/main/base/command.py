@@ -106,7 +106,8 @@ def run_command(self, cmd,
                       sudo=False,
                       capture=True,
                       quiet=None,
-                      return_result=False):
+                      return_result=False,
+                      sudo_options=None):
 
     '''run_command is a wrapper for the global run_command, checking first
        for sudo and exiting on error if needed. The message is returned as
@@ -119,6 +120,7 @@ def run_command(self, cmd,
        sudo: does the command require sudo?
        quiet: if quiet set by function, overrides client setting.
        return_result: return the result, if not successful (default False).
+       sudo_options: string or list of strings that will be passed as options to sudo
        On success, returns result.
 
     '''
@@ -126,7 +128,7 @@ def run_command(self, cmd,
     if quiet is None:
         quiet = self.quiet
 
-    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet)
+    result = run_cmd(cmd, sudo=sudo, capture=capture, quiet=quiet, sudo_options=sudo_options)
 
     # If one line is returned, squash dimension
     if len(result['message']) == 1:
