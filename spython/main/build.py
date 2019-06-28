@@ -24,7 +24,8 @@ def build(self, recipe=None,
                 force=False,
                 options=None,
                 quiet=False,
-                return_result=False):
+                return_result=False,
+                sudo_options=None):
 
     '''build a singularity image, optionally for an isolated build
        (requires sudo). If you specify to stream, expect the image name
@@ -47,6 +48,7 @@ def build(self, recipe=None,
                    name (with "image") then a fun robot name will be generated
                    instead. Highly recommended :) 
        sudo: give sudo to the command (or not) default is True for build
+       sudo_options: options to pass to sudo (e.g. --preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)
        options: for all other options, specify them in this list.   
        quiet: quiet verbose printing from the client.
        return_result: if True, return complete error code / message dictionary
@@ -105,6 +107,7 @@ def build(self, recipe=None,
     if not stream:
         self._run_command(cmd, 
                           sudo=sudo, 
+                          sudo_options=sudo_options,
                           quiet=quiet, 
                           return_result=return_result, 
                           capture=False)
@@ -112,7 +115,7 @@ def build(self, recipe=None,
     else:
         # Here we return the expected image, and an iterator! 
         # The caller must iterate over
-        return image, stream_command(cmd, sudo=sudo)
+        return image, stream_command(cmd, sudo=sudo, sudo_options=sudo_options)
 
     if os.path.exists(image):
         return image

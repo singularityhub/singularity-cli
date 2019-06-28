@@ -15,10 +15,20 @@ from spython.logger import bot
 from spython.logger import decodeUtf8String
 import subprocess
 import sys
+import shlex
 
 ################################################################################
 # Local commands and requests
 ################################################################################
+
+def _process_sudo_cmd(cmd, sudo, sudo_options):
+    if sudo and sudo_options is not None:
+        if isinstance(sudo_options, str):
+            sudo_options = shlex.split(sudo_options)
+        cmd = ['sudo'] + sudo_options + cmd
+    elif sudo:
+        cmd = ['sudo'] + cmd
+    return cmd
 
 
 def check_install(software='singularity', quiet=True):
@@ -89,7 +99,7 @@ def get_installdir():
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
-def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
+def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=None):
     '''stream a command (yield) back to the user, as each line is available.
 
        # Example usage:
@@ -103,10 +113,10 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False):
        cmd: the command to send, should be a list for subprocess
        no_newline_regexp: the regular expression to determine skipping a
                           newline. Defaults to finding Progress
+       sudo_options: string or list of strings that will be passed as options to sudo
 
     '''
-    if sudo:
-        cmd = ['sudo'] + cmd
+    cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
     process = subprocess.Popen(cmd,
                                stdout=subprocess.PIPE,
@@ -124,7 +134,8 @@ def run_command(cmd,
                 sudo=False,
                 capture=True,
                 no_newline_regexp="Progess",
-                quiet=False):
+                quiet=False,
+                sudo_options=None):
 
     '''run_command uses subprocess to send a command to the terminal. If
        capture is True, we use the parent stdout, so the progress bar (and
@@ -140,10 +151,9 @@ def run_command(cmd,
        capture: if True, don't set stdout and have it go to console. This
                 option can print a progress bar, but won't return the lines
                 as output.
+       sudo_options: string or list of strings that will be passed as options to sudo
     '''
-
-    if sudo:
-        cmd = ['sudo'] + cmd
+    cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
     stdout = None
     if capture:
