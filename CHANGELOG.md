@@ -9,7 +9,7 @@ Critical items to know are:
  - renamed commands
  - deprecated / removed commands
  - changed defaults
- - backward incompatible changes (recipe file format? image file format?)
+ - backward incompatible changes (recipe or image file format?)
  - migration guidance (how to convert images?)
  - changed behaviour (recipe sections work differently)
 
