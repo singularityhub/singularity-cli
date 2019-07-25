@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  singularity: singularity/singularity@1.0.4
+  singularity: singularity/singularity@1.0.7
 
 workflows:
   version: 2
@@ -127,12 +127,12 @@ jobs:
             - singularity/install-go:
                 go-version: 1.11.5
             - singularity/debian-install-3:
-                      singularity-version: << parameters.singularity >>
+                singularity-version: << parameters.singularity >>
       - unless:
           condition: << parameters.singularity-3 >>
           steps:
             - singularity/debian-install-2:
-                      singularity-version: << parameters.singularity >>
+                singularity-version: << parameters.singularity >>
       - run: *install_spython
       - save_cache:
           paths:
