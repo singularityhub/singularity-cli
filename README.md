@@ -12,4 +12,5 @@ We provide a [Singularity](Singularity) recipe for you to use if more convenient
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
 
 ## Help and Contribution
+
 Please contribute to the package, or post feedback and questions as <a href="https://github.com/singularityhub/singularity-cli" target="_blank">issues</a>. For points that require discussion of the larger group, please use the <a href="https://groups.google.com/a/lbl.gov/forum/#!forum/singularity" target="_blank">Singularity List</a>
