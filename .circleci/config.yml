@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  singularity: singularity/singularity@dev:alpha
+  singularity: singularity/singularity@1.0.7
 
 workflows:
   version: 2
