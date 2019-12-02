@@ -1,5 +1,5 @@
 
-# Copyright (C) 2017-2018 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -23,6 +23,7 @@ def generate_instance_commands():
     from spython.main.base.generate import RobotNamer
     from .start import start
     from .stop import stop
+    from .logs import error_logs, output_logs, _logs
 
     Instance.RobotNamer = RobotNamer()
     Instance._init_command = init_command
@@ -32,6 +33,9 @@ def generate_instance_commands():
     Instance._println = println
     Instance.start = start     # intended to be called on init, not by user
     Instance.stop = stop
+    Instance.error_logs = error_logs
+    Instance.output_logs = output_logs
+    Instance._logs = _logs
 
     # Give an instance the ability to breed :)
     Instance.instance = Instance

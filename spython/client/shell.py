@@ -1,5 +1,5 @@
 
-# Copyright (C) 2017-2018 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -34,7 +34,9 @@ def prepare_client(image):
     from spython.main.parse import writers
 
     client = get_client()
-    client.load(image)
+
+    if image:
+        client.load(image)
 
     # Add recipe parsers
     client.parsers = parsers

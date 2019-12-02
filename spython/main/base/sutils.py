@@ -2,7 +2,7 @@
 # Singularity Image utils for interacting with the Image/Instance 
 #           classes from the client
 
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed

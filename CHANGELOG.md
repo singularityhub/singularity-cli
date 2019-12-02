@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - instance logging functions for Singularity 3.5 and up (0.0.74)
  - add sudo_options option to spython.main.Client.build (0.0.73)
  - list of options and writable added to shell, execute, and run (0.0.72)
  - client is not honoring quiet for pull (0.0.71)

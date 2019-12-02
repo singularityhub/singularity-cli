@@ -14,6 +14,7 @@ from .terminal import (
     get_installdir,
     get_singularity_version,
     get_singularity_version_info,
+    get_userhome,
     remove_uri,
     run_command,
     stream_command,
