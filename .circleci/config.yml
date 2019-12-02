@@ -83,13 +83,13 @@ commands:
           python --version
           [ $(python -c'import sys;print(sys.version_info.major)') -eq $PYTHON_VERSION ]
 
-          pip install --upgrade pylint pytest
+          pip install --upgrade black pytest
 
 run_linter: &run_linter
   name: run linter
   command: |
       cd ~/repo
-      pylint spython
+      black --check spython
 
 test_spython: &test_spython
   name: Test Singularity Python

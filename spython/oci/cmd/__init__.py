@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -7,21 +6,21 @@
 
 
 def generate_oci_commands():
-    ''' The oci command group will allow interaction with an image using
+    """ The oci command group will allow interaction with an image using
         OCI commands.
-    '''
+    """
     from spython.oci import OciImage
 
     from spython.main.base.logger import println
 
     # run_command uses run_cmd, but wraps to catch error
-    from spython.main.base.command import (run_command, send_command)
+    from spython.main.base.command import run_command, send_command
     from spython.main.base.generate import RobotNamer
 
     # Oci Command Groups
-    from .mounts import (mount, umount)
-    from .states import (kill, state, start, pause, resume, _state_command)
-    from .actions import (attach, create, delete, execute, run, _run, update)
+    from .mounts import mount, umount
+    from .states import kill, state, start, pause, resume, _state_command
+    from .actions import attach, create, delete, execute, run, _run, update
 
     # Oci Commands
     OciImage.start = start
@@ -41,7 +40,7 @@ def generate_oci_commands():
     OciImage._state_command = _state_command
 
     OciImage.RobotNamer = RobotNamer()
-    OciImage._send_command = send_command # send and disregard stderr, stdout
+    OciImage._send_command = send_command  # send and disregard stderr, stdout
     OciImage._run_command = run_command
     OciImage._println = println
     OciImage.OciImage = OciImage

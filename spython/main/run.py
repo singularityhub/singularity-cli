@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -10,19 +9,22 @@ from spython.logger import bot
 from spython.utils import stream_command
 import json
 
-def run(self, 
-        image=None,
-        args=None,
-        app=None,
-        sudo=False,
-        writable=False,
-        contain=False,
-        bind=None,
-        stream=False,
-        nv=False,
-        options=None,
-        return_result=False):
-    '''
+
+def run(
+    self,
+    image=None,
+    args=None,
+    app=None,
+    sudo=False,
+    writable=False,
+    contain=False,
+    bind=None,
+    stream=False,
+    nv=False,
+    options=None,
+    return_result=False,
+):
+    """
         run will run the container, with or withour arguments (which
         should be provided in a list)
     
@@ -43,15 +45,16 @@ def run(self,
         return_result: if True, return entire json object with return code
              and message result (default is False)
 
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self._init_command('run')
-   
+    cmd = self._init_command("run")
+
     # nv option leverages any GPU cards
     if nv:
-        cmd += ['--nv']
+        cmd += ["--nv"]
 
     # No image provided, default to use the client's loaded image
     if image is None:
@@ -63,7 +66,7 @@ def run(self,
 
     # If image is still None, not defined by user or previously with client
     if image is None:
-        bot.exit('Please load or provide an image.')
+        bot.exit("Please load or provide an image.")
 
     # Does the user want to use bind paths option?
     if bind is not None:
@@ -71,27 +74,25 @@ def run(self,
 
     # Does the user want to run an app?
     if app is not None:
-        cmd = cmd + ['--app', app]
+        cmd = cmd + ["--app", app]
 
     # Does the user want writable?
     if writable:
-        cmd.append('--writable')
+        cmd.append("--writable")
 
     # Add options
     if options is not None:
         cmd = cmd + options
 
     cmd = cmd + [image]
-        
-    if args is not None:        
+
+    if args is not None:
         if not isinstance(args, list):
-            args = args.split(' ')
+            args = args.split(" ")
         cmd = cmd + args
 
     if not stream:
-        result = self._run_command(cmd, 
-                                   sudo=sudo, 
-                                   return_result=return_result)
+        result = self._run_command(cmd, sudo=sudo, return_result=return_result)
     else:
         return stream_command(cmd, sudo=sudo)
 
@@ -101,7 +102,7 @@ def run(self,
 
     # Otherwise, we parse the result if it was successful
     if result:
-        result = result.strip('\n')
+        result = result.strip("\n")
 
         try:
             result = json.loads(result)

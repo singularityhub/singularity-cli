@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -11,23 +10,27 @@ from spython.utils import stream_command
 import re
 import os
 
-def build(self, recipe=None, 
-                image=None, 
-                isolated=False,
-                sandbox=False,
-                writable=False,
-                build_folder=None,
-                robot_name=False,
-                ext='sif',
-                sudo=True,
-                stream=False,
-                force=False,
-                options=None,
-                quiet=False,
-                return_result=False,
-                sudo_options=None):
 
-    '''build a singularity image, optionally for an isolated build
+def build(
+    self,
+    recipe=None,
+    image=None,
+    isolated=False,
+    sandbox=False,
+    writable=False,
+    build_folder=None,
+    robot_name=False,
+    ext="sif",
+    sudo=True,
+    stream=False,
+    force=False,
+    options=None,
+    quiet=False,
+    return_result=False,
+    sudo_options=None,
+):
+
+    """build a singularity image, optionally for an isolated build
        (requires sudo). If you specify to stream, expect the image name
        and an iterator to be returned.
        
@@ -52,22 +55,23 @@ def build(self, recipe=None,
        options: for all other options, specify them in this list.   
        quiet: quiet verbose printing from the client.
        return_result: if True, return complete error code / message dictionary
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self._init_command('build')
+    cmd = self._init_command("build")
 
     # If no extra options
     if not options:
         options = []
 
-    if 'version 3' in self.version():
-        ext = 'sif'
-        
+    if "version 3" in self.version():
+        ext = "sif"
+
     # Force the build if the image / sandbox exists
     if force:
-        cmd.append('--force')
+        cmd.append("--force")
 
     # No image provided, default to use the client's loaded image
     if recipe is None:
@@ -75,45 +79,47 @@ def build(self, recipe=None,
 
     # If it's still None, try default build recipe
     if recipe is None:
-        recipe = 'Singularity'
+        recipe = "Singularity"
 
         if not os.path.exists(recipe):
-            bot.exit('Cannot find %s, exiting.' %image)
+            bot.exit("Cannot find %s, exiting." % image)
 
     if image is None:
-        if re.search('(docker|shub)://', recipe) and not robot_name:
+        if re.search("(docker|shub)://", recipe) and not robot_name:
             image = self._get_filename(recipe, ext)
         else:
-            image = "%s.%s" %(self.RobotNamer.generate(), ext)
+            image = "%s.%s" % (self.RobotNamer.generate(), ext)
 
     # Does the user want a custom build folder?
     if build_folder is not None:
         if not os.path.exists(build_folder):
-            bot.exit('%s does not exist!' % build_folder)
+            bot.exit("%s does not exist!" % build_folder)
         image = os.path.join(build_folder, image)
-        
+
     # The user wants to run an isolated build
     if isolated:
-        cmd.append('--isolated')
+        cmd.append("--isolated")
 
     if sandbox:
-        cmd.append('--sandbox')
+        cmd.append("--sandbox")
 
     elif writable:
-        cmd.append('--writable')
+        cmd.append("--writable")
 
     cmd = cmd + options + [image, recipe]
 
     if not stream:
-        self._run_command(cmd, 
-                          sudo=sudo, 
-                          sudo_options=sudo_options,
-                          quiet=quiet, 
-                          return_result=return_result, 
-                          capture=False)
+        self._run_command(
+            cmd,
+            sudo=sudo,
+            sudo_options=sudo_options,
+            quiet=quiet,
+            return_result=return_result,
+            capture=False,
+        )
 
     else:
-        # Here we return the expected image, and an iterator! 
+        # Here we return the expected image, and an iterator!
         # The caller must iterate over
         return image, stream_command(cmd, sudo=sudo, sudo_options=sudo_options)
 

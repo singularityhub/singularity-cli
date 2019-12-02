@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -7,17 +6,18 @@
 
 
 def helpcmd(self, command=None):
-    '''help prints the general function help, or help for a specific command
+    """help prints the general function help, or help for a specific command
 
         Parameters
         ==========   
         command: the command to get help for, if none, prints general help
 
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = ['singularity', '--help']
+    cmd = ["singularity", "--help"]
     if command is not None:
         cmd.append(command)
     return self._run_command(cmd)

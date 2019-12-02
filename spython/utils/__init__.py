@@ -1,15 +1,9 @@
-from .fileio import ( 
-    mkdir_p, 
-    write_file, 
-    write_json,
-    read_file, 
-    read_json
-)
+from .fileio import mkdir_p, write_file, write_json, read_file, read_json
 
 from .misc import ScopedEnvVar
 
 from .terminal import (
-    check_install, 
+    check_install,
     format_container_name,
     get_installdir,
     get_singularity_version,
@@ -20,5 +14,5 @@ from .terminal import (
     run_command,
     stream_command,
     split_uri,
-    which
+    which,
 )

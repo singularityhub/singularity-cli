@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -9,24 +8,25 @@
 import os
 from spython.logger import decodeUtf8String
 
+
 def init_level(self, quiet=False):
-    '''set the logging level based on the environment
+    """set the logging level based on the environment
         
        Parameters
        ==========
        quiet: boolean if True, set to quiet. Gets overriden by environment
               setting, and only exists to define default
 
-    '''
-        
-    if os.environ.get('MESSAGELEVEL') == "QUIET":
+    """
+
+    if os.environ.get("MESSAGELEVEL") == "QUIET":
         quiet = True
 
     self.quiet = quiet
 
 
 def println(self, output, quiet=False):
-    '''print will print the output, given that quiet is not True. This
+    """print will print the output, given that quiet is not True. This
        function also serves to convert output in bytes to utf-8
 
        Parameters
@@ -34,6 +34,6 @@ def println(self, output, quiet=False):
        output: the string to print
        quiet: a runtime variable to over-ride the default.
 
-    '''
+    """
     if not self.quiet and not quiet:
         print(decodeUtf8String(output))

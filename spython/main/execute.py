@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -7,27 +6,27 @@
 
 
 from spython.logger import bot
-from spython.utils import (
-    stream_command, 
-    which
-)
+from spython.utils import stream_command, which
 
 import os
 
-def execute(self, 
-            image=None, 
-            command=None,
-            app=None,
-            writable=False,
-            contain=False,
-            bind=None,
-            stream=False,
-            nv=False,
-            return_result=False,
-            options=None,
-            sudo=False,
-            quiet=True):
-    ''' execute: send a command to a container
+
+def execute(
+    self,
+    image=None,
+    command=None,
+    app=None,
+    writable=False,
+    contain=False,
+    bind=None,
+    stream=False,
+    nv=False,
+    return_result=False,
+    options=None,
+    sudo=False,
+    quiet=True,
+):
+    """ execute: send a command to a container
     
         Parameters
         ==========
@@ -45,23 +44,24 @@ def execute(self,
         nv: if True, load Nvidia Drivers in runtime (default False)
         return_result: if True, return entire json object with return code
                        and message result not (default)
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self._init_command('exec')
+    cmd = self._init_command("exec")
 
     # nv option leverages any GPU cards
     if nv:
-        cmd += ['--nv']
-    
+        cmd += ["--nv"]
+
     # If the image is given as a list, it's probably the command
     if isinstance(image, list):
         command = image
         image = None
 
     if command is not None:
-        
+
         # No image provided, default to use the client's loaded image
         if image is None:
             image = self._get_uri()
@@ -73,7 +73,7 @@ def execute(self,
 
         # If image is still None, not defined by user or previously with client
         if image is None:
-            bot.exit('Please load or provide an image.')
+            bot.exit("Please load or provide an image.")
 
         # Does the user want to use bind paths option?
         if bind is not None:
@@ -81,40 +81,41 @@ def execute(self,
 
         # Does the user want to run an app?
         if app is not None:
-            cmd = cmd + ['--app', app]
+            cmd = cmd + ["--app", app]
 
         if writable:
-            cmd.append('--writable')
+            cmd.append("--writable")
 
         # Add additional options
         if options is not None:
             cmd = cmd + options
 
         if not isinstance(command, list):
-            command = command.split(' ')
+            command = command.split(" ")
 
         cmd = cmd + [image] + command
- 
+
         if not stream:
-            return self._run_command(cmd,
-                                     sudo=sudo,
-                                     return_result=return_result,
-                                     quiet=quiet)
+            return self._run_command(
+                cmd, sudo=sudo, return_result=return_result, quiet=quiet
+            )
         return stream_command(cmd, sudo=sudo)
 
-    bot.exit('Please include a command (list) to execute.')
+    bot.exit("Please include a command (list) to execute.")
 
 
-def shell(self, 
-          image, 
-          app=None,
-          writable=False,
-          contain=False,
-          bind=None,
-          nv=False,
-          options=None,
-          sudo=False):
-    ''' shell into a container. A user is advised to use singularity to do
+def shell(
+    self,
+    image,
+    app=None,
+    writable=False,
+    contain=False,
+    bind=None,
+    nv=False,
+    options=None,
+    sudo=False,
+):
+    """ shell into a container. A user is advised to use singularity to do
         this directly, however this function is useful for supporting tools.
     
         Parameters
@@ -130,34 +131,35 @@ def shell(self,
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
         nv: if True, load Nvidia Drivers in runtime (default False)
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self._init_command('shell')
+    cmd = self._init_command("shell")
 
     # nv option leverages any GPU cards
     if nv:
-        cmd += ['--nv']
-    
+        cmd += ["--nv"]
+
     # Does the user want to use bind paths option?
     if bind is not None:
         cmd += self._generate_bind_list(bind)
 
     # Does the user want to run an app?
     if app is not None:
-        cmd = cmd + ['--app', app]
+        cmd = cmd + ["--app", app]
 
     # Add additional options
     if options is not None:
         cmd = cmd + options
 
     if writable:
-        cmd.append('--writable')
+        cmd.append("--writable")
 
     # Finally, add the image or uri
     cmd.append(image)
-    singularity = which('singularity')
+    singularity = which("singularity")
 
     if writable or sudo:
         os.execvp("sudo", ["sudo"] + cmd)

@@ -1,4 +1,3 @@
-
 # Copyright (C) 2019-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -11,7 +10,7 @@ import json
 
 def state(self, container_id=None, sudo=None, sync_socket=None):
 
-    ''' get the state of an OciImage, if it exists. The optional states that
+    """ get the state of an OciImage, if it exists. The optional states that
         can be returned are created, running, stopped or (not existing).
 
         Equivalent command line example:      
@@ -28,15 +27,15 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
         =======
         state: a parsed json of the container state, if exists. If the
                container is not found, None is returned.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci state
-    cmd = self._init_command('state')
+    cmd = self._init_command("state")
 
     if sync_socket is not None:
-        cmd = cmd + ['--sync-socket', sync_socket]
+        cmd = cmd + ["--sync-socket", sync_socket]
 
     # Finally, add the container_id
     cmd.append(container_id)
@@ -49,11 +48,11 @@ def state(self, container_id=None, sudo=None, sync_socket=None):
         # If successful, a string is returned to parse
         if isinstance(result, str):
             return json.loads(result)
-    
 
-def _state_command(self, container_id=None, command='start', sudo=None):
 
-    ''' A generic state command to wrap pause, resume, kill, etc., where the
+def _state_command(self, container_id=None, command="start", sudo=None):
+
+    """ A generic state command to wrap pause, resume, kill, etc., where the
         only difference is the command. This function will be unwrapped if the
         child functions get more complicated (with additional arguments).
 
@@ -70,7 +69,7 @@ def _state_command(self, container_id=None, command='start', sudo=None):
         Returns
         =======
         return_code: the return code to indicate if the container was started.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
@@ -84,10 +83,9 @@ def _state_command(self, container_id=None, command='start', sudo=None):
     return self._run_and_return(cmd, sudo)
 
 
-
 def start(self, container_id=None, sudo=None):
 
-    ''' start a previously invoked OciImage, if it exists.
+    """ start a previously invoked OciImage, if it exists.
 
         Equivalent command line example:      
            singularity oci start <container_ID>
@@ -101,13 +99,13 @@ def start(self, container_id=None, sudo=None):
         Returns
         =======
         return_code: the return code to indicate if the container was started.
-    '''
+    """
     return self._state_command(container_id, sudo=sudo)
 
 
 def kill(self, container_id=None, sudo=None, signal=None):
 
-    ''' stop (kill) a started OciImage container, if it exists
+    """ stop (kill) a started OciImage container, if it exists
 
         Equivalent command line example:      
            singularity oci kill <container_ID>
@@ -122,26 +120,26 @@ def kill(self, container_id=None, sudo=None, signal=None):
         Returns
         =======
         return_code: the return code to indicate if the container was killed.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci state
-    cmd = self._init_command('kill')
+    cmd = self._init_command("kill")
 
     # Finally, add the container_id
     cmd.append(container_id)
 
     # Add the signal, if defined
     if signal is not None:
-        cmd = cmd + ['--signal', signal]
+        cmd = cmd + ["--signal", signal]
 
     # Run the command, return return code
     return self._run_and_return(cmd, sudo)
 
 
 def resume(self, container_id=None, sudo=None):
-    ''' resume a stopped OciImage container, if it exists
+    """ resume a stopped OciImage container, if it exists
 
         Equivalent command line example:      
            singularity oci resume <container_ID>
@@ -155,12 +153,12 @@ def resume(self, container_id=None, sudo=None):
         Returns
         =======
         return_code: the return code to indicate if the container was resumed.
-    '''
-    return self._state_command(container_id, command='resume', sudo=sudo)
+    """
+    return self._state_command(container_id, command="resume", sudo=sudo)
 
 
 def pause(self, container_id=None, sudo=None):
-    ''' pause a running OciImage container, if it exists
+    """ pause a running OciImage container, if it exists
 
         Equivalent command line example:      
            singularity oci pause <container_ID>
@@ -174,5 +172,5 @@ def pause(self, container_id=None, sudo=None):
         Returns
         =======
         return_code: the return code to indicate if the container was paused.
-    '''
-    return self._state_command(container_id, command='pause', sudo=sudo)
+    """
+    return self._state_command(container_id, command="pause", sudo=sudo)

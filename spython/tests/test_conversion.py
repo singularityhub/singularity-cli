@@ -9,43 +9,51 @@
 from glob import glob
 import os
 
+
 def read_file(file):
     with open(file) as f:
-        return [line.rstrip('\n') for line in f] 
-        
+        return [line.rstrip("\n") for line in f]
+
+
 def test_other_recipe_exists(test_data):
     # Have any example
-    assert test_data['d2s']
-    assert test_data['s2d']
+    assert test_data["d2s"]
+    assert test_data["s2d"]
 
-    for _, outFile in test_data['d2s'] + test_data['s2d']:
-        assert os.path.exists(outFile), outFile + ' is missing'
-    
-    dockerfiles = glob(os.path.join(os.path.dirname(test_data['s2d'][0][0]), '*.docker'))
-    singularityfiles = glob(os.path.join(os.path.dirname(test_data['d2s'][0][0]), '*.def'))
+    for _, outFile in test_data["d2s"] + test_data["s2d"]:
+        assert os.path.exists(outFile), outFile + " is missing"
+
+    dockerfiles = glob(
+        os.path.join(os.path.dirname(test_data["s2d"][0][0]), "*.docker")
+    )
+    singularityfiles = glob(
+        os.path.join(os.path.dirname(test_data["d2s"][0][0]), "*.def")
+    )
     for file in dockerfiles:
-        assert file in [out for _, out in test_data['s2d']]
+        assert file in [out for _, out in test_data["s2d"]]
     for file in singularityfiles:
-        assert file in [out for _, out in test_data['d2s']]
+        assert file in [out for _, out in test_data["d2s"]]
+
 
 def test_docker2singularity(test_data, tmp_path):
     from spython.main.parse.parsers import DockerParser
     from spython.main.parse.writers import SingularityWriter
 
-    for dockerfile, recipe in test_data['d2s']:
+    for dockerfile, recipe in test_data["d2s"]:
         parser = DockerParser(dockerfile)
         writer = SingularityWriter(parser.recipe)
 
-        assert writer.convert().split('\n') == read_file(recipe)
+        assert writer.convert().split("\n") == read_file(recipe)
+
 
 def test_singularity2docker(test_data, tmp_path):
 
-    print('Testing spython conversion from singularity2docker')
+    print("Testing spython conversion from singularity2docker")
     from spython.main.parse.parsers import SingularityParser
     from spython.main.parse.writers import DockerWriter
 
-    for recipe, dockerfile in test_data['s2d']:
+    for recipe, dockerfile in test_data["s2d"]:
         parser = SingularityParser(recipe)
         writer = DockerWriter(parser.recipe)
 
-        assert writer.convert().split('\n') == read_file(dockerfile)
+        assert writer.convert().split("\n") == read_file(dockerfile)

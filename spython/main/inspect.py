@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -8,13 +7,11 @@
 import json as jsonp
 from spython.logger import bot
 
-from spython.utils import ( 
-    check_install, 
-    run_command
-)
+from spython.utils import check_install, run_command
+
 
 def inspect(self, image=None, json=True, app=None, quiet=True):
-    '''inspect will show labels, defile, runscript, and tests for an image
+    """inspect will show labels, defile, runscript, and tests for an image
     
        Parameters
        ==========
@@ -23,7 +20,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
        quiet: Don't print result to the screen (default True)
        app: if defined, return help in context of an app
 
-    '''
+    """
     check_install()
 
     # No image provided, default to use the client's loaded image
@@ -32,34 +29,34 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
 
     # If there still isn't an image, exit on error
     if not image:
-        bot.exit('Please provide an image to inspect.')
+        bot.exit("Please provide an image to inspect.")
 
-    cmd = self._init_command('inspect')
+    cmd = self._init_command("inspect")
     if app:
-        cmd = cmd + ['--app', app]
+        cmd = cmd + ["--app", app]
 
-    options = ['e', 'd', 'l', 'r', 'hf', 't']
+    options = ["e", "d", "l", "r", "hf", "t"]
 
     # After Singularity 3.0, helpfile was changed to H from
 
     if "version 3" in self.version():
-        options = ['e', 'd', 'l', 'r', 'H', 't']
+        options = ["e", "d", "l", "r", "H", "t"]
 
     for x in options:
-        cmd.append('-%s' % x)
+        cmd.append("-%s" % x)
 
     if json:
-        cmd.append('--json')
+        cmd.append("--json")
 
     cmd.append(image)
     result = run_command(cmd, quiet=quiet)
 
-    if result['return_code'] == 0:
-        result = jsonp.loads(result['message'][0])
+    if result["return_code"] == 0:
+        result = jsonp.loads(result["message"][0])
 
         # Unify output to singularity 3 format
         if "data" in result:
-            result = result['data']
+            result = result["data"]
 
         # Fix up labels
         result = parse_labels(result)
@@ -71,20 +68,20 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
 
 
 def parse_labels(result):
-    '''fix up the labels, meaning parse to json if needed, and return
+    """fix up the labels, meaning parse to json if needed, and return
        original updated object
 
        Parameters
        ==========
        result: the json object to parse from inspect
-    '''
+    """
 
-    labels = result['attributes'].get('labels') or {}
+    labels = result["attributes"].get("labels") or {}
     try:
         labels = jsonp.loads(labels)
     except:
         pass
 
-    result['attributes']['labels'] = labels
+    result["attributes"]["labels"] = labels
 
     return result

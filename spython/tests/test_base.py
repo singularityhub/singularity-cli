@@ -10,7 +10,7 @@ from spython.image import Image
 
 
 def test_image():
-    image = Image('docker://ubuntu')
-    assert str(image) == 'docker://ubuntu'
-    assert image.protocol == 'docker'
-    assert image.image == 'ubuntu'
+    image = Image("docker://ubuntu")
+    assert str(image) == "docker://ubuntu"
+    assert image.protocol == "docker"
+    assert image.image == "ubuntu"

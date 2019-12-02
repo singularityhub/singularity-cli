@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -8,8 +7,11 @@
 
 from spython.logger import bot
 
-def start(self, image=None, name=None, args=None, sudo=False, options=None, capture=False):
-    '''start an instance. This is done by default when an instance is created.
+
+def start(
+    self, image=None, name=None, args=None, sudo=False, options=None, capture=False
+):
+    """start an instance. This is done by default when an instance is created.
 
        Parameters
        ==========
@@ -24,8 +26,9 @@ def start(self, image=None, name=None, args=None, sudo=False, options=None, capt
        USAGE: 
        singularity [...] instance.start [...] <container path> <instance name>
 
-    '''        
-    from spython.utils import (run_command, check_install)
+    """
+    from spython.utils import run_command, check_install
+
     check_install()
 
     # If name provided, over write robot (default)
@@ -37,20 +40,20 @@ def start(self, image=None, name=None, args=None, sudo=False, options=None, capt
 
         # Not having this means it was called as a command, without an image
         if not hasattr(self, "_image"):
-            bot.exit('Please provide an image, or create an Instance first.')
+            bot.exit("Please provide an image, or create an Instance first.")
 
         image = self._image
 
     # Derive subgroup command based on singularity version
-    subgroup = 'instance.start'
-    if 'version 3' in self.version():
+    subgroup = "instance.start"
+    if "version 3" in self.version():
         subgroup = ["instance", "start"]
 
     cmd = self._init_command(subgroup)
 
     # Add options, if they are provided
     if not isinstance(options, list):
-        options = [] if options is None else options.split(' ')
+        options = [] if options is None else options.split(" ")
 
     # Assemble the command!
     cmd = cmd + options + [image, self.name]
@@ -68,12 +71,11 @@ def start(self, image=None, name=None, args=None, sudo=False, options=None, capt
 
     output = run_command(cmd, sudo=sudo, quiet=True, capture=capture)
 
-    if output['return_code'] == 0:
+    if output["return_code"] == 0:
         self._update_metadata()
 
     else:
-        message = '%s : return code %s' %(output['message'], 
-                                          output['return_code'])
+        message = "%s : return code %s" % (output["message"], output["return_code"])
         bot.error(message)
 
     return self

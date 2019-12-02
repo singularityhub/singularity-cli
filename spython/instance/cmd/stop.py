@@ -1,4 +1,3 @@
-
 # Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
@@ -8,8 +7,9 @@
 
 from spython.logger import bot
 
+
 def stop(self, name=None, sudo=False):
-    '''stop an instance. This is done by default when an instance is created.
+    """stop an instance. This is done by default when an instance is created.
 
        Parameters
        ==========
@@ -19,13 +19,14 @@ def stop(self, name=None, sudo=False):
        USAGE: 
        singularity [...] instance.stop [...] <instance name>
 
-    '''        
-    from spython.utils import (check_install, run_command)
+    """
+    from spython.utils import check_install, run_command
+
     check_install()
 
-    subgroup = 'instance.stop'
+    subgroup = "instance.stop"
 
-    if 'version 3' in self.version():
+    if "version 3" in self.version():
         subgroup = ["instance", "stop"]
 
     cmd = self._init_command(subgroup)
@@ -33,15 +34,14 @@ def stop(self, name=None, sudo=False):
     # If name is provided assume referencing an instance
     instance_name = self.name
     if name is not None:
-        instance_name = name     
+        instance_name = name
     cmd = cmd + [instance_name]
-    
+
     output = run_command(cmd, sudo=sudo, quiet=True)
 
-    if output['return_code'] != 0:
-        message = '%s : return code %s' %(output['message'], 
-                                          output['return_code'])
+    if output["return_code"] != 0:
+        message = "%s : return code %s" % (output["message"], output["return_code"])
         bot.error(message)
-        return output['return_code']
+        return output["return_code"]
 
-    return output['return_code']
+    return output["return_code"]
