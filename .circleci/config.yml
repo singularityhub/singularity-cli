@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  singularity: singularity/singularity@1.0.7
+  singularity: singularity/singularity@1.0.9
 
 workflows:
   version: 2
@@ -15,17 +15,17 @@ workflows:
           name: "Latest Singularity - Python 3"
           run-linter: false
           python: 3
-          singularity: 3.2.1
+          singularity: 3.5.0
           singularity-3: true
+      - run-spython-ci-tests:
+          <<: *base_job
+          name: "Singularity 3.2.1 - Python 3"
+          singularity: 3.2.1
+          run-linter: true # Use any job to run linter once
       - run-spython-ci-tests:
           <<: *base_job
           name: "Singularity 3.1.0 - Python 3"
           singularity: 3.1.0
-          run-linter: true # Use any job to run linter once
-      - run-spython-ci-tests:
-          <<: *base_job
-          name: "Singularity 3.2.0 - Python 3"
-          singularity: 3.2.0
       - run-spython-ci-tests:
           <<: *base_job
           name: "Latest Singularity - Python 2"

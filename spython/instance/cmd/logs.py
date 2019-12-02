@@ -9,6 +9,7 @@
 from spython.utils import get_userhome, get_username
 from spython.logger import bot
 import platform
+import os
 
 def error_logs(self, print_logs=False):
     '''For Singularity 3.5 and later, we are able to programatically
@@ -48,7 +49,7 @@ def _logs(self, print_logs=False, ext='out'):
     logpath = os.path.join(get_userhome(), 
         ".singularity", 
          "instances", 
-         "sing", 
+         "logs", 
          hostname, 
          get_username(), 
          "%s.%s" % (self.name, ext))
