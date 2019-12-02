@@ -125,7 +125,7 @@ jobs:
           condition: << parameters.singularity-3 >>
           steps:
             - singularity/install-go:
-                go-version: 1.13
+                go-version: "1.13"
             - singularity/debian-install-3:
                 singularity-version: << parameters.singularity >>
       - unless:
