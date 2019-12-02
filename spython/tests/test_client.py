@@ -60,5 +60,4 @@ def test_execute_with_return_code(docker_container):
 
 def test_inspect(docker_container):
     result = Client.inspect(docker_container[1])
-    assert result['type'] == 'container'
-    assert 'attributes' in result
+    assert 'attributes' in result or "data" in result
