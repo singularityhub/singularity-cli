@@ -30,7 +30,6 @@ workflows:
           name: "Singularity 2 - Python 3"
           singularity: 2.6.1
           singularity-3: false
-          python: 3
 
 waitforapt: &waitforapt
   name: Remove cloud init lock
@@ -52,13 +51,9 @@ install_spython: &install_spython
 
 commands:
   install_dependencies:
-    parameters:
-      python:
-        type: integer
-        description: "Python version: 2 or 3"
     steps:
       - run: |
-          PYTHON_VERSION="<< parameters.python >>"
+          PYTHON_VERSION=3
           CONDA_PATH="$HOME/conda/Python${PYTHON_VERSION}"
           echo 'export PATH="'"$CONDA_PATH"'/bin:$PATH"' >> "$BASH_ENV"
           source "$BASH_ENV"
