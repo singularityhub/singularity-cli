@@ -314,6 +314,22 @@ $ Client.instances(name='creamier', quiet=True)
 No instances found.
 ```
 
+#### Logs
+
+If you are running Singularity 3.5 or later, the instance logs (error and output)
+should be programatically available, and you can return them via these functions:
+
+```bash
+logs = creamy.error_logs()
+logs = creamy.output_logs()
+```
+
+To print them to the screen, set print_logs to True:
+
+```bash
+logs = creamy.error_logs(print_logs=True)
+```
+
 <div>
     <a href="/singularity-cli/commands"><button class="previous-button btn btn-primary"><i class="fa fa-chevron-left"></i> </button></a>
     <a href="/singularity-cli/commands-oci"><button class="next-button btn btn-primary"><i class="fa fa-chevron-right"></i> </button></a>

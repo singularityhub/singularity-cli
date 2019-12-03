@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +6,7 @@
 
 
 class Recipe(object):
-    '''a recipe includes an environment, labels, runscript or command,
+    """a recipe includes an environment, labels, runscript or command,
        and install sequence. This object is interacted with by a Parser 
        (intended to popualte the recipe with content) and a Writer (intended
        to write a recipe to file). The parsers and writers are located in
@@ -19,7 +18,7 @@ class Recipe(object):
        recipe: the original recipe file, parsed by the subclass either
                DockerParser or SingularityParser
 
-    '''
+    """
 
     def __init__(self, recipe=None):
 
@@ -38,36 +37,38 @@ class Recipe(object):
         self.source = recipe
 
     def __str__(self):
-        ''' show the user the recipe object, along with the type. E.g.,
+        """ show the user the recipe object, along with the type. E.g.,
        
             [spython-recipe][source:Singularity]
             [spython-recipe][source:Dockerfile]
 
-        '''
+        """
         base = "[spython-recipe]"
         if self.source:
-            base = "%s[source:%s]" %(base, self.source)
+            base = "%s[source:%s]" % (base, self.source)
         return base
 
     def json(self):
-        '''return a dictionary version of the recipe, intended to be parsed
+        """return a dictionary version of the recipe, intended to be parsed
            or printed as json.
 
            Returns: a dictionary of attributes including cmd, comments,
                     entrypoint, environ, files, install, labels, ports,
                     test, volumes, and workdir.
-        '''
-        attributes = ['cmd',
-                      'comments',
-                      'entrypoint',
-                      'environ',
-                      'files',
-                      'install',
-                      'labels',
-                      'ports',
-                      'test',
-                      'volumes',
-                      'workdir']
+        """
+        attributes = [
+            "cmd",
+            "comments",
+            "entrypoint",
+            "environ",
+            "files",
+            "install",
+            "labels",
+            "ports",
+            "test",
+            "volumes",
+            "workdir",
+        ]
 
         result = {}
 

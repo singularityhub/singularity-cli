@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -11,17 +10,20 @@ from spython.utils import stream_command, ScopedEnvVar
 import os
 import re
 
-def pull(self, 
-         image=None,
-         name=None,
-         pull_folder='',
-         ext=None,
-         force=False,
-         capture=False,
-         stream=False,
-         quiet=False):
 
-    '''pull will pull a singularity hub or Docker image
+def pull(
+    self,
+    image=None,
+    name=None,
+    pull_folder="",
+    ext=None,
+    force=False,
+    capture=False,
+    stream=False,
+    quiet=False,
+):
+
+    """pull will pull a singularity hub or Docker image
         
        Parameters
        ==========
@@ -34,17 +36,18 @@ def pull(self,
        name: a custom name to use, to override default
        ext: if no name specified, the default extension to use.
 
-    ''' 
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self._init_command('pull')
+    cmd = self._init_command("pull")
 
     # Quiet is honored if set by the client, or user
     quiet = quiet or self.quiet
 
     if not ext:
-        ext = 'sif' if 'version 3' in self.version() else 'simg'
+        ext = "sif" if "version 3" in self.version() else "simg"
 
     # No image provided, default to use the client's loaded image
     if image is None:
@@ -52,10 +55,10 @@ def pull(self,
 
     # If it's still None, no go!
     if image is None:
-        bot.exit('You must provide an image uri, or use client.load() first.')
+        bot.exit("You must provide an image uri, or use client.load() first.")
 
     # Singularity Only supports shub and Docker pull
-    if not re.search('^(shub|docker)://', image):
+    if not re.search("^(shub|docker)://", image):
         bot.exit("pull only valid for docker and shub. Use sregistry client.")
 
     # If we still don't have a custom name, base off of image uri.
@@ -64,12 +67,12 @@ def pull(self,
 
     if pull_folder:
         final_image = os.path.join(pull_folder, os.path.basename(name))
-    
+
         # Regression Singularity 3.* onward, PULLFOLDER not honored
         # https://github.com/sylabs/singularity/issues/2788
-        if 'version 3' in self.version():
+        if "version 3" in self.version():
             name = final_image
-            pull_folder = None # Don't use pull_folder
+            pull_folder = None  # Don't use pull_folder
     else:
         final_image = name
 
@@ -81,14 +84,12 @@ def pull(self,
     cmd.append(image)
 
     if not quiet:
-        bot.info(' '.join(cmd))
+        bot.info(" ".join(cmd))
 
-    with ScopedEnvVar('SINGULARITY_PULLFOLDER', pull_folder):
+    with ScopedEnvVar("SINGULARITY_PULLFOLDER", pull_folder):
         # Option 1: Streaming we just run to show user
         if not stream:
-            self._run_command(cmd,
-                              capture=capture,
-                              quiet=quiet)
+            self._run_command(cmd, capture=capture, quiet=quiet)
 
         # Option 3: A custom name we can predict (not commit/hash) and can also show
         else:

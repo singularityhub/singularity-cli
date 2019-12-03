@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -9,8 +8,9 @@
 import os
 from spython.logger import bot
 
+
 def create(self, image_path, size=1024, sudo=False):
-    '''create will create a a new image
+    """create will create a a new image
 
         Parameters
         ==========
@@ -18,12 +18,13 @@ def create(self, image_path, size=1024, sudo=False):
         size: image sizein MiB, default is 1024MiB
         filesystem: supported file systems ext3/ext4 (ext[2/3]: default ext3
 
-    '''        
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = self.init_command('image.create')
-    cmd = cmd + ['--size', str(size), image_path]
+    cmd = self.init_command("image.create")
+    cmd = cmd + ["--size", str(size), image_path]
 
     output = self.run_command(cmd, sudo=sudo)
     self.println(output)

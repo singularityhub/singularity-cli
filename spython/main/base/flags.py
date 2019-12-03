@@ -1,12 +1,11 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-'''
+"""
 GLOBAL OPTIONS:
     -d|--debug    Print debugging information
     -h|--help     Display usage summary
@@ -43,27 +42,28 @@ COMMAND GROUPS:
     image      Container image command group                                    
     instance   Persistent instance command group                                
 
-'''
+"""
+
 
 def parse_verbosity(self, args):
-    '''parse_verbosity will take an argument object, and return the args
+    """parse_verbosity will take an argument object, and return the args
        passed (from a dictionary) to a list
 
        Parameters
        ==========
        args: the argparse argument objects
 
-    '''
+    """
 
     flags = []
 
     if args.silent:
-        flags.append('--silent')
+        flags.append("--silent")
     elif args.quiet:
-        flags.append('--quiet')
+        flags.append("--quiet")
     elif args.debug:
-        flags.append('--debug')
+        flags.append("--debug")
     elif args.verbose:
-        flags.append('-' + 'v' * args.verbose)
+        flags.append("-" + "v" * args.verbose)
 
     return flags

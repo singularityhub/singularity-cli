@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -10,7 +10,7 @@ from spython.image import Image
 
 
 def test_image():
-    image = Image('docker://ubuntu')
-    assert str(image) == 'docker://ubuntu'
-    assert image.protocol == 'docker'
-    assert image.image == 'ubuntu'
+    image = Image("docker://ubuntu")
+    assert str(image) == "docker://ubuntu"
+    assert image.protocol == "docker"
+    assert image.image == "ubuntu"

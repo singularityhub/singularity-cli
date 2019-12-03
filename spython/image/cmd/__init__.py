@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +6,7 @@
 
 
 def generate_image_commands():
-    ''' The Image client holds the Singularity image command group, mainly
+    """ The Image client holds the Singularity image command group, mainly
         deprecated commands (image.import) and additional command helpers
         that are commonly use but not provided by Singularity
 
@@ -22,14 +21,14 @@ def generate_image_commands():
             Client.image.decompress
             Client.image.create
 
-    '''
+    """
 
     class ImageClient(object):
         group = "image"
 
     from spython.main.base.logger import println
-    from spython.main.base.command import (init_command, run_command)
-    from .utils import (compress, decompress)
+    from spython.main.base.command import init_command, run_command
+    from .utils import compress, decompress
     from .create import create
     from .importcmd import importcmd
     from .export import export
@@ -42,6 +41,6 @@ def generate_image_commands():
     ImageClient.println = println
     ImageClient.init_command = init_command
     ImageClient.run_command = run_command
- 
+
     cli = ImageClient()
     return cli

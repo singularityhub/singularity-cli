@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2018 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -11,12 +10,10 @@ def main(args, options, parser):
     image = None
     if options:
         image = options.pop(0)
- 
-    lookup = {'ipython': ipython,
-              'python': python,
-              'bpython': run_bpython}
 
-    shells = ['ipython', 'python', 'bpython']
+    lookup = {"ipython": ipython, "python": python, "bpython": run_bpython}
+
+    shells = ["ipython", "python", "bpython"]
 
     # Otherwise present order of liklihood to have on system
     for shell in shells:
@@ -24,27 +21,31 @@ def main(args, options, parser):
             return lookup[shell](image)
         except ImportError:
             pass
-    
+
+
 def prepare_client(image):
-    '''prepare a client to embed in a shell with recipe parsers and writers.
-    '''
+    """prepare a client to embed in a shell with recipe parsers and writers.
+    """
     # The client will announce itself (backend/database) unless it's get
     from spython.main import get_client
     from spython.main.parse import parsers
     from spython.main.parse import writers
 
     client = get_client()
-    client.load(image)
+
+    if image:
+        client.load(image)
 
     # Add recipe parsers
     client.parsers = parsers
     client.writers = writers
     return client
 
+
 def ipython(image):
-    '''give the user an ipython shell
-    '''
-    client = prepare_client(image) # pylint: disable=unused-variable
+    """give the user an ipython shell
+    """
+    client = prepare_client(image)  # pylint: disable=unused-variable
 
     try:
         from IPython import embed
@@ -53,9 +54,10 @@ def ipython(image):
 
     embed()
 
+
 def run_bpython(image):
-    '''give the user a bpython shell
-    '''
+    """give the user a bpython shell
+    """
     client = prepare_client(image)
 
     try:
@@ -63,11 +65,13 @@ def run_bpython(image):
     except ImportError:
         return python(image)
 
-    bpython.embed(locals_={'client': client})
+    bpython.embed(locals_={"client": client})
+
 
 def python(image):
-    '''give the user a python shell
-    '''
+    """give the user a python shell
+    """
     import code
+
     client = prepare_client(image)
-    code.interact(local={"client":client})
+    code.interact(local={"client": client})

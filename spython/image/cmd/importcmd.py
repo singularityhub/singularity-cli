@@ -1,5 +1,4 @@
-
-# Copyright (C) 2017-2019 Vanessa Sochat.
+# Copyright (C) 2017-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,7 +6,7 @@
 
 
 def importcmd(self, image_path, input_source):
-    '''import will import (stdin) to the image
+    """import will import (stdin) to the image
 
        Parameters
        ==========
@@ -15,11 +14,12 @@ def importcmd(self, image_path, input_source):
        input_source: input source or file
        import_type: if not specified, imports whatever function is given
        
-    '''
+    """
     from spython.utils import check_install
+
     check_install()
 
-    cmd = ['singularity', 'image.import', image_path, input_source]
+    cmd = ["singularity", "image.import", image_path, input_source]
     output = self.run_command(cmd, sudo=False)
-    self.println(output)        
+    self.println(output)
     return image_path

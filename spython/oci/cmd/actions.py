@@ -1,5 +1,4 @@
-
-# Copyright (C) 2019 Vanessa Sochat.
+# Copyright (C) 2019-2020 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -9,13 +8,17 @@ from spython.logger import bot
 from spython.utils import stream_command
 import os
 
-def run(self, bundle,
-              container_id=None,
-              log_path=None,
-              pid_file=None,
-              log_format="kubernetes"):
 
-    ''' run is a wrapper to create, start, attach, and delete a container.
+def run(
+    self,
+    bundle,
+    container_id=None,
+    log_path=None,
+    pid_file=None,
+    log_format="kubernetes",
+):
+
+    """ run is a wrapper to create, start, attach, and delete a container.
 
         Equivalent command line example:      
           singularity oci run -b ~/bundle mycontainer
@@ -28,24 +31,29 @@ def run(self, bundle,
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         log_format: defaults to kubernetes. Can also be "basic" or "json"
-    '''
-    return self._run(bundle,
-                     container_id=container_id,
-                     log_path=log_path,
-                     pid_file=pid_file,
-                     command="run",
-                     log_format=log_format)
+    """
+    return self._run(
+        bundle,
+        container_id=container_id,
+        log_path=log_path,
+        pid_file=pid_file,
+        command="run",
+        log_format=log_format,
+    )
 
 
-def create(self, bundle,
-                 container_id=None,
-                 empty_process=False,
-                 log_path=None,
-                 pid_file=None,
-                 sync_socket=None,
-                 log_format="kubernetes"): 
+def create(
+    self,
+    bundle,
+    container_id=None,
+    empty_process=False,
+    log_path=None,
+    pid_file=None,
+    sync_socket=None,
+    log_format="kubernetes",
+):
 
-    ''' use the client to create a container from a bundle directory. The bundle
+    """ use the client to create a container from a bundle directory. The bundle
         directory should have a config.json. You must be the root user to
         create a runtime.
 
@@ -64,27 +72,32 @@ def create(self, bundle,
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
         log_format: defaults to kubernetes. Can also be "basic" or "json"
-    '''
-    return self._run(bundle,
-                     container_id=container_id,
-                     empty_process=empty_process,
-                     log_path=log_path,
-                     pid_file=pid_file,
-                     sync_socket=sync_socket,
-                     command="create",
-                     log_format=log_format)
+    """
+    return self._run(
+        bundle,
+        container_id=container_id,
+        empty_process=empty_process,
+        log_path=log_path,
+        pid_file=pid_file,
+        sync_socket=sync_socket,
+        command="create",
+        log_format=log_format,
+    )
 
 
-def _run(self, bundle,
-               container_id=None,
-               empty_process=False,
-               log_path=None,
-               pid_file=None,
-               sync_socket=None,
-               command="run",
-               log_format="kubernetes"): 
+def _run(
+    self,
+    bundle,
+    container_id=None,
+    empty_process=False,
+    log_path=None,
+    pid_file=None,
+    sync_socket=None,
+    command="run",
+    log_format="kubernetes",
+):
 
-    ''' _run is the base function for run and create, the only difference
+    """ _run is the base function for run and create, the only difference
         between the two being that run does not have an option for sync_socket.
 
         Equivalent command line example:      
@@ -103,7 +116,7 @@ def _run(self, bundle,
         sync_socket: the path to the unix socket for state synchronization.
         command: the command (run or create) to use (default is run)
         log_format: defaults to kubernetes. Can also be "basic" or "json"
-    '''
+    """
     container_id = self.get_container_id(container_id)
 
     # singularity oci create
@@ -111,22 +124,22 @@ def _run(self, bundle,
 
     # Check that the bundle exists
     if not os.path.exists(bundle):
-        bot.exit('Bundle not found at %s' % bundle)
+        bot.exit("Bundle not found at %s" % bundle)
 
     # Add the bundle
-    cmd = cmd + ['--bundle', bundle]
+    cmd = cmd + ["--bundle", bundle]
 
     # Additional Logging Files
-    cmd = cmd + ['--log-format', log_format]
+    cmd = cmd + ["--log-format", log_format]
 
     if log_path is not None:
-        cmd = cmd + ['--log-path', log_path]
+        cmd = cmd + ["--log-path", log_path]
     if pid_file is not None:
-        cmd = cmd + ['--pid-file', pid_file]
+        cmd = cmd + ["--pid-file", pid_file]
     if sync_socket is not None:
-        cmd = cmd + ['--sync-socket', sync_socket]
+        cmd = cmd + ["--sync-socket", sync_socket]
     if empty_process:
-        cmd.append('--empty-process')
+        cmd.append("--empty-process")
 
     # Finally, add the container_id
     cmd.append(container_id)
@@ -141,7 +154,7 @@ def _run(self, bundle,
 
 
 def delete(self, container_id=None, sudo=None):
-    '''delete an instance based on container_id.
+    """delete an instance based on container_id.
 
        Parameters
        ==========
@@ -155,12 +168,12 @@ def delete(self, container_id=None, sudo=None):
        =======
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command('delete')
+    cmd = self._init_command("delete")
 
     # Add the container_id
     cmd.append(container_id)
@@ -169,9 +182,8 @@ def delete(self, container_id=None, sudo=None):
     return self._run_and_return(cmd, sudo=sudo)
 
 
-
 def attach(self, container_id=None, sudo=False):
-    '''attach to a container instance based on container_id
+    """attach to a container instance based on container_id
 
        Parameters
        ==========
@@ -184,12 +196,12 @@ def attach(self, container_id=None, sudo=False):
        =======
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command('attach')
+    cmd = self._init_command("attach")
 
     # Add the container_id
     cmd.append(container_id)
@@ -199,7 +211,7 @@ def attach(self, container_id=None, sudo=False):
 
 
 def execute(self, command=None, container_id=None, sudo=False, stream=False):
-    '''execute a command to a container instance based on container_id
+    """execute a command to a container instance based on container_id
 
        Parameters
        ==========
@@ -215,12 +227,12 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
        =======
        return_code: the return code from the delete command. 0 indicates a
                     successful delete, 255 indicates not.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command('exec')
+    cmd = self._init_command("exec")
 
     # Add the container_id
     cmd.append(container_id)
@@ -236,8 +248,9 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
             return stream_command(cmd, sudo=sudo)
         return self._run_command(cmd, sudo=sudo, quiet=True)
 
+
 def update(self, container_id, from_file=None, sudo=False):
-    '''update container cgroup resources for a specific container_id,
+    """update container cgroup resources for a specific container_id,
        The container must have state "running" or "created."
 
        Singularity Example:
@@ -248,15 +261,15 @@ def update(self, container_id, from_file=None, sudo=False):
        ==========
        container_id: the container_id to update cgroups for
        from_file: a path to an OCI JSON resource file to update from.
-    '''
+    """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command('update')
+    cmd = self._init_command("update")
 
     if from_file is not None:
-        cmd = cmd + ['--from-file', from_file]
+        cmd = cmd + ["--from-file", from_file]
 
     # Add the container_id
     cmd.append(container_id)
