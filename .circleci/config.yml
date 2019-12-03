@@ -14,34 +14,23 @@ workflows:
               ignore: master
           name: "Latest Singularity - Python 3"
           run-linter: false
-          python: 3
           singularity: 3.5.0
           singularity-3: true
       - run-spython-ci-tests:
           <<: *base_job
           name: "Singularity 3.2.1 - Python 3"
           singularity: 3.2.1
-          run-linter: true # Use any job to run linter once
+          run-linter: true # run linter once, must be Python 3
       - run-spython-ci-tests:
           <<: *base_job
           name: "Singularity 3.1.0 - Python 3"
           singularity: 3.1.0
       - run-spython-ci-tests:
           <<: *base_job
-          name: "Latest Singularity - Python 2"
-          python: 2
-      - run-spython-ci-tests:
-          <<: *base_job
           name: "Singularity 2 - Python 3"
           singularity: 2.6.1
           singularity-3: false
           python: 3
-      - run-spython-ci-tests:
-          <<: *base_job
-          name: "Singularity 2 - Python 2"
-          singularity: 2.6.1
-          singularity-3: false
-          python: 2
 
 waitforapt: &waitforapt
   name: Remove cloud init lock
@@ -83,7 +72,8 @@ commands:
           python --version
           [ $(python -c'import sys;print(sys.version_info.major)') -eq $PYTHON_VERSION ]
 
-          pip install --upgrade black pytest
+          pip install --upgrade pytest
+          pip install black || true
 
 run_linter: &run_linter
   name: run linter
@@ -101,10 +91,6 @@ jobs:
         run-linter:
           type: boolean
           default: false
-        python:
-          type: integer
-          description: "Python version: 2 or 3"
-          default: 3
         singularity:
           type: string
           description: "Singularity version"
@@ -118,8 +104,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: v2-dependencies
-      - install_dependencies:
-          python: << parameters.python >>
+      - install_dependencies
       - run: *waitforapt
       - when:
           condition: << parameters.singularity-3 >>
