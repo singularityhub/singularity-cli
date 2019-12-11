@@ -119,7 +119,7 @@ class SingularityParser(ParserBase):
            lines: A list of environment pair lines.
 
         """
-        environ = [x.replace("export", "").strip() for x in lines]
+        environ = [x.replace("export", "").strip() for x in lines if "=" in x]
         self.recipe.environ += environ
 
     # Files for container
