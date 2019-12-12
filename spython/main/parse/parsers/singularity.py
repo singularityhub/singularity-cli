@@ -111,7 +111,7 @@ class SingularityParser(ParserBase):
 
     def _env(self, lines):
         """env will parse a list of environment lines and simply remove any
-           blank lines, or those with export. Dockerfiles don't usually
+           blank lines, and exports. Dockerfiles don't usually
            have exports.
  
            Parameters
@@ -119,7 +119,7 @@ class SingularityParser(ParserBase):
            lines: A list of environment pair lines.
 
         """
-        environ = [x for x in lines if not x.startswith("export")]
+        environ = [re.sub("^export", "", x).strip() for x in lines if "=" in x]
         self.recipe.environ += environ
 
     # Files for container
