@@ -5,5 +5,5 @@ recursive-exclude * *.pyc
 recursive-exclude * *.pyo
 recursive-exclude * *.simg
 recursive-exclude * *.img
-global-exclude OLD/*
-global-exclude OLD/image/*
+prune docs
+prune .docs
