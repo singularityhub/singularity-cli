@@ -57,9 +57,13 @@ def list_instances(self, name=None, return_json=False, quiet=False, sudo=False):
             print("".join(output["message"]))
 
         # Prepare json result from table
-
-        header = ["daemon_name", "pid", "container_image"]
-        instances = parse_table(output["message"][0], header)
+        # Singularity after 3.5.2 has an added ipaddress
+        try:
+            header = ["daemon_name", "pid", "container_image"]
+            instances = parse_table(output["message"][0], header)
+        except:
+            header = ["daemon_name", "pid", "ip", "container_image"]
+            instances = parse_table(output["message"][0], header)
 
         # Does the user want instance objects instead?
         listing = []
