@@ -37,7 +37,7 @@ class SingularityWriter(WriterBase):
         if self.recipe.fromHeader is None:
             bot.exit("Singularity recipe requires a from header.")
 
-    def convert(self, runscript="/bin/bash", force=False):
+    def convert(self, runscript="/bin/bash", force=False, skip_cmd=False):
         """docker2singularity will return a Singularity build recipe based on
            a the loaded recipe object. It doesn't take any arguments as the
            recipe object contains the sections, and the calling function 
@@ -55,7 +55,7 @@ class SingularityWriter(WriterBase):
         recipe += self._create_section("environ", "environment")
 
         # Take preference for user, entrypoint, command, then default
-        runscript = self._create_runscript(runscript, force)
+        runscript = self._create_runscript(runscript, force, skip_cmd)
 
         # If a working directory was used, add it as a cd
         if self.recipe.workdir is not None:
@@ -72,7 +72,7 @@ class SingularityWriter(WriterBase):
         recipe = "\n".join(recipe).replace("\n\n", "\n")
         return recipe.rstrip()
 
-    def _create_runscript(self, default="/bin/bash", force=False):
+    def _create_runscript(self, default="/bin/bash", force=False, skip_cmd=False):
         """create_entrypoint is intended to create a singularity runscript
            based on a Docker entrypoint or command. We first use the Docker
            ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
@@ -83,6 +83,7 @@ class SingularityWriter(WriterBase):
            default: set a default entrypoint, if the container does not have
                     an entrypoint or cmd.
            force: If true, use default and ignore Dockerfile settings
+           skip_cmd: Ignore CMD and leave it out of the runscript
         """
         entrypoint = default
 
@@ -97,7 +98,7 @@ class SingularityWriter(WriterBase):
                 else:
                     entrypoint = "".join(self.recipe.entrypoint)
 
-            if self.recipe.cmd is not None:
+            if self.recipe.cmd is not None and not skip_cmd:
                 if isinstance(self.recipe.cmd, list):
                     entrypoint = entrypoint + " " + " ".join(self.recipe.cmd)
                 else:
