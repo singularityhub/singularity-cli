@@ -33,7 +33,6 @@ def stop(self, name=None, sudo=False, timeout=None):
         if timeout:
             subgroup += ["-t", str(timeout)]
 
-
     cmd = self._init_command(subgroup)
 
     # If name is provided assume referencing an instance
