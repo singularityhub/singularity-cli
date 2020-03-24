@@ -16,7 +16,7 @@ def stop(self, name=None, sudo=False, timeout=10):
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
        timeout: forcebly kill non-stopped instance after specified timeout
-	            in seconds (default 10)
+                in seconds (default 10)
 
        USAGE: 
        singularity [...] instance.stop [...] <instance name>
