@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - instance stop with timeout argument (0.0.77)
  - instance list includes ip address (0.0.76)
  - export lines aren't ignored from environment, but replaced (0.0.75)
  - instance logging functions for Singularity 3.5 and up (0.0.74)
