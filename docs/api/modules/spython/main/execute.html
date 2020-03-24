@@ -150,8 +150,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.execute</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -159,27 +158,27 @@
 
 
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span>
-    <span class="n">stream_command</span><span class="p">,</span> 
-    <span class="n">which</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">stream_command</span><span class="p">,</span> <span class="n">which</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="execute"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.execute.execute">[docs]</a><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-            <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-            <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">contain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; execute: send a command to a container</span>
+
+<div class="viewcode-block" id="execute"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.execute.execute">[docs]</a><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">contain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; execute: send a command to a container</span>
 <span class="sd">    </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========</span>
@@ -197,23 +196,24 @@
 <span class="sd">        nv: if True, load Nvidia Drivers in runtime (default False)</span>
 <span class="sd">        return_result: if True, return entire json object with return code</span>
 <span class="sd">                       and message result not (default)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;exec&#39;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;exec&quot;</span><span class="p">)</span>
 
     <span class="c1"># nv option leverages any GPU cards</span>
     <span class="k">if</span> <span class="n">nv</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;--nv&#39;</span><span class="p">]</span>
-    
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--nv&quot;</span><span class="p">]</span>
+
     <span class="c1"># If the image is given as a list, it&#39;s probably the command</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">command</span> <span class="o">=</span> <span class="n">image</span>
         <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        
+
         <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
         <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_uri</span><span class="p">()</span>
@@ -225,7 +225,7 @@
 
         <span class="c1"># If image is still None, not defined by user or previously with client</span>
         <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please load or provide an image.&#39;</span><span class="p">)</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please load or provide an image.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Does the user want to use bind paths option?</span>
         <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -233,40 +233,41 @@
 
         <span class="c1"># Does the user want to run an app?</span>
         <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;--app&#39;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--app&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">writable</span><span class="p">:</span>
-            <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--writable&#39;</span><span class="p">)</span>
+            <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--writable&quot;</span><span class="p">)</span>
 
         <span class="c1"># Add additional options</span>
         <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">options</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">image</span><span class="p">]</span> <span class="o">+</span> <span class="n">command</span>
- 
+
         <span class="k">if</span> <span class="ow">not</span> <span class="n">stream</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span>
-                                     <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span>
-                                     <span class="n">return_result</span><span class="o">=</span><span class="n">return_result</span><span class="p">,</span>
-                                     <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span>
+                <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="n">return_result</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">)</span>
 
-    <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please include a command (list) to execute.&#39;</span><span class="p">)</span></div>
+    <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please include a command (list) to execute.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="shell"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.execute.shell">[docs]</a><span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-          <span class="n">image</span><span class="p">,</span> 
-          <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-          <span class="n">contain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-          <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-          <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-          <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; shell into a container. A user is advised to use singularity to do</span>
+<div class="viewcode-block" id="shell"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.execute.shell">[docs]</a><span class="k">def</span> <span class="nf">shell</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">,</span>
+    <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">contain</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">bind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">nv</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; shell into a container. A user is advised to use singularity to do</span>
 <span class="sd">        this directly, however this function is useful for supporting tools.</span>
 <span class="sd">    </span>
 <span class="sd">        Parameters</span>
@@ -282,34 +283,35 @@
 <span class="sd">             This option allows you to map directories on your host system to</span>
 <span class="sd">             directories within your container using bind mounts</span>
 <span class="sd">        nv: if True, load Nvidia Drivers in runtime (default False)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;shell&#39;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;shell&quot;</span><span class="p">)</span>
 
     <span class="c1"># nv option leverages any GPU cards</span>
     <span class="k">if</span> <span class="n">nv</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;--nv&#39;</span><span class="p">]</span>
-    
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--nv&quot;</span><span class="p">]</span>
+
     <span class="c1"># Does the user want to use bind paths option?</span>
     <span class="k">if</span> <span class="n">bind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_bind_list</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span>
 
     <span class="c1"># Does the user want to run an app?</span>
     <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;--app&#39;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--app&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
 
     <span class="c1"># Add additional options</span>
     <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="n">options</span>
 
     <span class="k">if</span> <span class="n">writable</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--writable&#39;</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--writable&quot;</span><span class="p">)</span>
 
     <span class="c1"># Finally, add the image or uri</span>
     <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">singularity</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s1">&#39;singularity&#39;</span><span class="p">)</span>
+    <span class="n">singularity</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;singularity&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">writable</span> <span class="ow">or</span> <span class="n">sudo</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">execvp</span><span class="p">(</span><span class="s2">&quot;sudo&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;sudo&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span><span class="p">)</span>

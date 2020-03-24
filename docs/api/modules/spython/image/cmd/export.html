@@ -152,8 +152,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.image.cmd.export</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -163,8 +162,9 @@
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 
+
 <div class="viewcode-block" id="export"><a class="viewcode-back" href="../../../../source/spython.image.cmd.html#spython.image.cmd.export.export">[docs]</a><span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">tmptar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;export will export an image, sudo must be used.</span>
+    <span class="sd">&quot;&quot;&quot;export will export an image, sudo must be used.</span>
 
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
@@ -172,16 +172,17 @@
 <span class="sd">       image_path: full path to image</span>
 <span class="sd">       tmptar: if defined, use custom temporary path for tar export</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;export is deprecated after Singularity 2.*&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;export is deprecated after Singularity 2.*&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">tmptar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">tmptar</span> <span class="o">=</span> <span class="s2">&quot;/</span><span class="si">%s</span><span class="s2">/tmptar.tar&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="s1">&#39;image.export&#39;</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="n">tmptar</span><span class="p">,</span> <span class="n">image_path</span><span class="p">]</span>
+        <span class="n">tmptar</span> <span class="o">=</span> <span class="s2">&quot;/</span><span class="si">%s</span><span class="s2">/tmptar.tar&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;singularity&quot;</span><span class="p">,</span> <span class="s2">&quot;image.export&quot;</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="n">tmptar</span><span class="p">,</span> <span class="n">image_path</span><span class="p">]</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tmptar</span></div>

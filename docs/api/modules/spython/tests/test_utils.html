@@ -150,7 +150,7 @@
   <h1>Source code for spython.tests.test_utils</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python</span>
 
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -160,74 +160,84 @@
 <span class="kn">import</span> <span class="nn">pytest</span>
 <span class="kn">from</span> <span class="nn">semver</span> <span class="k">import</span> <span class="n">VersionInfo</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">ScopedEnvVar</span>
-        
+
 
 <div class="viewcode-block" id="test_write_read_files"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_write_read_files">[docs]</a><span class="k">def</span> <span class="nf">test_write_read_files</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;test_write_read_files will test the functions write_file and read_file</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;test_write_read_files will test the functions write_file and read_file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing utils.write_file...&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">write_file</span>
-    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;written_file.txt&#39;</span><span class="p">)</span>
+
+    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;written_file.txt&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
     <span class="n">write_file</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s2">&quot;hello!&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing utils.read_file...&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">read_file</span>
+
     <span class="n">content</span> <span class="o">=</span> <span class="n">read_file</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">assert</span> <span class="n">content</span> <span class="o">==</span> <span class="s2">&quot;hello!&quot;</span></div>
 
+
 <div class="viewcode-block" id="test_write_bad_json"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_write_bad_json">[docs]</a><span class="k">def</span> <span class="nf">test_write_bad_json</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">write_json</span>
+
     <span class="n">bad_json</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wakkawakkawakka&#39;}&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="kc">True</span><span class="p">},</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
-    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;json_file.txt&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>   
+    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;json_file.txt&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
         <span class="n">write_json</span><span class="p">(</span><span class="n">bad_json</span><span class="p">,</span> <span class="n">tmpfile</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="test_write_json"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_write_json">[docs]</a><span class="k">def</span> <span class="nf">test_write_json</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">json</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">write_json</span>
+
     <span class="n">good_json</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Wakkawakkawakka&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
-    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s1">&#39;good_json_file.txt&#39;</span><span class="p">)</span>
+    <span class="n">tmpfile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;good_json_file.txt&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">)</span>
     <span class="n">write_json</span><span class="p">(</span><span class="n">good_json</span><span class="p">,</span> <span class="n">tmpfile</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmpfile</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
     <span class="k">assert</span> <span class="s2">&quot;Wakkawakkawakka&quot;</span> <span class="ow">in</span> <span class="n">content</span></div>
 
 
 <div class="viewcode-block" id="test_check_install"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_check_install">[docs]</a><span class="k">def</span> <span class="nf">test_check_install</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;check install is used to check if a particular software is installed.</span>
-<span class="sd">    If no command is provided, singularity is assumed to be the test case&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;check install is used to check if a particular software is installed.</span>
+<span class="sd">    If no command is provided, singularity is assumed to be the test case&quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing utils.check_install&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">is_installed</span> <span class="o">=</span> <span class="n">check_install</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">is_installed</span>
-    <span class="n">is_not_installed</span> <span class="o">=</span> <span class="n">check_install</span><span class="p">(</span><span class="s1">&#39;fakesoftwarename&#39;</span><span class="p">)</span>
+    <span class="n">is_not_installed</span> <span class="o">=</span> <span class="n">check_install</span><span class="p">(</span><span class="s2">&quot;fakesoftwarename&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">is_not_installed</span></div>
 
 
 <div class="viewcode-block" id="test_check_get_singularity_version"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_check_get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">test_check_get_singularity_version</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;check that the singularity version is found to be that installed&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;check that the singularity version is found to be that installed&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_singularity_version</span>
+
     <span class="n">version</span> <span class="o">=</span> <span class="n">get_singularity_version</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;3.0&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;SPYTHON_SINGULARITY_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;3.0&quot;</span><span class="p">):</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">get_singularity_version</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;3.0&quot;</span></div>
 
+
 <div class="viewcode-block" id="test_check_get_singularity_version_info"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_check_get_singularity_version_info">[docs]</a><span class="k">def</span> <span class="nf">test_check_get_singularity_version_info</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;Check that the version_info is correct&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Check that the version_info is correct&quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_singularity_version_info</span>
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;2.3.1&quot;</span><span class="p">):</span>
+
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;SPYTHON_SINGULARITY_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;2.3.1&quot;</span><span class="p">):</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">get_singularity_version_info</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">==</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&gt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;singularity version 3.2.1-1&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;SPYTHON_SINGULARITY_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;singularity version 3.2.1-1&quot;</span><span class="p">):</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">get_singularity_version_info</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">==</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&gt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -235,7 +245,7 @@
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&gt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;SPYTHON_SINGULARITY_VERSION&#39;</span><span class="p">,</span> <span class="s2">&quot;2.6.1-pull/124.1d068a7&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;SPYTHON_SINGULARITY_VERSION&quot;</span><span class="p">,</span> <span class="s2">&quot;2.6.1-pull/124.1d068a7&quot;</span><span class="p">):</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">get_singularity_version_info</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">==</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;pull&quot;</span><span class="p">,</span> <span class="s2">&quot;124.1d068a7&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">version</span> <span class="o">&gt;</span> <span class="n">VersionInfo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
@@ -243,39 +253,47 @@
 
 
 <div class="viewcode-block" id="test_get_installdir"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_get_installdir">[docs]</a><span class="k">def</span> <span class="nf">test_get_installdir</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;get install directory should return the base of where singularity</span>
+    <span class="sd">&quot;&quot;&quot;get install directory should return the base of where singularity</span>
 <span class="sd">    is installed</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing utils.get_installdir&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">get_installdir</span>
+
     <span class="n">whereami</span> <span class="o">=</span> <span class="n">get_installdir</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">whereami</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">whereami</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;spython&#39;</span><span class="p">)</span></div>
+    <span class="k">assert</span> <span class="n">whereami</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;spython&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="test_split_uri"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_split_uri">[docs]</a><span class="k">def</span> <span class="nf">test_split_uri</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">split_uri</span>
-    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s1">&#39;docker://ubuntu&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s1">&#39;docker&#39;</span>
-    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;ubuntu&#39;</span>
 
-    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s1">&#39;http://image/path/with/slash/&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s1">&#39;http&#39;</span>
-    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;image/path/with/slash&#39;</span>
+    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s2">&quot;docker://ubuntu&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s2">&quot;docker&quot;</span>
+    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s2">&quot;ubuntu&quot;</span>
 
-    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s1">&#39;no/proto/&#39;</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span>
-    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s1">&#39;no/proto&#39;</span></div>
+    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s2">&quot;http://image/path/with/slash/&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s2">&quot;http&quot;</span>
+    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s2">&quot;image/path/with/slash&quot;</span>
+
+    <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">split_uri</span><span class="p">(</span><span class="s2">&quot;no/proto/&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">protocol</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="s2">&quot;no/proto&quot;</span></div>
+
 
 <div class="viewcode-block" id="test_remove_uri"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_remove_uri">[docs]</a><span class="k">def</span> <span class="nf">test_remove_uri</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing utils.remove_uri&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">remove_uri</span>
-    <span class="k">assert</span> <span class="n">remove_uri</span><span class="p">(</span><span class="s1">&#39;docker://ubuntu&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ubuntu&#39;</span>
-    <span class="k">assert</span> <span class="n">remove_uri</span><span class="p">(</span><span class="s1">&#39;shub://vanessa/singularity-images&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;vanessa/singularity-images&#39;</span>
-    <span class="k">assert</span> <span class="n">remove_uri</span><span class="p">(</span><span class="s1">&#39;vanessa/singularity-images&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;vanessa/singularity-images&#39;</span></div>
+
+    <span class="k">assert</span> <span class="n">remove_uri</span><span class="p">(</span><span class="s2">&quot;docker://ubuntu&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ubuntu&quot;</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">remove_uri</span><span class="p">(</span><span class="s2">&quot;shub://vanessa/singularity-images&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;vanessa/singularity-images&quot;</span>
+    <span class="p">)</span>
+    <span class="k">assert</span> <span class="n">remove_uri</span><span class="p">(</span><span class="s2">&quot;vanessa/singularity-images&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;vanessa/singularity-images&quot;</span></div>
+
 
 <div class="viewcode-block" id="test_decode"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_decode">[docs]</a><span class="k">def</span> <span class="nf">test_decode</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">decodeUtf8String</span>
+
     <span class="n">out</span> <span class="o">=</span> <span class="n">decodeUtf8String</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">))</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">out</span> <span class="o">==</span> <span class="s2">&quot;Hello&quot;</span>
@@ -283,27 +301,28 @@
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">out</span> <span class="o">==</span> <span class="s2">&quot;Hello&quot;</span></div>
 
+
 <div class="viewcode-block" id="test_ScopedEnvVar"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_utils.test_ScopedEnvVar">[docs]</a><span class="k">def</span> <span class="nf">test_ScopedEnvVar</span><span class="p">():</span>
-    <span class="k">assert</span> <span class="s1">&#39;FOO&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;FOO&#39;</span>
-        <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
-        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FOO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
-        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">):</span>
-            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FOO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;baz&#39;</span>
-        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FOO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
+    <span class="k">assert</span> <span class="s2">&quot;FOO&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;FOO&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;FOO&quot;</span>
+        <span class="k">assert</span> <span class="n">e</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
+        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;FOO&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;baz&quot;</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
         <span class="c1"># None removes it</span>
-        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="k">assert</span> <span class="s1">&#39;FOO&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;FOO&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="s2">&quot;FOO&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
         <span class="c1"># But empty string is allowed</span>
-        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FOO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FOO&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bar&#39;</span>
-    <span class="k">assert</span> <span class="s1">&#39;FOO&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+        <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;FOO&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
+    <span class="k">assert</span> <span class="s2">&quot;FOO&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
     <span class="c1"># Unset a non-existing variable</span>
-    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="s1">&#39;FOO&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
-    <span class="k">assert</span> <span class="s1">&#39;FOO&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span></div>
+    <span class="k">with</span> <span class="n">ScopedEnvVar</span><span class="p">(</span><span class="s2">&quot;FOO&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="s2">&quot;FOO&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+    <span class="k">assert</span> <span class="s2">&quot;FOO&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span></div>
 </pre></div>
 
            </div>

@@ -150,8 +150,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.instances</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -161,8 +160,9 @@
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span>
 
+
 <div class="viewcode-block" id="list_instances"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.list_instances">[docs]</a><span class="k">def</span> <span class="nf">list_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;list instances. For Singularity, this is provided as a command sub</span>
+    <span class="sd">&quot;&quot;&quot;list instances. For Singularity, this is provided as a command sub</span>
 <span class="sd">       group.</span>
 
 <span class="sd">       singularity instance.list</span>
@@ -180,14 +180,15 @@
 <span class="sd">       1 -- No Instances, libexecdir value not found, functions file not found</span>
 <span class="sd">       255 -- Couldn&#39;t get UID</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.instance.cmd.iutils</span> <span class="k">import</span> <span class="n">parse_table</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">subgroup</span> <span class="o">=</span> <span class="s1">&#39;instance.list&#39;</span>
+    <span class="n">subgroup</span> <span class="o">=</span> <span class="s2">&quot;instance.list&quot;</span>
 
-    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
@@ -201,44 +202,50 @@
 
     <span class="c1"># Success, we have instances</span>
 
-    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 
         <span class="c1"># Only print the table if we are returning json</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]))</span>
 
         <span class="c1"># Prepare json result from table</span>
-
-        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;daemon_name&#39;</span><span class="p">,</span> <span class="s1">&#39;pid&#39;</span><span class="p">,</span> <span class="s1">&#39;container_image&#39;</span><span class="p">]</span>
-        <span class="n">instances</span> <span class="o">=</span> <span class="n">parse_table</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">)</span>
+        <span class="c1"># Singularity after 3.5.2 has an added ipaddress</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">,</span> <span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;container_image&quot;</span><span class="p">]</span>
+            <span class="n">instances</span> <span class="o">=</span> <span class="n">parse_table</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">,</span> <span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;container_image&quot;</span><span class="p">]</span>
+            <span class="n">instances</span> <span class="o">=</span> <span class="n">parse_table</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">)</span>
 
         <span class="c1"># Does the user want instance objects instead?</span>
         <span class="n">listing</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">return_json</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-                
+
                 <span class="c1"># If the user has provided a name, only add instance matches</span>
                 <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;daemon_name&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">]:</span>
                         <span class="k">continue</span>
 
                 <span class="c1"># Otherwise, add instances to the listing</span>
-                <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">],</span>
-                                             <span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;daemon_name&#39;</span><span class="p">],</span>
-                                             <span class="n">image</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;container_image&#39;</span><span class="p">],</span>
-                                             <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">new_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span>
+                    <span class="n">pid</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">],</span>
+                    <span class="n">image</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;container_image&quot;</span><span class="p">],</span>
+                    <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
 
                 <span class="n">listing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_instance</span><span class="p">)</span>
             <span class="n">instances</span> <span class="o">=</span> <span class="n">listing</span>
 
     <span class="c1"># Couldn&#39;t get UID</span>
 
-    <span class="k">elif</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t get UID&quot;</span><span class="p">)</span>
-        
+
     <span class="c1"># Return code of 0</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No instances found.&#39;</span><span class="p">)</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No instances found.&quot;</span><span class="p">)</span>
 
     <span class="c1"># If we are given a name, return just one</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">instances</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">[]]:</span>
@@ -249,7 +256,7 @@
 
 
 <div class="viewcode-block" id="stopall"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.stopall">[docs]</a><span class="k">def</span> <span class="nf">stopall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;stop ALL instances. This command is only added to the command group</span>
+    <span class="sd">&quot;&quot;&quot;stop ALL instances. This command is only added to the command group</span>
 <span class="sd">       as it doesn&#39;t make sense to call from a single instance</span>
 
 <span class="sd">       Parameters</span>
@@ -257,26 +264,26 @@
 <span class="sd">       sudo: if the command should be done with sudo (exposes different set of</span>
 <span class="sd">             instances)</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">subgroup</span> <span class="o">=</span> <span class="s1">&#39;instance.stop&#39;</span>
+    <span class="n">subgroup</span> <span class="o">=</span> <span class="s2">&quot;instance.stop&quot;</span>
 
-    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--all&quot;</span><span class="p">]</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> : return code </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">],</span> 
-                                          <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> : return code </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">])</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

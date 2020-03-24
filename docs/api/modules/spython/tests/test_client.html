@@ -150,7 +150,7 @@
   <h1>Source code for spython.tests.test_client</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python</span>
 
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -164,53 +164,45 @@
 <div class="viewcode-block" id="test_build_from_docker"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_build_from_docker">[docs]</a><span class="k">def</span> <span class="nf">test_build_from_docker</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
     <span class="n">container</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;container.sif&quot;</span><span class="p">)</span>
 
-    <span class="n">created_container</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> 
-                                     <span class="n">image</span><span class="o">=</span><span class="n">container</span><span class="p">,</span>
-                                     <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">created_container</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">build</span><span class="p">(</span>
+        <span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">container</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
     <span class="k">assert</span> <span class="n">created_container</span> <span class="o">==</span> <span class="n">container</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_container</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="test_export"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_export">[docs]</a><span class="k">def</span> <span class="nf">test_export</span><span class="p">():</span>
     <span class="n">sandbox</span> <span class="o">=</span> <span class="s2">&quot;busybox:1.30.sandbox&quot;</span>
-    <span class="n">created_sandbox</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">)</span>
+    <span class="n">created_sandbox</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">created_sandbox</span> <span class="o">==</span> <span class="n">sandbox</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">)</span>
     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">created_sandbox</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="test_pull_and_run"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_pull_and_run">[docs]</a><span class="k">def</span> <span class="nf">test_pull_and_run</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;shub://vsoch/singularity-images&quot;</span><span class="p">,</span> 
-                        <span class="n">pull_folder</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span> <span class="k">if</span> <span class="n">Client</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s1">&#39;simg&#39;</span>
-    <span class="k">assert</span> <span class="n">image</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="p">(</span><span class="s1">&#39;singularity-images.&#39;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">))</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="s1">&#39;You say please, but all I see is pizza..&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="test_docker_pull"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_docker_pull">[docs]</a><span class="k">def</span> <span class="nf">test_docker_pull</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
     <span class="n">tmp_path</span><span class="p">,</span> <span class="n">container</span> <span class="o">=</span> <span class="n">docker_container</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
-    <span class="n">ext</span> <span class="o">=</span> <span class="s1">&#39;sif&#39;</span> <span class="k">if</span> <span class="n">Client</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s1">&#39;simg&#39;</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="s2">&quot;sif&quot;</span> <span class="k">if</span> <span class="n">Client</span><span class="o">.</span><span class="n">version_info</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="s2">&quot;simg&quot;</span>
     <span class="k">assert</span> <span class="n">container</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span> <span class="o">/</span> <span class="p">(</span><span class="s2">&quot;busybox:1.30.1.&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">))</span>
     <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">container</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="test_execute"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_execute">[docs]</a><span class="k">def</span> <span class="nf">test_execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ls /&#39;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;ls /&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
+    <span class="k">assert</span> <span class="s2">&quot;tmp</span><span class="se">\n</span><span class="s2">usr</span><span class="se">\n</span><span class="s2">var&quot;</span> <span class="ow">in</span> <span class="n">result</span></div>
+
 
 <div class="viewcode-block" id="test_execute_with_return_code"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_execute_with_return_code">[docs]</a><span class="k">def</span> <span class="nf">test_execute_with_return_code</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;ls /&quot;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
-    <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span></div>
+    <span class="k">assert</span> <span class="s2">&quot;tmp</span><span class="se">\n</span><span class="s2">usr</span><span class="se">\n</span><span class="s2">var&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span></div>
+
 
 <div class="viewcode-block" id="test_inspect"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_client.test_inspect">[docs]</a><span class="k">def</span> <span class="nf">test_inspect</span><span class="p">(</span><span class="n">docker_container</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;container&#39;</span>
-    <span class="k">assert</span> <span class="s1">&#39;attributes&#39;</span> <span class="ow">in</span> <span class="n">result</span></div>
+    <span class="k">assert</span> <span class="s2">&quot;attributes&quot;</span> <span class="ow">in</span> <span class="n">result</span> <span class="ow">or</span> <span class="s2">&quot;data&quot;</span> <span class="ow">in</span> <span class="n">result</span></div>
 </pre></div>
 
            </div>

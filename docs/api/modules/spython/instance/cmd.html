@@ -150,8 +150,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.instance.cmd</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2018 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -159,11 +158,11 @@
 
 
 <div class="viewcode-block" id="generate_instance_commands"><a class="viewcode-back" href="../../../source/spython.instance.cmd.html#spython.instance.cmd.generate_instance_commands">[docs]</a><span class="k">def</span> <span class="nf">generate_instance_commands</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39; The Instance client holds the Singularity Instance command group</span>
+    <span class="sd">&quot;&quot;&quot; The Instance client holds the Singularity Instance command group</span>
 <span class="sd">        The levels of verbosity (debug and quiet) are passed from the main</span>
 <span class="sd">        client via the environment variable MESSAGELEVEL.</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="k">import</span> <span class="n">Instance</span>
 
     <span class="kn">from</span> <span class="nn">spython.main.base.logger</span> <span class="k">import</span> <span class="n">println</span>
@@ -171,10 +170,11 @@
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
 
     <span class="c1"># run_command uses run_cmd, but wraps to catch error</span>
-    <span class="kn">from</span> <span class="nn">spython.main.base.command</span> <span class="k">import</span> <span class="p">(</span><span class="n">init_command</span><span class="p">,</span> <span class="n">run_command</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">spython.main.base.command</span> <span class="k">import</span> <span class="n">init_command</span><span class="p">,</span> <span class="n">run_command</span>
     <span class="kn">from</span> <span class="nn">spython.main.base.generate</span> <span class="k">import</span> <span class="n">RobotNamer</span>
     <span class="kn">from</span> <span class="nn">.start</span> <span class="k">import</span> <span class="n">start</span>
     <span class="kn">from</span> <span class="nn">.stop</span> <span class="k">import</span> <span class="n">stop</span>
+    <span class="kn">from</span> <span class="nn">.logs</span> <span class="k">import</span> <span class="n">error_logs</span><span class="p">,</span> <span class="n">output_logs</span><span class="p">,</span> <span class="n">_logs</span>
 
     <span class="n">Instance</span><span class="o">.</span><span class="n">RobotNamer</span> <span class="o">=</span> <span class="n">RobotNamer</span><span class="p">()</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">_init_command</span> <span class="o">=</span> <span class="n">init_command</span>
@@ -182,12 +182,15 @@
     <span class="n">Instance</span><span class="o">.</span><span class="n">_run_command</span> <span class="o">=</span> <span class="n">run_command</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">_list</span> <span class="o">=</span> <span class="n">list_instances</span>  <span class="c1"># list command is used to get metadata</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">_println</span> <span class="o">=</span> <span class="n">println</span>
-    <span class="n">Instance</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>     <span class="c1"># intended to be called on init, not by user</span>
+    <span class="n">Instance</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>  <span class="c1"># intended to be called on init, not by user</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+    <span class="n">Instance</span><span class="o">.</span><span class="n">error_logs</span> <span class="o">=</span> <span class="n">error_logs</span>
+    <span class="n">Instance</span><span class="o">.</span><span class="n">output_logs</span> <span class="o">=</span> <span class="n">output_logs</span>
+    <span class="n">Instance</span><span class="o">.</span><span class="n">_logs</span> <span class="o">=</span> <span class="n">_logs</span>
 
     <span class="c1"># Give an instance the ability to breed :)</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="n">Instance</span>
- 
+
     <span class="k">return</span> <span class="n">Instance</span></div>
 </pre></div>
 

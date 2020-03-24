@@ -154,7 +154,7 @@
   <h1>Source code for spython.main.base.generate</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -163,43 +163,182 @@
 
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
 
+
 <div class="viewcode-block" id="RobotNamer"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.RobotNamer">[docs]</a><span class="k">class</span> <span class="nc">RobotNamer</span><span class="p">:</span>
 
     <span class="n">_descriptors</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;chunky&#39;</span><span class="p">,</span> <span class="s1">&#39;buttery&#39;</span><span class="p">,</span> <span class="s1">&#39;delicious&#39;</span><span class="p">,</span> <span class="s1">&#39;scruptious&#39;</span><span class="p">,</span> <span class="s1">&#39;dinosaur&#39;</span><span class="p">,</span> <span class="s1">&#39;boopy&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;lovely&#39;</span><span class="p">,</span> <span class="s1">&#39;carniverous&#39;</span><span class="p">,</span> <span class="s1">&#39;hanky&#39;</span><span class="p">,</span> <span class="s1">&#39;loopy&#39;</span><span class="p">,</span> <span class="s1">&#39;doopy&#39;</span><span class="p">,</span> <span class="s1">&#39;astute&#39;</span><span class="p">,</span> <span class="s1">&#39;gloopy&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;outstanding&#39;</span><span class="p">,</span> <span class="s1">&#39;stinky&#39;</span><span class="p">,</span> <span class="s1">&#39;conspicuous&#39;</span><span class="p">,</span> <span class="s1">&#39;fugly&#39;</span><span class="p">,</span> <span class="s1">&#39;frigid&#39;</span><span class="p">,</span> <span class="s1">&#39;angry&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;adorable&#39;</span><span class="p">,</span> <span class="s1">&#39;sticky&#39;</span><span class="p">,</span> <span class="s1">&#39;moolicious&#39;</span><span class="p">,</span> <span class="s1">&#39;cowy&#39;</span><span class="p">,</span> <span class="s1">&#39;spicy&#39;</span><span class="p">,</span> <span class="s1">&#39;grated&#39;</span><span class="p">,</span> <span class="s1">&#39;crusty&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;stanky&#39;</span><span class="p">,</span> <span class="s1">&#39;blank&#39;</span><span class="p">,</span> <span class="s1">&#39;bumfuzzled&#39;</span><span class="p">,</span> <span class="s1">&#39;fuzzy&#39;</span><span class="p">,</span> <span class="s1">&#39;hairy&#39;</span><span class="p">,</span> <span class="s1">&#39;peachy&#39;</span><span class="p">,</span> <span class="s1">&#39;tart&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;creamy&#39;</span><span class="p">,</span> <span class="s1">&#39;arid&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;butterscotch&#39;</span><span class="p">,</span> <span class="s1">&#39;wobbly&#39;</span><span class="p">,</span> <span class="s1">&#39;persnickety&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;nerdy&#39;</span><span class="p">,</span> <span class="s1">&#39;dirty&#39;</span><span class="p">,</span> <span class="s1">&#39;placid&#39;</span><span class="p">,</span> <span class="s1">&#39;bloated&#39;</span><span class="p">,</span> <span class="s1">&#39;swampy&#39;</span><span class="p">,</span> <span class="s1">&#39;pusheena&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;goodbye&#39;</span><span class="p">,</span> <span class="s1">&#39;milky&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;rainbow&#39;</span><span class="p">,</span> <span class="s1">&#39;bricky&#39;</span><span class="p">,</span> <span class="s1">&#39;muffled&#39;</span><span class="p">,</span> <span class="s1">&#39;anxious&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;misunderstood&#39;</span><span class="p">,</span> <span class="s1">&#39;eccentric&#39;</span><span class="p">,</span> <span class="s1">&#39;quirky&#39;</span><span class="p">,</span> <span class="s1">&#39;lovable&#39;</span><span class="p">,</span> <span class="s1">&#39;reclusive&#39;</span><span class="p">,</span> <span class="s1">&#39;faux&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;evasive&#39;</span><span class="p">,</span> <span class="s1">&#39;confused&#39;</span><span class="p">,</span> <span class="s1">&#39;crunchy&#39;</span><span class="p">,</span> <span class="s1">&#39;expensive&#39;</span><span class="p">,</span> <span class="s1">&#39;ornery&#39;</span><span class="p">,</span> <span class="s1">&#39;fat&#39;</span><span class="p">,</span> <span class="s1">&#39;phat&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;joyous&#39;</span><span class="p">,</span> <span class="s1">&#39;expressive&#39;</span><span class="p">,</span> <span class="s1">&#39;psycho&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;salted&#39;</span><span class="p">,</span> <span class="s1">&#39;gassy&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;blue&#39;</span>
+        <span class="s2">&quot;chunky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;buttery&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;delicious&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;scruptious&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dinosaur&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;boopy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lovely&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;carniverous&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hanky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;loopy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;doopy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;astute&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gloopy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;outstanding&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stinky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;conspicuous&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fugly&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;frigid&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;angry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;adorable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sticky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;moolicious&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cowy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spicy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;grated&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crusty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stanky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;blank&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bumfuzzled&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fuzzy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hairy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peachy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tart&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;creamy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;arid&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;strawberry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;butterscotch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;wobbly&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;persnickety&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nerdy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dirty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;placid&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bloated&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swampy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pusheena&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;goodbye&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;milky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;purple&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rainbow&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bricky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;muffled&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;anxious&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;misunderstood&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;eccentric&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;quirky&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lovable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reclusive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;faux&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;evasive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;confused&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crunchy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expensive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ornery&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;joyous&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expressive&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;psycho&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;chocolate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;salted&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gassy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;blue&quot;</span><span class="p">,</span>
     <span class="p">]</span>
 
     <span class="n">_nouns</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;squidward&#39;</span><span class="p">,</span> <span class="s1">&#39;hippo&#39;</span><span class="p">,</span> <span class="s1">&#39;butter&#39;</span><span class="p">,</span> <span class="s1">&#39;animal&#39;</span><span class="p">,</span> <span class="s1">&#39;peas&#39;</span><span class="p">,</span> <span class="s1">&#39;lettuce&#39;</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;onion&#39;</span><span class="p">,</span> <span class="s1">&#39;peanut&#39;</span><span class="p">,</span> <span class="s1">&#39;cupcake&#39;</span><span class="p">,</span> <span class="s1">&#39;muffin&#39;</span><span class="p">,</span> <span class="s1">&#39;buttface&#39;</span><span class="p">,</span> <span class="s1">&#39;leopard&#39;</span><span class="p">,</span> <span class="s1">&#39;parrot&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;parsnip&#39;</span><span class="p">,</span> <span class="s1">&#39;poodle&#39;</span><span class="p">,</span> <span class="s1">&#39;itch&#39;</span><span class="p">,</span> <span class="s1">&#39;punk&#39;</span><span class="p">,</span> <span class="s1">&#39;kerfuffle&#39;</span><span class="p">,</span> <span class="s1">&#39;soup&#39;</span><span class="p">,</span> <span class="s1">&#39;noodle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;avocado&#39;</span><span class="p">,</span> <span class="s1">&#39;peanut-butter&#39;</span><span class="p">,</span> <span class="s1">&#39;latke&#39;</span><span class="p">,</span> <span class="s1">&#39;milkshake&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;lizard&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;lemur&#39;</span><span class="p">,</span> <span class="s1">&#39;lentil&#39;</span><span class="p">,</span> <span class="s1">&#39;bits&#39;</span><span class="p">,</span> <span class="s1">&#39;house&#39;</span><span class="p">,</span> <span class="s1">&#39;leader&#39;</span><span class="p">,</span> <span class="s1">&#39;toaster&#39;</span><span class="p">,</span> <span class="s1">&#39;signal&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;pancake&#39;</span><span class="p">,</span> <span class="s1">&#39;kitty&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;cattywampus&#39;</span><span class="p">,</span> <span class="s1">&#39;poo&#39;</span><span class="p">,</span> <span class="s1">&#39;malarkey&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;rabbit&#39;</span><span class="p">,</span> <span class="s1">&#39;chair&#39;</span><span class="p">,</span> <span class="s1">&#39;staircase&#39;</span><span class="p">,</span> <span class="s1">&#39;underoos&#39;</span><span class="p">,</span> <span class="s1">&#39;snack&#39;</span><span class="p">,</span> <span class="s1">&#39;lamp&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;eagle&#39;</span><span class="p">,</span> <span class="s1">&#39;hobbit&#39;</span><span class="p">,</span> <span class="s1">&#39;diablo&#39;</span><span class="p">,</span> <span class="s1">&#39;earthworm&#39;</span><span class="p">,</span> <span class="s1">&#39;pot&#39;</span><span class="p">,</span> <span class="s1">&#39;plant&#39;</span><span class="p">,</span> <span class="s1">&#39;leg&#39;</span><span class="p">,</span> <span class="s1">&#39;arm&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;bike&#39;</span><span class="p">,</span> <span class="s1">&#39;citrus&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;puppy&#39;</span><span class="p">,</span> <span class="s1">&#39;blackbean&#39;</span><span class="p">,</span> <span class="s1">&#39;ricecake&#39;</span><span class="p">,</span> <span class="s1">&#39;gato&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;nalgas&#39;</span><span class="p">,</span> <span class="s1">&#39;lemon&#39;</span><span class="p">,</span> <span class="s1">&#39;caramel&#39;</span><span class="p">,</span> <span class="s1">&#39;fudge&#39;</span><span class="p">,</span> <span class="s1">&#39;cherry&#39;</span><span class="p">,</span> <span class="s1">&#39;sundae&#39;</span><span class="p">,</span> <span class="s1">&#39;truffle&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;cinnamonbun&#39;</span><span class="p">,</span> <span class="s1">&#39;pastry&#39;</span><span class="p">,</span> <span class="s1">&#39;egg&#39;</span><span class="p">,</span> <span class="s1">&#39;omelette&#39;</span><span class="p">,</span> <span class="s1">&#39;fork&#39;</span><span class="p">,</span> <span class="s1">&#39;knife&#39;</span><span class="p">,</span> <span class="s1">&#39;spoon&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;salad&#39;</span><span class="p">,</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">,</span> <span class="s1">&#39;motorcycle&#39;</span><span class="p">,</span> <span class="s1">&#39;bicycle&#39;</span><span class="p">,</span> <span class="s1">&#39;platanos&#39;</span><span class="p">,</span> <span class="s1">&#39;mango&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;taco&#39;</span><span class="p">,</span> <span class="s1">&#39;pedo&#39;</span><span class="p">,</span> <span class="s1">&#39;nunchucks&#39;</span><span class="p">,</span> <span class="s1">&#39;destiny&#39;</span><span class="p">,</span> <span class="s1">&#39;hope&#39;</span><span class="p">,</span> <span class="s1">&#39;despacito&#39;</span><span class="p">,</span> <span class="s1">&#39;frito&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;chip&#39;</span>
+        <span class="s2">&quot;squidward&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hippo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;butter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;animal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lettuce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;carrot&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;onion&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peanut&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cupcake&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;muffin&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;buttface&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;leopard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parrot&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;parsnip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;poodle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;itch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;punk&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kerfuffle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;soup&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;noodle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;avocado&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peanut-butter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;latke&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;milkshake&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;banana&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lizard&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lemur&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lentil&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bits&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;house&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;leader&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;toaster&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;signal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pancake&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;kitty&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cattywampus&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;poo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;malarkey&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;general&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rabbit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;chair&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;staircase&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;underoos&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;snack&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;eagle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hobbit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;diablo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;earthworm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pot&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;plant&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;leg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;arm&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bike&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;citrus&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dog&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;puppy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;blackbean&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ricecake&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gato&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nalgas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lemon&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;caramel&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fudge&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cherry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sundae&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;truffle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cinnamonbun&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pastry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;egg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;omelette&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fork&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;knife&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;spoon&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;salad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;train&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;motorcycle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bicycle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;platanos&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mango&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;taco&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pedo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nunchucks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;destiny&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hope&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;despacito&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;frito&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;chip&quot;</span><span class="p">,</span>
     <span class="p">]</span>
 
-
-<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s1">&#39;0123456789&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
+<div class="viewcode-block" id="RobotNamer.generate"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.instance.RobotNamer.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delim</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">chars</span><span class="o">=</span><span class="s2">&quot;0123456789&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a robot name. Inspiration from Haikunator, but much more</span>
 <span class="sd">                 poorly implemented ;)</span>
 
@@ -208,23 +347,22 @@
 <span class="sd">        delim: Delimiter</span>
 <span class="sd">        length: TokenLength</span>
 <span class="sd">        chars: TokenChars</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">descriptor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_descriptors</span><span class="p">)</span>
         <span class="n">noun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nouns</span><span class="p">)</span>
-        <span class="n">numbers</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)))</span>
+        <span class="n">numbers</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_select</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">delim</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">descriptor</span><span class="p">,</span> <span class="n">noun</span><span class="p">,</span> <span class="n">numbers</span><span class="p">])</span></div>
 
-
     <span class="k">def</span> <span class="nf">_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">select_from</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39; select an element from a list using random.choice</span>
+        <span class="sd">&quot;&quot;&quot; select an element from a list using random.choice</span>
 <span class="sd">        </span>
 <span class="sd">            Parameters</span>
 <span class="sd">            ==========</span>
 <span class="sd">            should be a list of things to select from</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">select_from</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">choice</span><span class="p">(</span><span class="n">select_from</span><span class="p">)</span></div>
 
@@ -233,7 +371,8 @@
     <span class="n">bot</span> <span class="o">=</span> <span class="n">RobotNamer</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">generate</span><span class="p">())</span></div>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 

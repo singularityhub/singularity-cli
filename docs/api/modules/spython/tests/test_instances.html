@@ -150,7 +150,7 @@
   <h1>Source code for spython.tests.test_instances</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python</span>
 
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -161,18 +161,20 @@
 
 
 <div class="viewcode-block" id="test_instance_class"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.test_instance_class">[docs]</a><span class="k">def</span> <span class="nf">test_instance_class</span><span class="p">():</span>
-    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s1">&#39;docker://ubuntu&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;instance://&#39;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
-    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s2">&quot;docker://ubuntu&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;instance://&quot;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;coolName&#39;</span>
-    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s1">&#39;docker://busybox:1.30.1&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;instance://&#39;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;coolName&quot;</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;instance://&quot;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
     <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span></div>
+
 
 <div class="viewcode-block" id="test_has_no_instances"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.test_has_no_instances">[docs]</a><span class="k">def</span> <span class="nf">test_has_no_instances</span><span class="p">():</span>
     <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">instances</span> <span class="o">==</span> <span class="p">[]</span></div>
+
 
 <div class="viewcode-block" id="TestInstanceFuncs"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs">[docs]</a><span class="k">class</span> <span class="nc">TestInstanceFuncs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <div class="viewcode-block" id="TestInstanceFuncs.cleanup"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.cleanup">[docs]</a>    <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -183,7 +185,7 @@
 <div class="viewcode-block" id="TestInstanceFuncs.test_instance_cmds"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.test_instance_cmds">[docs]</a>    <span class="k">def</span> <span class="nf">test_instance_cmds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docker_container</span><span class="p">):</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">myinstance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">myinstance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;instance://&#39;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">myinstance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;instance://&quot;</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 2: List instances&quot;</span><span class="p">)</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
@@ -193,14 +195,14 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 3: Commands to instances&quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;echo&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">])</span>
-        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s1">&#39;hello</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;hello</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Case 4: Return value from instance&#39;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="s1">&#39;ls /&#39;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 4: Return value from instance&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="s2">&quot;ls /&quot;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="s1">&#39;tmp</span><span class="se">\n</span><span class="s1">usr</span><span class="se">\n</span><span class="s1">var&#39;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
-        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">assert</span> <span class="s2">&quot;tmp</span><span class="se">\n</span><span class="s2">usr</span><span class="se">\n</span><span class="s2">var&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 5: Stop instances&quot;</span><span class="p">)</span>
         <span class="n">myinstance</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>

@@ -152,11 +152,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.base.sutils</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Singularity Image utils for interacting with the Image/Instance </span>
+<span></span><span class="c1"># Singularity Image utils for interacting with the Image/Instance</span>
 <span class="c1">#           classes from the client</span>
 
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -167,61 +166,62 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
+
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;load an image, either an actual path on the filesystem or a uri.</span>
+    <span class="sd">&quot;&quot;&quot;load an image, either an actual path on the filesystem or a uri.</span>
 
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       image: the image path or uri to load (e.g., docker://ubuntu </span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.image</span> <span class="k">import</span> <span class="n">Image</span>
     <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="k">import</span> <span class="n">Instance</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;instance://&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;instance://&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="setenv"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.setenv">[docs]</a><span class="k">def</span> <span class="nf">setenv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;set an environment variable for Singularity</span>
+    <span class="sd">&quot;&quot;&quot;set an environment variable for Singularity</span>
 <span class="sd">    </span>
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       variable: the variable to set</span>
 <span class="sd">       value: the value to set</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="n">os</span><span class="o">.</span><span class="n">putenv</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-    <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> set to </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
+    <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> set to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;sif&#39;</span><span class="p">,</span> <span class="n">pwd</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;return an image filename based on the image uri.</span>
+<div class="viewcode-block" id="get_filename"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_filename">[docs]</a><span class="k">def</span> <span class="nf">get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s2">&quot;sif&quot;</span><span class="p">,</span> <span class="n">pwd</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;return an image filename based on the image uri.</span>
 <span class="sd"> </span>
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       ext: the extension to use</span>
 <span class="sd">       pwd: derive a filename for the pwd</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">pwd</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;^.*://&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;^.*://&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">image</span></div>
 
 
 <div class="viewcode-block" id="get_uri"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.sutils.get_uri">[docs]</a><span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; check if the loaded image object (self.simage) has an associated uri</span>
+    <span class="sd">&quot;&quot;&quot; check if the loaded image object (self.simage) has an associated uri</span>
 <span class="sd">        return if yes, None if not.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;simage&#39;</span><span class="p">):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;simage&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="o">.</span><span class="n">image</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="o">.</span><span class="n">image</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
                 <span class="c1"># Concatenates the &lt;uri&gt;://&lt;image&gt;</span>
                 <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simage</span><span class="p">)</span></div>
 </pre></div>
