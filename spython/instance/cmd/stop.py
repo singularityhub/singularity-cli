@@ -30,9 +30,9 @@ def stop(self, name=None, sudo=False, timeout=None):
 
     if "version 3" in self.version():
         subgroup = ["instance", "stop"]
+        if timeout:
+            subgroup += ["-t", str(timeout)]
 
-    if timeout:
-        subgroup += ["-t", str(timeout)]
 
     cmd = self._init_command(subgroup)
 
