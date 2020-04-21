@@ -85,7 +85,7 @@ def build(
             bot.exit("Cannot find %s, exiting." % image)
 
     if image is None:
-        if re.search("(docker|shub)://", recipe) and not robot_name:
+        if re.search("(docker|shub|library)://", recipe) and not robot_name:
             image = self._get_filename(recipe, ext)
         else:
             image = "%s.%s" % (self.RobotNamer.generate(), ext)

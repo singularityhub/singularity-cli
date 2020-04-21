@@ -138,6 +138,7 @@ def test_remove_uri():
     assert (
         remove_uri("shub://vanessa/singularity-images") == "vanessa/singularity-images"
     )
+    assert remove_uri("library://library/default/alpine") == "library/default/alpine"
     assert remove_uri("vanessa/singularity-images") == "vanessa/singularity-images"
 
 

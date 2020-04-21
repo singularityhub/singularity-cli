@@ -230,6 +230,6 @@ def split_uri(container):
 
 
 def remove_uri(container):
-    """remove_uri will remove docker:// or shub:// from the uri
+    """remove_uri will remove docker:// or shub:// or library:// from the uri
     """
     return split_uri(container)[1]
