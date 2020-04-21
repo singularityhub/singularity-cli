@@ -57,9 +57,9 @@ def pull(
     if image is None:
         bot.exit("You must provide an image uri, or use client.load() first.")
 
-    # Singularity Only supports shub and Docker pull
-    if not re.search("^(shub|docker)://", image):
-        bot.exit("pull only valid for docker and shub. Use sregistry client.")
+    # Singularity Only supports shub, docker and library pull
+    if not re.search("^(shub|docker|library)://", image):
+        bot.exit("pull only valid for docker, shub and library. Use sregistry client.")
 
     # If we still don't have a custom name, base off of image uri.
     if name is None:
