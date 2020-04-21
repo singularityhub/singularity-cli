@@ -11,7 +11,15 @@ import shutil
 import os
 
 
-def export(self, image_path, pipe=False, output_file=None, command=None, sudo=False):
+def export(
+    self,
+    image_path,
+    pipe=False,
+    output_file=None,
+    command=None,
+    sudo=False,
+    singularity_options=None,
+):
 
     """export will export an image, sudo must be used. If we have Singularity
        versions after 3, export is replaced with building into a sandbox.
@@ -20,6 +28,7 @@ def export(self, image_path, pipe=False, output_file=None, command=None, sudo=Fa
        ==========
        image_path: full path to image
        pipe: export to pipe and not file (default, False)
+       singularity_options: a list of options to provide to the singularity client
        output_file: if pipe=False, export tar to this file. If not specified, 
        will generate temporary directory.
     """
@@ -39,19 +48,35 @@ def export(self, image_path, pipe=False, output_file=None, command=None, sudo=Fa
             output_file = self._get_filename(basename, "sandbox", pwd=False)
 
         return self.build(
-            recipe=image_path, image=output_file, sandbox=True, force=True, sudo=sudo
+            recipe=image_path,
+            image=output_file,
+            sandbox=True,
+            force=True,
+            sudo=sudo,
+            singularity_options=singularity_options,
         )
 
     # If not version 3, run deprecated command
     elif "2.5" in self.version():
         return self._export(
-            image_path=image_path, pipe=pipe, output_file=output_file, command=command
+            image_path=image_path,
+            pipe=pipe,
+            output_file=output_file,
+            command=command,
+            singularity_options=singularity_options,
         )
 
     bot.warning("Unsupported version of Singularity, %s" % self.version())
 
 
-def _export(self, image_path, pipe=False, output_file=None, command=None):
+def _export(
+    self,
+    image_path,
+    pipe=False,
+    output_file=None,
+    command=None,
+    singularity_options=None,
+):
     """ the older deprecated function, running export for previous
                versions of Singularity that support it
 
@@ -69,7 +94,7 @@ def _export(self, image_path, pipe=False, output_file=None, command=None):
 
     """
     sudo = True
-    cmd = self._init_command("export")
+    cmd = self._init_command("export", singularity_options)
 
     # If the user has specified export to pipe, we don't need a file
     if pipe:

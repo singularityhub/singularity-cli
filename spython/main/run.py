@@ -22,6 +22,7 @@ def run(
     stream=False,
     nv=False,
     options=None,
+    singularity_options=None,
     return_result=False,
 ):
     """
@@ -35,6 +36,7 @@ def run(
         app: if not None, execute a command in context of an app
         writable: This option makes the file system accessible as read/write
         options: an optional list of options to provide to run.
+        singularity_options: a list of options to provide to the singularity client
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
         bind: list or single string of bind paths.
@@ -50,7 +52,7 @@ def run(
 
     check_install()
 
-    cmd = self._init_command("run")
+    cmd = self._init_command("run", singularity_options)
 
     # nv option leverages any GPU cards
     if nv:
