@@ -10,7 +10,9 @@ from spython.logger import bot
 from spython.utils import check_install, run_command
 
 
-def inspect(self, image=None, json=True, app=None, quiet=True):
+def inspect(
+    self, image=None, json=True, app=None, quiet=True, singularity_options=None
+):
     """inspect will show labels, defile, runscript, and tests for an image
     
        Parameters
@@ -19,6 +21,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
        json: print json instead of raw text (default True)
        quiet: Don't print result to the screen (default True)
        app: if defined, return help in context of an app
+       singularity_options: a list of options to provide to the singularity client
 
     """
     check_install()
@@ -31,7 +34,7 @@ def inspect(self, image=None, json=True, app=None, quiet=True):
     if not image:
         bot.exit("Please provide an image to inspect.")
 
-    cmd = self._init_command("inspect")
+    cmd = self._init_command("inspect", singularity_options)
     if app:
         cmd = cmd + ["--app", app]
 

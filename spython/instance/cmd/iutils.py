@@ -35,7 +35,7 @@ def parse_table(table_string, header, remove_rows=1):
     return parsed
 
 
-def get(self, name, return_json=False, quiet=False):
+def get(self, name, return_json=False, quiet=False, singularity_options=None):
     """get is a list for a single instance. It is assumed to be running,
        and we need to look up the PID, etc.
     """
@@ -49,7 +49,7 @@ def get(self, name, return_json=False, quiet=False):
     if "version 3" in self.version():
         subgroup = ["instance", "list"]
 
-    cmd = self._init_command(subgroup)
+    cmd = self._init_command(subgroup, singularity_options)
 
     cmd.append(name)
     output = self.run_command(cmd, quiet=True)

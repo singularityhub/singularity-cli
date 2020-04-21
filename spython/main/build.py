@@ -28,6 +28,7 @@ def build(
     quiet=False,
     return_result=False,
     sudo_options=None,
+    singularity_options=None,
 ):
 
     """build a singularity image, optionally for an isolated build
@@ -53,6 +54,7 @@ def build(
        sudo: give sudo to the command (or not) default is True for build
        sudo_options: options to pass to sudo (e.g. --preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)
        options: for all other options, specify them in this list.   
+       singularity_options: a list of options to provide to the singularity client
        quiet: quiet verbose printing from the client.
        return_result: if True, return complete error code / message dictionary
     """
@@ -60,11 +62,10 @@ def build(
 
     check_install()
 
-    cmd = self._init_command("build")
+    cmd = self._init_command("build", singularity_options)
 
     # If no extra options
-    if not options:
-        options = []
+    options = options or []
 
     if "version 3" in self.version():
         ext = "sif"

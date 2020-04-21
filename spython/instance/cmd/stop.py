@@ -8,13 +8,14 @@
 from spython.logger import bot
 
 
-def stop(self, name=None, sudo=False, timeout=None):
+def stop(self, name=None, sudo=False, timeout=None, singularity_options=None):
     """stop an instance. This is done by default when an instance is created.
 
        Parameters
        ==========
        name: a name for the instance
        sudo: if the user wants to run the command with sudo
+       singularity_options: a list of options to provide to the singularity client
        timeout: forcebly kill non-stopped instance after the
                 timeout specified in seconds
 
@@ -33,7 +34,7 @@ def stop(self, name=None, sudo=False, timeout=None):
         if timeout:
             subgroup += ["-t", str(timeout)]
 
-    cmd = self._init_command(subgroup)
+    cmd = self._init_command(subgroup, singularity_options)
 
     # If name is provided assume referencing an instance
     instance_name = self.name
