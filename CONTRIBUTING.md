@@ -14,8 +14,7 @@ all your interactions with the project members and users.
 
 ## Pull Request Process
 
-1. Send PRs to the master branch for merge as a pypi release, or development
-   if the intention is to add to next pypi release.
+1. Send PRs to the master branch.
 2. Follow the existing code style precedent. This does not need to be strictly
    defined as there are many thousands of lines of examples. Note the lack
    of tabs anywhere in the project, parentheses and spacing, documentation
