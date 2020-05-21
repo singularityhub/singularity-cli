@@ -151,6 +151,7 @@ def run_command(
     no_newline_regexp="Progess",
     quiet=False,
     sudo_options=None,
+    env=None
 ):
 
     """run_command uses subprocess to send a command to the terminal. If
@@ -176,7 +177,8 @@ def run_command(
         stdout = subprocess.PIPE
 
     # Use the parent stdout and stderr
-    process = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=stdout)
+
+    process = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=stdout, env=env)
     lines = []
     found_match = False
 

@@ -9,7 +9,7 @@ from spython.logger import bot
 from spython.utils import run_command
 
 
-def list_instances(self, name=None, return_json=False, quiet=False, sudo=False):
+def list_instances(self, name=None, return_json=False, quiet=False, sudo=False, sudo_options=None):
     """list instances. For Singularity, this is provided as a command sub
        group.
 
@@ -45,7 +45,7 @@ def list_instances(self, name=None, return_json=False, quiet=False, sudo=False):
     if name is not None:
         cmd.append(name)
 
-    output = run_command(cmd, quiet=True, sudo=sudo)
+    output = run_command(cmd, quiet=True, sudo=sudo, sudo_options=sudo_options)
     instances = []
 
     # Success, we have instances
