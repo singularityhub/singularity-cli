@@ -134,7 +134,12 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=No
     """
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.Popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True
+    )
     for line in iter(process.stdout.readline, ""):
         if not re.search(no_newline_regexp, line):
             yield line
