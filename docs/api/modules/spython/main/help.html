@@ -150,8 +150,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.help</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -159,17 +158,18 @@
 
 
 <div class="viewcode-block" id="helpcmd"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.help.helpcmd">[docs]</a><span class="k">def</span> <span class="nf">helpcmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;help prints the general function help, or help for a specific command</span>
+    <span class="sd">&quot;&quot;&quot;help prints the general function help, or help for a specific command</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ==========   </span>
 <span class="sd">        command: the command to get help for, if none, prints general help</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;singularity&quot;</span><span class="p">,</span> <span class="s2">&quot;--help&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div>

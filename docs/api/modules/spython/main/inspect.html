@@ -150,8 +150,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.inspect</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -160,13 +159,11 @@
 <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">jsonp</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="p">(</span> 
-    <span class="n">check_install</span><span class="p">,</span> 
-    <span class="n">run_command</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span><span class="p">,</span> <span class="n">run_command</span>
+
 
 <div class="viewcode-block" id="inspect"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.inspect.inspect">[docs]</a><span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;inspect will show labels, defile, runscript, and tests for an image</span>
+    <span class="sd">&quot;&quot;&quot;inspect will show labels, defile, runscript, and tests for an image</span>
 <span class="sd">    </span>
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
@@ -175,7 +172,7 @@
 <span class="sd">       quiet: Don&#39;t print result to the screen (default True)</span>
 <span class="sd">       app: if defined, return help in context of an app</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_install</span><span class="p">()</span>
 
     <span class="c1"># No image provided, default to use the client&#39;s loaded image</span>
@@ -184,34 +181,34 @@
 
     <span class="c1"># If there still isn&#39;t an image, exit on error</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="p">:</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please provide an image to inspect.&#39;</span><span class="p">)</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please provide an image to inspect.&quot;</span><span class="p">)</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s1">&#39;inspect&#39;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;inspect&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">app</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;--app&#39;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--app&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
 
-    <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;hf&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;hf&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]</span>
 
     <span class="c1"># After Singularity 3.0, helpfile was changed to H from</span>
 
     <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">json</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;--json&#39;</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;--json&quot;</span><span class="p">)</span>
 
     <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">jsonp</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">jsonp</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="c1"># Unify output to singularity 3 format</span>
         <span class="k">if</span> <span class="s2">&quot;data&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
 
         <span class="c1"># Fix up labels</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">parse_labels</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
@@ -223,21 +220,21 @@
 
 
 <div class="viewcode-block" id="parse_labels"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.inspect.parse_labels">[docs]</a><span class="k">def</span> <span class="nf">parse_labels</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;fix up the labels, meaning parse to json if needed, and return</span>
+    <span class="sd">&quot;&quot;&quot;fix up the labels, meaning parse to json if needed, and return</span>
 <span class="sd">       original updated object</span>
 
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       result: the json object to parse from inspect</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;attributes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;labels&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">jsonp</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
 
-    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;attributes&#39;</span><span class="p">][</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
+    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">][</span><span class="s2">&quot;labels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
 
     <span class="k">return</span> <span class="n">result</span></div>
 </pre></div>

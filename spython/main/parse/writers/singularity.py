@@ -171,8 +171,8 @@ def finish_section(section, name):
     # Convert USER lines to change user
     lines = []
     for line in section:
-        if "USER" in line:
-            username = line.replace("USER", "").rstrip()
+        if re.search("^USER", line):
+            username = line.replace("USER", "", 1).rstrip()
             line = "su - %s" % username + " # " + line
         lines.append(line)
 

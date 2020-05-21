@@ -20,13 +20,13 @@ def init_command(self, action, flags=None):
        Parameters
        ==========
        action: the main action to perform (e.g., build)
-       flags: one or more additional flags (e.g, volumes) 
-              not implemented yet.
+       flags: one or more additional singularity options
     """
+    flags = flags or []
 
     if not isinstance(action, list):
         action = [action]
-    cmd = ["singularity"] + action
+    cmd = ["singularity"] + flags + action
 
     if self.quiet:
         cmd.insert(1, "--quiet")

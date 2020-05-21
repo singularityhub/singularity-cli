@@ -216,23 +216,19 @@
 <span id="spython-main-apps-module"></span><h2>spython.main.apps module<a class="headerlink" href="#module-spython.main.apps" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.apps.apps">
-<code class="descclassname">spython.main.apps.</code><code class="descname">apps</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>full_path=False</em>, <em>root=''</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/apps.html#apps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.apps.apps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.apps.</code><code class="sig-name descname">apps</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em>, <em class="sig-param">full_path=False</em>, <em class="sig-param">root=''</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/apps.html#apps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.apps.apps" title="Permalink to this definition">¶</a></dt>
 <dd><p>return list of SCIF apps in image. The Singularity software serves
 a scientific filesystem integration that will install apps to
 /scif/apps and associated data to /scif/data. For more information
 about SCIF, see <a class="reference external" href="https://sci-f.github.io">https://sci-f.github.io</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>full_path</strong> (<em>if True, return relative to scif base folder</em>)</li>
-<li><strong>image_path</strong> (<em>full path to the image</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full_path</strong> (<em>if True, return relative to scif base folder</em>)</p></li>
+<li><p><strong>image_path</strong> (<em>full path to the image</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -240,34 +236,31 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 <span id="spython-main-build-module"></span><h2>spython.main.build module<a class="headerlink" href="#module-spython.main.build" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.build.build">
-<code class="descclassname">spython.main.build.</code><code class="descname">build</code><span class="sig-paren">(</span><em>self</em>, <em>recipe=None</em>, <em>image=None</em>, <em>isolated=False</em>, <em>sandbox=False</em>, <em>writable=False</em>, <em>build_folder=None</em>, <em>robot_name=False</em>, <em>ext='sif'</em>, <em>sudo=True</em>, <em>stream=False</em>, <em>force=False</em>, <em>options=None</em>, <em>quiet=False</em>, <em>return_result=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.build.</code><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">recipe=None</em>, <em class="sig-param">image=None</em>, <em class="sig-param">isolated=False</em>, <em class="sig-param">sandbox=False</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">build_folder=None</em>, <em class="sig-param">robot_name=False</em>, <em class="sig-param">ext='sif'</em>, <em class="sig-param">sudo=True</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">force=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">return_result=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/build.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.build.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
 (requires sudo). If you specify to stream, expect the image name
 and an iterator to be returned.</p>
 <p>image, builder = Client.build(…)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) – defined, we look for “Singularity” file in $PWD</li>
-<li><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</li>
-<li><strong>isolated</strong> (<em>if True, run build with –isolated flag</em>)</li>
-<li><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</li>
-<li><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</li>
-<li><strong>build_folder</strong> (<em>where the container should be built.</em>)</li>
-<li><strong>ext</strong> (<em>the image extension to use.</em>)</li>
-<li><strong>robot_name</strong> (<em>boolean, default False. if you don’t give your image a</em>) – name (with “image”) then a fun robot name will be generated
-instead. Highly recommended :)</li>
-<li><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</li>
-<li><strong>options</strong> (<em>for all other options, specify them in this list.</em>)</li>
-<li><strong>quiet</strong> (<em>quiet verbose printing from the client.</em>)</li>
-<li><strong>return_result</strong> (<em>if True, return complete error code / message dictionary</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipe</strong> (<em>the path to the recipe file (or source to build from). If not</em>) – defined, we look for “Singularity” file in $PWD</p></li>
+<li><p><strong>image</strong> (<em>the image to build (if None, will use arbitary name</em>)</p></li>
+<li><p><strong>isolated</strong> (<em>if True, run build with –isolated flag</em>)</p></li>
+<li><p><strong>sandbox</strong> (<em>if True, create a writable sandbox</em>)</p></li>
+<li><p><strong>writable</strong> (<em>if True, use writable ext3 (sandbox takes preference)</em>)</p></li>
+<li><p><strong>build_folder</strong> (<em>where the container should be built.</em>)</p></li>
+<li><p><strong>ext</strong> (<em>the image extension to use.</em>)</p></li>
+<li><p><strong>robot_name</strong> (<em>boolean, default False. if you don’t give your image a</em>) – name (with “image”) then a fun robot name will be generated
+instead. Highly recommended :)</p></li>
+<li><p><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</p></li>
+<li><p><strong>sudo_options</strong> (<em>options to pass to sudo (e.g. –preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)</em>)</p></li>
+<li><p><strong>options</strong> (<em>for all other options, specify them in this list.</em>)</p></li>
+<li><p><strong>quiet</strong> (<em>quiet verbose printing from the client.</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>if True, return complete error code / message dictionary</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -275,53 +268,45 @@ instead. Highly recommended :)</li>
 <span id="spython-main-execute-module"></span><h2>spython.main.execute module<a class="headerlink" href="#module-spython.main.execute" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.execute.execute">
-<code class="descclassname">spython.main.execute.</code><code class="descname">execute</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>command=None</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em>, <em>return_result=False</em>, <em>options=None</em>, <em>sudo=False</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/execute.html#execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.execute.execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.execute.</code><code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em>, <em class="sig-param">command=None</em>, <em class="sig-param">app=None</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">return_result=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/execute.html#execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.execute.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>execute: send a command to a container</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
-<li><strong>command</strong> (<em>command to send to container</em>)</li>
-<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
-<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
-<li><strong>options</strong> (<em>an optional list of options to provide to execute.</em>)</li>
-<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
-directories within your container using bind mounts</li>
-<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
-<li><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result not (default)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>full path to singularity image</em>)</p></li>
+<li><p><strong>command</strong> (<em>command to send to container</em>)</p></li>
+<li><p><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</p></li>
+<li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
+<li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
+<li><p><strong>options</strong> (<em>an optional list of options to provide to execute.</em>)</p></li>
+<li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</p></li>
+<li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result not (default)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.execute.shell">
-<code class="descclassname">spython.main.execute.</code><code class="descname">shell</code><span class="sig-paren">(</span><em>self</em>, <em>image</em>, <em>app=None</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>nv=False</em>, <em>options=None</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/execute.html#shell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.execute.shell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.execute.</code><code class="sig-name descname">shell</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image</em>, <em class="sig-param">app=None</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/execute.html#shell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.execute.shell" title="Permalink to this definition">¶</a></dt>
 <dd><p>shell into a container. A user is advised to use singularity to do
 this directly, however this function is useful for supporting tools.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
-<li><strong>app</strong> (<em>if not None, execute a shell in context of an app</em>)</li>
-<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
-<li><strong>options</strong> (<em>an optional list of options to provide to shell.</em>)</li>
-<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
-directories within your container using bind mounts</li>
-<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>full path to singularity image</em>)</p></li>
+<li><p><strong>app</strong> (<em>if not None, execute a shell in context of an app</em>)</p></li>
+<li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
+<li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
+<li><p><strong>options</strong> (<em>an optional list of options to provide to shell.</em>)</p></li>
+<li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</p></li>
+<li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -329,16 +314,13 @@ directories within your container using bind mounts</li>
 <span id="spython-main-help-module"></span><h2>spython.main.help module<a class="headerlink" href="#module-spython.main.help" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.help.helpcmd">
-<code class="descclassname">spython.main.help.</code><code class="descname">helpcmd</code><span class="sig-paren">(</span><em>self</em>, <em>command=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/help.html#helpcmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.help.helpcmd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.help.</code><code class="sig-name descname">helpcmd</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">command=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/help.html#helpcmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.help.helpcmd" title="Permalink to this definition">¶</a></dt>
 <dd><p>help prints the general function help, or help for a specific command</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<em>the command to get help for, if none, prints general help</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>the command to get help for, if none, prints general help</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -346,37 +328,30 @@ directories within your container using bind mounts</li>
 <span id="spython-main-inspect-module"></span><h2>spython.main.inspect module<a class="headerlink" href="#module-spython.main.inspect" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.inspect.inspect">
-<code class="descclassname">spython.main.inspect.</code><code class="descname">inspect</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>json=True</em>, <em>app=None</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#inspect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.inspect" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.inspect.</code><code class="sig-name descname">inspect</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em>, <em class="sig-param">json=True</em>, <em class="sig-param">app=None</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#inspect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>path of image to inspect</em>)</li>
-<li><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</li>
-<li><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</li>
-<li><strong>app</strong> (<em>if defined, return help in context of an app</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>path of image to inspect</em>)</p></li>
+<li><p><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</p></li>
+<li><p><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</p></li>
+<li><p><strong>app</strong> (<em>if defined, return help in context of an app</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.inspect.parse_labels">
-<code class="descclassname">spython.main.inspect.</code><code class="descname">parse_labels</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#parse_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.parse_labels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.inspect.</code><code class="sig-name descname">parse_labels</code><span class="sig-paren">(</span><em class="sig-param">result</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/inspect.html#parse_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.inspect.parse_labels" title="Permalink to this definition">¶</a></dt>
 <dd><p>fix up the labels, meaning parse to json if needed, and return
 original updated object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> (<em>the json object to parse from inspect</em>)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>result</strong> (<em>the json object to parse from inspect</em>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -384,43 +359,36 @@ original updated object</p>
 <span id="spython-main-instances-module"></span><h2>spython.main.instances module<a class="headerlink" href="#module-spython.main.instances" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.instances.list_instances">
-<code class="descclassname">spython.main.instances.</code><code class="descname">list_instances</code><span class="sig-paren">(</span><em>self</em>, <em>name=None</em>, <em>return_json=False</em>, <em>quiet=False</em>, <em>sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/instances.html#list_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.instances.list_instances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.instances.</code><code class="sig-name descname">list_instances</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">name=None</em>, <em class="sig-param">return_json=False</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/instances.html#list_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.instances.list_instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>list instances. For Singularity, this is provided as a command sub
 group.</p>
 <p>singularity instance.list</p>
 <p>Return codes provided are different from standard linux:
 see <a class="reference external" href="https://github.com/singularityware/singularity/issues/1706">https://github.com/singularityware/singularity/issues/1706</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</li>
-<li><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</li>
-<li><strong>Return Code  –   Reason</strong></li>
-<li><strong>0 – Instances Found</strong></li>
-<li><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></li>
-<li><strong>255 – Couldn’t get UID</strong></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</p></li>
+<li><p><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</p></li>
+<li><p><strong>Return Code  –   Reason</strong></p></li>
+<li><p><strong>0 – Instances Found</strong></p></li>
+<li><p><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></p></li>
+<li><p><strong>255 – Couldn’t get UID</strong></p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="spython.main.instances.stopall">
-<code class="descclassname">spython.main.instances.</code><code class="descname">stopall</code><span class="sig-paren">(</span><em>self</em>, <em>sudo=False</em>, <em>quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/instances.html#stopall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.instances.stopall" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.instances.</code><code class="sig-name descname">stopall</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/instances.html#stopall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.instances.stopall" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop ALL instances. This command is only added to the command group
 as it doesn’t make sense to call from a single instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sudo</strong> (<em>if the command should be done with sudo (exposes different set of</em>) – instances)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sudo</strong> (<em>if the command should be done with sudo (exposes different set of</em>) – instances)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -428,24 +396,20 @@ as it doesn’t make sense to call from a single instance</p>
 <span id="spython-main-pull-module"></span><h2>spython.main.pull module<a class="headerlink" href="#module-spython.main.pull" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.pull.pull">
-<code class="descclassname">spython.main.pull.</code><code class="descname">pull</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>name=None</em>, <em>pull_folder=''</em>, <em>ext=None</em>, <em>force=False</em>, <em>capture=False</em>, <em>stream=False</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/pull.html#pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.pull.pull" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.pull.</code><code class="sig-name descname">pull</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">pull_folder=''</em>, <em class="sig-param">ext=None</em>, <em class="sig-param">force=False</em>, <em class="sig-param">capture=False</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/pull.html#pull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.pull.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</li>
-<li><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</li>
-<li><strong>Docker and Singularity Hub Naming</strong></li>
-<li><strong>———————————</strong></li>
-<li><strong>name</strong> (<em>a custom name to use, to override default</em>)</li>
-<li><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</p></li>
+<li><p><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</p></li>
+<li><p><strong>Docker and Singularity Hub Naming</strong></p></li>
+<li><p><strong>———————————</strong></p></li>
+<li><p><strong>name</strong> (<em>a custom name to use, to override default</em>)</p></li>
+<li><p><strong>ext</strong> (<em>if no name specified, the default extension to use.</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -453,30 +417,26 @@ as it doesn’t make sense to call from a single instance</p>
 <span id="spython-main-run-module"></span><h2>spython.main.run module<a class="headerlink" href="#module-spython.main.run" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.run.run">
-<code class="descclassname">spython.main.run.</code><code class="descname">run</code><span class="sig-paren">(</span><em>self</em>, <em>image=None</em>, <em>args=None</em>, <em>app=None</em>, <em>sudo=False</em>, <em>writable=False</em>, <em>contain=False</em>, <em>bind=None</em>, <em>stream=False</em>, <em>nv=False</em>, <em>options=None</em>, <em>return_result=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/run.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.run.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.run.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em>, <em class="sig-param">args=None</em>, <em class="sig-param">app=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">return_result=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/run.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.run.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run will run the container, with or withour arguments (which
 should be provided in a list)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>full path to singularity image</em>)</li>
-<li><strong>args</strong> (<em>args to include with the run</em>)</li>
-<li><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</li>
-<li><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</li>
-<li><strong>options</strong> (<em>an optional list of options to provide to run.</em>)</li>
-<li><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</li>
-<li><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
-directories within your container using bind mounts</li>
-<li><strong>stream</strong> (<em>if True, return &lt;generator&gt; for the user to run</em>)</li>
-<li><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</li>
-<li><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result (default is False)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>full path to singularity image</em>)</p></li>
+<li><p><strong>args</strong> (<em>args to include with the run</em>)</p></li>
+<li><p><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</p></li>
+<li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
+<li><p><strong>options</strong> (<em>an optional list of options to provide to run.</em>)</p></li>
+<li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
+<li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
+directories within your container using bind mounts</p></li>
+<li><p><strong>stream</strong> (<em>if True, return &lt;generator&gt; for the user to run</em>)</p></li>
+<li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
+<li><p><strong>return_result</strong> (<em>if True, return entire json object with return code</em>) – and message result (default is False)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -484,21 +444,17 @@ directories within your container using bind mounts</li>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="spython.main.get_client">
-<code class="descclassname">spython.main.</code><code class="descname">get_client</code><span class="sig-paren">(</span><em>quiet=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main.html#get_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.get_client" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.</code><code class="sig-name descname">get_client</code><span class="sig-paren">(</span><em class="sig-param">quiet=False</em>, <em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main.html#get_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.get_client" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the client and perform imports not on init, in case there are any
 initialization or import errors.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>quiet</strong> (<em>if True, suppress most output about the client</em>)</li>
-<li><strong>debug</strong> (<em>turn on debugging mode</em>)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quiet</strong> (<em>if True, suppress most output about the client</em>)</p></li>
+<li><p><strong>debug</strong> (<em>turn on debugging mode</em>)</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

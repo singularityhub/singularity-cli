@@ -9,7 +9,15 @@ from spython.logger import bot
 from spython.utils import run_command
 
 
-def list_instances(self, name=None, return_json=False, quiet=False, sudo=False, sudo_options=None):
+def list_instances(
+    self,
+    name=None,
+    return_json=False,
+    quiet=False,
+    sudo=False,
+    sudo_options=None,
+    singularity_options=None,
+):
     """list instances. For Singularity, this is provided as a command sub
        group.
 
@@ -22,6 +30,7 @@ def list_instances(self, name=None, return_json=False, quiet=False, sudo=False, 
        ==========
        return_json: return a json list of instances instead of objects (False)
        name: if defined, return the list for just one instance (used to ged pid)
+       singularity_options: a list of options to provide to the singularity client
 
        Return Code  --   Reason
        0 -- Instances Found
@@ -39,7 +48,7 @@ def list_instances(self, name=None, return_json=False, quiet=False, sudo=False, 
     if "version 3" in self.version():
         subgroup = ["instance", "list"]
 
-    cmd = self._init_command(subgroup)
+    cmd = self._init_command(subgroup, singularity_options)
 
     # If the user has provided a name, we want to see a particular instance
     if name is not None:
@@ -103,7 +112,7 @@ def list_instances(self, name=None, return_json=False, quiet=False, sudo=False, 
     return instances
 
 
-def stopall(self, sudo=False, quiet=True):
+def stopall(self, sudo=False, quiet=True, singularity_options=None):
     """stop ALL instances. This command is only added to the command group
        as it doesn't make sense to call from a single instance
 
@@ -122,7 +131,7 @@ def stopall(self, sudo=False, quiet=True):
     if "version 3" in self.version():
         subgroup = ["instance", "stop"]
 
-    cmd = self._init_command(subgroup)
+    cmd = self._init_command(subgroup, singularity_options)
     cmd = cmd + ["--all"]
     output = run_command(cmd, sudo=sudo, quiet=quiet)
 

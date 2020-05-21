@@ -200,31 +200,28 @@
 <span id="spython-main-parse-recipe-module"></span><h2>spython.main.parse.recipe module<a class="headerlink" href="#module-spython.main.parse.recipe" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="spython.main.parse.recipe.Recipe">
-<em class="property">class </em><code class="descclassname">spython.main.parse.recipe.</code><code class="descname">Recipe</code><span class="sig-paren">(</span><em>recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">spython.main.parse.recipe.</code><code class="sig-name descname">Recipe</code><span class="sig-paren">(</span><em class="sig-param">recipe=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>a recipe includes an environment, labels, runscript or command,
 and install sequence. This object is interacted with by a Parser
 (intended to popualte the recipe with content) and a Writer (intended
 to write a recipe to file). The parsers and writers are located in
 parsers.py, and writers.py, respectively. The user is also free to use
 the recipe class to build recipes.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="spython.main.parse.recipe.Recipe.json">
-<code class="descname">json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.json" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe.json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe.json" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a dictionary version of the recipe, intended to be parsed
 or printed as json.</p>
-<dl class="docutils">
-<dt>Returns: a dictionary of attributes including cmd, comments,</dt>
-<dd>entrypoint, environ, files, install, labels, ports,
-test, volumes, and workdir.</dd>
+<dl class="simple">
+<dt>Returns: a dictionary of attributes including cmd, comments,</dt><dd><p>entrypoint, environ, files, install, labels, ports,
+test, volumes, and workdir.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -236,7 +233,7 @@ test, volumes, and workdir.</dd>
 </div>
 <div class="section" id="module-spython.main.parse">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.parse" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017-2019 Vanessa Sochat.</p>
+<p>Copyright (C) 2017-2020 Vanessa Sochat.</p>
 <p>This Source Code Form is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>

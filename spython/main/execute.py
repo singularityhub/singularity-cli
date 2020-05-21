@@ -23,6 +23,7 @@ def execute(
     nv=False,
     return_result=False,
     options=None,
+    singularity_options=None,
     sudo=False,
     sudo_options=None,
     quiet=True,
@@ -39,6 +40,7 @@ def execute(
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
         options: an optional list of options to provide to execute.
+        singularity_options: a list of options to provide to the singularity client
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
@@ -50,7 +52,7 @@ def execute(
 
     check_install()
 
-    cmd = self._init_command("exec")
+    cmd = self._init_command("exec", singularity_options)
 
     # nv option leverages any GPU cards
     if nv:
@@ -114,6 +116,7 @@ def shell(
     bind=None,
     nv=False,
     options=None,
+    singularity_options=None,
     sudo=False,
 ):
     """ shell into a container. A user is advised to use singularity to do
@@ -128,6 +131,7 @@ def shell(
         contain: This option disables the automatic sharing of writable
                  filesystems on your host
         options: an optional list of options to provide to shell.
+        singularity_options: a list of options to provide to the singularity client
         bind: list or single string of bind paths.
              This option allows you to map directories on your host system to
              directories within your container using bind mounts
@@ -137,7 +141,7 @@ def shell(
 
     check_install()
 
-    cmd = self._init_command("shell")
+    cmd = self._init_command("shell", singularity_options)
 
     # nv option leverages any GPU cards
     if nv:

@@ -152,8 +152,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.instance.cmd.iutils</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -162,8 +161,9 @@
 <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="k">import</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
+
 <div class="viewcode-block" id="parse_table"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.iutils.parse_table">[docs]</a><span class="k">def</span> <span class="nf">parse_table</span><span class="p">(</span><span class="n">table_string</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">remove_rows</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;parse a table to json from a string, where a header is expected by default.</span>
+    <span class="sd">&quot;&quot;&quot;parse a table to json from a string, where a header is expected by default.</span>
 <span class="sd">       Return a jsonified table.</span>
 
 <span class="sd">       Parameters</span>
@@ -172,9 +172,9 @@
 <span class="sd">       header: header of expected table, must match dimension (number columns)</span>
 <span class="sd">       remove_rows: an integer to indicate a number of rows to remove from top</span>
 <span class="sd">                    the default is 1 assuming we don&#39;t want the header</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">table_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="o">+</span><span class="n">remove_rows</span><span class="p">:]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">table_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span> <span class="o">+</span> <span class="n">remove_rows</span> <span class="p">:]</span>
 
     <span class="c1"># Parse into json dictionary</span>
     <span class="n">parsed</span> <span class="o">=</span> <span class="p">[]</span>
@@ -182,7 +182,7 @@
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
         <span class="n">item</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c1"># This assumes no white spaces in each entry, which should be the case</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
             <span class="n">item</span><span class="p">[</span><span class="n">header</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">r</span>
         <span class="n">parsed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -190,16 +190,17 @@
 
 
 <div class="viewcode-block" id="get"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.iutils.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;get is a list for a single instance. It is assumed to be running,</span>
+    <span class="sd">&quot;&quot;&quot;get is a list for a single instance. It is assumed to be running,</span>
 <span class="sd">       and we need to look up the PID, etc.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+
     <span class="n">check_install</span><span class="p">()</span>
 
     <span class="c1"># Ensure compatible for singularity prior to 3.0, and after 3.0</span>
     <span class="n">subgroup</span> <span class="o">=</span> <span class="s2">&quot;instance.list&quot;</span>
 
-    <span class="k">if</span> <span class="s1">&#39;version 3&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
@@ -209,37 +210,39 @@
 
     <span class="c1"># Success, we have instances</span>
 
-    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 
         <span class="c1"># Only print the table if we are returning json</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]))</span>
 
         <span class="c1"># Prepare json result from table</span>
 
-        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;daemon_name&#39;</span><span class="p">,</span> <span class="s1">&#39;pid&#39;</span><span class="p">,</span> <span class="s1">&#39;container_image&#39;</span><span class="p">]</span>
-        <span class="n">instances</span> <span class="o">=</span> <span class="n">parse_table</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">,</span> <span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;container_image&quot;</span><span class="p">]</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">parse_table</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">header</span><span class="p">)</span>
 
         <span class="c1"># Does the user want instance objects instead?</span>
         <span class="n">listing</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">return_json</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
-                <span class="n">new_instance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">pid</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">],</span>
-                                        <span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;daemon_name&#39;</span><span class="p">],</span>
-                                        <span class="n">image</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;container_image&#39;</span><span class="p">],</span>
-                                        <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">new_instance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span>
+                    <span class="n">pid</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">],</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;daemon_name&quot;</span><span class="p">],</span>
+                    <span class="n">image</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;container_image&quot;</span><span class="p">],</span>
+                    <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
 
                 <span class="n">listing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_instance</span><span class="p">)</span>
             <span class="n">instances</span> <span class="o">=</span> <span class="n">listing</span>
 
     <span class="c1"># Couldn&#39;t get UID</span>
 
-    <span class="k">elif</span> <span class="n">output</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t get UID&quot;</span><span class="p">)</span>
-        
+
     <span class="c1"># Return code of 0</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No instances found.&#39;</span><span class="p">)</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No instances found.&quot;</span><span class="p">)</span>
 
     <span class="c1"># If we are given a name, return just one</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>

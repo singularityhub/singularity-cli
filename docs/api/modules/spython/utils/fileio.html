@@ -148,15 +148,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.utils.fileio</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span class="sd">Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="sd">This Source Code Form is subject to the terms of the</span>
 <span class="sd">Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="sd">with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">errno</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -171,9 +171,9 @@
 
 
 <div class="viewcode-block" id="mkdir_p"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.mkdir_p">[docs]</a><span class="k">def</span> <span class="nf">mkdir_p</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;mkdir_p attempts to get the same functionality as mkdir -p</span>
+    <span class="sd">&quot;&quot;&quot;mkdir_p attempts to get the same functionality as mkdir -p</span>
 <span class="sd">    :param path: the path to create.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -190,38 +190,32 @@
 
 
 <div class="viewcode-block" id="write_file"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.write_file">[docs]</a><span class="k">def</span> <span class="nf">write_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;write_file will open a file, &quot;filename&quot; and write content, &quot;content&quot;</span>
+    <span class="sd">&quot;&quot;&quot;write_file will open a file, &quot;filename&quot; and write content, &quot;content&quot;</span>
 <span class="sd">    and properly close the file</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">filey</span><span class="p">:</span>
         <span class="n">filey</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
 <div class="viewcode-block" id="write_json"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.write_json">[docs]</a><span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span><span class="n">json_obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">print_pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;write_json will (optionally,pretty print) a json object to file</span>
+    <span class="sd">&quot;&quot;&quot;write_json will (optionally,pretty print) a json object to file</span>
 <span class="sd">    :param json_obj: the dict to print to json</span>
 <span class="sd">    :param filename: the output file to write to</span>
 <span class="sd">    :param pretty_print: if True, will use nicer formatting</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">filey</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">print_pretty</span><span class="p">:</span>
-            <span class="n">filey</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span>
-                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
-                    <span class="n">json_obj</span><span class="p">,</span>
-                    <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                    <span class="n">separators</span><span class="o">=</span><span class="p">(</span>
-                        <span class="s1">&#39;,&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;: &#39;</span><span class="p">)))</span>
+            <span class="n">filey</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_obj</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">)))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">filey</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_obj</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
 <div class="viewcode-block" id="read_file"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.read_file">[docs]</a><span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">readlines</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;write_file will open a file, &quot;filename&quot; and write content, &quot;content&quot;</span>
+    <span class="sd">&quot;&quot;&quot;write_file will open a file, &quot;filename&quot; and write content, &quot;content&quot;</span>
 <span class="sd">    and properly close the file</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">filey</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">readlines</span><span class="p">:</span>
             <span class="n">content</span> <span class="o">=</span> <span class="n">filey</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
@@ -230,10 +224,10 @@
     <span class="k">return</span> <span class="n">content</span></div>
 
 
-<div class="viewcode-block" id="read_json"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.read_json">[docs]</a><span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;read_json reads in a json file and returns</span>
+<div class="viewcode-block" id="read_json"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.fileio.read_json">[docs]</a><span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;read_json reads in a json file and returns</span>
 <span class="sd">    the data structure as dict.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">filey</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filey</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">data</span></div>

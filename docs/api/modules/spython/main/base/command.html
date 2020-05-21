@@ -152,8 +152,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.base.command</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -169,31 +168,30 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-
 <div class="viewcode-block" id="init_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.init_command">[docs]</a><span class="k">def</span> <span class="nf">init_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;return the initial Singularity command with any added flags.</span>
+    <span class="sd">&quot;&quot;&quot;return the initial Singularity command with any added flags.</span>
 <span class="sd">        </span>
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       action: the main action to perform (e.g., build)</span>
 <span class="sd">       flags: one or more additional flags (e.g, volumes) </span>
 <span class="sd">              not implemented yet.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>      
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;singularity&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;singularity&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;--quiet&#39;</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;--debug&#39;</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;--debug&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cmd</span></div>
 
 
 <div class="viewcode-block" id="generate_bind_list"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.generate_bind_list">[docs]</a><span class="k">def</span> <span class="nf">generate_bind_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bindlist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;generate bind string will take a single string or list of binds, and</span>
+    <span class="sd">&quot;&quot;&quot;generate bind string will take a single string or list of binds, and</span>
 <span class="sd">       return a list that can be added to an exec or run command. For example,</span>
 <span class="sd">       the following map as follows:</span>
 
@@ -209,35 +207,35 @@
 <span class="sd">       ==========</span>
 <span class="sd">       bindlist: a string or list of bind mounts</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">binds</span> <span class="o">=</span> <span class="p">[]</span>
-    
+
     <span class="c1"># Case 1: No binds provided</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">bindlist</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">binds</span>
 
     <span class="c1"># Case 2: provides a long string or non list, and must be split</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bindlist</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">bindlist</span> <span class="o">=</span> <span class="n">bindlist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">bindlist</span> <span class="o">=</span> <span class="n">bindlist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">bindlist</span><span class="p">:</span>
 
         <span class="c1"># Still cannot be None</span>
         <span class="k">if</span> <span class="n">bind</span><span class="p">:</span>
-            <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Adding bind </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">bind</span><span class="p">)</span>
-            <span class="n">binds</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;--bind&#39;</span><span class="p">,</span> <span class="n">bind</span><span class="p">]</span>
+            <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Adding bind </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bind</span><span class="p">)</span>
+            <span class="n">binds</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;--bind&quot;</span><span class="p">,</span> <span class="n">bind</span><span class="p">]</span>
 
             <span class="c1"># Check that exists on host</span>
-            <span class="n">host</span> <span class="o">=</span> <span class="n">bind</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="n">bind</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">host</span><span class="p">):</span>
-                <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> does not exist on host.&#39;</span> <span class="o">%</span><span class="n">bind</span><span class="p">)</span>
+                <span class="n">bot</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> does not exist on host.&quot;</span> <span class="o">%</span> <span class="n">bind</span><span class="p">)</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">binds</span></div>
 
 
 <div class="viewcode-block" id="send_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.send_command">[docs]</a><span class="k">def</span> <span class="nf">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;send command is a non interactive version of run_command, meaning</span>
+    <span class="sd">&quot;&quot;&quot;send command is a non interactive version of run_command, meaning</span>
 <span class="sd">       that we execute the command and return the return value, but don&#39;t</span>
 <span class="sd">       attempt to stream any content (text from the screen) back to the</span>
 <span class="sd">       user. This is useful for commands interacting with OCI bundles.</span>
@@ -246,23 +244,27 @@
 <span class="sd">       ==========</span>
 <span class="sd">       cmd: the list of commands to send to the terminal</span>
 <span class="sd">       sudo: use sudo (or not)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">sudo</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sudo&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sudo&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmd</span>
 
     <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> 
-                      <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                      <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                      <span class="n">quiet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                      <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">cmd</span><span class="p">,</span>
+    <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sudo_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 
-    <span class="sd">&#39;&#39;&#39;run_command is a wrapper for the global run_command, checking first</span>
+    <span class="sd">&quot;&quot;&quot;run_command is a wrapper for the global run_command, checking first</span>
 <span class="sd">       for sudo and exiting on error if needed. The message is returned as</span>
 <span class="sd">       a list of lines for the calling function to parse, and stdout uses</span>
 <span class="sd">       the parent process so it appears for the user.</span>
@@ -273,26 +275,29 @@
 <span class="sd">       sudo: does the command require sudo?</span>
 <span class="sd">       quiet: if quiet set by function, overrides client setting.</span>
 <span class="sd">       return_result: return the result, if not successful (default False).</span>
+<span class="sd">       sudo_options: string or list of strings that will be passed as options to sudo</span>
 <span class="sd">       On success, returns result.</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># First preference to function, then to client setting</span>
     <span class="k">if</span> <span class="n">quiet</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">quiet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
 
-    <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span> <span class="n">sudo_options</span><span class="o">=</span><span class="n">sudo_options</span>
+    <span class="p">)</span>
 
     <span class="c1"># If one line is returned, squash dimension</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># If the user wants to return the result, just return it</span>
     <span class="k">if</span> <span class="n">return_result</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">result</span>
 
     <span class="c1"># On success, return result</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;return_code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">result</span></div>
 </pre></div>

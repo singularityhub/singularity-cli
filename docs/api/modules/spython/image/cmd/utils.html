@@ -152,8 +152,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.image.cmd.utils</h1><div class="highlight"><pre>
-<span></span>
-<span class="c1"># Copyright (C) 2017-2019 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -163,25 +162,26 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
 
+
 <div class="viewcode-block" id="compress"><a class="viewcode-back" href="../../../../source/spython.image.cmd.html#spython.image.cmd.utils.compress">[docs]</a><span class="k">def</span> <span class="nf">compress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_path</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;compress will (properly) compress an image&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;compress will (properly) compress an image&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image_path</span><span class="p">):</span>
-        <span class="n">compressed_image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.gz&quot;</span> <span class="o">%</span><span class="n">image_path</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;gzip -c -6 </span><span class="si">%s</span><span class="s1"> &gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">compressed_image</span><span class="p">))</span>
+        <span class="n">compressed_image</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.gz&quot;</span> <span class="o">%</span> <span class="n">image_path</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;gzip -c -6 </span><span class="si">%s</span><span class="s2"> &gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">compressed_image</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">compressed_image</span>
 
-    <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Cannot find image </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">image_path</span><span class="p">)</span></div>
+    <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Cannot find image </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">image_path</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="decompress"><a class="viewcode-back" href="../../../../source/spython.image.cmd.html#spython.image.cmd.utils.decompress">[docs]</a><span class="k">def</span> <span class="nf">decompress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;decompress will (properly) decompress an image&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;decompress will (properly) decompress an image&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image_path</span><span class="p">):</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Cannot find image </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span><span class="n">image_path</span><span class="p">)</span>
-        
-    <span class="n">extracted_file</span> <span class="o">=</span> <span class="n">image_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gzip&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="n">image_path</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span> <span class="c1"># exits if return code != 0</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Cannot find image </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">image_path</span><span class="p">)</span>
+
+    <span class="n">extracted_file</span> <span class="o">=</span> <span class="n">image_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.gz&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="n">image_path</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>  <span class="c1"># exits if return code != 0</span>
     <span class="k">return</span> <span class="n">extracted_file</span></div>
 </pre></div>
 

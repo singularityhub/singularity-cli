@@ -21,6 +21,7 @@ def pull(
     capture=False,
     stream=False,
     quiet=False,
+    singularity_options=None,
 ):
 
     """pull will pull a singularity hub or Docker image
@@ -28,6 +29,7 @@ def pull(
        Parameters
        ==========
        image: the complete image uri. If not provided, the client loaded is used
+       singularity_options: a list of options to provide to the singularity client
        pull_folder: if not defined, pulls to $PWD (''). If defined, pulls to
                     user specified location instead.
 
@@ -41,7 +43,7 @@ def pull(
 
     check_install()
 
-    cmd = self._init_command("pull")
+    cmd = self._init_command("pull", singularity_options)
 
     # Quiet is honored if set by the client, or user
     quiet = quiet or self.quiet
@@ -57,9 +59,9 @@ def pull(
     if image is None:
         bot.exit("You must provide an image uri, or use client.load() first.")
 
-    # Singularity Only supports shub and Docker pull
-    if not re.search("^(shub|docker)://", image):
-        bot.exit("pull only valid for docker and shub. Use sregistry client.")
+    # Singularity Only supports shub, docker and library pull
+    if not re.search("^(shub|docker|library)://", image):
+        bot.exit("pull only valid for docker, shub and library. Use sregistry client.")
 
     # If we still don't have a custom name, base off of image uri.
     if name is None:

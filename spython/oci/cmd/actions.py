@@ -15,6 +15,7 @@ def run(
     container_id=None,
     log_path=None,
     pid_file=None,
+    singularity_options=None,
     log_format="kubernetes",
 ):
 
@@ -31,6 +32,7 @@ def run(
         log_path: the path to store the log.
         pid_file: specify the pid file path to use
         log_format: defaults to kubernetes. Can also be "basic" or "json"
+        singularity_options: a list of options to provide to the singularity client
     """
     return self._run(
         bundle,
@@ -39,6 +41,7 @@ def run(
         pid_file=pid_file,
         command="run",
         log_format=log_format,
+        singularity_options=singularity_options,
     )
 
 
@@ -51,6 +54,7 @@ def create(
     pid_file=None,
     sync_socket=None,
     log_format="kubernetes",
+    singularity_options=None,
 ):
 
     """ use the client to create a container from a bundle directory. The bundle
@@ -72,6 +76,7 @@ def create(
         pid_file: specify the pid file path to use
         sync_socket: the path to the unix socket for state synchronization.
         log_format: defaults to kubernetes. Can also be "basic" or "json"
+        singularity_options: a list of options to provide to the singularity client
     """
     return self._run(
         bundle,
@@ -82,6 +87,7 @@ def create(
         sync_socket=sync_socket,
         command="create",
         log_format=log_format,
+        singularity_options=singularity_options,
     )
 
 
@@ -95,6 +101,7 @@ def _run(
     sync_socket=None,
     command="run",
     log_format="kubernetes",
+    singularity_options=None,
 ):
 
     """ _run is the base function for run and create, the only difference
@@ -116,11 +123,13 @@ def _run(
         sync_socket: the path to the unix socket for state synchronization.
         command: the command (run or create) to use (default is run)
         log_format: defaults to kubernetes. Can also be "basic" or "json"
+        singularity_options: a list of options to provide to the singularity client
+
     """
     container_id = self.get_container_id(container_id)
 
     # singularity oci create
-    cmd = self._init_command(command)
+    cmd = self._init_command(command, singularity_options)
 
     # Check that the bundle exists
     if not os.path.exists(bundle):
@@ -148,17 +157,16 @@ def _run(
     self._send_command(cmd, sudo=True)
 
     # Get the status to report to the user!
-    # TODO: Singularity seems to create even with error, can we check and
-    # delete for the user if this happens?
     return self.state(container_id, sudo=True, sync_socket=sync_socket)
 
 
-def delete(self, container_id=None, sudo=None):
+def delete(self, container_id=None, sudo=None, singularity_options=None):
     """delete an instance based on container_id.
 
        Parameters
        ==========
        container_id: the container_id to delete
+       singularity_options: a list of options to provide to the singularity client
        sudo: whether to issue the command with sudo (or not)
              a container started with sudo will belong to the root user
              If started by a user, the user needs to control deleting it
@@ -173,7 +181,7 @@ def delete(self, container_id=None, sudo=None):
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command("delete")
+    cmd = self._init_command("delete", singularity_options)
 
     # Add the container_id
     cmd.append(container_id)
@@ -182,12 +190,13 @@ def delete(self, container_id=None, sudo=None):
     return self._run_and_return(cmd, sudo=sudo)
 
 
-def attach(self, container_id=None, sudo=False):
+def attach(self, container_id=None, sudo=False, singularity_options=None):
     """attach to a container instance based on container_id
 
        Parameters
        ==========
        container_id: the container_id to delete
+       singularity_options: a list of options to provide to the singularity client
        sudo: whether to issue the command with sudo (or not)
              a container started with sudo will belong to the root user
              If started by a user, the user needs to control deleting it
@@ -200,8 +209,8 @@ def attach(self, container_id=None, sudo=False):
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
-    # singularity oci delete
-    cmd = self._init_command("attach")
+    # singularity oci attach
+    cmd = self._init_command("attach", singularity_options)
 
     # Add the container_id
     cmd.append(container_id)
@@ -210,13 +219,21 @@ def attach(self, container_id=None, sudo=False):
     return self._run_and_return(cmd, sudo)
 
 
-def execute(self, command=None, container_id=None, sudo=False, stream=False):
+def execute(
+    self,
+    command=None,
+    container_id=None,
+    sudo=False,
+    stream=False,
+    singularity_options=None,
+):
     """execute a command to a container instance based on container_id
 
        Parameters
        ==========
        container_id: the container_id to delete
        command: the command to execute to the container
+       singularity_options: a list of options to provide to the singularity client
        sudo: whether to issue the command with sudo (or not)
              a container started with sudo will belong to the root user
              If started by a user, the user needs to control deleting it
@@ -232,7 +249,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command("exec")
+    cmd = self._init_command("exec", singularity_options)
 
     # Add the container_id
     cmd.append(container_id)
@@ -249,7 +266,7 @@ def execute(self, command=None, container_id=None, sudo=False, stream=False):
         return self._run_command(cmd, sudo=sudo, quiet=True)
 
 
-def update(self, container_id, from_file=None, sudo=False):
+def update(self, container_id, from_file=None, sudo=False, singularity_options=None):
     """update container cgroup resources for a specific container_id,
        The container must have state "running" or "created."
 
@@ -261,12 +278,14 @@ def update(self, container_id, from_file=None, sudo=False):
        ==========
        container_id: the container_id to update cgroups for
        from_file: a path to an OCI JSON resource file to update from.
+       singularity_options: a list of options to provide to the singularity client
+
     """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
 
     # singularity oci delete
-    cmd = self._init_command("update")
+    cmd = self._init_command("update", singularity_options)
 
     if from_file is not None:
         cmd = cmd + ["--from-file", from_file]
