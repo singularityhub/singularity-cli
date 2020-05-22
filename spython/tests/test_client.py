@@ -79,9 +79,9 @@ echo "This is stdout"
     captured = capsys.readouterr()
     assert "stdout" in captured.out
     if return_code:
-        assert "stderr" in captured.out
+        assert "stderr" in captured.err
     else:
-        assert "stderr" not in captured.out
+        assert "stderr" not in captured.err
 
 
 def test_inspect(docker_container):

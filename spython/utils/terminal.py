@@ -143,7 +143,7 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=No
     process.stdout.close()
     return_code = process.wait()
     if return_code:
-        print(process.stderr.read())
+        print(process.stderr.read(), file=sys.stderr)
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
