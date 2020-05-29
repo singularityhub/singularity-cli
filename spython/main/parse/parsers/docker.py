@@ -132,8 +132,10 @@ class DockerParser(ParserBase):
    
         """
         line = self._setup("ARG", line)
-        bot.warning("ARG is not supported for Singularity! To get %s" % line[0])
-        bot.warning("in the container, on host export SINGULARITY_%s" % line[0])
+        bot.warning(
+            "ARG is not supported for Singularity! Add as ENV to the container or export"
+            " SINGULARITYENV_%s on the host." % line[0]
+        )
 
     # Env Parser
 
@@ -216,6 +218,15 @@ class DockerParser(ParserBase):
         lines = self._setup("COPY", lines)
 
         for line in lines:
+
+            # Singularity does not support multistage builds
+            if line.startswith("--from"):
+                bot.warning(
+                    "Singularity does not support multistage builds, skipping COPY %s"
+                    % line
+                )
+                continue
+
             values = line.split(" ")
             topath = values.pop()
             for frompath in values:

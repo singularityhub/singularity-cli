@@ -22,6 +22,13 @@ Now we can answer what kind of things might you want to do:
  - convert a Singularity Recipe to a Dockerfile
  - read in a recipe of either type, and modify it before doing the above
 
+**Important** Singularity does not support multistage builds defined within
+a single file, so if your Dockerfile has lines like:
+
+```
+COPY --from=builder  /build/usr/share/gdal/ /usr/share/gdal/
+```
+You should modify the Dockerfile first to remove them.
 
 # Command Line Client
 
