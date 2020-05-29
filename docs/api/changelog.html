@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CHANGELOG &mdash; Singularity Python API 1 documentation</title>
+  <title>&lt;no title&gt; &mdash; Singularity Python API 1 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="assets/documentation_options.js"></script>
-        <script type="text/javascript" src="assets/jquery.js"></script>
-        <script type="text/javascript" src="assets/underscore.js"></script>
-        <script type="text/javascript" src="assets/doctools.js"></script>
-        <script type="text/javascript" src="assets/language_data.js"></script>
+        <script src="assets/jquery.js"></script>
+        <script src="assets/underscore.js"></script>
+        <script src="assets/doctools.js"></script>
+        <script src="assets/language_data.js"></script>
     
     <script type="text/javascript" src="assets/js/theme.js"></script>
 
@@ -83,12 +83,8 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="source/spython.html">spython package</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CHANGELOG</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#master">master</a></li>
-</ul>
-</li>
 </ul>
 
             
@@ -134,7 +130,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>CHANGELOG</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,14 +149,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="changelog">
-<h1>CHANGELOG<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+  <p># CHANGELOG</p>
 <p>This is a manually generated log to track changes to the repository for each release.
 Each section should include general headers such as <strong>Implemented enhancements</strong>
 and <strong>Merged pull requests</strong>. All closed issued and bug fixes should be
 represented by the pull requests that fixed them.
 Critical items to know are:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li><p>renamed commands</p></li>
 <li><p>deprecated / removed commands</p></li>
 <li><p>changed defaults</p></li>
@@ -168,11 +164,16 @@ Critical items to know are:</p>
 <li><p>migration guidance (how to convert images?)</p></li>
 <li><p>changed behaviour (recipe sections work differently)</p></li>
 </ul>
+</div></blockquote>
 <p>The client here will eventually be released as “spython” (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.</p>
-<div class="section" id="master">
-<h2><a class="reference external" href="https://github.com/singularityhub/singularity-cli/tree/master">master</a><a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
+<dl>
+<dt>## [master](<a class="reference external" href="https://github.com/singularityhub/singularity-cli/tree/master">https://github.com/singularityhub/singularity-cli/tree/master</a>)</dt><dd><ul class="simple">
+<li><p>Singularity does not support multistage builds (0.0.82)</p></li>
+<li><p>stream command should print to stdout given CalledProcessError (0.0.81)</p></li>
+<li><p>USER regular expression should check for USER at start of line (0.0.80)</p></li>
+<li><p>add singularity options parameters to send to singularity (0.0.79)</p></li>
+<li><p>add support for library:// urls (0.0.78)</p></li>
 <li><p>instance stop with timeout argument (0.0.77)</p></li>
 <li><p>instance list includes ip address (0.0.76)</p></li>
 <li><p>export lines aren’t ignored from environment, but replaced (0.0.75)</p></li>
@@ -186,48 +187,33 @@ singularity on pypi), and the versions here will coincide with these releases.</
 <li><p>client should support shell (0.0.67)</p></li>
 <li><p>adding test for entrypoint + cmd and fixing testing requirements (0.0.66)</p></li>
 <li><p>fixing bug that inspect does not honor quiet (0.0.65)</p></li>
-<li><p>refactor recipe parsers, writers, and base (0.0.64)</p>
-<ul>
-<li><p>paths for files, add, copy, will not be expanded as it adds hardcoded paths</p></li>
-</ul>
-</li>
+<li><p>refactor recipe parsers, writers, and base (0.0.64)
+- paths for files, add, copy, will not be expanded as it adds hardcoded paths</p></li>
 <li><p>oci state fixes and added Client.version_info() (0.0.63)</p></li>
-<li><p>fix crash in some error conditions (0.0.62)</p>
-<ul>
-<li><p>more OCI commands accept sudo parameter</p></li>
-</ul>
-</li>
+<li><p>fix crash in some error conditions (0.0.62)
+- more OCI commands accept sudo parameter</p></li>
 <li><p>working directory, the last one defined, should be added to runscript (0.0.61)</p></li>
-<li><p>adding deprecation message for image.export (0.0.60)</p>
-<ul>
-<li><p>adding –force option to build</p></li>
-</ul>
-</li>
+<li><p>adding deprecation message for image.export (0.0.60)
+- adding –force option to build</p></li>
 <li><p>fixing warning for files, only relevant for sources (0.0.59)</p></li>
-<li><p>deprecating pulling by commit or hash, not supported for Singularity (0.0.58)</p>
-<ul>
-<li><p>export command added back, points to build given Singularity 3.x+</p></li>
-</ul>
-</li>
+<li><p>deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
+- export command added back, points to build given Singularity 3.x+</p></li>
 <li><p>print but with logger, should be println (0.0.57)</p></li>
-<li><p>Fixing bug with instance not having name when not started (0.0.56)</p>
-<ul>
-<li><p>instance start has been moved to non-private</p></li>
-</ul>
-</li>
+<li><p>Fixing bug with instance not having name when not started (0.0.56)
+- instance start has been moved to non-private</p></li>
 <li><p>Added ability for exec and run to return the full output and message (0.0.55)</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li><p>By default, oci commands (pause, resume, kill) return the return value</p></li>
-<li><p>Added support and tests for OCI image command group (0.0.54)</p>
-<ul>
-<li><p>client now has version() function to call get_singularity_version</p></li>
-<li><p>added return_result (boolean) to client run_command function.</p></li>
 </ul>
-</li>
-<li><p>adding testing for 3.1.0 with Singularity Orbs (0.0.53)</p>
-<ul>
-<li><p>inspect returns parsed json on success, or full message / return code otherwise</p></li>
-</ul>
-</li>
+</div></blockquote>
+<ul class="simple">
+<li><p>Added support and tests for OCI image command group (0.0.54)
+- client now has version() function to call get_singularity_version
+- added return_result (boolean) to client run_command function.</p></li>
+<li><p>adding testing for 3.1.0 with Singularity Orbs (0.0.53)
+- inspect returns parsed json on success, or full message / return code otherwise</p></li>
 <li><p>instance stop all missing check for Singularity V3.+ (0.0.52)</p></li>
 <li><p>fixing bug with instances list, name not taken into account (0.0.51)</p></li>
 <li><p>additional of args to instance start commands (0.0.50)</p></li>
@@ -235,11 +221,8 @@ singularity on pypi), and the versions here will coincide with these releases.</
 <li><p>COPY command should honor src src dest (and not reverse) (0.0.48)</p></li>
 <li><p>adding support for instance list (0.0.47)</p></li>
 <li><p>ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)</p></li>
-<li><p>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)</p>
-<ul>
-<li><p>Adding DockerRecipe, SingularityRecipe “load” action to load file</p></li>
-</ul>
-</li>
+<li><p>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
+- Adding DockerRecipe, SingularityRecipe “load” action to load file</p></li>
 <li><p>issue #64 bug with hanging instances (0.0.44)</p></li>
 <li><p>flexible error printing given command to terminal fails (0.0.43)</p></li>
 <li><p>adding name_by_commit and name_by_hash to pull (0.0.42)</p></li>
@@ -256,11 +239,8 @@ singularity on pypi), and the versions here will coincide with these releases.</
 <li><p>fixing bugs with import, export, image commands (0.0.31)</p></li>
 <li><p>adding tests for client (0.0.30)</p></li>
 <li><p>bug in Dockerfile fromHeader variable fix (0.0.29)</p></li>
-<li><p>Dockerfile from “as level” removed (0.0.28)</p>
-<ul>
-<li><p>fixed ENV parser to handle statements like A=B C=D</p></li>
-</ul>
-</li>
+<li><p>Dockerfile from “as level” removed (0.0.28)
+- fixed ENV parser to handle statements like A=B C=D</p></li>
 <li><p>adding ability to stream command executed to console (0.0.25)</p></li>
 <li><p>fixing import bug with recipe parsers in python 2.7 (0.0.24)</p></li>
 <li><p>addition of docker and singularity recipe parsers (0.0.22)</p></li>
@@ -268,8 +248,8 @@ singularity on pypi), and the versions here will coincide with these releases.</
 <li><p>generating basic api documentation (sphinx) (0.0.2)</p></li>
 <li><p>adding changelog, and original code for client  (0.0.1)</p></li>
 </ul>
-</div>
-</div>
+</dd>
+</dl>
 
 
            </div>

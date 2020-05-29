@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../../assets/language_data.js"></script>
+        <script src="../../../../assets/jquery.js"></script>
+        <script src="../../../../assets/underscore.js"></script>
+        <script src="../../../../assets/doctools.js"></script>
+        <script src="../../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -162,7 +161,7 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
@@ -175,8 +174,8 @@
 <span class="sd">       image: the image path or uri to load (e.g., docker://ubuntu </span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.image</span> <span class="k">import</span> <span class="n">Image</span>
-    <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="k">import</span> <span class="n">Instance</span>
+    <span class="kn">from</span> <span class="nn">spython.image</span> <span class="kn">import</span> <span class="n">Image</span>
+    <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="kn">import</span> <span class="n">Instance</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">simage</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 

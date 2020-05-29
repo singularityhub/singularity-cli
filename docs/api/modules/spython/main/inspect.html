@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -157,12 +156,14 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 <span class="kn">import</span> <span class="nn">json</span> <span class="k">as</span> <span class="nn">jsonp</span>
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span><span class="p">,</span> <span class="n">run_command</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span><span class="p">,</span> <span class="n">run_command</span>
 
 
-<div class="viewcode-block" id="inspect"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.inspect.inspect">[docs]</a><span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="inspect"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.inspect.inspect">[docs]</a><span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;inspect will show labels, defile, runscript, and tests for an image</span>
 <span class="sd">    </span>
 <span class="sd">       Parameters</span>
@@ -171,6 +172,7 @@
 <span class="sd">       json: print json instead of raw text (default True)</span>
 <span class="sd">       quiet: Don&#39;t print result to the screen (default True)</span>
 <span class="sd">       app: if defined, return help in context of an app</span>
+<span class="sd">       singularity_options: a list of options to provide to the singularity client</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_install</span><span class="p">()</span>
@@ -183,7 +185,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">image</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please provide an image to inspect.&quot;</span><span class="p">)</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;inspect&quot;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;inspect&quot;</span><span class="p">,</span> <span class="n">singularity_options</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">app</span><span class="p">:</span>
         <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--app&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">]</span>
 

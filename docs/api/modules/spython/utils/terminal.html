@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -162,8 +161,8 @@
 <span class="kn">import</span> <span class="nn">pwd</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">semver</span>
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">decodeUtf8String</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">decodeUtf8String</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">shlex</span>
@@ -284,13 +283,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">_process_sudo_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="p">,</span> <span class="n">sudo_options</span><span class="p">)</span>
 
-    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+        <span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">line</span>
     <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">return_code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">return_code</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">return_code</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span></div>
 
 
@@ -380,7 +382,7 @@
 
 
 <div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;remove_uri will remove docker:// or shub:// from the uri</span>
+    <span class="sd">&quot;&quot;&quot;remove_uri will remove docker:// or shub:// or library:// from the uri</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 </pre></div>

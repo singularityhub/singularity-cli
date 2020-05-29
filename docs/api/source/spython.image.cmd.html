@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../assets/jquery.js"></script>
-        <script type="text/javascript" src="../assets/underscore.js"></script>
-        <script type="text/javascript" src="../assets/doctools.js"></script>
-        <script type="text/javascript" src="../assets/language_data.js"></script>
+        <script src="../assets/jquery.js"></script>
+        <script src="../assets/underscore.js"></script>
+        <script src="../assets/doctools.js"></script>
+        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
@@ -104,7 +104,6 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -180,9 +179,9 @@
 </div>
 <div class="section" id="module-spython.image.cmd.create">
 <span id="spython-image-cmd-create-module"></span><h2>spython.image.cmd.create module<a class="headerlink" href="#module-spython.image.cmd.create" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.create.create">
-<code class="sig-prename descclassname">spython.image.cmd.create.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image_path</em>, <em class="sig-param">size=1024</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/create.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.create.create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.image.cmd.create.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">1024</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/create.html#create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.create.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>create will create a a new image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -190,6 +189,7 @@
 <li><p><strong>image_path</strong> (<em>full path to image</em>)</p></li>
 <li><p><strong>size</strong> (<em>image sizein MiB, default is 1024MiB</em>)</p></li>
 <li><p><strong>filesystem</strong> (<em>supported file systems ext3/ext4 (ext[2/3]: default ext3</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -198,9 +198,9 @@
 </div>
 <div class="section" id="module-spython.image.cmd.export">
 <span id="spython-image-cmd-export-module"></span><h2>spython.image.cmd.export module<a class="headerlink" href="#module-spython.image.cmd.export" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.export.export">
-<code class="sig-prename descclassname">spython.image.cmd.export.</code><code class="sig-name descname">export</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image_path</em>, <em class="sig-param">tmptar=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/export.html#export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.export.export" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.image.cmd.export.</code><code class="sig-name descname">export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">tmptar</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/export.html#export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.export.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>export will export an image, sudo must be used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -215,9 +215,9 @@
 </div>
 <div class="section" id="module-spython.image.cmd.importcmd">
 <span id="spython-image-cmd-importcmd-module"></span><h2>spython.image.cmd.importcmd module<a class="headerlink" href="#module-spython.image.cmd.importcmd" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.importcmd.importcmd">
-<code class="sig-prename descclassname">spython.image.cmd.importcmd.</code><code class="sig-name descname">importcmd</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image_path</em>, <em class="sig-param">input_source</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/importcmd.html#importcmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.importcmd.importcmd" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.image.cmd.importcmd.</code><code class="sig-name descname">importcmd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">input_source</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/importcmd.html#importcmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.importcmd.importcmd" title="Permalink to this definition">¶</a></dt>
 <dd><p>import will import (stdin) to the image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -233,22 +233,22 @@
 </div>
 <div class="section" id="module-spython.image.cmd.utils">
 <span id="spython-image-cmd-utils-module"></span><h2>spython.image.cmd.utils module<a class="headerlink" href="#module-spython.image.cmd.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.utils.compress">
-<code class="sig-prename descclassname">spython.image.cmd.utils.</code><code class="sig-name descname">compress</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image_path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/utils.html#compress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.utils.compress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.image.cmd.utils.</code><code class="sig-name descname">compress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/utils.html#compress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.utils.compress" title="Permalink to this definition">¶</a></dt>
 <dd><p>compress will (properly) compress an image</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.utils.decompress">
-<code class="sig-prename descclassname">spython.image.cmd.utils.</code><code class="sig-name descname">decompress</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image_path</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/utils.html#decompress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.utils.decompress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.image.cmd.utils.</code><code class="sig-name descname">decompress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd/utils.html#decompress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.utils.decompress" title="Permalink to this definition">¶</a></dt>
 <dd><p>decompress will (properly) decompress an image</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-spython.image.cmd">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.image.cmd" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.image.cmd.generate_image_commands">
 <code class="sig-prename descclassname">spython.image.cmd.</code><code class="sig-name descname">generate_image_commands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image/cmd.html#generate_image_commands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.cmd.generate_image_commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Image client holds the Singularity image command group, mainly

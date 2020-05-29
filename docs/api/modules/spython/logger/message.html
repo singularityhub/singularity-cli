@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -156,8 +155,8 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">.spinner</span> <span class="k">import</span> <span class="n">Spinner</span>
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">decodeUtf8String</span>
+<span class="kn">from</span> <span class="nn">.spinner</span> <span class="kn">import</span> <span class="n">Spinner</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">decodeUtf8String</span>
 
 <span class="n">ABORT</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
 <span class="n">CRITICAL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
@@ -180,7 +179,7 @@
 
 
 <div class="viewcode-block" id="SingularityMessage"><a class="viewcode-back" href="../../../source/spython.logger.html#spython.logger.message.SingularityMessage">[docs]</a><span class="k">class</span> <span class="nc">SingularityMessage</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MESSAGELEVEL</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MESSAGELEVEL</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">get_logging_level</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">errorStream</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>

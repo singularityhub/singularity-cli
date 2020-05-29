@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../assets/jquery.js"></script>
-        <script type="text/javascript" src="../assets/underscore.js"></script>
-        <script type="text/javascript" src="../assets/doctools.js"></script>
-        <script type="text/javascript" src="../assets/language_data.js"></script>
+        <script src="../assets/jquery.js"></script>
+        <script src="../assets/underscore.js"></script>
+        <script src="../assets/doctools.js"></script>
+        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
@@ -113,7 +113,6 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -189,9 +188,9 @@
 </div>
 <div class="section" id="module-spython.main.base.command">
 <span id="spython-main-base-command-module"></span><h2>spython.main.base.command module<a class="headerlink" href="#module-spython.main.base.command" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.command.generate_bind_list">
-<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">generate_bind_list</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">bindlist=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#generate_bind_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.generate_bind_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">generate_bind_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bindlist</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#generate_bind_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.generate_bind_list" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>generate bind string will take a single string or list of binds, and</dt><dd><p>return a list that can be added to an exec or run command. For example,
 the following map as follows:</p>
@@ -208,23 +207,23 @@ The binds are also checked on the host.</p>
 </div></blockquote>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.command.init_command">
-<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">init_command</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">action</em>, <em class="sig-param">flags=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">init_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">action</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#init_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.init_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the initial Singularity command with any added flags.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>action</strong> (<em>the main action to perform (e.g., build)</em>)</p></li>
-<li><p><strong>flags</strong> (<em>one or more additional flags (e.g, volumes)</em>) – not implemented yet.</p></li>
+<li><p><strong>flags</strong> (<em>one or more additional singularity options</em>)</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.command.run_command">
-<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">cmd</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">capture=True</em>, <em class="sig-param">quiet=None</em>, <em class="sig-param">return_result=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command is a wrapper for the global run_command, checking first
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
@@ -243,9 +242,9 @@ the parent process so it appears for the user.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.command.send_command">
-<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">send_command</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">cmd</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">stderr=None</em>, <em class="sig-param">stdout=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#send_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.send_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">send_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stderr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stdout</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#send_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.send_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>send command is a non interactive version of run_command, meaning
 that we execute the command and return the return value, but don’t
 attempt to stream any content (text from the screen) back to the
@@ -302,9 +301,9 @@ image      Container image command group
 instance   Persistent instance command group</p>
 </dd>
 </dl>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.flags.parse_verbosity">
-<code class="sig-prename descclassname">spython.main.base.flags.</code><code class="sig-name descname">parse_verbosity</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">args</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.flags.</code><code class="sig-name descname">parse_verbosity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/flags.html#parse_verbosity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.flags.parse_verbosity" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse_verbosity will take an argument object, and return the args
 passed (from a dictionary) to a list</p>
 <dl class="field-list simple">
@@ -317,13 +316,13 @@ passed (from a dictionary) to a list</p>
 </div>
 <div class="section" id="module-spython.main.base.generate">
 <span id="spython-main-base-generate-module"></span><h2>spython.main.base.generate module<a class="headerlink" href="#module-spython.main.base.generate" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="spython.main.base.generate.RobotNamer">
 <em class="property">class </em><code class="sig-prename descclassname">spython.main.base.generate.</code><code class="sig-name descname">RobotNamer</code><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.generate.RobotNamer.generate">
-<code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">delim='-'</em>, <em class="sig-param">length=4</em>, <em class="sig-param">chars='0123456789'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer.generate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delim</span><span class="o">=</span><span class="default_value">'-'</span></em>, <em class="sig-param"><span class="n">length</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">chars</span><span class="o">=</span><span class="default_value">'0123456789'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer.generate" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Generate a robot name. Inspiration from Haikunator, but much more</dt><dd><p>poorly implemented ;)</p>
 </dd>
@@ -341,7 +340,7 @@ passed (from a dictionary) to a list</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.generate.main">
 <code class="sig-prename descclassname">spython.main.base.generate.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -349,9 +348,9 @@ passed (from a dictionary) to a list</p>
 </div>
 <div class="section" id="module-spython.main.base.logger">
 <span id="spython-main-base-logger-module"></span><h2>spython.main.base.logger module<a class="headerlink" href="#module-spython.main.base.logger" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.logger.init_level">
-<code class="sig-prename descclassname">spython.main.base.logger.</code><code class="sig-name descname">init_level</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.logger.</code><code class="sig-name descname">init_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#init_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.init_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>set the logging level based on the environment</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -360,9 +359,9 @@ passed (from a dictionary) to a list</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.logger.println">
-<code class="sig-prename descclassname">spython.main.base.logger.</code><code class="sig-name descname">println</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">output</em>, <em class="sig-param">quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.logger.</code><code class="sig-name descname">println</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/logger.html#println"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.logger.println" title="Permalink to this definition">¶</a></dt>
 <dd><p>print will print the output, given that quiet is not True. This
 function also serves to convert output in bytes to utf-8</p>
 <dl class="field-list simple">
@@ -378,9 +377,9 @@ function also serves to convert output in bytes to utf-8</p>
 </div>
 <div class="section" id="module-spython.main.base.sutils">
 <span id="spython-main-base-sutils-module"></span><h2>spython.main.base.sutils module<a class="headerlink" href="#module-spython.main.base.sutils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.sutils.get_filename">
-<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">get_filename</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image</em>, <em class="sig-param">ext='sif'</em>, <em class="sig-param">pwd=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">get_filename</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">ext</span><span class="o">=</span><span class="default_value">'sif'</span></em>, <em class="sig-param"><span class="n">pwd</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an image filename based on the image uri.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -392,16 +391,16 @@ function also serves to convert output in bytes to utf-8</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.sutils.get_uri">
-<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">get_uri</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_uri" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">get_uri</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.get_uri" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if the loaded image object (self.simage) has an associated uri
 return if yes, None if not.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.sutils.load">
-<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load an image, either an actual path on the filesystem or a uri.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -410,9 +409,9 @@ return if yes, None if not.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.main.base.sutils.setenv">
-<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">setenv</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">variable</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.sutils.</code><code class="sig-name descname">setenv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/sutils.html#setenv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.sutils.setenv" title="Permalink to this definition">¶</a></dt>
 <dd><p>set an environment variable for Singularity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -427,22 +426,23 @@ return if yes, None if not.</p>
 </div>
 <div class="section" id="module-spython.main.base">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.base" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="spython.main.base.Client">
 <em class="property">class </em><code class="sig-prename descclassname">spython.main.base.</code><code class="sig-name descname">Client</code><a class="reference internal" href="../modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.RobotNamer">
 <code class="sig-name descname">RobotNamer</code><em class="property"> = &lt;spython.main.base.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.apps">
-<code class="sig-name descname">apps</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">full_path=False</em>, <em class="sig-param">root=''</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.apps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">full_path</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">root</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.apps" title="Permalink to this definition">¶</a></dt>
 <dd><p>return list of SCIF apps in image. The Singularity software serves
 a scientific filesystem integration that will install apps to
 /scif/apps and associated data to /scif/data. For more information
-about SCIF, see <a class="reference external" href="https://sci-f.github.io">https://sci-f.github.io</a></p>
+about SCIF, see <a class="reference external" href="https://sci-f.github.io">https://sci-f.github.io</a>. Note that this seems
+to be deprecated in Singularity 3.x.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -453,9 +453,9 @@ about SCIF, see <a class="reference external" href="https://sci-f.github.io">htt
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.build">
-<code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">recipe=None</em>, <em class="sig-param">image=None</em>, <em class="sig-param">isolated=False</em>, <em class="sig-param">sandbox=False</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">build_folder=None</em>, <em class="sig-param">robot_name=False</em>, <em class="sig-param">ext='sif'</em>, <em class="sig-param">sudo=True</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">force=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">return_result=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipe</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">isolated</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sandbox</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">build_folder</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">robot_name</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ext</span><span class="o">=</span><span class="default_value">'sif'</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>build a singularity image, optionally for an isolated build
 (requires sudo). If you specify to stream, expect the image name
 and an iterator to be returned.</p>
@@ -475,6 +475,7 @@ instead. Highly recommended :)</p></li>
 <li><p><strong>sudo</strong> (<em>give sudo to the command (or not) default is True for build</em>)</p></li>
 <li><p><strong>sudo_options</strong> (<em>options to pass to sudo (e.g. –preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)</em>)</p></li>
 <li><p><strong>options</strong> (<em>for all other options, specify them in this list.</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>quiet</strong> (<em>quiet verbose printing from the client.</em>)</p></li>
 <li><p><strong>return_result</strong> (<em>if True, return complete error code / message dictionary</em>)</p></li>
 </ul>
@@ -482,14 +483,14 @@ instead. Highly recommended :)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.debug">
 <code class="sig-name descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#spython.main.base.Client.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.execute">
-<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">command=None</em>, <em class="sig-param">app=None</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">return_result=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">contain</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bind</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>execute: send a command to a container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -500,6 +501,7 @@ instead. Highly recommended :)</p></li>
 <li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
 <li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
 <li><p><strong>options</strong> (<em>an optional list of options to provide to execute.</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
 directories within your container using bind mounts</p></li>
 <li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
@@ -509,9 +511,9 @@ directories within your container using bind mounts</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.export">
-<code class="sig-name descname">export</code><span class="sig-paren">(</span><em class="sig-param">image_path</em>, <em class="sig-param">pipe=False</em>, <em class="sig-param">output_file=None</em>, <em class="sig-param">command=None</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.export" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">export</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">pipe</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">output_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>export will export an image, sudo must be used. If we have Singularity
 versions after 3, export is replaced with building into a sandbox.</p>
 <dl class="field-list simple">
@@ -519,6 +521,7 @@ versions after 3, export is replaced with building into a sandbox.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image_path</strong> (<em>full path to image</em>)</p></li>
 <li><p><strong>pipe</strong> (<em>export to pipe and not file (default, False)</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>output_file</strong> (<em>if pipe=False, export tar to this file. If not specified,</em>)</p></li>
 <li><p><strong>will generate temporary directory.</strong></p></li>
 </ul>
@@ -526,9 +529,9 @@ versions after 3, export is replaced with building into a sandbox.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.help">
-<code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param">command=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.help" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.help" title="Permalink to this definition">¶</a></dt>
 <dd><p>help prints the general function help, or help for a specific command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -537,14 +540,14 @@ versions after 3, export is replaced with building into a sandbox.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.image">
 <code class="sig-name descname">image</code><em class="property"> = &lt;spython.image.cmd.generate_image_commands.&lt;locals&gt;.ImageClient object&gt;</em><a class="headerlink" href="#spython.main.base.Client.image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.inspect">
-<code class="sig-name descname">inspect</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">json=True</em>, <em class="sig-param">app=None</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inspect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">json</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>inspect will show labels, defile, runscript, and tests for an image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -553,20 +556,21 @@ versions after 3, export is replaced with building into a sandbox.</p>
 <li><p><strong>json</strong> (<em>print json instead of raw text (default True)</em>)</p></li>
 <li><p><strong>quiet</strong> (<em>Don’t print result to the screen (default True)</em>)</p></li>
 <li><p><strong>app</strong> (<em>if defined, return help in context of an app</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.instance">
 <code class="sig-name descname">instance</code><a class="headerlink" href="#spython.main.base.Client.instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="spython.instance.html#spython.instance.Instance" title="spython.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.instance.Instance</span></code></a></p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.instance_stopall">
-<code class="sig-name descname">instance_stopall</code><span class="sig-paren">(</span><em class="sig-param">sudo=False</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instance_stopall" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">instance_stopall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instance_stopall" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop ALL instances. This command is only added to the command group
 as it doesn’t make sense to call from a single instance</p>
 <dl class="field-list simple">
@@ -576,9 +580,9 @@ as it doesn’t make sense to call from a single instance</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.instances">
-<code class="sig-name descname">instances</code><span class="sig-paren">(</span><em class="sig-param">name=None</em>, <em class="sig-param">return_json=False</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">instances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_json</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>list instances. For Singularity, this is provided as a command sub
 group.</p>
 <p>singularity instance.list</p>
@@ -589,6 +593,7 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>return_json</strong> (<em>return a json list of instances instead of objects (False)</em>)</p></li>
 <li><p><strong>name</strong> (<em>if defined, return the list for just one instance (used to ged pid)</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>Return Code  –   Reason</strong></p></li>
 <li><p><strong>0 – Instances Found</strong></p></li>
 <li><p><strong>1 – No Instances, libexecdir value not found, functions file not found</strong></p></li>
@@ -598,9 +603,9 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">image=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>load an image, either an actual path on the filesystem or a uri.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -609,19 +614,20 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.oci">
 <code class="sig-name descname">oci</code><em class="property"> = [singularity-python-oci]</em><a class="headerlink" href="#spython.main.base.Client.oci" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.pull">
-<code class="sig-name descname">pull</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">pull_folder=''</em>, <em class="sig-param">ext=None</em>, <em class="sig-param">force=False</em>, <em class="sig-param">capture=False</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">quiet=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pull</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pull_folder</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">ext</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">force</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.pull" title="Permalink to this definition">¶</a></dt>
 <dd><p>pull will pull a singularity hub or Docker image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> (<em>the complete image uri. If not provided, the client loaded is used</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>pull_folder</strong> (<em>if not defined, pulls to $PWD (‘’). If defined, pulls to</em>) – user specified location instead.</p></li>
 <li><p><strong>Docker and Singularity Hub Naming</strong></p></li>
 <li><p><strong>———————————</strong></p></li>
@@ -632,14 +638,14 @@ see <a class="reference external" href="https://github.com/singularityware/singu
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.main.base.Client.quiet">
 <code class="sig-name descname">quiet</code><em class="property"> = False</em><a class="headerlink" href="#spython.main.base.Client.quiet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.run">
-<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">args=None</em>, <em class="sig-param">app=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">stream=False</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">return_result=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">contain</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bind</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>run will run the container, with or withour arguments (which
 should be provided in a list)</p>
 <dl class="field-list simple">
@@ -650,6 +656,7 @@ should be provided in a list)</p>
 <li><p><strong>app</strong> (<em>if not None, execute a command in context of an app</em>)</p></li>
 <li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
 <li><p><strong>options</strong> (<em>an optional list of options to provide to run.</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
 <li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
 directories within your container using bind mounts</p></li>
@@ -661,9 +668,9 @@ directories within your container using bind mounts</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.setenv">
-<code class="sig-name descname">setenv</code><span class="sig-paren">(</span><em class="sig-param">variable</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.setenv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setenv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.setenv" title="Permalink to this definition">¶</a></dt>
 <dd><p>set an environment variable for Singularity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -675,9 +682,9 @@ directories within your container using bind mounts</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.shell">
-<code class="sig-name descname">shell</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">app=None</em>, <em class="sig-param">writable=False</em>, <em class="sig-param">contain=False</em>, <em class="sig-param">bind=None</em>, <em class="sig-param">nv=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">sudo=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.shell" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">shell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">contain</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bind</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.shell" title="Permalink to this definition">¶</a></dt>
 <dd><p>shell into a container. A user is advised to use singularity to do
 this directly, however this function is useful for supporting tools.</p>
 <dl class="field-list simple">
@@ -688,6 +695,7 @@ this directly, however this function is useful for supporting tools.</p>
 <li><p><strong>writable</strong> (<em>This option makes the file system accessible as read/write</em>)</p></li>
 <li><p><strong>contain</strong> (<em>This option disables the automatic sharing of writable</em>) – filesystems on your host</p></li>
 <li><p><strong>options</strong> (<em>an optional list of options to provide to shell.</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>bind</strong> (<em>list or single string of bind paths.</em>) – This option allows you to map directories on your host system to
 directories within your container using bind mounts</p></li>
 <li><p><strong>nv</strong> (<em>if True, load Nvidia Drivers in runtime (default False)</em>)</p></li>
@@ -696,13 +704,13 @@ directories within your container using bind mounts</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.version">
 <code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to get_singularity_version, takes no arguments.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.main.base.Client.version_info">
 <code class="sig-name descname">version_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base.html#Client.version_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client.version_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to get_singularity_version_info, takes no arguments.</p>

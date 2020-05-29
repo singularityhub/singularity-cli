@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../assets/jquery.js"></script>
-        <script type="text/javascript" src="../assets/underscore.js"></script>
-        <script type="text/javascript" src="../assets/doctools.js"></script>
-        <script type="text/javascript" src="../assets/language_data.js"></script>
+        <script src="../assets/jquery.js"></script>
+        <script src="../assets/underscore.js"></script>
+        <script src="../assets/doctools.js"></script>
+        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
@@ -104,7 +104,6 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -191,13 +190,13 @@
 </div>
 <div class="section" id="module-spython.image">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.image" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="spython.image.Image">
-<em class="property">class </em><code class="sig-prename descclassname">spython.image.</code><code class="sig-name descname">Image</code><span class="sig-paren">(</span><em class="sig-param">image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spython.image.</code><code class="sig-name descname">Image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.image.ImageBase</span></code></a></p>
-<dl class="method">
+<dl class="py method">
 <dt id="spython.image.Image.get_hash">
-<code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param">image=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image.get_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image.get_hash" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#Image.get_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.Image.get_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>return an md5 hash of the file based on a criteria level. This
 is intended to give the file a reasonable version. This only is
 useful for actual image files.</p>
@@ -210,13 +209,13 @@ useful for actual image files.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="spython.image.ImageBase">
 <em class="property">class </em><code class="sig-prename descclassname">spython.image.</code><code class="sig-name descname">ImageBase</code><a class="reference internal" href="../modules/spython/image.html#ImageBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="method">
+<dl class="py method">
 <dt id="spython.image.ImageBase.parse_image_name">
-<code class="sig-name descname">parse_image_name</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#ImageBase.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase.parse_image_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_image_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/image.html#ImageBase.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.image.ImageBase.parse_image_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>simply split the uri from the image. Singularity handles
 parsing of registry, namespace, image.</p>
 <dl class="field-list simple">
