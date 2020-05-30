@@ -5,7 +5,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-__version__ = "0.0.82"
+__version__ = "0.0.83"
 AUTHOR = "Vanessa Sochat"
 AUTHOR_EMAIL = "vsochat@stanford.edu"
 NAME = "spython"

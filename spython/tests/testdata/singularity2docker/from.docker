@@ -1,1 +1,1 @@
-FROM busybox:latest
+FROM busybox:latest AS spython-base

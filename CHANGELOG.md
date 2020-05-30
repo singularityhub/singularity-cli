@@ -17,7 +17,8 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
- - Singularity does not support multistage builds (0.0.82)
+ - Adding support for multistage build parsing (0.0.83)
+ - Singularity Python does not yet support multistage builds (0.0.82)
  - stream command should print to stdout given CalledProcessError (0.0.81)
  - USER regular expression should check for USER at start of line (0.0.80)
  - add singularity options parameters to send to singularity (0.0.79)

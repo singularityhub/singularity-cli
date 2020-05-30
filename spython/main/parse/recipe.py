@@ -17,22 +17,25 @@ class Recipe(object):
        ==========
        recipe: the original recipe file, parsed by the subclass either
                DockerParser or SingularityParser
+       layer: the count of the layer, for human readability
 
     """
 
-    def __init__(self, recipe=None):
+    def __init__(self, recipe=None, layer=1):
 
         self.cmd = None
         self.comments = []
         self.entrypoint = None
         self.environ = []
         self.files = []
+        self.layer_files = {}
         self.install = []
         self.labels = []
         self.ports = []
         self.test = None
         self.volumes = []
         self.workdir = None
+        self.layer = layer
 
         self.source = recipe
 
@@ -54,7 +57,8 @@ class Recipe(object):
 
            Returns: a dictionary of attributes including cmd, comments,
                     entrypoint, environ, files, install, labels, ports,
-                    test, volumes, and workdir.
+                    test, volumes, and workdir, organized by layer for
+                    multistage builds.
         """
         attributes = [
             "cmd",

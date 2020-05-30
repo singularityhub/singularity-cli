@@ -5,7 +5,9 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import abc
+from copy import deepcopy
 import os
+import re
 
 from spython.logger import bot
 from spython.utils import read_file
@@ -35,7 +37,14 @@ class ParserBase(object):
         self.filename = filename
         self._run_checks()
         self.lines = []
-        self.recipe = Recipe(self.filename)
+
+        # Arguments can be used internally, active layer name and number
+        self.args = {}
+        self.active_layer = "spython-base"
+        self.active_layer_num = 1
+
+        # Support multistage builds
+        self.recipe = {"spython-base": Recipe(self.filename)}
 
         if self.filename:
 
@@ -100,3 +109,52 @@ class ParserBase(object):
 
         """
         return [x.strip() for x in line.split(" ", 1)]
+
+    # Multistage
+
+    def _multistage(self, fromHeader):
+        """Given a from header, determine if we have a multistage build, and
+           update the recipe parser active in case that we do. If we are dealing
+           with the first layer and it's named, we also update the default
+           name "spython-base" to be what the recipe intended.
+
+           Parameters
+           ==========
+           fromHeader: the fromHeader parsed from self.from, possibly with AS
+        """
+        # Derive if there is a named layer
+        match = re.search("AS (?P<layer>.+)", fromHeader, flags=re.I)
+        if match:
+            layer = match.groups("layer")[0].strip()
+
+            # If it's the first layer named incorrectly, we need to rename
+            if len(self.recipe) == 1 and list(self.recipe)[0] == "spython-base":
+                self.recipe[layer] = deepcopy(self.recipe[self.active_layer])
+                del self.recipe[self.active_layer]
+            else:
+                self.active_layer_num += 1
+                self.recipe[layer] = Recipe(self.filename, self.active_layer_num)
+            self.active_layer = layer
+            bot.debug(
+                "Active layer #%s updated to %s"
+                % (self.active_layer_num, self.active_layer)
+            )
+
+    def _replace_from_dict(self, string, args):
+        """Given a lookup of arguments, args, replace any that are found in
+           the given string. This is intended to be used to substitute ARGs
+           provided in a Dockerfile into other sections, e.g., FROM $BASE
+
+           Parameters
+           ==========
+           string: an input string to look for replacements
+           args: a dictionary to make lookups from
+    
+           Returns
+           =======
+           string: the string with replacements made
+        """
+        for key, value in args.items():
+            if re.search("\$(" + key + "|\{[^}]*\})", string):
+                string = re.sub("\$(" + key + "|\{[^}]*\})", value, string)
+        return string

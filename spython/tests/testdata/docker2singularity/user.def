@@ -1,5 +1,7 @@
 Bootstrap: docker
 From: busybox:latest
+Stage: spython-base
+
 %post
 echo "cloud"
 su -  rainman # USER rainman

@@ -1,5 +1,7 @@
 Bootstrap: docker
 From: busybox:latest
+Stage: spython-base
+
 %post
 cd /code
 %runscript
