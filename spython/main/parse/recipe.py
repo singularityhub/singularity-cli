@@ -36,6 +36,7 @@ class Recipe(object):
         self.volumes = []
         self.workdir = None
         self.layer = layer
+        self.fromHeader = None
 
         self.source = recipe
 
@@ -66,6 +67,8 @@ class Recipe(object):
             "entrypoint",
             "environ",
             "files",
+            "fromHeader",
+            "layer_files",
             "install",
             "labels",
             "ports",
