@@ -22,12 +22,10 @@ Now we can answer what kind of things might you want to do:
  - convert a Singularity Recipe to a Dockerfile
  - read in a recipe of either type, and modify it before doing the above
 
-**Important** Singularity Python added support for parsing [multistage builds](https://sylabs.io/guides/3.5/user-guide/definition_files.html#multi-stage-builds) for version 0.0.83 and after.
+**Important** Singularity Python added support for parsing [multistage builds](https://sylabs.io/guides/3.5/user-guide/definition_files.html#multi-stage-builds) for version 0.0.83 and after. By default,
+any base layer that isn't named is called `spython-base` unless you have named
+it otherwise.
 
-```
-COPY --from=builder  /build/usr/share/gdal/ /usr/share/gdal/
-```
-You should modify the Dockerfile first to remove them.
 
 # Command Line Client
 
