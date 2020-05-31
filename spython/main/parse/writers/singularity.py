@@ -34,9 +34,6 @@ class SingularityWriter(WriterBase):
         if self.recipe is None:
             bot.exit("Please provide a Recipe() to the writer first.")
 
-        if self.recipe.fromHeader is None:
-            bot.exit("Singularity recipe requires a from header.")
-
     def convert(self, runscript="/bin/bash", force=False):
         """docker2singularity will return a Singularity build recipe based on
            a the loaded recipe object. It doesn't take any arguments as the
@@ -45,31 +42,56 @@ class SingularityWriter(WriterBase):
         """
         self.validate()
 
-        recipe = ["Bootstrap: docker"]
-        recipe += ["From: %s" % self.recipe.fromHeader]
+        # Write single recipe that includes all layer
+        recipe = []
 
-        # Sections with key value pairs
-        recipe += self._create_section("files")
-        recipe += self._create_section("labels")
-        recipe += self._create_section("install", "post")
-        recipe += self._create_section("environ", "environment")
+        # Number of layers
+        num_layers = len(self.recipe)
+        count = 0
 
-        # Take preference for user, entrypoint, command, then default
-        runscript = self._create_runscript(runscript, force)
+        # Write each layer to new file
+        for stage, parser in self.recipe.items():
 
-        # If a working directory was used, add it as a cd
-        if self.recipe.workdir is not None:
-            runscript = ["cd " + self.recipe.workdir] + [runscript]
+            # Set the first and active stage
+            self.stage = stage
 
-        # Finish the recipe, also add as startscript
-        recipe += finish_section(runscript, "runscript")
-        recipe += finish_section(runscript, "startscript")
+            # From header is required
+            if parser.fromHeader is None:
+                bot.exit("Singularity recipe requires a from header.")
 
-        if self.recipe.test is not None:
-            recipe += finish_section(self.recipe.test, "test")
+            recipe += ["\n\n\nBootstrap: docker"]
+            recipe += ["From: %s" % parser.fromHeader]
+            recipe += ["Stage: %s\n\n\n" % stage]
+
+            # TODO: stopped here - bug with files being found
+            # Add global files, and then layer files
+            recipe += self._create_section("files")
+            for layer, files in parser.layer_files.items():
+                recipe += create_keyval_section(files, "files", layer)
+
+            # Sections with key value pairs
+            recipe += self._create_section("labels")
+            recipe += self._create_section("install", "post")
+            recipe += self._create_section("environ", "environment")
+
+            # If we are at the last layer, write the runscript
+            if count == num_layers - 1:
+                runscript = self._create_runscript(runscript, force)
+
+                # If a working directory was used, add it as a cd
+                if parser.workdir is not None:
+                    runscript = ["cd " + parser.workdir] + [runscript]
+
+                # Finish the recipe, also add as startscript
+                recipe += finish_section(runscript, "runscript")
+                recipe += finish_section(runscript, "startscript")
+
+                if parser.test is not None:
+                    recipe += finish_section(parser.test, "test")
+            count += 1
 
         # Clean up extra white spaces
-        recipe = "\n".join(recipe).replace("\n\n", "\n")
+        recipe = "\n".join(recipe).replace("\n\n", "\n").strip("\n")
         return recipe.rstrip()
 
     def _create_runscript(self, default="/bin/bash", force=False):
@@ -89,19 +111,21 @@ class SingularityWriter(WriterBase):
         # Only look at Docker if not enforcing default
         if not force:
 
-            if self.recipe.entrypoint is not None:
+            if self.recipe[self.stage].entrypoint is not None:
 
                 # The provided entrypoint can be a string or a list
-                if isinstance(self.recipe.entrypoint, list):
-                    entrypoint = " ".join(self.recipe.entrypoint)
+                if isinstance(self.recipe[self.stage].entrypoint, list):
+                    entrypoint = " ".join(self.recipe[self.stage].entrypoint)
                 else:
-                    entrypoint = "".join(self.recipe.entrypoint)
+                    entrypoint = "".join(self.recipe[self.stage].entrypoint)
 
-            if self.recipe.cmd is not None:
-                if isinstance(self.recipe.cmd, list):
-                    entrypoint = entrypoint + " " + " ".join(self.recipe.cmd)
+            if self.recipe[self.stage].cmd is not None:
+                if isinstance(self.recipe[self.stage].cmd, list):
+                    entrypoint = (
+                        entrypoint + " " + " ".join(self.recipe[self.stage].cmd)
+                    )
                 else:
-                    entrypoint = entrypoint + " " + "".join(self.recipe.cmd)
+                    entrypoint = entrypoint + " " + "".join(self.recipe[self.stage].cmd)
 
         # Entrypoint should use exec
         if not entrypoint.startswith("exec"):
@@ -112,7 +136,7 @@ class SingularityWriter(WriterBase):
             entrypoint = '%s "$@"' % entrypoint
         return entrypoint
 
-    def _create_section(self, attribute, name=None):
+    def _create_section(self, attribute, name=None, stage=None):
         """create a section based on key, value recipe pairs, 
            This is used for files or label
 
@@ -133,7 +157,7 @@ class SingularityWriter(WriterBase):
 
         # Only continue if we have the section and it's not empty
         try:
-            section = getattr(self.recipe, attribute)
+            section = getattr(self.recipe[self.stage], attribute)
         except AttributeError:
             bot.debug("Recipe does not have section for %s" % attribute)
             return section
@@ -144,7 +168,7 @@ class SingularityWriter(WriterBase):
 
         # Files
         if attribute in ["files", "labels"]:
-            return create_keyval_section(section, name)
+            return create_keyval_section(section, name, stage)
 
         # An environment section needs exports
         if attribute in ["environ"]:
@@ -180,7 +204,7 @@ def finish_section(section, name):
     return header + lines
 
 
-def create_keyval_section(pairs, name):
+def create_keyval_section(pairs, name, layer):
     """create a section based on key, value recipe pairs, 
        This is used for files or label
 
@@ -188,9 +212,12 @@ def create_keyval_section(pairs, name):
       ==========
       section: the list of values to return as a parsed list of lines
       name: the name of the section to write (e.g., files)
-
+      layer: if a layer name is provided, name section
     """
-    section = ["%" + name]
+    if layer:
+        section = ["%" + name + " from %s" % layer]
+    else:
+        section = ["%" + name]
     for pair in pairs:
         section.append(" ".join(pair).strip().strip("\\"))
     return section
