@@ -10,7 +10,6 @@ import re
 
 from spython.logger import bot
 from .base import ParserBase
-from ..recipe import Recipe
 
 
 class DockerParser(ParserBase):

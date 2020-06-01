@@ -41,7 +41,7 @@ def _logs(self, print_logs=False, ext="out"):
     """A shared function to print log files. The only differing element is
        the extension (err or out)
     """
-    from spython.utils import check_install, run_command
+    from spython.utils import check_install
 
     check_install()
 

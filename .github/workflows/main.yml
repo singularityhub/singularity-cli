@@ -11,13 +11,19 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Setup black linter
-        run: conda create --quiet --name black black
+        run: conda create --quiet --name black black pyflakes
 
-      - name: Lint python code
+      - name: Lint python code with black
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
           black --check spython
+
+      - name: Check unused imports with pyflakes
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate black
+          pyflakes spython/oci spython/image spython/instance spython/main
