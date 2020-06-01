@@ -6,7 +6,6 @@
 
 from spython.image import ImageBase
 from spython.logger import bot
-import os
 
 
 class OciImage(ImageBase):

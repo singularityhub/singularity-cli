@@ -76,7 +76,7 @@ class DockerWriter(WriterBase):
             uri_regexes = [_reduced_uri, _default_uri, _docker_uri]
 
             for r in uri_regexes:
-                match = r.match(parse.fromHeader)
+                match = r.match(parser.fromHeader)
                 if match:
                     break
 

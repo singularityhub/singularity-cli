@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - Small bugfix for docker writer and adding pyflakes for unused imports (0.0.84)
  - Adding support for multistage build parsing (0.0.83)
  - Singularity Python does not yet support multistage builds (0.0.82)
  - stream command should print to stdout given CalledProcessError (0.0.81)
