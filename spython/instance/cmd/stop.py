@@ -8,7 +8,7 @@
 from spython.logger import bot
 
 
-def stop(self, name=None, sudo=False, timeout=None, singularity_options=None):
+def stop(self, name=None, sudo=False,  sudo_options=None, timeout=None, singularity_options=None):
     """stop an instance. This is done by default when an instance is created.
 
        Parameters
@@ -42,7 +42,7 @@ def stop(self, name=None, sudo=False, timeout=None, singularity_options=None):
         instance_name = name
     cmd = cmd + [instance_name]
 
-    output = run_command(cmd, sudo=sudo, quiet=True)
+    output = run_command(cmd, sudo=sudo, sudo_options=sudo_options, quiet=True)
 
     if output["return_code"] != 0:
         message = "%s : return code %s" % (output["message"], output["return_code"])
