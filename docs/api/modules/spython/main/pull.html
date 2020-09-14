@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -157,8 +156,8 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">stream_command</span><span class="p">,</span> <span class="n">ScopedEnvVar</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">stream_command</span><span class="p">,</span> <span class="n">ScopedEnvVar</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
@@ -173,6 +172,7 @@
     <span class="n">capture</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;pull will pull a singularity hub or Docker image</span>
@@ -180,6 +180,7 @@
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       image: the complete image uri. If not provided, the client loaded is used</span>
+<span class="sd">       singularity_options: a list of options to provide to the singularity client</span>
 <span class="sd">       pull_folder: if not defined, pulls to $PWD (&#39;&#39;). If defined, pulls to</span>
 <span class="sd">                    user specified location instead.</span>
 
@@ -189,11 +190,11 @@
 <span class="sd">       ext: if no name specified, the default extension to use.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;pull&quot;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="s2">&quot;pull&quot;</span><span class="p">,</span> <span class="n">singularity_options</span><span class="p">)</span>
 
     <span class="c1"># Quiet is honored if set by the client, or user</span>
     <span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
@@ -209,9 +210,9 @@
     <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;You must provide an image uri, or use client.load() first.&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Singularity Only supports shub and Docker pull</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^(shub|docker)://&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;pull only valid for docker and shub. Use sregistry client.&quot;</span><span class="p">)</span>
+    <span class="c1"># Singularity Only supports shub, docker and library pull</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^(shub|docker|library)://&quot;</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;pull only valid for docker, shub and library. Use sregistry client.&quot;</span><span class="p">)</span>
 
     <span class="c1"># If we still don&#39;t have a custom name, base off of image uri.</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

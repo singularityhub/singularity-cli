@@ -1,2 +1,2 @@
-FROM busybox:latest
+FROM busybox:latest AS spython-base
 CMD exec /bin/bash echo hello "$@"

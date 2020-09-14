@@ -80,21 +80,28 @@ class DockerParser(ParserBase):
     # From Parser
 
     def _from(self, line):
-        """ get the FROM container image name from a FROM line!
+        """ get the FROM container image name from a FROM line. If we have
+            already seen a FROM statement, this is indicative of adding
+            another image (multistage build).
 
-           Parameters
-           ==========
-           line: the line from the recipe file to parse for FROM
-           recipe: the recipe object to populate.
+            Parameters
+            ==========
+            line: the line from the recipe file to parse for FROM
+            recipe: the recipe object to populate.
         """
         fromHeader = self._setup("FROM", line)
 
-        # Singularity does not support AS level
-        self.recipe.fromHeader = re.sub("AS .+", "", fromHeader[0], flags=re.I)
+        # Do we have a multistge build to update the active layer?
+        self._multistage(fromHeader[0])
 
-        if "scratch" in self.recipe.fromHeader:
+        # Now extract the from header, make args replacements
+        self.recipe[self.active_layer].fromHeader = self._replace_from_dict(
+            re.sub("AS .+", "", fromHeader[0], flags=re.I), self.args
+        )
+
+        if "scratch" in self.recipe[self.active_layer].fromHeader:
             bot.warning("scratch is no longer available on Docker Hub.")
-        bot.debug("FROM %s" % self.recipe.fromHeader)
+        bot.debug("FROM %s" % self.recipe[self.active_layer].fromHeader)
 
     # Run and Test Parser
 
@@ -107,7 +114,7 @@ class DockerParser(ParserBase):
 
         """
         line = self._setup("RUN", line)
-        self.recipe.install += line
+        self.recipe[self.active_layer].install += line
 
     def _test(self, line):
         """ A healthcheck is generally a test command
@@ -117,7 +124,7 @@ class DockerParser(ParserBase):
            line: the line from the recipe file to parse for FROM
 
         """
-        self.recipe.test = self._setup("HEALTHCHECK", line)
+        self.recipe[self.active_layer].test = self._setup("HEALTHCHECK", line)
 
     # Arg Parser
 
@@ -132,8 +139,27 @@ class DockerParser(ParserBase):
    
         """
         line = self._setup("ARG", line)
-        bot.warning("ARG is not supported for Singularity! To get %s" % line[0])
-        bot.warning("in the container, on host export SINGULARITY_%s" % line[0])
+
+        # Args are treated like envars, so we add them to install
+        environ = self.parse_env([x for x in line if "=" in x])
+        self.recipe[self.active_layer].install += environ
+
+        # Try to extract arguments from the line
+        for arg in line:
+
+            # An undefined arg cannot be used
+            if "=" not in arg:
+                bot.warning(
+                    "ARG is not supported for Singularity, and must be defined with "
+                    "a default to be parsed. Skipping %s" % arg
+                )
+                continue
+
+            arg, value = arg.split("=", 1)
+            arg = arg.strip()
+            value = value.strip()
+            bot.debug("Updating ARG %s to %s" % (arg, value))
+            self.args[arg] = value
 
     # Env Parser
 
@@ -152,10 +178,10 @@ class DockerParser(ParserBase):
         environ = self.parse_env(line)
 
         # Add to global environment, run during install
-        self.recipe.install += environ
+        self.recipe[self.active_layer].install += environ
 
         # Also define for global environment
-        self.recipe.environ += environ
+        self.recipe[self.active_layer].environ += environ
 
     def parse_env(self, envlist):
         """parse_env will parse a single line (with prefix like ENV removed) to
@@ -216,10 +242,25 @@ class DockerParser(ParserBase):
         lines = self._setup("COPY", lines)
 
         for line in lines:
+
+            # Take into account multistage builds
+            layer = None
+            if line.startswith("--from"):
+                layer = line.strip("--from").split(" ")[0].lstrip("=")
+                if layer not in self.recipe:
+                    bot.warning(
+                        "COPY requested from layer %s, but layer not previously defined."
+                        % layer
+                    )
+                    continue
+
+                # Remove the --from from the line
+                line = " ".join([l for l in line.split(" ")[1:] if l])
+
             values = line.split(" ")
             topath = values.pop()
             for frompath in values:
-                self._add_files(frompath, topath)
+                self._add_files(frompath, topath, layer)
 
     def _add(self, lines):
         """Add can also handle https, and compressed files.
@@ -254,7 +295,7 @@ class DockerParser(ParserBase):
 
     # File Handling
 
-    def _add_files(self, source, dest):
+    def _add_files(self, source, dest, layer=None):
         """add files is the underlying function called to add files to the
            list, whether originally called from the functions to parse archives,
            or https. We make sure that any local references are changed to
@@ -271,11 +312,18 @@ class DockerParser(ParserBase):
             bot.warning("Singularity doesn't support expansion, * found in %s" % source)
 
         # Warning if file/folder (src) doesn't exist
-        if not os.path.exists(source):
+        if not os.path.exists(source) and layer is None:
             bot.warning("%s doesn't exist, ensure exists for build" % source)
 
         # The pair is added to the files as a list
-        self.recipe.files.append([source, dest])
+        if not layer:
+            self.recipe[self.active_layer].files.append([source, dest])
+
+        # Unless the file is to be copied from a particular layer
+        else:
+            if layer not in self.recipe[self.active_layer].layer_files:
+                self.recipe[self.active_layer].layer_files[layer] = []
+            self.recipe[self.active_layer].layer_files[layer].append([source, dest])
 
     def _parse_http(self, url, dest):
         """will get the filename of an http address, and return a statement
@@ -290,7 +338,7 @@ class DockerParser(ParserBase):
         file_name = os.path.basename(url)
         download_path = "%s/%s" % (dest, file_name)
         command = "curl %s -o %s" % (url, download_path)
-        self.recipe.install.append(command)
+        self.recipe[self.active_layer].install.append(command)
 
     def _parse_archive(self, targz, dest):
         """parse_targz will add a line to the install script to extract a 
@@ -304,7 +352,7 @@ class DockerParser(ParserBase):
         """
 
         # Add command to extract it
-        self.recipe.install.append("tar -zvf %s %s" % (targz, dest))
+        self.recipe[self.active_layer].install.append("tar -zvf %s %s" % (targz, dest))
 
         # Ensure added to container files
         return self._add_files(targz, dest)
@@ -321,7 +369,7 @@ class DockerParser(ParserBase):
            line: the line from the recipe file to parse to INSTALL
 
         """
-        self.recipe.install.append(line)
+        self.recipe[self.active_layer].install.append(line)
 
     def _default(self, line):
         """the default action assumes a line that is either a command (a 
@@ -333,7 +381,7 @@ class DockerParser(ParserBase):
         """
         if line.strip().startswith("#"):
             return self._comment(line)
-        self.recipe.install.append(line)
+        self.recipe[self.active_layer].install.append(line)
 
     # Ports and Volumes
 
@@ -349,7 +397,7 @@ class DockerParser(ParserBase):
         """
         volumes = self._setup("VOLUME", line)
         if volumes:
-            self.recipe.volumes += volumes
+            self.recipe[self.active_layer].volumes += volumes
         return self._comment("# %s" % line)
 
     def _expose(self, line):
@@ -362,7 +410,7 @@ class DockerParser(ParserBase):
         """
         ports = self._setup("EXPOSE", line)
         if ports:
-            self.recipe.ports += ports
+            self.recipe[self.active_layer].ports += ports
         return self._comment("# %s" % line)
 
     # Working Directory
@@ -378,8 +426,8 @@ class DockerParser(ParserBase):
         # Save the last working directory to add to the runscript
         workdir = self._setup("WORKDIR", line)
         workdir_cd = "cd %s" % ("".join(workdir))
-        self.recipe.install.append(workdir_cd)
-        self.recipe.workdir = workdir[0]
+        self.recipe[self.active_layer].install.append(workdir_cd)
+        self.recipe[self.active_layer].workdir = workdir[0]
 
     # Entrypoint and Command
 
@@ -395,7 +443,7 @@ class DockerParser(ParserBase):
 
         """
         cmd = self._setup("CMD", line)[0]
-        self.recipe.cmd = self._load_list(cmd)
+        self.recipe[self.active_layer].cmd = self._load_list(cmd)
 
     def _load_list(self, line):
         """load an entrypoint or command, meaning it can be wrapped in a list
@@ -419,7 +467,7 @@ class DockerParser(ParserBase):
 
         """
         entrypoint = self._setup("ENTRYPOINT", line)[0]
-        self.recipe.entrypoint = self._load_list(entrypoint)
+        self.recipe[self.active_layer].entrypoint = self._load_list(entrypoint)
 
     # Labels
 
@@ -432,7 +480,7 @@ class DockerParser(ParserBase):
 
         """
         label = self._setup("LABEL", line)
-        self.recipe.labels += [label]
+        self.recipe[self.active_layer].labels += [label]
 
     # Main Parsing Functions
 

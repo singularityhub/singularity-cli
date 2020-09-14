@@ -18,11 +18,6 @@ from .sutils import get_uri, load, setenv, get_filename
 from .logger import println, init_level
 from .generate import RobotNamer
 
-import json
-import sys
-import os
-import re
-
 
 class Client:
     def __str__(self):

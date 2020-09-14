@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../assets/language_data.js"></script>
+        <script src="../../assets/jquery.js"></script>
+        <script src="../../assets/underscore.js"></script>
+        <script src="../../assets/doctools.js"></script>
+        <script src="../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -282,7 +281,7 @@
     <span class="n">os</span><span class="o">.</span><span class="n">putenv</span><span class="p">(</span><span class="s2">&quot;SINGULARITY_MESSAGELEVEL&quot;</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
 
     <span class="c1"># Import logger to set</span>
-    <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+    <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 
     <span class="n">bot</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Logging level </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">level</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">spython</span>
@@ -332,13 +331,13 @@
 
     <span class="c1"># Does the user want help for a subcommand?</span>
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;recipe&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.recipe</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+        <span class="kn">from</span> <span class="nn">.recipe</span> <span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
 
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;shell&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.shell</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+        <span class="kn">from</span> <span class="nn">.shell</span> <span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
 
     <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s2">&quot;test&quot;</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">.test</span> <span class="k">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
+        <span class="kn">from</span> <span class="nn">.test</span> <span class="kn">import</span> <span class="n">main</span> <span class="k">as</span> <span class="n">func</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">print_help</span><span class="p">()</span>

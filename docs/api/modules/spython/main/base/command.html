@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../../assets/language_data.js"></script>
+        <script src="../../../../assets/jquery.js"></script>
+        <script src="../../../../assets/underscore.js"></script>
+        <script src="../../../../assets/doctools.js"></script>
+        <script src="../../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -159,9 +158,9 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
 
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -174,13 +173,13 @@
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
 <span class="sd">       action: the main action to perform (e.g., build)</span>
-<span class="sd">       flags: one or more additional flags (e.g, volumes) </span>
-<span class="sd">              not implemented yet.</span>
+<span class="sd">       flags: one or more additional singularity options</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span> <span class="ow">or</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">action</span> <span class="o">=</span> <span class="p">[</span><span class="n">action</span><span class="p">]</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;singularity&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">action</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;singularity&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">flags</span> <span class="o">+</span> <span class="n">action</span>
 
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">)</span>

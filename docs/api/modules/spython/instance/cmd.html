@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -163,18 +162,18 @@
 <span class="sd">        client via the environment variable MESSAGELEVEL.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="k">import</span> <span class="n">Instance</span>
+    <span class="kn">from</span> <span class="nn">spython.instance</span> <span class="kn">import</span> <span class="n">Instance</span>
 
-    <span class="kn">from</span> <span class="nn">spython.main.base.logger</span> <span class="k">import</span> <span class="n">println</span>
-    <span class="kn">from</span> <span class="nn">spython.main.instances</span> <span class="k">import</span> <span class="n">list_instances</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
+    <span class="kn">from</span> <span class="nn">spython.main.base.logger</span> <span class="kn">import</span> <span class="n">println</span>
+    <span class="kn">from</span> <span class="nn">spython.main.instances</span> <span class="kn">import</span> <span class="n">list_instances</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">run_command</span> <span class="k">as</span> <span class="n">run_cmd</span>
 
     <span class="c1"># run_command uses run_cmd, but wraps to catch error</span>
-    <span class="kn">from</span> <span class="nn">spython.main.base.command</span> <span class="k">import</span> <span class="n">init_command</span><span class="p">,</span> <span class="n">run_command</span>
-    <span class="kn">from</span> <span class="nn">spython.main.base.generate</span> <span class="k">import</span> <span class="n">RobotNamer</span>
-    <span class="kn">from</span> <span class="nn">.start</span> <span class="k">import</span> <span class="n">start</span>
-    <span class="kn">from</span> <span class="nn">.stop</span> <span class="k">import</span> <span class="n">stop</span>
-    <span class="kn">from</span> <span class="nn">.logs</span> <span class="k">import</span> <span class="n">error_logs</span><span class="p">,</span> <span class="n">output_logs</span><span class="p">,</span> <span class="n">_logs</span>
+    <span class="kn">from</span> <span class="nn">spython.main.base.command</span> <span class="kn">import</span> <span class="n">init_command</span><span class="p">,</span> <span class="n">run_command</span>
+    <span class="kn">from</span> <span class="nn">spython.main.base.generate</span> <span class="kn">import</span> <span class="n">RobotNamer</span>
+    <span class="kn">from</span> <span class="nn">.start</span> <span class="kn">import</span> <span class="n">start</span>
+    <span class="kn">from</span> <span class="nn">.stop</span> <span class="kn">import</span> <span class="n">stop</span>
+    <span class="kn">from</span> <span class="nn">.logs</span> <span class="kn">import</span> <span class="n">error_logs</span><span class="p">,</span> <span class="n">output_logs</span><span class="p">,</span> <span class="n">_logs</span>
 
     <span class="n">Instance</span><span class="o">.</span><span class="n">RobotNamer</span> <span class="o">=</span> <span class="n">RobotNamer</span><span class="p">()</span>
     <span class="n">Instance</span><span class="o">.</span><span class="n">_init_command</span> <span class="o">=</span> <span class="n">init_command</span>

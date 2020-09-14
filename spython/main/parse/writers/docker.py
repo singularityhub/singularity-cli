@@ -66,19 +66,22 @@ class DockerWriter(WriterBase):
         if self.recipe is None:
             bot.exit("Please provide a Recipe() to the writer first.")
 
-        if self.recipe.fromHeader is None:
+    def validate_stage(self, parser):
+        """Given a recipe parser for a stage, ensure that the recipe is valid
+        """
+        if parser.fromHeader is None:
             bot.exit("Dockerfile requires a fromHeader.")
 
             # Parse the provided name
             uri_regexes = [_reduced_uri, _default_uri, _docker_uri]
 
             for r in uri_regexes:
-                match = r.match(self.recipe.fromHeader)
+                match = r.match(parser.fromHeader)
                 if match:
                     break
 
             if not match:
-                bot.exit("FROM header %s not valid." % self.recipe.fromHeader)
+                bot.exit("FROM header %s not valid." % parser.fromHeader)
 
     def convert(self, runscript="/bin/bash", force=False):
         """convert is called by the parent class to convert the recipe object
@@ -86,34 +89,41 @@ class DockerWriter(WriterBase):
         """
         self.validate()
 
-        recipe = ["FROM %s" % self.recipe.fromHeader]
+        recipe = []
+        for stage, parser in self.recipe.items():
+            self.validate_stage(parser)
 
-        # Comments go up front!
-        recipe += self.recipe.comments
+            recipe += ["FROM %s AS %s" % (parser.fromHeader, stage)]
 
-        # First add files, labels, environment
-        recipe += write_files("ADD", self.recipe.files)
-        recipe += write_lines("LABEL", self.recipe.labels)
-        recipe += write_lines("ENV", self.recipe.environ)
+            # First add files, labels, environment
+            recipe += write_files("ADD", parser.files)
+            recipe += write_lines("LABEL", parser.labels)
+            recipe += write_lines("ENV", parser.environ)
 
-        # Install routine is added as RUN commands
-        recipe += write_lines("RUN", self.recipe.install)
+            # Handle custom files from other layers
+            for layer, files in parser.layer_files.items():
+                for pair in files:
+                    recipe += ["COPY --from=%s %s" % (layer, pair)]
 
-        # Expose ports
-        recipe += write_lines("EXPOSE", self.recipe.ports)
+            # Install routine is added as RUN commands
+            # TODO: this needs some work
+            recipe += write_lines("RUN", parser.install)
 
-        if self.recipe.workdir is not None:
-            recipe.append("WORKDIR %s" % self.recipe.workdir)
+            # Expose ports
+            recipe += write_lines("EXPOSE", parser.ports)
 
-        # write the command, and entrypoint as is
-        if self.recipe.cmd is not None:
-            recipe.append("CMD %s" % self.recipe.cmd)
+            if parser.workdir is not None:
+                recipe.append("WORKDIR %s" % parser.workdir)
 
-        if self.recipe.entrypoint is not None:
-            recipe.append("ENTRYPOINT %s" % self.recipe.entrypoint)
+            # write the command, and entrypoint as is
+            if parser.cmd is not None:
+                recipe.append("CMD %s" % parser.cmd)
 
-        if self.recipe.test is not None:
-            recipe += write_lines("HEALTHCHECK", self.recipe.test)
+            if parser.entrypoint is not None:
+                recipe.append("ENTRYPOINT %s" % parser.entrypoint)
+
+            if parser.test is not None:
+                recipe += write_lines("HEALTHCHECK", parser.test)
 
         # Clean up extra white spaces
         recipe = "\n".join(recipe).replace("\n\n", "\n")

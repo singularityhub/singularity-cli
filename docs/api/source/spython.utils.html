@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../assets/jquery.js"></script>
-        <script type="text/javascript" src="../assets/underscore.js"></script>
-        <script type="text/javascript" src="../assets/doctools.js"></script>
-        <script type="text/javascript" src="../assets/language_data.js"></script>
+        <script src="../assets/jquery.js"></script>
+        <script src="../assets/underscore.js"></script>
+        <script src="../assets/doctools.js"></script>
+        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="CHANGELOG" href="../changelog.html" />
+    <link rel="next" title="&lt;no title&gt;" href="../changelog.html" />
     <link rel="prev" title="spython.main.parse package" href="spython.main.parse.html" /> 
 </head>
 
@@ -106,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -184,37 +183,37 @@
 <p>This Source Code Form is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.fileio.mkdir_p">
-<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">mkdir_p</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#mkdir_p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.mkdir_p" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">mkdir_p</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#mkdir_p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.mkdir_p" title="Permalink to this definition">¶</a></dt>
 <dd><p>mkdir_p attempts to get the same functionality as mkdir -p
 :param path: the path to create.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.fileio.read_file">
-<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">read_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">mode='r'</em>, <em class="sig-param">readlines=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">read_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="n">readlines</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>write_file will open a file, “filename” and write content, “content”
 and properly close the file</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.fileio.read_json">
-<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">read_json</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">mode='r'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#read_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_json" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">read_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#read_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.read_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>read_json reads in a json file and returns
 the data structure as dict.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.fileio.write_file">
-<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">write_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">content</em>, <em class="sig-param">mode='w'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#write_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">write_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">content</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'w'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#write_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>write_file will open a file, “filename” and write content, “content”
 and properly close the file</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.fileio.write_json">
-<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">write_json</code><span class="sig-paren">(</span><em class="sig-param">json_obj</em>, <em class="sig-param">filename</em>, <em class="sig-param">mode='w'</em>, <em class="sig-param">print_pretty=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_json" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.fileio.</code><code class="sig-name descname">write_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json_obj</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'w'</span></em>, <em class="sig-param"><span class="n">print_pretty</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/fileio.html#write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.fileio.write_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>write_json will (optionally,pretty print) a json object to file
 :param json_obj: the dict to print to json
 :param filename: the output file to write to
@@ -228,29 +227,29 @@ and properly close the file</p>
 <p>This Source Code Form is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.check_install">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">check_install</code><span class="sig-paren">(</span><em class="sig-param">software='singularity'</em>, <em class="sig-param">quiet=True</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.check_install" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">check_install</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">software</span><span class="o">=</span><span class="default_value">'singularity'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#check_install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.check_install" title="Permalink to this definition">¶</a></dt>
 <dd><p>check_install will attempt to run the singularity command, and
 return True if installed. The command line utils will not run
 without this check.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.format_container_name">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">format_container_name</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">special_characters=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#format_container_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.format_container_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">format_container_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">special_characters</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#format_container_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.format_container_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>format_container_name will take a name supplied by the user,
 remove all special characters (except for those defined by “special-characters”
 and return the new image name.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.get_installdir">
 <code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">get_installdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_installdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_installdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>get_installdir returns the installation directory of the application</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.get_singularity_version">
 <code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">get_singularity_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_singularity_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_singularity_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the full singularity client version as reported by
@@ -258,33 +257,33 @@ singularity –version […]. For Singularity 3.x, this means:
 “singularity version 3.0.1-1”</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.get_singularity_version_info">
 <code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">get_singularity_version_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_singularity_version_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_singularity_version_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the full singularity client version as a semantic version”</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.get_userhome">
 <code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">get_userhome</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_userhome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_userhome" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the user home based on the effective uid</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.get_username">
 <code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">get_username</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#get_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.get_username" title="Permalink to this definition">¶</a></dt>
 <dd><p>get the user name based on the effective uid</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.remove_uri">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">remove_uri</code><span class="sig-paren">(</span><em class="sig-param">container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.remove_uri" title="Permalink to this definition">¶</a></dt>
-<dd><p>remove_uri will remove docker:// or shub:// from the uri</p>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">remove_uri</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">container</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#remove_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.remove_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove_uri will remove docker:// or shub:// or library:// from the uri</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.run_command">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param">cmd</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">capture=True</em>, <em class="sig-param">no_newline_regexp='Progess'</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal. If
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
@@ -303,17 +302,17 @@ as output.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.split_uri">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">split_uri</code><span class="sig-paren">(</span><em class="sig-param">container</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#split_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.split_uri" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">split_uri</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">container</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#split_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.split_uri" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split the uri of a container into the protocol and image part</p>
 <p>An empty protocol is returned if none found.
 A trailing slash is removed from the image part.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.stream_command">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">stream_command</code><span class="sig-paren">(</span><em class="sig-param">cmd</em>, <em class="sig-param">no_newline_regexp='Progess'</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#stream_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.stream_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">stream_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#stream_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.stream_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>stream a command (yield) back to the user, as each line is available.</p>
 <p># Example usage:
 results = []
@@ -333,9 +332,9 @@ results.append(line)</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="spython.utils.terminal.which">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">which</code><span class="sig-paren">(</span><em class="sig-param">software='singularity'</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#which"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.which" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">which</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">software</span><span class="o">=</span><span class="default_value">'singularity'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#which"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.which" title="Permalink to this definition">¶</a></dt>
 <dd><p>which returns the full path to where software is installed.</p>
 </dd></dl>
 
@@ -353,7 +352,7 @@ results.append(line)</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../changelog.html" class="btn btn-neutral float-right" title="CHANGELOG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="spython.main.parse.html" class="btn btn-neutral float-left" title="spython.main.parse package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

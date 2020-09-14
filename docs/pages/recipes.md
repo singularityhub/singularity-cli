@@ -22,6 +22,10 @@ Now we can answer what kind of things might you want to do:
  - convert a Singularity Recipe to a Dockerfile
  - read in a recipe of either type, and modify it before doing the above
 
+**Important** Singularity Python added support for parsing [multistage builds](https://sylabs.io/guides/3.5/user-guide/definition_files.html#multi-stage-builds) for version 0.0.83 and after. By default,
+any base layer that isn't named is called `spython-base` unless you have named
+it otherwise.
+
 
 # Command Line Client
 
@@ -31,7 +35,7 @@ for quick visual inspection or piping into an output file. If you use the
 `spython` utility, you can see your options available:
 
 
-```
+```bash
 spython recipe --help
 
 usage: spython recipe [-h] [--entrypoint ENTRYPOINT] [--json] [--force]
@@ -108,7 +112,7 @@ $ spython recipe --parser singularity container.def
 
 Another customization to a recipe can be modifying the entrypoint on the fly.
 
-```
+```bash
 $ spython recipe --entrypoint /bin/sh Dockerfile
 ...
 %runscript
@@ -150,7 +154,7 @@ technology) you can do that.
 
 ```python
 from spython.main.parse.recipe import Recipe
-recipe = Recipe
+recipe = Recipe()
 ```
 
 By default, the recipe starts empty.
@@ -175,6 +179,7 @@ recipe.labels = ['Maintainer vanessasaur']
 recipe.ports = ['3031']
 recipe.volumes = ['/data']
 recipe.workdir = '/code'
+recipe.fromHeader =  'ubuntu:18:04'
 ```
 
 And then verify they are added:
@@ -195,6 +200,24 @@ recipe.json()
 ```
 
 And then you can use a [writer](#writer) to print a custom recipe type to file.
+Note that the writer is intended for multistage builds, meaning that the recipe
+you provide it should be a lookup with sections. For example:
+
+```
+from spython.main.parse.writers import DockerWriter
+writer = DockerWriter({"baselayer": recipe})
+
+FROM ubuntu:18:04 AS baselayer
+ADD one two
+LABEL Maintainer vanessasaur
+ENV PANCAKES=WITHSYRUP
+RUN apt-get update
+EXPOSE 3031
+WORKDIR /code
+CMD ['echo', 'hello']
+ENTRYPOINT /bin/bash
+HEALTHCHECK true
+```
 
 # Parsers
 
@@ -220,42 +243,66 @@ then give it a Dockerfile to munch on.
 parser=DockerParser('Dockerfile')
 ```
 
-By default, it will parse the Dockerfile (or other container recipe) into a `Recipe`
-class, provided at `parser.recipe`:
+By default, it will parse the Dockerfile (or other container recipe) into a lookup of `Recipe`
+class, each of which is a layer / stage for the build.
 
 ```python
-parser.recipe
-[spython-recipe][source:/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli/Dockerfile]
+> parser.recipe
+{'builder': [spython-recipe][source:/home/vanessa/Desktop/Code/singularity-cli/Dockerfile],
+ 'runner': [spython-recipe][source:/home/vanessa/Desktop/Code/singularity-cli/Dockerfile]}
 ```
 
-You can quickly see the fields with the .json function:
+In the above, we see that the Dockerfile has two staged, the first named `builder`
+and the second named `runner`. You can inspect each of these recipes by indexing into
+the dictionary. E.g., here is how to look at the .json output as we did previously:
 
 ```python
-parser.recipe.json()
-{'cmd': '/code/run_uwsgi.sh',
- 'environ': ['PYTHONUNBUFFERED=1'],
- 'files': [['requirements.txt', '/tmp/requirements.txt'],
-  ['/home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli',
-   '/code/']],
- 'install': ['PYTHONUNBUFFERED=1',
-...
+parser.recipe['runner'].json()                                                                                                             
+Out[6]: 
+{'fromHeader': 'ubuntu:20.04 ',
+ 'layer_files': {'builder': [['/build_thirdparty/usr/', '/usr/'],
+   ['/build${PROJ_INSTALL_PREFIX}/share/proj/',
+    '${PROJ_INSTALL_PREFIX}/share/proj/'],
+   ['/build${PROJ_INSTALL_PREFIX}/include/',
+    '${PROJ_INSTALL_PREFIX}/include/'],
+   ['/build${PROJ_INSTALL_PREFIX}/bin/', '${PROJ_INSTALL_PREFIX}/bin/'],
+   ['/build${PROJ_INSTALL_PREFIX}/lib/', '${PROJ_INSTALL_PREFIX}/lib/'],
+   ['/build/usr/share/gdal/', '/usr/share/gdal/'],
+   ['/build/usr/include/', '/usr/include/'],
+   ['/build_gdal_python/usr/', '/usr/'],
+   ['/build_gdal_version_changing/usr/', '/usr/']]},
+ 'install': ['\n',
+  'date',
+  '\n',
+  '# PROJ dependencies\n',
+  'apt-get update; \\',
+  'DEBIAN_FRONTEND=noninteractive apt-get install -y \\',
+   ...
+  '\n',
+  'ldconfig']}
 ```
 
+Notice in the above that we have a section called `layer_files` that a writer knows
+how to parse into a `%files` section from the previous layer. 
 All of these fields are attributes of the recipe, so you could change or otherwise
-interact with them:
+interact with them. For example, here we are adding an entrypoint.
 
 ```python
-parser.recipe.entrypoint = '/bin/sh'
+parser.recipe['runner'].entrypoint = '/bin/sh'
 ```
 
-or if you don't want to, you can skip automatic parsing:
+or if you don't want to, you can skip automatic parsing. Here we inspect a single,
+empty recipe layer:
 
 ```python
-parser = DockerParser('Dockerfile', load=False)
-parser.recipe.json()
+parser = DockerParser('Dockerfile', load=False) parser.recipe                                                                                                                             
+{'spython-base': [spython-recipe][source:/home/vanessa/Desktop/Code/singularity-cli/Dockerfile]}
+
+parser.recipe['spython-base'].json()
+{}
 ```
 
-And then parse it later:
+WHen you are ready to parse it (to show the layers we saw previously)
 
 ```python
 parser.parse()
@@ -268,9 +315,10 @@ SingularityParser = get_parser("Singularity")
 parser = SingularityParser("Singularity")
 ```
 ```python
-parser.recipe.json()
-Out[16]: 
+parser.recipe['spython-base'].json()                                                                                                      
+Out[21]: 
 {'cmd': 'exec /opt/conda/bin/spython "$@"',
+ 'fromHeader': 'continuumio/miniconda3',
  'install': ['apt-get update && apt-get install -y git',
   '# Dependencies',
   'cd /opt',
@@ -279,7 +327,6 @@ Out[16]:
   '/opt/conda/bin/pip install setuptools',
   '/opt/conda/bin/python setup.py install'],
  'labels': ['maintainer vsochat@stanford.edu']}
-
 ```
 
 # Writers
@@ -352,7 +399,7 @@ writer = DockerWriter(parser.recipe)
 print(writer.convert())
 ```
 ```
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3 AS spython-base
 LABEL maintainer vsochat@stanford.edu
 RUN apt-get update && apt-get install -y git
 RUN cd /opt

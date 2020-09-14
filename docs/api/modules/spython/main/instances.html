@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -157,11 +156,18 @@
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
 
-<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="k">import</span> <span class="n">bot</span>
-<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">run_command</span>
+<span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
+<span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">run_command</span>
 
 
-<div class="viewcode-block" id="list_instances"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.list_instances">[docs]</a><span class="k">def</span> <span class="nf">list_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="list_instances"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.list_instances">[docs]</a><span class="k">def</span> <span class="nf">list_instances</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;list instances. For Singularity, this is provided as a command sub</span>
 <span class="sd">       group.</span>
 
@@ -174,6 +180,7 @@
 <span class="sd">       ==========</span>
 <span class="sd">       return_json: return a json list of instances instead of objects (False)</span>
 <span class="sd">       name: if defined, return the list for just one instance (used to ged pid)</span>
+<span class="sd">       singularity_options: a list of options to provide to the singularity client</span>
 
 <span class="sd">       Return Code  --   Reason</span>
 <span class="sd">       0 -- Instances Found</span>
@@ -181,8 +188,8 @@
 <span class="sd">       255 -- Couldn&#39;t get UID</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.instance.cmd.iutils</span> <span class="k">import</span> <span class="n">parse_table</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+    <span class="kn">from</span> <span class="nn">spython.instance.cmd.iutils</span> <span class="kn">import</span> <span class="n">parse_table</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
     <span class="n">check_install</span><span class="p">()</span>
 
@@ -191,7 +198,7 @@
     <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;list&quot;</span><span class="p">]</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">,</span> <span class="n">singularity_options</span><span class="p">)</span>
 
     <span class="c1"># If the user has provided a name, we want to see a particular instance</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -255,7 +262,7 @@
     <span class="k">return</span> <span class="n">instances</span></div>
 
 
-<div class="viewcode-block" id="stopall"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.stopall">[docs]</a><span class="k">def</span> <span class="nf">stopall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="stopall"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.instances.stopall">[docs]</a><span class="k">def</span> <span class="nf">stopall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;stop ALL instances. This command is only added to the command group</span>
 <span class="sd">       as it doesn&#39;t make sense to call from a single instance</span>
 
@@ -265,7 +272,7 @@
 <span class="sd">             instances)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
     <span class="n">check_install</span><span class="p">()</span>
 
@@ -274,7 +281,7 @@
     <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
         <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]</span>
 
-    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">,</span> <span class="n">singularity_options</span><span class="p">)</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;--all&quot;</span><span class="p">]</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
 

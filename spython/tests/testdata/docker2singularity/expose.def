@@ -1,5 +1,7 @@
 Bootstrap: docker
 From: busybox:latest
+Stage: spython-base
+
 %post
 # EXPOSE 3031
 # EXPOSE 9000

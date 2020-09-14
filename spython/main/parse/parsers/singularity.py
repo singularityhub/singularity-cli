@@ -38,21 +38,7 @@ class SingularityParser(ParserBase):
                         cd first in a line is parsed as WORKDIR
 
         """
-        # If the recipe isn't loaded, load it
-        if not hasattr(self, "config"):
-            self.load_recipe()
-
-        # Parse each section
-        for section, lines in self.config.items():
-            bot.debug(section)
-
-            # Get the correct parsing function
-            parser = self._get_mapping(section)
-
-            # Parse it, if appropriate
-            if parser:
-                parser(lines)
-
+        self.load_recipe()
         return self.recipe
 
     # Setup for each Parser
@@ -91,8 +77,8 @@ class SingularityParser(ParserBase):
            line: the line from the recipe file to parse for FROM
 
         """
-        self.recipe.fromHeader = line
-        bot.debug("FROM %s" % self.recipe.fromHeader)
+        self.recipe[self.active_layer].fromHeader = line
+        bot.debug("FROM %s" % self.recipe[self.active_layer].fromHeader)
 
     # Run and Test Parser
 
@@ -105,7 +91,7 @@ class SingularityParser(ParserBase):
 
         """
         self._write_script("/tests.sh", lines)
-        self.recipe.test = "/bin/bash /tests.sh"
+        self.recipe[self.active_layer].test = "/bin/bash /tests.sh"
 
     # Env Parser
 
@@ -120,11 +106,11 @@ class SingularityParser(ParserBase):
 
         """
         environ = [re.sub("^export", "", x).strip() for x in lines if "=" in x]
-        self.recipe.environ += environ
+        self.recipe[self.active_layer].environ += environ
 
     # Files for container
 
-    def _files(self, lines):
+    def _files(self, lines, layer=None):
         """parse_files will simply add the list of files to the correct object
  
            Parameters
@@ -132,7 +118,12 @@ class SingularityParser(ParserBase):
            lines: pairs of files, one pair per line
    
         """
-        self.recipe.files += lines
+        if not layer:
+            self.recipe[self.active_layer].files += lines
+        else:
+            if layer not in self.recipe[self.active_layer].layer_files:
+                self.recipe[self.active_layer].layer_files[layer] = []
+            self.recipe[self.active_layer].layer_files[layer] += lines
 
     # Comments and Help
 
@@ -147,7 +138,8 @@ class SingularityParser(ParserBase):
         """
         for line in lines:
             comment = self._comment(line)
-            self.recipe.comments.append(comment)
+            if comment not in self.recipe[self.active_layer].comments:
+                self.recipe[self.active_layer].comments.append(comment)
 
     def _comment(self, line):
         """Simply add the line to the install as a comment. Add an extra # to be
@@ -184,7 +176,7 @@ class SingularityParser(ParserBase):
             self._write_script("/entrypoint.sh", lines)
             runscript = "/bin/bash /entrypoint.sh"
 
-        self.recipe.cmd = runscript
+        self.recipe[self.active_layer].cmd = runscript
 
     # Labels
 
@@ -196,7 +188,7 @@ class SingularityParser(ParserBase):
            lines: the lines from the recipe with key,value pairs
 
         """
-        self.recipe.labels += lines
+        self.recipe[self.active_layer].labels += lines
 
     def _post(self, lines):
         """the main core of commands, to be added to the install section
@@ -206,7 +198,7 @@ class SingularityParser(ParserBase):
            lines: the lines from the recipe with install commands
 
         """
-        self.recipe.install += lines
+        self.recipe[self.active_layer].install += lines
 
     # Main Parsing Functions
 
@@ -252,17 +244,16 @@ class SingularityParser(ParserBase):
         """
         # Remove any comments
         line = line.split("#", 1)[0]
-        line = re.sub("(F|f)(R|r)(O|o)(M|m):", "", line).strip()
-        self.config["from"] = line
+        line = re.sub("from:", "", line.lower()).strip()
+        self.recipe[self.active_layer].fromHeader = line
 
-    def _load_bootstrap(self, line):
-        """load bootstrap checks that the bootstrap is Docker, otherwise we
-           exit on fail (there is no other option to convert to Dockerfile!
+    def _check_bootstrap(self, line):
+        """checks that the bootstrap is Docker, otherwise we exit on fail.
         """
-        if "docker" not in line.lower():
-            raise NotImplementedError("docker not detected as Bootstrap!")
+        if not re.search("docker", line, re.IGNORECASE):
+            raise NotImplementedError("Only docker is supported.")
 
-    def _load_section(self, lines, section):
+    def _load_section(self, lines, section, layer=None):
         """read in a section to a list, and stop when we hit the next section
         """
         members = []
@@ -272,6 +263,10 @@ class SingularityParser(ParserBase):
             if not lines:
                 break
             next_line = lines[0]
+
+            # We have a start of another bootstrap
+            if re.search("bootstrap:", next_line, re.IGNORECASE):
+                break
 
             # The end of a section
             if next_line.strip().startswith("%"):
@@ -284,9 +279,19 @@ class SingularityParser(ParserBase):
                     members.append(new_member)
 
         # Add the list to the config
-        if members:
-            if section is not None:
-                self.config[section] += members
+        if members and section is not None:
+
+            # Get the correct parsing function
+            parser = self._get_mapping(section)
+
+            # Parse it, if appropriate
+            if not parser:
+                bot.warning("%s is an unrecognized section, skipping." % section)
+            else:
+                if section == "files":
+                    parser(members, layer)
+                else:
+                    parser(members)
 
     def load_recipe(self):
         """load_recipe will return a loaded in singularity recipe. The idea
@@ -300,12 +305,8 @@ class SingularityParser(ParserBase):
 
         # Comments between sections, add to top of file
         lines = self.lines[:]
-        comments = []
-
-        # Start with a fresh config!
-        self.config = dict()
-
-        section = None
+        fromHeader = None
+        stage = None
 
         while lines:
 
@@ -314,55 +315,58 @@ class SingularityParser(ParserBase):
             stripped = line.strip()
 
             # Bootstrap Line
-            if re.search("(b|B)(o|O){2}(t|T)(s|S)(t|T)(r|R)(a|A)(p|P)", line):
-                self._load_bootstrap(stripped)
+            if re.search("bootstrap", line, re.IGNORECASE):
+                self._check_bootstrap(stripped)
+                section = None
+                comments = []
 
             # From Line
-            if re.search("(f|F)(r|R)(O|o)(m|M)", stripped):
-                self._load_from(stripped)
+            elif re.search("from:", stripped, re.IGNORECASE):
+                fromHeader = stripped
+                if stage is None:
+                    self._load_from(fromHeader)
+
+            # Identify stage
+            elif re.search("stage:", stripped, re.IGNORECASE):
+                stage = re.sub("stage:", "", stripped.lower()).strip()
+                self._multistage("as %s" % stage)
+                self._load_from(fromHeader)
 
             # Comment
-            if stripped.startswith("#"):
+            elif stripped.startswith("#") and stripped not in comments:
                 comments.append(stripped)
-                continue
 
             # Section
             elif stripped.startswith("%"):
-                section = self._add_section(stripped)
-                bot.debug("Adding section title %s" % section)
+                section, layer = self._get_section(stripped)
+                bot.debug("Found section %s" % section)
 
             # If we have a section, and are adding it
             elif section is not None:
                 lines = [line] + lines
-                self._load_section(lines=lines, section=section)
+                self._load_section(lines=lines, section=section, layer=layer)
 
-            self.config["comments"] = comments
+            self._comments(comments)
 
-    def _add_section(self, line, section=None):
-        """parse a line for a section, and return the parsed section (if not
-           None)
+    def _get_section(self, line):
+        """parse a line for a section, and return the name of the section
 
            Parameters
            ==========
            line: the line to parse
-           section: the current (or previous) section
-
-           Resulting data structure is:
-           config['post'] (in lowercase)
-
         """
         # Remove any comments
         line = line.split("#", 1)[0].strip()
 
         # Is there a section name?
-        parts = line.split(" ")
+        parts = [l.strip() for l in line.split(" ") if l]
         section = re.sub(r"[%]|(\s+)", "", parts[0]).lower()
 
-        if section not in self.config:
-            self.config[section] = []
-            bot.debug("Adding section %s" % section)
-
-        return section
+        # Is there a named layer?
+        layer = None
+        if len(parts) == 3 and parts[1].lower() == "from":
+            layer = parts[2]
+        return section, layer
 
     def _write_script(self, path, lines, chmod=True):
         """write a script with some lines content to path in the image. This
@@ -376,7 +380,9 @@ class SingularityParser(ParserBase):
 
         """
         for line in lines:
-            self.recipe.install.append('echo "%s" >> %s' % (line, path))
+            self.recipe[self.active_layer].install.append(
+                'echo "%s" >> %s' % (line, path)
+            )
 
         if chmod:
-            self.recipe.install.append("chmod u+x %s" % path)
+            self.recipe[self.active_layer].install.append("chmod u+x %s" % path)

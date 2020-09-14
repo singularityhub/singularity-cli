@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../assets/jquery.js"></script>
-        <script type="text/javascript" src="../assets/underscore.js"></script>
-        <script type="text/javascript" src="../assets/doctools.js"></script>
-        <script type="text/javascript" src="../assets/language_data.js"></script>
+        <script src="../assets/jquery.js"></script>
+        <script src="../assets/underscore.js"></script>
+        <script src="../assets/doctools.js"></script>
+        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
@@ -104,7 +104,6 @@
 <li class="toctree-l2"><a class="reference internal" href="spython.html#module-spython">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -190,23 +189,23 @@
 </div>
 <div class="section" id="module-spython.instance">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.instance" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="spython.instance.Instance">
-<em class="property">class </em><code class="sig-prename descclassname">spython.instance.</code><code class="sig-name descname">Instance</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">start=True</em>, <em class="sig-param">name=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">spython.instance.</code><code class="sig-name descname">Instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="spython.image.html#spython.image.ImageBase" title="spython.image.ImageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.image.ImageBase</span></code></a></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.instance.Instance.RobotNamer">
 <code class="sig-name descname">RobotNamer</code><em class="property"> = &lt;spython.main.base.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.instance.Instance.RobotNamer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.instance.Instance.debug">
 <code class="sig-name descname">debug</code><em class="property"> = False</em><a class="headerlink" href="#spython.instance.Instance.debug" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.error_logs">
-<code class="sig-name descname">error_logs</code><span class="sig-paren">(</span><em class="sig-param">print_logs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.error_logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">error_logs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">print_logs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.error_logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>For Singularity 3.5 and later, we are able to programatically
 derive the name of the log. In this case, return the content
 to the user. See
@@ -219,28 +218,28 @@ for when this was added.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.generate_name">
-<code class="sig-name descname">generate_name</code><span class="sig-paren">(</span><em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.generate_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.generate_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">generate_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.generate_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.generate_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate a Robot Name for the instance to use, if the user doesn’t
 supply one.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.get_uri">
 <code class="sig-name descname">get_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.get_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.get_uri" title="Permalink to this definition">¶</a></dt>
 <dd><p>return the image uri (instance://) along with it’s name</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.instance.Instance.instance">
 <code class="sig-name descname">instance</code><a class="headerlink" href="#spython.instance.Instance.instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#spython.instance.Instance" title="spython.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a></p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.output_logs">
-<code class="sig-name descname">output_logs</code><span class="sig-paren">(</span><em class="sig-param">print_logs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.output_logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">output_logs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">print_logs</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.output_logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get output logs for the user, if they exist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -249,9 +248,9 @@ supply one.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.parse_image_name">
-<code class="sig-name descname">parse_image_name</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.parse_image_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_image_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.parse_image_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.parse_image_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>simply split the uri from the image. Singularity handles
 parsing of registry, namespace, image.</p>
 <dl class="field-list simple">
@@ -261,14 +260,14 @@ parsing of registry, namespace, image.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="spython.instance.Instance.quiet">
 <code class="sig-name descname">quiet</code><em class="property"> = False</em><a class="headerlink" href="#spython.instance.Instance.quiet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.run_command">
-<code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param">sudo=False</em>, <em class="sig-param">capture=True</em>, <em class="sig-param">no_newline_regexp='Progess'</em>, <em class="sig-param">quiet=False</em>, <em class="sig-param">sudo_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal. If
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
@@ -287,9 +286,9 @@ as output.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param">image=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">args=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">options=None</em>, <em class="sig-param">capture=False</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>start an instance. This is done by default when an instance is created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -299,6 +298,7 @@ as output.</p></li>
 <li><p><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</p></li>
 <li><p><strong>capture</strong> (<em>capture output, default is False. With True likely to hang.</em>)</p></li>
 <li><p><strong>args</strong> (<em>arguments to provide to the instance (supported Singularity 3.1+)</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>options</strong> (<em>a list of tuples, each an option to give to the start command</em>) – [(“–bind”, “/tmp”),…]</p></li>
 <li><p><strong>USAGE</strong></p></li>
 <li><p><strong>singularity […] instance.start […] &lt;container path&gt; &lt;instance name&gt;</strong></p></li>
@@ -307,15 +307,16 @@ as output.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.stop">
-<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param">name=None</em>, <em class="sig-param">sudo=False</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.stop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop an instance. This is done by default when an instance is created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>a name for the instance</em>)</p></li>
 <li><p><strong>sudo</strong> (<em>if the user wants to run the command with sudo</em>)</p></li>
+<li><p><strong>singularity_options</strong> (<em>a list of options to provide to the singularity client</em>)</p></li>
 <li><p><strong>timeout</strong> (<em>forcebly kill non-stopped instance after the</em>) – timeout specified in seconds</p></li>
 <li><p><strong>USAGE</strong></p></li>
 <li><p><strong>singularity […] instance.stop […] &lt;instance name&gt;</strong></p></li>
@@ -324,9 +325,9 @@ as output.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="spython.instance.Instance.version">
-<em class="property">classmethod </em><code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.version" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shortcut to get_singularity_version, takes no arguments.</p>
 </dd></dl>
 

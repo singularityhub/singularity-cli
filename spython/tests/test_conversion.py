@@ -11,8 +11,9 @@ import os
 
 
 def read_file(file):
-    with open(file) as f:
-        return [line.rstrip("\n") for line in f]
+    with open(file) as fd:
+        content = fd.read().strip("\n")
+    return content
 
 
 def test_other_recipe_exists(test_data):
@@ -42,8 +43,7 @@ def test_docker2singularity(test_data, tmp_path):
     for dockerfile, recipe in test_data["d2s"]:
         parser = DockerParser(dockerfile)
         writer = SingularityWriter(parser.recipe)
-
-        assert writer.convert().split("\n") == read_file(recipe)
+        assert writer.convert().strip("\n") == read_file(recipe)
 
 
 def test_singularity2docker(test_data, tmp_path):
@@ -55,5 +55,4 @@ def test_singularity2docker(test_data, tmp_path):
     for recipe, dockerfile in test_data["s2d"]:
         parser = SingularityParser(recipe)
         writer = DockerWriter(parser.recipe)
-
-        assert writer.convert().split("\n") == read_file(dockerfile)
+        assert writer.convert() == read_file(dockerfile)

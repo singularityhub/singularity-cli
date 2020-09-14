@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../assets/jquery.js"></script>
-        <script type="text/javascript" src="../../../assets/underscore.js"></script>
-        <script type="text/javascript" src="../../../assets/doctools.js"></script>
-        <script type="text/javascript" src="../../../assets/language_data.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
@@ -84,7 +84,6 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">CHANGELOG</a></li>
 </ul>
 
             
@@ -162,7 +161,8 @@
 <span class="sd">       return list of SCIF apps in image. The Singularity software serves</span>
 <span class="sd">       a scientific filesystem integration that will install apps to</span>
 <span class="sd">       /scif/apps and associated data to /scif/data. For more information </span>
-<span class="sd">       about SCIF, see https://sci-f.github.io</span>
+<span class="sd">       about SCIF, see https://sci-f.github.io. Note that this seems</span>
+<span class="sd">       to be deprecated in Singularity 3.x.</span>
 
 <span class="sd">       Parameters</span>
 <span class="sd">       ==========</span>
@@ -170,7 +170,7 @@
 <span class="sd">       image_path: full path to the image</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="k">import</span> <span class="n">check_install</span>
+    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
     <span class="n">check_install</span><span class="p">()</span>
 
