@@ -27,6 +27,7 @@ def execute(
     sudo=False,
     sudo_options=None,
     quiet=True,
+    env=None,
 ):
     """ execute: send a command to a container
     
@@ -100,7 +101,7 @@ def execute(
 
         if not stream:
             return self._run_command(
-                cmd, sudo=sudo, sudo_options=sudo_options, return_result=return_result, quiet=quiet
+                cmd, sudo=sudo, sudo_options=sudo_options, return_result=return_result, quiet=quiet, env=env
             )
         return stream_command(cmd, sudo=sudo, sudo_options=sudo_options)
 
