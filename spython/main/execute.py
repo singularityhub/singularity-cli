@@ -101,7 +101,12 @@ def execute(
 
         if not stream:
             return self._run_command(
-                cmd, sudo=sudo, sudo_options=sudo_options, return_result=return_result, quiet=quiet, env=env
+                cmd,
+                sudo=sudo,
+                sudo_options=sudo_options,
+                return_result=return_result,
+                quiet=quiet,
+                env=env,
             )
         return stream_command(cmd, sudo=sudo, sudo_options=sudo_options)
 

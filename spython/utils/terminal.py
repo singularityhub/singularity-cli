@@ -154,7 +154,7 @@ def run_command(
     no_newline_regexp="Progess",
     quiet=False,
     sudo_options=None,
-    env=None
+    env=None,
 ):
 
     """run_command uses subprocess to send a command to the terminal. If

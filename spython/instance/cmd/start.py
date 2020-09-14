@@ -18,7 +18,7 @@ def start(
     options=None,
     capture=False,
     singularity_options=None,
-    env=None
+    env=None,
 ):
     """start an instance. This is done by default when an instance is created.
 
@@ -79,7 +79,9 @@ def start(
     self.args = args
     self.cmd = cmd
 
-    output = run_command(cmd, sudo=sudo, sudo_options=sudo_options, quiet=True, capture=capture, env=env)
+    output = run_command(
+        cmd, sudo=sudo, sudo_options=sudo_options, quiet=True, capture=capture, env=env
+    )
 
     if output["return_code"] == 0:
         self._update_metadata()

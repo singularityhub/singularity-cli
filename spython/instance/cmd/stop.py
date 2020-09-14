@@ -8,7 +8,14 @@
 from spython.logger import bot
 
 
-def stop(self, name=None, sudo=False,  sudo_options=None, timeout=None, singularity_options=None):
+def stop(
+    self,
+    name=None,
+    sudo=False,
+    sudo_options=None,
+    timeout=None,
+    singularity_options=None,
+):
     """stop an instance. This is done by default when an instance is created.
 
        Parameters
