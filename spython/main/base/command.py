@@ -131,7 +131,12 @@ def run_command(
         quiet = self.quiet
 
     result = run_cmd(
-        cmd, sudo=sudo, capture=capture, quiet=quiet, sudo_options=sudo_options, environ=environ
+        cmd,
+        sudo=sudo,
+        capture=capture,
+        quiet=quiet,
+        sudo_options=sudo_options,
+        environ=environ,
     )
 
     # If one line is returned, squash dimension

@@ -80,7 +80,12 @@ def start(
     self.cmd = cmd
 
     output = run_command(
-        cmd, sudo=sudo, sudo_options=sudo_options, quiet=True, capture=capture, environ=environ
+        cmd,
+        sudo=sudo,
+        sudo_options=sudo_options,
+        quiet=True,
+        capture=capture,
+        environ=environ,
     )
 
     if output["return_code"] == 0:
