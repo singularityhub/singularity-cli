@@ -35,8 +35,8 @@ def _process_sudo_cmd(cmd, sudo, sudo_options):
 
 def check_install(software="singularity", quiet=True):
     """check_install will attempt to run the singularity command, and
-       return True if installed. The command line utils will not run 
-       without this check.
+    return True if installed. The command line utils will not run
+    without this check.
     """
 
     cmd = [software, "--version"]
@@ -59,17 +59,16 @@ def check_install(software="singularity", quiet=True):
 
 
 def which(software="singularity"):
-    """which returns the full path to where software is installed.
-    """
+    """which returns the full path to where software is installed."""
     cmd = ["which", software]
     result = run_command(cmd, quiet=True)["message"][0]
     return result.strip("\n")
 
 
 def get_singularity_version():
-    """get the full singularity client version as reported by 
-       singularity --version [...]. For Singularity 3.x, this means:
-       "singularity version 3.0.1-1"
+    """get the full singularity client version as reported by
+    singularity --version [...]. For Singularity 3.x, this means:
+    "singularity version 3.0.1-1"
     """
     version = os.environ.get("SPYTHON_SINGULARITY_VERSION", "")
     if version == "":
@@ -86,20 +85,17 @@ def get_singularity_version():
 
 
 def get_userhome():
-    """get the user home based on the effective uid
-    """
+    """get the user home based on the effective uid"""
     return pwd.getpwuid(os.getuid())[5]
 
 
 def get_username():
-    """get the user name based on the effective uid
-    """
+    """get the user name based on the effective uid"""
     return pwd.getpwuid(os.getuid())[0]
 
 
 def get_singularity_version_info():
-    """get the full singularity client version as a semantic version"
-    """
+    """get the full singularity client version as a semantic version" """
     version_string = get_singularity_version()
     prefix = "singularity version "
     if version_string.startswith(prefix):
@@ -110,26 +106,25 @@ def get_singularity_version_info():
 
 
 def get_installdir():
-    """get_installdir returns the installation directory of the application
-    """
+    """get_installdir returns the installation directory of the application"""
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
 def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=None):
     """stream a command (yield) back to the user, as each line is available.
 
-       # Example usage:
-       results = []
-       for line in stream_command(cmd):
-           print(line, end="")
-           results.append(line)
+    # Example usage:
+    results = []
+    for line in stream_command(cmd):
+        print(line, end="")
+        results.append(line)
 
-       Parameters
-       ==========
-       cmd: the command to send, should be a list for subprocess
-       no_newline_regexp: the regular expression to determine skipping a
-                          newline. Defaults to finding Progress
-       sudo_options: string or list of strings that will be passed as options to sudo
+    Parameters
+    ==========
+    cmd: the command to send, should be a list for subprocess
+    no_newline_regexp: the regular expression to determine skipping a
+                       newline. Defaults to finding Progress
+    sudo_options: string or list of strings that will be passed as options to sudo
 
     """
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
@@ -157,20 +152,20 @@ def run_command(
 ):
 
     """run_command uses subprocess to send a command to the terminal. If
-       capture is True, we use the parent stdout, so the progress bar (and
-       other commands of interest) are piped to the user. This means we 
-       don't return the output to parse.
+    capture is True, we use the parent stdout, so the progress bar (and
+    other commands of interest) are piped to the user. This means we
+    don't return the output to parse.
 
-       Parameters
-       ==========
-       cmd: the command to send, should be a list for subprocess
-       sudo: if needed, add to start of command
-       no_newline_regexp: the regular expression to determine skipping a
-                          newline. Defaults to finding Progress
-       capture: if True, don't set stdout and have it go to console. This
-                option can print a progress bar, but won't return the lines
-                as output.
-       sudo_options: string or list of strings that will be passed as options to sudo
+    Parameters
+    ==========
+    cmd: the command to send, should be a list for subprocess
+    sudo: if needed, add to start of command
+    no_newline_regexp: the regular expression to determine skipping a
+                       newline. Defaults to finding Progress
+    capture: if True, don't set stdout and have it go to console. This
+             option can print a progress bar, but won't return the lines
+             as output.
+    sudo_options: string or list of strings that will be passed as options to sudo
     """
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
@@ -233,6 +228,5 @@ def split_uri(container):
 
 
 def remove_uri(container):
-    """remove_uri will remove docker:// or shub:// or library:// from the uri
-    """
+    """remove_uri will remove docker:// or shub:// or library:// from the uri"""
     return split_uri(container)[1]

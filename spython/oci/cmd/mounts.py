@@ -8,9 +8,9 @@
 def mount(self, image, sudo=None):
     """create an OCI bundle from SIF image
 
-       Parameters
-       ==========
-       image: the container (sif) to mount
+    Parameters
+    ==========
+    image: the container (sif) to mount
     """
     return self._state_command(image, command="mount", sudo=sudo)
 
@@ -18,8 +18,8 @@ def mount(self, image, sudo=None):
 def umount(self, image, sudo=None):
     """delete an OCI bundle created from SIF image
 
-       Parameters
-       ==========
-       image: the container (sif) to mount
+    Parameters
+    ==========
+    image: the container (sif) to mount
     """
     return self._state_command(image, command="umount", sudo=sudo)

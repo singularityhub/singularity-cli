@@ -22,15 +22,15 @@ def export(
 ):
 
     """export will export an image, sudo must be used. If we have Singularity
-       versions after 3, export is replaced with building into a sandbox.
+    versions after 3, export is replaced with building into a sandbox.
 
-       Parameters
-       ==========
-       image_path: full path to image
-       pipe: export to pipe and not file (default, False)
-       singularity_options: a list of options to provide to the singularity client
-       output_file: if pipe=False, export tar to this file. If not specified, 
-       will generate temporary directory.
+    Parameters
+    ==========
+    image_path: full path to image
+    pipe: export to pipe and not file (default, False)
+    singularity_options: a list of options to provide to the singularity client
+    output_file: if pipe=False, export tar to this file. If not specified,
+    will generate temporary directory.
     """
     from spython.utils import check_install
 
@@ -77,20 +77,20 @@ def _export(
     command=None,
     singularity_options=None,
 ):
-    """ the older deprecated function, running export for previous
-               versions of Singularity that support it
+    """the older deprecated function, running export for previous
+        versions of Singularity that support it
 
-           USAGE: singularity [...] export [export options...] <container path>
-           Export will dump a tar stream of the container image contents to standard
-           out (stdout). 
-           note: This command must be executed as root.
-           EXPORT OPTIONS:
-               -f/--file       Output to a file instead of a pipe
-                  --command    Replace the tar command (DEFAULT: 'tar cf - .')
-           EXAMPLES:
-               $ sudo singularity export /tmp/Debian.img > /tmp/Debian.tar
-               $ sudo singularity export /tmp/Debian.img | gzip -9 > /tmp/Debian.tar.gz
-               $ sudo singularity export -f Debian.tar /tmp/Debian.img
+    USAGE: singularity [...] export [export options...] <container path>
+    Export will dump a tar stream of the container image contents to standard
+    out (stdout).
+    note: This command must be executed as root.
+    EXPORT OPTIONS:
+        -f/--file       Output to a file instead of a pipe
+           --command    Replace the tar command (DEFAULT: 'tar cf - .')
+    EXAMPLES:
+        $ sudo singularity export /tmp/Debian.img > /tmp/Debian.tar
+        $ sudo singularity export /tmp/Debian.img | gzip -9 > /tmp/Debian.tar.gz
+        $ sudo singularity export -f Debian.tar /tmp/Debian.img
 
     """
     sudo = True

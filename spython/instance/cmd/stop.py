@@ -11,16 +11,16 @@ from spython.logger import bot
 def stop(self, name=None, sudo=False, timeout=None, singularity_options=None):
     """stop an instance. This is done by default when an instance is created.
 
-       Parameters
-       ==========
-       name: a name for the instance
-       sudo: if the user wants to run the command with sudo
-       singularity_options: a list of options to provide to the singularity client
-       timeout: forcebly kill non-stopped instance after the
-                timeout specified in seconds
+    Parameters
+    ==========
+    name: a name for the instance
+    sudo: if the user wants to run the command with sudo
+    singularity_options: a list of options to provide to the singularity client
+    timeout: forcebly kill non-stopped instance after the
+             timeout specified in seconds
 
-       USAGE: 
-       singularity [...] instance.stop [...] <instance name>
+    USAGE:
+    singularity [...] instance.stop [...] <instance name>
 
     """
     from spython.utils import check_install, run_command

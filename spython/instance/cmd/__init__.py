@@ -6,9 +6,9 @@
 
 
 def generate_instance_commands():
-    """ The Instance client holds the Singularity Instance command group
-        The levels of verbosity (debug and quiet) are passed from the main
-        client via the environment variable MESSAGELEVEL.
+    """The Instance client holds the Singularity Instance command group
+    The levels of verbosity (debug and quiet) are passed from the main
+    client via the environment variable MESSAGELEVEL.
 
     """
     from spython.instance import Instance

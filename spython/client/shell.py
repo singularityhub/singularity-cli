@@ -24,8 +24,7 @@ def main(args, options, parser):
 
 
 def prepare_client(image):
-    """prepare a client to embed in a shell with recipe parsers and writers.
-    """
+    """prepare a client to embed in a shell with recipe parsers and writers."""
     # The client will announce itself (backend/database) unless it's get
     from spython.main import get_client
     from spython.main.parse import parsers
@@ -43,8 +42,7 @@ def prepare_client(image):
 
 
 def ipython(image):
-    """give the user an ipython shell
-    """
+    """give the user an ipython shell"""
     client = prepare_client(image)  # pylint: disable=unused-variable
 
     try:
@@ -56,8 +54,7 @@ def ipython(image):
 
 
 def run_bpython(image):
-    """give the user a bpython shell
-    """
+    """give the user a bpython shell"""
     client = prepare_client(image)
 
     try:
@@ -69,8 +66,7 @@ def run_bpython(image):
 
 
 def python(image):
-    """give the user a python shell
-    """
+    """give the user a python shell"""
     import code
 
     client = prepare_client(image)

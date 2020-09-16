@@ -6,8 +6,8 @@
 
 
 def generate_oci_commands():
-    """ The oci command group will allow interaction with an image using
-        OCI commands.
+    """The oci command group will allow interaction with an image using
+    OCI commands.
     """
     from spython.oci import OciImage
 

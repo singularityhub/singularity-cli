@@ -13,8 +13,7 @@ from spython.utils import ScopedEnvVar
 
 
 def test_write_read_files(tmp_path):
-    """test_write_read_files will test the functions write_file and read_file
-    """
+    """test_write_read_files will test the functions write_file and read_file"""
     print("Testing utils.write_file...")
     from spython.utils import write_file
 

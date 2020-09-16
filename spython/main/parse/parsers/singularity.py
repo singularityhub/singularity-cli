@@ -17,25 +17,25 @@ class SingularityParser(ParserBase):
 
     def __init__(self, filename="Singularity", load=True):
         """a SingularityParser parses a Singularity file into expected fields of
-           labels, environment, and install/runtime commands. The base class
-           ParserBase will instantiate an empty Recipe() object to populate,
-           and call parse() here on the recipe.
+        labels, environment, and install/runtime commands. The base class
+        ParserBase will instantiate an empty Recipe() object to populate,
+        and call parse() here on the recipe.
 
-           Parameters
-           ==========
-           filename: the recipe file (Singularity) to parse
-           load: load and parse the recipe (defaults to True)
+        Parameters
+        ==========
+        filename: the recipe file (Singularity) to parse
+        load: load and parse the recipe (defaults to True)
 
         """
         super(SingularityParser, self).__init__(filename, load)
 
     def parse(self):
         """parse is the base function for parsing the recipe, and extracting
-           elements into the correct data structures. Everything is parsed into
-           lists or dictionaries that can be assembled again on demand. 
-    
-           Singularity: we parse files/labels first, then install. 
-                        cd first in a line is parsed as WORKDIR
+        elements into the correct data structures. Everything is parsed into
+        lists or dictionaries that can be assembled again on demand.
+
+        Singularity: we parse files/labels first, then install.
+                     cd first in a line is parsed as WORKDIR
 
         """
         self.load_recipe()
@@ -45,7 +45,7 @@ class SingularityParser(ParserBase):
 
     def _setup(self, lines):
         """setup required adding content from the host to the rootfs,
-           so we try to capture with with ADD.
+        so we try to capture with with ADD.
         """
         bot.warning("SETUP is error prone, please check output.")
 
@@ -70,11 +70,11 @@ class SingularityParser(ParserBase):
     # From Parser
 
     def _from(self, line):
-        """ get the FROM container image name from a FROM line!
+        """get the FROM container image name from a FROM line!
 
-           Parameters
-           ==========
-           line: the line from the recipe file to parse for FROM
+        Parameters
+        ==========
+        line: the line from the recipe file to parse for FROM
 
         """
         self.recipe[self.active_layer].fromHeader = line
@@ -83,11 +83,11 @@ class SingularityParser(ParserBase):
     # Run and Test Parser
 
     def _test(self, lines):
-        """ A healthcheck is generally a test command
+        """A healthcheck is generally a test command
 
-           Parameters
-           ==========
-           line: the line from the recipe file to parse for FROM
+        Parameters
+        ==========
+        line: the line from the recipe file to parse for FROM
 
         """
         self._write_script("/tests.sh", lines)
@@ -97,12 +97,12 @@ class SingularityParser(ParserBase):
 
     def _env(self, lines):
         """env will parse a list of environment lines and simply remove any
-           blank lines, and exports. Dockerfiles don't usually
-           have exports.
- 
-           Parameters
-           ==========
-           lines: A list of environment pair lines.
+        blank lines, and exports. Dockerfiles don't usually
+        have exports.
+
+        Parameters
+        ==========
+        lines: A list of environment pair lines.
 
         """
         environ = [re.sub("^export", "", x).strip() for x in lines if "=" in x]
@@ -112,11 +112,11 @@ class SingularityParser(ParserBase):
 
     def _files(self, lines, layer=None):
         """parse_files will simply add the list of files to the correct object
- 
-           Parameters
-           ==========
-           lines: pairs of files, one pair per line
-   
+
+        Parameters
+        ==========
+        lines: pairs of files, one pair per line
+
         """
         if not layer:
             self.recipe[self.active_layer].files += lines
@@ -128,12 +128,12 @@ class SingularityParser(ParserBase):
     # Comments and Help
 
     def _comments(self, lines):
-        """ comments is a wrapper for comment, intended to be given a list
-            of comments.
+        """comments is a wrapper for comment, intended to be given a list
+        of comments.
 
-            Parameters
-            ==========
-            lines: the list of lines to parse
+        Parameters
+        ==========
+        lines: the list of lines to parse
 
         """
         for line in lines:
@@ -143,11 +143,11 @@ class SingularityParser(ParserBase):
 
     def _comment(self, line):
         """Simply add the line to the install as a comment. Add an extra # to be
-           extra careful. 
+        extra careful.
 
-           Parameters
-           ==========
-           line: the line from the recipe file to parse to INSTALL
+        Parameters
+        ==========
+        line: the line from the recipe file to parse to INSTALL
 
         """
         return "# %s" % line.strip().strip("#")
@@ -156,11 +156,11 @@ class SingularityParser(ParserBase):
 
     def _run(self, lines):
         """_parse the runscript to be the Docker CMD. If we have one line,
-           call it directly. If not, write the entrypoint into a script. 
+        call it directly. If not, write the entrypoint into a script.
 
-           Parameters
-           ==========
-           lines: the line from the recipe file to parse for CMD
+        Parameters
+        ==========
+        lines: the line from the recipe file to parse for CMD
 
         """
         lines = [x for x in lines if x not in ["", None]]
@@ -182,10 +182,10 @@ class SingularityParser(ParserBase):
 
     def _labels(self, lines):
         """_labels simply adds the labels to the list to save.
-           
-           Parameters
-           ==========
-           lines: the lines from the recipe with key,value pairs
+
+        Parameters
+        ==========
+        lines: the lines from the recipe with key,value pairs
 
         """
         self.recipe[self.active_layer].labels += lines
@@ -193,9 +193,9 @@ class SingularityParser(ParserBase):
     def _post(self, lines):
         """the main core of commands, to be added to the install section
 
-           Parameters
-           ==========
-           lines: the lines from the recipe with install commands
+        Parameters
+        ==========
+        lines: the lines from the recipe with install commands
 
         """
         self.recipe[self.active_layer].install += lines
@@ -203,17 +203,17 @@ class SingularityParser(ParserBase):
     # Main Parsing Functions
 
     def _get_mapping(self, section):
-        """mapping will take the section name from a Singularity recipe 
-           and return a map function to add it to the appropriate place. 
-           Any lines that don't cleanly map are assumed to be comments.
+        """mapping will take the section name from a Singularity recipe
+        and return a map function to add it to the appropriate place.
+        Any lines that don't cleanly map are assumed to be comments.
 
-           Parameters
-           ==========
-           section: the name of the Singularity recipe section
-    
-           Returns
-           =======
-           function: to map a line to its command group (e.g., install)
+        Parameters
+        ==========
+        section: the name of the Singularity recipe section
+
+        Returns
+        =======
+        function: to map a line to its command group (e.g., install)
 
         """
 
@@ -240,22 +240,19 @@ class SingularityParser(ParserBase):
     # Loading Functions
 
     def _load_from(self, line):
-        """load the From section of the recipe for the Dockerfile.
-        """
+        """load the From section of the recipe for the Dockerfile."""
         # Remove any comments
         line = line.split("#", 1)[0]
         line = re.sub("from:", "", line.lower()).strip()
         self.recipe[self.active_layer].fromHeader = line
 
     def _check_bootstrap(self, line):
-        """checks that the bootstrap is Docker, otherwise we exit on fail.
-        """
+        """checks that the bootstrap is Docker, otherwise we exit on fail."""
         if not re.search("docker", line, re.IGNORECASE):
             raise NotImplementedError("Only docker is supported.")
 
     def _load_section(self, lines, section, layer=None):
-        """read in a section to a list, and stop when we hit the next section
-        """
+        """read in a section to a list, and stop when we hit the next section"""
         members = []
 
         while True:
@@ -295,12 +292,12 @@ class SingularityParser(ParserBase):
 
     def load_recipe(self):
         """load_recipe will return a loaded in singularity recipe. The idea
-           is that these sections can then be parsed into a Dockerfile,
-           or printed back into their original form.
+        is that these sections can then be parsed into a Dockerfile,
+        or printed back into their original form.
 
-           Returns
-           =======
-           config: a parsed recipe Singularity recipe
+        Returns
+        =======
+        config: a parsed recipe Singularity recipe
         """
 
         # Comments between sections, add to top of file
@@ -351,9 +348,9 @@ class SingularityParser(ParserBase):
     def _get_section(self, line):
         """parse a line for a section, and return the name of the section
 
-           Parameters
-           ==========
-           line: the line to parse
+        Parameters
+        ==========
+        line: the line to parse
         """
         # Remove any comments
         line = line.split("#", 1)[0].strip()
@@ -370,13 +367,13 @@ class SingularityParser(ParserBase):
 
     def _write_script(self, path, lines, chmod=True):
         """write a script with some lines content to path in the image. This
-           is done by way of adding echo statements to the install section.
+        is done by way of adding echo statements to the install section.
 
-           Parameters
-           ==========
-           path: the path to the file to write
-           lines: the lines to echo to the file
-           chmod: If true, change permission to make u+x
+        Parameters
+        ==========
+        path: the path to the file to write
+        lines: the lines to echo to the file
+        chmod: If true, change permission to make u+x
 
         """
         for line in lines:

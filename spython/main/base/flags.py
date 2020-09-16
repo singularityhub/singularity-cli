@@ -47,11 +47,11 @@ COMMAND GROUPS:
 
 def parse_verbosity(self, args):
     """parse_verbosity will take an argument object, and return the args
-       passed (from a dictionary) to a list
+    passed (from a dictionary) to a list
 
-       Parameters
-       ==========
-       args: the argparse argument objects
+    Parameters
+    ==========
+    args: the argparse argument objects
 
     """
 

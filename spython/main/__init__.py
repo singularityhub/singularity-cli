@@ -7,13 +7,13 @@
 
 def get_client(quiet=False, debug=False):
     """
-       get the client and perform imports not on init, in case there are any
-       initialization or import errors. 
+    get the client and perform imports not on init, in case there are any
+    initialization or import errors.
 
-       Parameters
-       ==========
-       quiet: if True, suppress most output about the client
-       debug: turn on debugging mode
+    Parameters
+    ==========
+    quiet: if True, suppress most output about the client
+    debug: turn on debugging mode
 
     """
     from spython.utils import get_singularity_version

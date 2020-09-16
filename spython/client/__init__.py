@@ -117,8 +117,7 @@ def get_parser():
 
 
 def set_verbosity(args):
-    """determine the message level in the environment to set based on args.
-    """
+    """determine the message level in the environment to set based on args."""
     level = "INFO"
 
     if args.debug:
@@ -141,8 +140,7 @@ def set_verbosity(args):
 
 
 def version():
-    """version prints the version, both for the user and help output
-    """
+    """version prints the version, both for the user and help output"""
     import spython
 
     return spython.__version__
@@ -153,8 +151,8 @@ def main():
     parser = get_parser()
 
     def print_help(return_code=0):
-        """print help, including the software version and active client 
-           and exit with return code.
+        """print help, including the software version and active client
+        and exit with return code.
         """
         v = version()
         print("\nSingularity Python [v%s]\n" % (v))

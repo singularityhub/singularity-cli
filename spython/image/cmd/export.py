@@ -12,11 +12,11 @@ import tempfile
 def export(self, image_path, tmptar=None):
     """export will export an image, sudo must be used.
 
-       Parameters
-       ==========
-   
-       image_path: full path to image
-       tmptar: if defined, use custom temporary path for tar export
+    Parameters
+    ==========
+
+    image_path: full path to image
+    tmptar: if defined, use custom temporary path for tar export
 
     """
     from spython.utils import check_install

@@ -22,12 +22,12 @@ class ImageBase(object):
 
     def parse_image_name(self, image):
         """
-            simply split the uri from the image. Singularity handles
-            parsing of registry, namespace, image.
-            
-            Parameters
-            ==========
-            image: the complete image uri to load (e.g., docker://ubuntu) 
+        simply split the uri from the image. Singularity handles
+        parsing of registry, namespace, image.
+
+        Parameters
+        ==========
+        image: the complete image uri to load (e.g., docker://ubuntu)
 
         """
         self._image = image
@@ -37,13 +37,13 @@ class ImageBase(object):
 class Image(ImageBase):
     def __init__(self, image=None):
         """An image here is an image file or a record.
-            The user can choose to load the image when starting the client, or
-            update the main client with an image. The image object is kept
-            with the main client to make running additional commands easier.
+        The user can choose to load the image when starting the client, or
+        update the main client with an image. The image object is kept
+        with the main client to make running additional commands easier.
 
-            Parameters
-            ==========
-            image: the image uri to parse (required)
+        Parameters
+        ==========
+        image: the image uri to parse (required)
 
         """
         super(Image, self).__init__()
@@ -51,13 +51,13 @@ class Image(ImageBase):
 
     def get_hash(self, image=None):
         """return an md5 hash of the file based on a criteria level. This
-           is intended to give the file a reasonable version. This only is
-           useful for actual image files.
-    
-           Parameters
-           ==========
-           image: the image path to get hash for (first priority). Second
-                  priority is image path saved with image object, if exists.
+        is intended to give the file a reasonable version. This only is
+        useful for actual image files.
+
+        Parameters
+        ==========
+        image: the image path to get hash for (first priority). Second
+               priority is image path saved with image object, if exists.
 
         """
         hasher = hashlib.md5()
