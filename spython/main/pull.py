@@ -25,18 +25,18 @@ def pull(
 ):
 
     """pull will pull a singularity hub or Docker image
-        
-       Parameters
-       ==========
-       image: the complete image uri. If not provided, the client loaded is used
-       singularity_options: a list of options to provide to the singularity client
-       pull_folder: if not defined, pulls to $PWD (''). If defined, pulls to
-                    user specified location instead.
 
-       Docker and Singularity Hub Naming
-       ---------------------------------
-       name: a custom name to use, to override default
-       ext: if no name specified, the default extension to use.
+    Parameters
+    ==========
+    image: the complete image uri. If not provided, the client loaded is used
+    singularity_options: a list of options to provide to the singularity client
+    pull_folder: if not defined, pulls to $PWD (''). If defined, pulls to
+                 user specified location instead.
+
+    Docker and Singularity Hub Naming
+    ---------------------------------
+    name: a custom name to use, to override default
+    ext: if no name specified, the default extension to use.
 
     """
     from spython.utils import check_install

@@ -32,31 +32,31 @@ def build(
 ):
 
     """build a singularity image, optionally for an isolated build
-       (requires sudo). If you specify to stream, expect the image name
-       and an iterator to be returned.
-       
-       image, builder = Client.build(...)
+    (requires sudo). If you specify to stream, expect the image name
+    and an iterator to be returned.
 
-       Parameters
-       ==========
+    image, builder = Client.build(...)
 
-       recipe: the path to the recipe file (or source to build from). If not
-                  defined, we look for "Singularity" file in $PWD
-       image: the image to build (if None, will use arbitary name
-       isolated: if True, run build with --isolated flag
-       sandbox: if True, create a writable sandbox
-       writable: if True, use writable ext3 (sandbox takes preference)
-       build_folder: where the container should be built.
-       ext: the image extension to use.
-       robot_name: boolean, default False. if you don't give your image a 
-                   name (with "image") then a fun robot name will be generated
-                   instead. Highly recommended :) 
-       sudo: give sudo to the command (or not) default is True for build
-       sudo_options: options to pass to sudo (e.g. --preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)
-       options: for all other options, specify them in this list.   
-       singularity_options: a list of options to provide to the singularity client
-       quiet: quiet verbose printing from the client.
-       return_result: if True, return complete error code / message dictionary
+    Parameters
+    ==========
+
+    recipe: the path to the recipe file (or source to build from). If not
+               defined, we look for "Singularity" file in $PWD
+    image: the image to build (if None, will use arbitary name
+    isolated: if True, run build with --isolated flag
+    sandbox: if True, create a writable sandbox
+    writable: if True, use writable ext3 (sandbox takes preference)
+    build_folder: where the container should be built.
+    ext: the image extension to use.
+    robot_name: boolean, default False. if you don't give your image a
+                name (with "image") then a fun robot name will be generated
+                instead. Highly recommended :)
+    sudo: give sudo to the command (or not) default is True for build
+    sudo_options: options to pass to sudo (e.g. --preserve-env=SINGULARITY_CACHEDIR,SINGULARITY_TMPDIR)
+    options: for all other options, specify them in this list.
+    singularity_options: a list of options to provide to the singularity client
+    quiet: quiet verbose printing from the client.
+    return_result: if True, return complete error code / message dictionary
     """
     from spython.utils import check_install
 

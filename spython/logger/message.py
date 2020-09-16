@@ -56,8 +56,8 @@ class SingularityMessage:
 
     def useColor(self):
         """useColor will determine if color should be added
-           to a print. Will check if being run in a terminal, and
-           if has support for ascii
+        to a print. Will check if being run in a terminal, and
+        if has support for ascii
         """
         COLORIZE = get_user_color_preference()
         if COLORIZE is not None:
@@ -72,7 +72,7 @@ class SingularityMessage:
 
     def addColor(self, level, text):
         """addColor to the prompt (usually prefix) if terminal
-           supports, and specified to do so
+        supports, and specified to do so
         """
         if self.colorize:
             if level in self.colors:
@@ -81,7 +81,7 @@ class SingularityMessage:
 
     def emitError(self, level):
         """determine if a level should print to
-           stderr, includes all levels but INFO and QUIET
+        stderr, includes all levels but INFO and QUIET
         """
         if level in [
             ABORT,
@@ -104,8 +104,7 @@ class SingularityMessage:
         return False
 
     def isEnabledFor(self, messageLevel):
-        """check if a messageLevel is enabled to emit a level
-        """
+        """check if a messageLevel is enabled to emit a level"""
         if messageLevel <= self.level:
             return True
         return False
@@ -257,8 +256,7 @@ class SingularityMessage:
         self.emit(DEBUG, message, "DEBUG")
 
     def is_quiet(self):
-        """is_quiet returns true if the level is under 1
-        """
+        """is_quiet returns true if the level is under 1"""
         if self.level < 1:
             return False
         return True
@@ -266,7 +264,7 @@ class SingularityMessage:
     # Terminal ------------------------------------------
 
     def table(self, rows, col_width=2):
-        """table will print a table of entries. If the rows is 
+        """table will print a table of entries. If the rows is
         a dictionary, the keys are interpreted as column names. if
         not, a numbered list is used.
         """

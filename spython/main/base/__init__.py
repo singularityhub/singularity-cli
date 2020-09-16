@@ -32,23 +32,20 @@ class Client:
 
     def __init__(self):
         """the base client for singularity, will have commands added to it.
-           upon init, store verbosity requested in environment MESSAGELEVEL.
+        upon init, store verbosity requested in environment MESSAGELEVEL.
         """
         self._init_level()
 
     def version(self):
-        """Shortcut to get_singularity_version, takes no arguments.
-        """
+        """Shortcut to get_singularity_version, takes no arguments."""
         return get_singularity_version()
 
     def version_info(self):
-        """Shortcut to get_singularity_version_info, takes no arguments.
-        """
+        """Shortcut to get_singularity_version_info, takes no arguments."""
         return get_singularity_version_info()
 
     def _check_install(self):
-        """ensure that singularity is installed, and exit if not.
-        """
+        """ensure that singularity is installed, and exit if not."""
         if check_install() is not True:
             bot.exit("Cannot find Singularity! Is it installed?")
 

@@ -10,14 +10,14 @@ from spython.logger import bot
 
 def parse_table(table_string, header, remove_rows=1):
     """parse a table to json from a string, where a header is expected by default.
-       Return a jsonified table.
+    Return a jsonified table.
 
-       Parameters
-       ==========
-       table_string: the string table, ideally with a header
-       header: header of expected table, must match dimension (number columns)
-       remove_rows: an integer to indicate a number of rows to remove from top
-                    the default is 1 assuming we don't want the header
+    Parameters
+    ==========
+    table_string: the string table, ideally with a header
+    header: header of expected table, must match dimension (number columns)
+    remove_rows: an integer to indicate a number of rows to remove from top
+                 the default is 1 assuming we don't want the header
     """
     rows = [x for x in table_string.split("\n") if x]
     rows = rows[0 + remove_rows :]
@@ -37,7 +37,7 @@ def parse_table(table_string, header, remove_rows=1):
 
 def get(self, name, return_json=False, quiet=False, singularity_options=None):
     """get is a list for a single instance. It is assumed to be running,
-       and we need to look up the PID, etc.
+    and we need to look up the PID, etc.
     """
     from spython.utils import check_install
 

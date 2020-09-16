@@ -27,25 +27,25 @@ def execute(
     sudo=False,
     quiet=True,
 ):
-    """ execute: send a command to a container
-    
-        Parameters
-        ==========
+    """execute: send a command to a container
 
-        image: full path to singularity image
-        command: command to send to container
-        app: if not None, execute a command in context of an app
-        writable: This option makes the file system accessible as read/write
-        contain: This option disables the automatic sharing of writable
-                 filesystems on your host
-        options: an optional list of options to provide to execute.
-        singularity_options: a list of options to provide to the singularity client
-        bind: list or single string of bind paths.
-             This option allows you to map directories on your host system to
-             directories within your container using bind mounts
-        nv: if True, load Nvidia Drivers in runtime (default False)
-        return_result: if True, return entire json object with return code
-                       and message result not (default)
+    Parameters
+    ==========
+
+    image: full path to singularity image
+    command: command to send to container
+    app: if not None, execute a command in context of an app
+    writable: This option makes the file system accessible as read/write
+    contain: This option disables the automatic sharing of writable
+             filesystems on your host
+    options: an optional list of options to provide to execute.
+    singularity_options: a list of options to provide to the singularity client
+    bind: list or single string of bind paths.
+         This option allows you to map directories on your host system to
+         directories within your container using bind mounts
+    nv: if True, load Nvidia Drivers in runtime (default False)
+    return_result: if True, return entire json object with return code
+                   and message result not (default)
     """
     from spython.utils import check_install
 
@@ -118,23 +118,23 @@ def shell(
     singularity_options=None,
     sudo=False,
 ):
-    """ shell into a container. A user is advised to use singularity to do
-        this directly, however this function is useful for supporting tools.
-    
-        Parameters
-        ==========
+    """shell into a container. A user is advised to use singularity to do
+    this directly, however this function is useful for supporting tools.
 
-        image: full path to singularity image
-        app: if not None, execute a shell in context of an app
-        writable: This option makes the file system accessible as read/write
-        contain: This option disables the automatic sharing of writable
-                 filesystems on your host
-        options: an optional list of options to provide to shell.
-        singularity_options: a list of options to provide to the singularity client
-        bind: list or single string of bind paths.
-             This option allows you to map directories on your host system to
-             directories within your container using bind mounts
-        nv: if True, load Nvidia Drivers in runtime (default False)
+    Parameters
+    ==========
+
+    image: full path to singularity image
+    app: if not None, execute a shell in context of an app
+    writable: This option makes the file system accessible as read/write
+    contain: This option disables the automatic sharing of writable
+             filesystems on your host
+    options: an optional list of options to provide to shell.
+    singularity_options: a list of options to provide to the singularity client
+    bind: list or single string of bind paths.
+         This option allows you to map directories on your host system to
+         directories within your container using bind mounts
+    nv: if True, load Nvidia Drivers in runtime (default False)
     """
     from spython.utils import check_install
 

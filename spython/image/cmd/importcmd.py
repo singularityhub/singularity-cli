@@ -8,12 +8,12 @@
 def importcmd(self, image_path, input_source):
     """import will import (stdin) to the image
 
-       Parameters
-       ==========
-       image_path: path to image to import to. 
-       input_source: input source or file
-       import_type: if not specified, imports whatever function is given
-       
+    Parameters
+    ==========
+    image_path: path to image to import to.
+    input_source: input source or file
+    import_type: if not specified, imports whatever function is given
+
     """
     from spython.utils import check_install
 

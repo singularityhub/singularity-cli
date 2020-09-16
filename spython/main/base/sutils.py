@@ -16,9 +16,9 @@ import re
 def load(self, image=None):
     """load an image, either an actual path on the filesystem or a uri.
 
-       Parameters
-       ==========
-       image: the image path or uri to load (e.g., docker://ubuntu 
+    Parameters
+    ==========
+    image: the image path or uri to load (e.g., docker://ubuntu
 
     """
     from spython.image import Image
@@ -34,11 +34,11 @@ def load(self, image=None):
 
 def setenv(self, variable, value):
     """set an environment variable for Singularity
-    
-       Parameters
-       ==========
-       variable: the variable to set
-       value: the value to set
+
+    Parameters
+    ==========
+    variable: the variable to set
+    value: the value to set
     """
     os.environ[variable] = value
     os.putenv(variable, value)
@@ -47,11 +47,11 @@ def setenv(self, variable, value):
 
 def get_filename(self, image, ext="sif", pwd=True):
     """return an image filename based on the image uri.
- 
-       Parameters
-       ==========
-       ext: the extension to use
-       pwd: derive a filename for the pwd
+
+    Parameters
+    ==========
+    ext: the extension to use
+    pwd: derive a filename for the pwd
     """
     if pwd:
         image = os.path.basename(image)
@@ -62,8 +62,8 @@ def get_filename(self, image, ext="sif", pwd=True):
 
 
 def get_uri(self):
-    """ check if the loaded image object (self.simage) has an associated uri
-        return if yes, None if not.
+    """check if the loaded image object (self.simage) has an associated uri
+    return if yes, None if not.
     """
     if hasattr(self, "simage"):
         if self.simage is not None:

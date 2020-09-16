@@ -14,12 +14,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup black linter
-        run: conda create --quiet --name black black pyflakes
+        run: conda create --quiet --name black pyflakes
 
       - name: Lint python code with black
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
+          pip install black==20.8b1
           black --check spython
 
       - name: Check unused imports with pyflakes

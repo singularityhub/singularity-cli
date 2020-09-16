@@ -8,9 +8,9 @@
 def helpcmd(self, command=None):
     """help prints the general function help, or help for a specific command
 
-        Parameters
-        ==========   
-        command: the command to get help for, if none, prints general help
+    Parameters
+    ==========
+    command: the command to get help for, if none, prints general help
 
     """
     from spython.utils import check_install

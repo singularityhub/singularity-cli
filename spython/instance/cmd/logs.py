@@ -13,15 +13,15 @@ import os
 
 def error_logs(self, print_logs=False):
     """For Singularity 3.5 and later, we are able to programatically
-       derive the name of the log. In this case, return the content
-       to the user. See 
-       https://github.com/sylabs/singularity/issues/1115#issuecomment-560457918
-       for when this was added.
+    derive the name of the log. In this case, return the content
+    to the user. See
+    https://github.com/sylabs/singularity/issues/1115#issuecomment-560457918
+    for when this was added.
 
-       Parameters
-       ==========
-       print_logs: boolean to indicate to print to the screen along with
-                   return (defaults to False to just return log string)
+    Parameters
+    ==========
+    print_logs: boolean to indicate to print to the screen along with
+                return (defaults to False to just return log string)
     """
     return self._logs(print_logs, "err")
 
@@ -29,17 +29,17 @@ def error_logs(self, print_logs=False):
 def output_logs(self, print_logs=False):
     """Get output logs for the user, if they exist.
 
-       Parameters
-       ==========
-       print_logs: boolean to indicate to print to the screen along with
-                   return (defaults to False to just return log string)
+    Parameters
+    ==========
+    print_logs: boolean to indicate to print to the screen along with
+                return (defaults to False to just return log string)
     """
     return self._logs(print_logs, "out")
 
 
 def _logs(self, print_logs=False, ext="out"):
     """A shared function to print log files. The only differing element is
-       the extension (err or out)
+    the extension (err or out)
     """
     from spython.utils import check_install
 

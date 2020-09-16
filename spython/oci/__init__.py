@@ -16,16 +16,16 @@ class OciImage(ImageBase):
     def __init__(
         self, container_id=None, bundle=None, create=True, sudo=True, **kwargs
     ):
-        """ An Oci Image is an Image Base with OCI functions appended
+        """An Oci Image is an Image Base with OCI functions appended
 
-            Parameters
-            ==========
-            container_id: image uri to parse (required)
-            bundle: a bundle directory to create a container from.
-                    the bundle should have a config.json at the root
-            create: if the bundle is provided, create a container (default True)
-            sudo: if init is called with or without sudo, keep a record and use
-                  for following commands unless sudo is provided to function.
+        Parameters
+        ==========
+        container_id: image uri to parse (required)
+        bundle: a bundle directory to create a container from.
+                the bundle should have a config.json at the root
+        create: if the bundle is provided, create a container (default True)
+        sudo: if init is called with or without sudo, keep a record and use
+              for following commands unless sudo is provided to function.
         """
         super(OciImage, self).__init__()
 
@@ -42,14 +42,14 @@ class OciImage(ImageBase):
     # Unique resource identifier
 
     def get_container_id(self, container_id=None):
-        """ a helper function shared between functions that will return a 
-            container_id. First preference goes to a container_id provided by
-            the user at runtime. Second preference goes to the container_id
-            instantiated with the client.
+        """a helper function shared between functions that will return a
+        container_id. First preference goes to a container_id provided by
+        the user at runtime. Second preference goes to the container_id
+        instantiated with the client.
 
-            Parameters
-            ==========
-            container_id: image uri to parse (required)
+        Parameters
+        ==========
+        container_id: image uri to parse (required)
         """
 
         # The user must provide a container_id, or have one with the client
@@ -61,8 +61,7 @@ class OciImage(ImageBase):
         return container_id
 
     def get_uri(self):
-        """return the image uri (oci://) along with it's name
-        """
+        """return the image uri (oci://) along with it's name"""
         return self.__str__()
 
     # Naming
@@ -79,28 +78,28 @@ class OciImage(ImageBase):
 
     def _get_sudo(self, sudo=None):
         """if the client was initialized with sudo, remember this choice for
-           later communication with the Oci Images. However, if the user provides
-           a sudo argument (True or False) and not the default None, take
-           preference to this argument.
- 
-           Parameters
-           ==========
-           sudo: if None, use self.sudo. Otherwise return sudo.
+        later communication with the Oci Images. However, if the user provides
+        a sudo argument (True or False) and not the default None, take
+        preference to this argument.
+
+        Parameters
+        ==========
+        sudo: if None, use self.sudo. Otherwise return sudo.
         """
         if sudo is None:
             sudo = self.sudo
         return sudo
 
     def _run_and_return(self, cmd, sudo=None):
-        """ Run a command, show the message to the user if quiet isn't set,
-            and return the return code. This is a wrapper for the OCI client
-            to run a command and easily return the return code value (what
-            the user is ultimately interested in).
+        """Run a command, show the message to the user if quiet isn't set,
+        and return the return code. This is a wrapper for the OCI client
+        to run a command and easily return the return code value (what
+        the user is ultimately interested in).
 
-            Parameters
-            ==========
-            cmd: the command (list) to run.
-            sudo: whether to add sudo or not.         
+        Parameters
+        ==========
+        cmd: the command (list) to run.
+        sudo: whether to add sudo or not.
 
         """
         sudo = self._get_sudo(sudo)
@@ -118,14 +117,14 @@ class OciImage(ImageBase):
         return result["return_code"]
 
     def _init_command(self, action, flags=None):
-        """ a wrapper to the base init_command, ensuring that "oci" is added
-            to each command
+        """a wrapper to the base init_command, ensuring that "oci" is added
+        to each command
 
-            Parameters
-            ==========
-            action: the main action to perform (e.g., build)
-            flags: one or more additional flags (e.g, volumes) 
-                   not implemented yet.
+        Parameters
+        ==========
+        action: the main action to perform (e.g., build)
+        flags: one or more additional flags (e.g, volumes)
+               not implemented yet.
 
         """
         from spython.main.base.command import init_command

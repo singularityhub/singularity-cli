@@ -11,11 +11,11 @@ from spython.logger import decodeUtf8String
 
 def init_level(self, quiet=False):
     """set the logging level based on the environment
-        
-       Parameters
-       ==========
-       quiet: boolean if True, set to quiet. Gets overriden by environment
-              setting, and only exists to define default
+
+    Parameters
+    ==========
+    quiet: boolean if True, set to quiet. Gets overriden by environment
+           setting, and only exists to define default
 
     """
 
@@ -27,12 +27,12 @@ def init_level(self, quiet=False):
 
 def println(self, output, quiet=False):
     """print will print the output, given that quiet is not True. This
-       function also serves to convert output in bytes to utf-8
+    function also serves to convert output in bytes to utf-8
 
-       Parameters
-       ==========
-       output: the string to print
-       quiet: a runtime variable to over-ride the default.
+    Parameters
+    ==========
+    output: the string to print
+    quiet: a runtime variable to over-ride the default.
 
     """
     if not self.quiet and not quiet:

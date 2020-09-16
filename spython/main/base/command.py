@@ -16,11 +16,11 @@ import os
 
 def init_command(self, action, flags=None):
     """return the initial Singularity command with any added flags.
-        
-       Parameters
-       ==========
-       action: the main action to perform (e.g., build)
-       flags: one or more additional singularity options
+
+    Parameters
+    ==========
+    action: the main action to perform (e.g., build)
+    flags: one or more additional singularity options
     """
     flags = flags or []
 
@@ -38,20 +38,20 @@ def init_command(self, action, flags=None):
 
 def generate_bind_list(self, bindlist=None):
     """generate bind string will take a single string or list of binds, and
-       return a list that can be added to an exec or run command. For example,
-       the following map as follows:
+     return a list that can be added to an exec or run command. For example,
+     the following map as follows:
 
-      ['/host:/container', '/both'] --> ["--bind", "/host:/container","--bind","/both" ]
-      ['/both']                     --> ["--bind", "/both"]
-      '/host:container'             --> ["--bind", "/host:container"]
-       None                         --> []
- 
-       An empty bind or otherwise value of None should return an empty list.
-       The binds are also checked on the host.
+    ['/host:/container', '/both'] --> ["--bind", "/host:/container","--bind","/both" ]
+    ['/both']                     --> ["--bind", "/both"]
+    '/host:container'             --> ["--bind", "/host:container"]
+     None                         --> []
 
-       Parameters
-       ==========
-       bindlist: a string or list of bind mounts
+     An empty bind or otherwise value of None should return an empty list.
+     The binds are also checked on the host.
+
+     Parameters
+     ==========
+     bindlist: a string or list of bind mounts
 
     """
     binds = []
@@ -82,14 +82,14 @@ def generate_bind_list(self, bindlist=None):
 
 def send_command(self, cmd, sudo=False, stderr=None, stdout=None):
     """send command is a non interactive version of run_command, meaning
-       that we execute the command and return the return value, but don't
-       attempt to stream any content (text from the screen) back to the
-       user. This is useful for commands interacting with OCI bundles.
+    that we execute the command and return the return value, but don't
+    attempt to stream any content (text from the screen) back to the
+    user. This is useful for commands interacting with OCI bundles.
 
-       Parameters
-       ==========
-       cmd: the list of commands to send to the terminal
-       sudo: use sudo (or not)
+    Parameters
+    ==========
+    cmd: the list of commands to send to the terminal
+    sudo: use sudo (or not)
     """
 
     if sudo:
@@ -111,18 +111,18 @@ def run_command(
 ):
 
     """run_command is a wrapper for the global run_command, checking first
-       for sudo and exiting on error if needed. The message is returned as
-       a list of lines for the calling function to parse, and stdout uses
-       the parent process so it appears for the user.
+    for sudo and exiting on error if needed. The message is returned as
+    a list of lines for the calling function to parse, and stdout uses
+    the parent process so it appears for the user.
 
-       Parameters
-       ==========
-       cmd: the command to run
-       sudo: does the command require sudo?
-       quiet: if quiet set by function, overrides client setting.
-       return_result: return the result, if not successful (default False).
-       sudo_options: string or list of strings that will be passed as options to sudo
-       On success, returns result.
+    Parameters
+    ==========
+    cmd: the command to run
+    sudo: does the command require sudo?
+    quiet: if quiet set by function, overrides client setting.
+    return_result: return the result, if not successful (default False).
+    sudo_options: string or list of strings that will be passed as options to sudo
+    On success, returns result.
 
     """
     # First preference to function, then to client setting
