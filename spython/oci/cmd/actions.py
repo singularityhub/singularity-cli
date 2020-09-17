@@ -19,20 +19,20 @@ def run(
     log_format="kubernetes",
 ):
 
-    """ run is a wrapper to create, start, attach, and delete a container.
+    """run is a wrapper to create, start, attach, and delete a container.
 
-        Equivalent command line example:      
-          singularity oci run -b ~/bundle mycontainer
+    Equivalent command line example:
+      singularity oci run -b ~/bundle mycontainer
 
-        Parameters
-        ==========
-        bundle: the full path to the bundle folder
-        container_id: an optional container_id. If not provided, use same
-                      container_id used to generate OciImage instance
-        log_path: the path to store the log.
-        pid_file: specify the pid file path to use
-        log_format: defaults to kubernetes. Can also be "basic" or "json"
-        singularity_options: a list of options to provide to the singularity client
+    Parameters
+    ==========
+    bundle: the full path to the bundle folder
+    container_id: an optional container_id. If not provided, use same
+                  container_id used to generate OciImage instance
+    log_path: the path to store the log.
+    pid_file: specify the pid file path to use
+    log_format: defaults to kubernetes. Can also be "basic" or "json"
+    singularity_options: a list of options to provide to the singularity client
     """
     return self._run(
         bundle,
@@ -57,26 +57,26 @@ def create(
     singularity_options=None,
 ):
 
-    """ use the client to create a container from a bundle directory. The bundle
-        directory should have a config.json. You must be the root user to
-        create a runtime.
+    """use the client to create a container from a bundle directory. The bundle
+    directory should have a config.json. You must be the root user to
+    create a runtime.
 
-        Equivalent command line example:      
-           singularity oci create [create options...] <container_ID>
+    Equivalent command line example:
+       singularity oci create [create options...] <container_ID>
 
-        Parameters
-        ==========
-        bundle: the full path to the bundle folder
-        container_id: an optional container_id. If not provided, use same
-                      container_id used to generate OciImage instance
-        empty_process: run container without executing container process (for
-                       example, for a pod container waiting for signals). This
-                       is a specific use case for tools like Kubernetes
-        log_path: the path to store the log.
-        pid_file: specify the pid file path to use
-        sync_socket: the path to the unix socket for state synchronization.
-        log_format: defaults to kubernetes. Can also be "basic" or "json"
-        singularity_options: a list of options to provide to the singularity client
+    Parameters
+    ==========
+    bundle: the full path to the bundle folder
+    container_id: an optional container_id. If not provided, use same
+                  container_id used to generate OciImage instance
+    empty_process: run container without executing container process (for
+                   example, for a pod container waiting for signals). This
+                   is a specific use case for tools like Kubernetes
+    log_path: the path to store the log.
+    pid_file: specify the pid file path to use
+    sync_socket: the path to the unix socket for state synchronization.
+    log_format: defaults to kubernetes. Can also be "basic" or "json"
+    singularity_options: a list of options to provide to the singularity client
     """
     return self._run(
         bundle,
@@ -104,26 +104,26 @@ def _run(
     singularity_options=None,
 ):
 
-    """ _run is the base function for run and create, the only difference
-        between the two being that run does not have an option for sync_socket.
+    """_run is the base function for run and create, the only difference
+    between the two being that run does not have an option for sync_socket.
 
-        Equivalent command line example:      
-           singularity oci create [create options...] <container_ID>
+    Equivalent command line example:
+       singularity oci create [create options...] <container_ID>
 
-        Parameters
-        ==========
-        bundle: the full path to the bundle folder
-        container_id: an optional container_id. If not provided, use same
-                      container_id used to generate OciImage instance
-        empty_process: run container without executing container process (for
-                       example, for a pod container waiting for signals). This
-                       is a specific use case for tools like Kubernetes
-        log_path: the path to store the log.
-        pid_file: specify the pid file path to use
-        sync_socket: the path to the unix socket for state synchronization.
-        command: the command (run or create) to use (default is run)
-        log_format: defaults to kubernetes. Can also be "basic" or "json"
-        singularity_options: a list of options to provide to the singularity client
+    Parameters
+    ==========
+    bundle: the full path to the bundle folder
+    container_id: an optional container_id. If not provided, use same
+                  container_id used to generate OciImage instance
+    empty_process: run container without executing container process (for
+                   example, for a pod container waiting for signals). This
+                   is a specific use case for tools like Kubernetes
+    log_path: the path to store the log.
+    pid_file: specify the pid file path to use
+    sync_socket: the path to the unix socket for state synchronization.
+    command: the command (run or create) to use (default is run)
+    log_format: defaults to kubernetes. Can also be "basic" or "json"
+    singularity_options: a list of options to provide to the singularity client
 
     """
     container_id = self.get_container_id(container_id)
@@ -163,19 +163,19 @@ def _run(
 def delete(self, container_id=None, sudo=None, singularity_options=None):
     """delete an instance based on container_id.
 
-       Parameters
-       ==========
-       container_id: the container_id to delete
-       singularity_options: a list of options to provide to the singularity client
-       sudo: whether to issue the command with sudo (or not)
-             a container started with sudo will belong to the root user
-             If started by a user, the user needs to control deleting it
-             if the user doesn't set to True/False, we use client self.sudo
+    Parameters
+    ==========
+    container_id: the container_id to delete
+    singularity_options: a list of options to provide to the singularity client
+    sudo: whether to issue the command with sudo (or not)
+          a container started with sudo will belong to the root user
+          If started by a user, the user needs to control deleting it
+          if the user doesn't set to True/False, we use client self.sudo
 
-       Returns
-       =======
-       return_code: the return code from the delete command. 0 indicates a
-                    successful delete, 255 indicates not.
+    Returns
+    =======
+    return_code: the return code from the delete command. 0 indicates a
+                 successful delete, 255 indicates not.
     """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
@@ -193,18 +193,18 @@ def delete(self, container_id=None, sudo=None, singularity_options=None):
 def attach(self, container_id=None, sudo=False, singularity_options=None):
     """attach to a container instance based on container_id
 
-       Parameters
-       ==========
-       container_id: the container_id to delete
-       singularity_options: a list of options to provide to the singularity client
-       sudo: whether to issue the command with sudo (or not)
-             a container started with sudo will belong to the root user
-             If started by a user, the user needs to control deleting it
+    Parameters
+    ==========
+    container_id: the container_id to delete
+    singularity_options: a list of options to provide to the singularity client
+    sudo: whether to issue the command with sudo (or not)
+          a container started with sudo will belong to the root user
+          If started by a user, the user needs to control deleting it
 
-       Returns
-       =======
-       return_code: the return code from the delete command. 0 indicates a
-                    successful delete, 255 indicates not.
+    Returns
+    =======
+    return_code: the return code from the delete command. 0 indicates a
+                 successful delete, 255 indicates not.
     """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
@@ -229,21 +229,21 @@ def execute(
 ):
     """execute a command to a container instance based on container_id
 
-       Parameters
-       ==========
-       container_id: the container_id to delete
-       command: the command to execute to the container
-       singularity_options: a list of options to provide to the singularity client
-       sudo: whether to issue the command with sudo (or not)
-             a container started with sudo will belong to the root user
-             If started by a user, the user needs to control deleting it
-       stream: if True, return an iterate to iterate over results of exec.
-               default is False, will return full output as string.
+    Parameters
+    ==========
+    container_id: the container_id to delete
+    command: the command to execute to the container
+    singularity_options: a list of options to provide to the singularity client
+    sudo: whether to issue the command with sudo (or not)
+          a container started with sudo will belong to the root user
+          If started by a user, the user needs to control deleting it
+    stream: if True, return an iterate to iterate over results of exec.
+            default is False, will return full output as string.
 
-       Returns
-       =======
-       return_code: the return code from the delete command. 0 indicates a
-                    successful delete, 255 indicates not.
+    Returns
+    =======
+    return_code: the return code from the delete command. 0 indicates a
+                 successful delete, 255 indicates not.
     """
     sudo = self._get_sudo(sudo)
     container_id = self.get_container_id(container_id)
@@ -268,17 +268,17 @@ def execute(
 
 def update(self, container_id, from_file=None, sudo=False, singularity_options=None):
     """update container cgroup resources for a specific container_id,
-       The container must have state "running" or "created."
+    The container must have state "running" or "created."
 
-       Singularity Example:
-           singularity oci update [update options...] <container_ID>
-           singularity oci update --from-file cgroups-update.json mycontainer
+    Singularity Example:
+        singularity oci update [update options...] <container_ID>
+        singularity oci update --from-file cgroups-update.json mycontainer
 
-       Parameters
-       ==========
-       container_id: the container_id to update cgroups for
-       from_file: a path to an OCI JSON resource file to update from.
-       singularity_options: a list of options to provide to the singularity client
+    Parameters
+    ==========
+    container_id: the container_id to update cgroups for
+    from_file: a path to an OCI JSON resource file to update from.
+    singularity_options: a list of options to provide to the singularity client
 
     """
     sudo = self._get_sudo(sudo)

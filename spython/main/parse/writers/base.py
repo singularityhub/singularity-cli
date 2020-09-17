@@ -14,24 +14,24 @@ from spython.utils import write_file
 class WriterBase(object):
     def __init__(self, recipe=None):
         """a writer base will take a recipe object (parser.base.Recipe) and
-           provide helpers for writing to file.
+        provide helpers for writing to file.
 
-           Parameters
-           ==========
-           recipe: the recipe instance to parse
+        Parameters
+        ==========
+        recipe: the recipe instance to parse
 
         """
         self.recipe = recipe
 
     def write(self, output_file=None, force=False):
         """convert a recipe to a specified format, and write to file, meaning
-           we use the loaded recipe to write to an output file.
-           If the output file is not specified, a temporary file is used.
+        we use the loaded recipe to write to an output file.
+        If the output file is not specified, a temporary file is used.
 
-           Parameters
-           ==========
-           output_file: the file to save to, not required (estimates default)
-           force: if True, if file exists, over-write existing file
+        Parameters
+        ==========
+        output_file: the file to save to, not required (estimates default)
+        force: if True, if file exists, over-write existing file
 
         """
         if output_file is None:
@@ -49,11 +49,11 @@ class WriterBase(object):
 
     def _get_conversion_outfile(self):
         """a helper function to return a conversion temporary output file
-           based on kind of conversion
+        based on kind of conversion
 
-           Parameters
-           ==========
-           convert_to: a string either docker or singularity, if a different
+        Parameters
+        ==========
+        convert_to: a string either docker or singularity, if a different
 
         """
         prefix = "spythonRecipe"
@@ -65,10 +65,10 @@ class WriterBase(object):
     # Printing
 
     def __str__(self):
-        """ show the user the recipe object, along with the type. E.g.,
-       
-            [spython-writer][docker]
-            [spython-writer][singularity]
+        """show the user the recipe object, along with the type. E.g.,
+
+        [spython-writer][docker]
+        [spython-writer][singularity]
 
         """
         base = "[spython-writer]"

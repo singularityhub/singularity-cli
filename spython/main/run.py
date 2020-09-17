@@ -26,26 +26,26 @@ def run(
     return_result=False,
 ):
     """
-        run will run the container, with or withour arguments (which
-        should be provided in a list)
-    
-        Parameters
-        ==========
-        image: full path to singularity image
-        args: args to include with the run 
-        app: if not None, execute a command in context of an app
-        writable: This option makes the file system accessible as read/write
-        options: an optional list of options to provide to run.
-        singularity_options: a list of options to provide to the singularity client
-        contain: This option disables the automatic sharing of writable
-                 filesystems on your host
-        bind: list or single string of bind paths.
-              This option allows you to map directories on your host system to
-              directories within your container using bind mounts
-        stream: if True, return <generator> for the user to run
-        nv: if True, load Nvidia Drivers in runtime (default False)
-        return_result: if True, return entire json object with return code
-             and message result (default is False)
+    run will run the container, with or withour arguments (which
+    should be provided in a list)
+
+    Parameters
+    ==========
+    image: full path to singularity image
+    args: args to include with the run
+    app: if not None, execute a command in context of an app
+    writable: This option makes the file system accessible as read/write
+    options: an optional list of options to provide to run.
+    singularity_options: a list of options to provide to the singularity client
+    contain: This option disables the automatic sharing of writable
+             filesystems on your host
+    bind: list or single string of bind paths.
+          This option allows you to map directories on your host system to
+          directories within your container using bind mounts
+    stream: if True, return <generator> for the user to run
+    nv: if True, load Nvidia Drivers in runtime (default False)
+    return_result: if True, return entire json object with return code
+         and message result (default is False)
 
     """
     from spython.utils import check_install

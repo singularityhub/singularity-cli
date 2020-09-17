@@ -49,26 +49,25 @@ class DockerWriter(WriterBase):
 
     def __init__(self, recipe=None):  # pylint: disable=useless-super-delegation
         """a DockerWriter will take a Recipe as input, and write
-           to a Dockerfile.
+        to a Dockerfile.
 
-           Parameters
-           ==========
-           recipe: the Recipe object to write to file.
+        Parameters
+        ==========
+        recipe: the Recipe object to write to file.
 
         """
         super(DockerWriter, self).__init__(recipe)
 
     def validate(self):
         """validate that all (required) fields are included for the Docker
-           recipe. We minimimally just need a FROM image, and must ensure
-           it's in a valid format. If anything is missing, we exit with error.
+        recipe. We minimimally just need a FROM image, and must ensure
+        it's in a valid format. If anything is missing, we exit with error.
         """
         if self.recipe is None:
             bot.exit("Please provide a Recipe() to the writer first.")
 
     def validate_stage(self, parser):
-        """Given a recipe parser for a stage, ensure that the recipe is valid
-        """
+        """Given a recipe parser for a stage, ensure that the recipe is valid"""
         if parser.fromHeader is None:
             bot.exit("Dockerfile requires a fromHeader.")
 
@@ -85,7 +84,7 @@ class DockerWriter(WriterBase):
 
     def convert(self, runscript="/bin/bash", force=False):
         """convert is called by the parent class to convert the recipe object
-           (at self.recipe) to the output file content to write to file.
+        (at self.recipe) to the output file content to write to file.
         """
         self.validate()
 
@@ -132,10 +131,10 @@ class DockerWriter(WriterBase):
 
 def write_files(label, lines):
     """write a list of lines with a header for a section.
-    
-       Parameters
-       ==========
-       lines: one or more lines to write, with header appended
+
+    Parameters
+    ==========
+    lines: one or more lines to write, with header appended
 
     """
     result = []
@@ -149,10 +148,10 @@ def write_files(label, lines):
 
 def write_lines(label, lines):
     """write a list of lines with a header for a section.
-    
-       Parameters
-       ==========
-       lines: one or more lines to write, with header appended
+
+    Parameters
+    ==========
+    lines: one or more lines to write, with header appended
 
     """
     if not isinstance(lines, list):

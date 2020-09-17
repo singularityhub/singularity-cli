@@ -22,19 +22,19 @@ def start(
 ):
     """start an instance. This is done by default when an instance is created.
 
-       Parameters
-       ==========
-       image: optionally, an image uri (if called as a command from Client)
-       name: a name for the instance
-       sudo: if the user wants to run the command with sudo
-       capture: capture output, default is False. With True likely to hang.
-       args: arguments to provide to the instance (supported Singularity 3.1+)
-       singularity_options: a list of options to provide to the singularity client
-       options: a list of tuples, each an option to give to the start command
-                [("--bind", "/tmp"),...]
+    Parameters
+    ==========
+    image: optionally, an image uri (if called as a command from Client)
+    name: a name for the instance
+    sudo: if the user wants to run the command with sudo
+    capture: capture output, default is False. With True likely to hang.
+    args: arguments to provide to the instance (supported Singularity 3.1+)
+    singularity_options: a list of options to provide to the singularity client
+    options: a list of tuples, each an option to give to the start command
+             [("--bind", "/tmp"),...]
 
-       USAGE: 
-       singularity [...] instance.start [...] <container path> <instance name>
+    USAGE:
+    singularity [...] instance.start [...] <container path> <instance name>
 
     """
     from spython.utils import run_command, check_install

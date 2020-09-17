@@ -14,14 +14,14 @@ def inspect(
     self, image=None, json=True, app=None, quiet=True, singularity_options=None
 ):
     """inspect will show labels, defile, runscript, and tests for an image
-    
-       Parameters
-       ==========
-       image: path of image to inspect
-       json: print json instead of raw text (default True)
-       quiet: Don't print result to the screen (default True)
-       app: if defined, return help in context of an app
-       singularity_options: a list of options to provide to the singularity client
+
+    Parameters
+    ==========
+    image: path of image to inspect
+    json: print json instead of raw text (default True)
+    quiet: Don't print result to the screen (default True)
+    app: if defined, return help in context of an app
+    singularity_options: a list of options to provide to the singularity client
 
     """
     check_install()
@@ -72,11 +72,11 @@ def inspect(
 
 def parse_labels(result):
     """fix up the labels, meaning parse to json if needed, and return
-       original updated object
+    original updated object
 
-       Parameters
-       ==========
-       result: the json object to parse from inspect
+    Parameters
+    ==========
+    result: the json object to parse from inspect
     """
 
     labels = result["attributes"].get("labels") or {}

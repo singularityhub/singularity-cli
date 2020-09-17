@@ -11,15 +11,15 @@ import os
 class Instance(ImageBase):
     def __init__(self, image, start=True, name=None, **kwargs):
         """An instance is an image running as an instance with services.
-            This class has functions appended under cmd/__init__ and is
-            instantiated when the user calls Client.
+        This class has functions appended under cmd/__init__ and is
+        instantiated when the user calls Client.
 
-            Parameters
-            ==========
-            image: the Singularity image uri to parse (required)
-            start: boolean to start the instance (default is True)
-            name: a name for the instance (will generate RobotName 
-                    if not provided)
+        Parameters
+        ==========
+        image: the Singularity image uri to parse (required)
+        start: boolean to start the instance (default is True)
+        name: a name for the instance (will generate RobotName
+                if not provided)
         """
         super(Instance, self).__init__()
         self.parse_image_name(image)
@@ -38,7 +38,7 @@ class Instance(ImageBase):
 
     def generate_name(self, name=None):
         """generate a Robot Name for the instance to use, if the user doesn't
-           supply one.
+        supply one.
         """
         # If no name provided, use robot name
         if name is None:
@@ -47,27 +47,26 @@ class Instance(ImageBase):
 
     def parse_image_name(self, image):
         """
-            simply split the uri from the image. Singularity handles
-            parsing of registry, namespace, image.
-            
-            Parameters
-            ==========
-            image: the complete image uri to load (e.g., docker://ubuntu) 
+        simply split the uri from the image. Singularity handles
+        parsing of registry, namespace, image.
+
+        Parameters
+        ==========
+        image: the complete image uri to load (e.g., docker://ubuntu)
 
         """
         self._image = image
         self.protocol = "instance"
 
     def get_uri(self):
-        """return the image uri (instance://) along with it's name
-        """
+        """return the image uri (instance://) along with it's name"""
         return self.__str__()
 
     # Metadata
 
     def _update_metadata(self, kwargs=None):
         """Extract any additional attributes to hold with the instance
-           from kwargs
+        from kwargs
         """
 
         # If not given metadata, use instance.list to get it for container

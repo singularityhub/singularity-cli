@@ -16,10 +16,10 @@ import os
 
 
 def main(args, options, parser):
-    """This function serves as a wrapper around the DockerParser, 
-       SingularityParser, DockerWriter, and SingularityParser converters. 
-       We can either save to file if args.outfile is defined, or print 
-       to the console if not.
+    """This function serves as a wrapper around the DockerParser,
+    SingularityParser, DockerWriter, and SingularityParser converters.
+    We can either save to file if args.outfile is defined, or print
+    to the console if not.
     """
     # We need something to work with
     if not args.files:

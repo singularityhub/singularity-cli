@@ -17,28 +17,28 @@ class SingularityWriter(WriterBase):
 
     def __init__(self, recipe=None):  # pylint: disable=useless-super-delegation
         """a SingularityWriter will take a Recipe as input, and write
-           to a Singularity recipe file.
+        to a Singularity recipe file.
 
-           Parameters
-           ==========
-           recipe: the Recipe object to write to file.
+        Parameters
+        ==========
+        recipe: the Recipe object to write to file.
 
         """
         super(SingularityWriter, self).__init__(recipe)
 
     def validate(self):
         """validate that all (required) fields are included for the Docker
-           recipe. We minimimally just need a FROM image, and must ensure
-           it's in a valid format. If anything is missing, we exit with error.
+        recipe. We minimimally just need a FROM image, and must ensure
+        it's in a valid format. If anything is missing, we exit with error.
         """
         if self.recipe is None:
             bot.exit("Please provide a Recipe() to the writer first.")
 
     def convert(self, runscript="/bin/bash", force=False):
         """docker2singularity will return a Singularity build recipe based on
-           a the loaded recipe object. It doesn't take any arguments as the
-           recipe object contains the sections, and the calling function 
-           determines saving / output logic.
+        a the loaded recipe object. It doesn't take any arguments as the
+        recipe object contains the sections, and the calling function
+        determines saving / output logic.
         """
         self.validate()
 
@@ -96,15 +96,15 @@ class SingularityWriter(WriterBase):
 
     def _create_runscript(self, default="/bin/bash", force=False):
         """create_entrypoint is intended to create a singularity runscript
-           based on a Docker entrypoint or command. We first use the Docker
-           ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
-           we use function default.
+        based on a Docker entrypoint or command. We first use the Docker
+        ENTRYPOINT, if defined. If not, we use the CMD. If neither is found,
+        we use function default.
 
-           Parameters
-           ==========
-           default: set a default entrypoint, if the container does not have
-                    an entrypoint or cmd.
-           force: If true, use default and ignore Dockerfile settings
+        Parameters
+        ==========
+        default: set a default entrypoint, if the container does not have
+                 an entrypoint or cmd.
+        force: If true, use default and ignore Dockerfile settings
         """
         entrypoint = default
 
@@ -137,14 +137,14 @@ class SingularityWriter(WriterBase):
         return entrypoint
 
     def _create_section(self, attribute, name=None, stage=None):
-        """create a section based on key, value recipe pairs, 
-           This is used for files or label
+        """create a section based on key, value recipe pairs,
+         This is used for files or label
 
-          Parameters
-          ==========
-          attribute: the name of the data section, either labels or files
-          name: the name to write to the recipe file (e.g., %name).
-                if not defined, the attribute name is used.
+        Parameters
+        ==========
+        attribute: the name of the data section, either labels or files
+        name: the name to write to the recipe file (e.g., %name).
+              if not defined, the attribute name is used.
 
         """
 
@@ -180,12 +180,12 @@ class SingularityWriter(WriterBase):
 
 def finish_section(section, name):
     """finish_section will add the header to a section, to finish the recipe
-       take a custom command or list and return a section.
+    take a custom command or list and return a section.
 
-       Parameters
-       ==========
-       section: the section content, without a header
-       name: the name of the section for the header
+    Parameters
+    ==========
+    section: the section content, without a header
+    name: the name of the section for the header
 
     """
 
@@ -205,14 +205,14 @@ def finish_section(section, name):
 
 
 def create_keyval_section(pairs, name, layer):
-    """create a section based on key, value recipe pairs, 
-       This is used for files or label
+    """create a section based on key, value recipe pairs,
+     This is used for files or label
 
-      Parameters
-      ==========
-      section: the list of values to return as a parsed list of lines
-      name: the name of the section to write (e.g., files)
-      layer: if a layer name is provided, name section
+    Parameters
+    ==========
+    section: the list of values to return as a parsed list of lines
+    name: the name of the section to write (e.g., files)
+    layer: if a layer name is provided, name section
     """
     if layer:
         section = ["%" + name + " from %s" % layer]
@@ -224,13 +224,13 @@ def create_keyval_section(pairs, name, layer):
 
 
 def create_env_section(pairs, name):
-    """environment key value pairs need to be joined by an equal, and 
-       exported at the end.
+    """environment key value pairs need to be joined by an equal, and
+     exported at the end.
 
-      Parameters
-      ==========
-      section: the list of values to return as a parsed list of lines
-      name: the name of the section to write (e.g., files)
+    Parameters
+    ==========
+    section: the list of values to return as a parsed list of lines
+    name: the name of the section to write (e.g., files)
 
     """
     section = ["%" + name]

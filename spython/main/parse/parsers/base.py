@@ -16,22 +16,22 @@ from ..recipe import Recipe
 
 class ParserBase(object):
     """a parser Base is intended to provide helper functions for a parser,
-       namely to read lines in files, and otherwise interact with outputs.
-       Input should be some recipe (text file to describe a container build)
-       and output of parse() is a Recipe (spython.main.parse.recipe.Recipe)
-       object, which can be used to write to file, etc.
+    namely to read lines in files, and otherwise interact with outputs.
+    Input should be some recipe (text file to describe a container build)
+    and output of parse() is a Recipe (spython.main.parse.recipe.Recipe)
+    object, which can be used to write to file, etc.
     """
 
     def __init__(self, filename, load=True):
-        """a generic recipe parser holds the original file, and provides 
-           shared functions for interacting with files. If the subclass has
-           a parse function defined, we parse the filename
+        """a generic recipe parser holds the original file, and provides
+        shared functions for interacting with files. If the subclass has
+        a parse function defined, we parse the filename
 
-           Parameters
-           ==========
-           filename: the recipe file to parse.
-           load: if True, load the filename into the Recipe. If not loaded,
-                 the user can call self.parse() at a later time.
+        Parameters
+        ==========
+        filename: the recipe file to parse.
+        load: if True, load the filename into the Recipe. If not loaded,
+              the user can call self.parse() at a later time.
 
         """
         self.filename = filename
@@ -58,14 +58,14 @@ class ParserBase(object):
     @abc.abstractmethod
     def parse(self):
         """parse is the base function for parsing an input filename, and
-           extracting elements into the correct Recipe sections. The exact 
-           logic and supporting functions will vary based on the recipe type. 
+        extracting elements into the correct Recipe sections. The exact
+        logic and supporting functions will vary based on the recipe type.
         """
         return
 
     def _run_checks(self):
         """basic sanity checks for the file name (and others if needed) before
-           attempting parsing.
+        attempting parsing.
         """
         if self.filename is not None:
 
@@ -79,10 +79,10 @@ class ParserBase(object):
     # Printing
 
     def __str__(self):
-        """ show the user the recipe object, along with the type. E.g.,
-       
-            [spython-parser][docker]
-            [spython-parser][singularity]
+        """show the user the recipe object, along with the type. E.g.,
+
+        [spython-parser][docker]
+        [spython-parser][singularity]
 
         """
         base = "[spython-parser]"
@@ -97,15 +97,15 @@ class ParserBase(object):
 
     def _split_line(self, line):
         """clean a line to prepare it for parsing, meaning separation
-           of commands. We remove newlines (from ends) along with extra spaces.
+        of commands. We remove newlines (from ends) along with extra spaces.
 
-           Parameters
-           ==========
-           line: the string to parse into parts
-    
-           Returns
-           =======
-           parts: a list of line pieces, the command is likely first
+        Parameters
+        ==========
+        line: the string to parse into parts
+
+        Returns
+        =======
+        parts: a list of line pieces, the command is likely first
 
         """
         return [x.strip() for x in line.split(" ", 1)]
@@ -114,13 +114,13 @@ class ParserBase(object):
 
     def _multistage(self, fromHeader):
         """Given a from header, determine if we have a multistage build, and
-           update the recipe parser active in case that we do. If we are dealing
-           with the first layer and it's named, we also update the default
-           name "spython-base" to be what the recipe intended.
+        update the recipe parser active in case that we do. If we are dealing
+        with the first layer and it's named, we also update the default
+        name "spython-base" to be what the recipe intended.
 
-           Parameters
-           ==========
-           fromHeader: the fromHeader parsed from self.from, possibly with AS
+        Parameters
+        ==========
+        fromHeader: the fromHeader parsed from self.from, possibly with AS
         """
         # Derive if there is a named layer
         match = re.search("AS (?P<layer>.+)", fromHeader, flags=re.I)
@@ -142,17 +142,17 @@ class ParserBase(object):
 
     def _replace_from_dict(self, string, args):
         """Given a lookup of arguments, args, replace any that are found in
-           the given string. This is intended to be used to substitute ARGs
-           provided in a Dockerfile into other sections, e.g., FROM $BASE
+        the given string. This is intended to be used to substitute ARGs
+        provided in a Dockerfile into other sections, e.g., FROM $BASE
 
-           Parameters
-           ==========
-           string: an input string to look for replacements
-           args: a dictionary to make lookups from
-    
-           Returns
-           =======
-           string: the string with replacements made
+        Parameters
+        ==========
+        string: an input string to look for replacements
+        args: a dictionary to make lookups from
+
+        Returns
+        =======
+        string: the string with replacements made
         """
         for key, value in args.items():
             if re.search("\$(" + key + "|\{[^}]*\})", string):

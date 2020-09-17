@@ -19,23 +19,23 @@ def list_instances(
     singularity_options=None,
 ):
     """list instances. For Singularity, this is provided as a command sub
-       group.
+    group.
 
-       singularity instance.list
+    singularity instance.list
 
-       Return codes provided are different from standard linux:
-       see https://github.com/singularityware/singularity/issues/1706
+    Return codes provided are different from standard linux:
+    see https://github.com/singularityware/singularity/issues/1706
 
-       Parameters
-       ==========
-       return_json: return a json list of instances instead of objects (False)
-       name: if defined, return the list for just one instance (used to ged pid)
-       singularity_options: a list of options to provide to the singularity client
+    Parameters
+    ==========
+    return_json: return a json list of instances instead of objects (False)
+    name: if defined, return the list for just one instance (used to ged pid)
+    singularity_options: a list of options to provide to the singularity client
 
-       Return Code  --   Reason
-       0 -- Instances Found
-       1 -- No Instances, libexecdir value not found, functions file not found
-       255 -- Couldn't get UID
+    Return Code  --   Reason
+    0 -- Instances Found
+    1 -- No Instances, libexecdir value not found, functions file not found
+    255 -- Couldn't get UID
 
     """
     from spython.instance.cmd.iutils import parse_table
@@ -114,12 +114,12 @@ def list_instances(
 
 def stopall(self, sudo=False, quiet=True, singularity_options=None):
     """stop ALL instances. This command is only added to the command group
-       as it doesn't make sense to call from a single instance
+    as it doesn't make sense to call from a single instance
 
-       Parameters
-       ==========
-       sudo: if the command should be done with sudo (exposes different set of
-             instances)
+    Parameters
+    ==========
+    sudo: if the command should be done with sudo (exposes different set of
+          instances)
 
     """
     from spython.utils import check_install

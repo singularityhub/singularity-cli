@@ -7,16 +7,16 @@
 
 def apps(self, image=None, full_path=False, root=""):
     """
-       return list of SCIF apps in image. The Singularity software serves
-       a scientific filesystem integration that will install apps to
-       /scif/apps and associated data to /scif/data. For more information 
-       about SCIF, see https://sci-f.github.io. Note that this seems
-       to be deprecated in Singularity 3.x.
+    return list of SCIF apps in image. The Singularity software serves
+    a scientific filesystem integration that will install apps to
+    /scif/apps and associated data to /scif/data. For more information
+    about SCIF, see https://sci-f.github.io. Note that this seems
+    to be deprecated in Singularity 3.x.
 
-       Parameters
-       ==========
-       full_path: if True, return relative to scif base folder
-       image_path: full path to the image
+    Parameters
+    ==========
+    full_path: if True, return relative to scif base folder
+    image_path: full path to the image
 
     """
     from spython.utils import check_install

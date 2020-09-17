@@ -7,17 +7,17 @@
 
 class Recipe(object):
     """a recipe includes an environment, labels, runscript or command,
-       and install sequence. This object is interacted with by a Parser 
-       (intended to popualte the recipe with content) and a Writer (intended
-       to write a recipe to file). The parsers and writers are located in
-       parsers.py, and writers.py, respectively. The user is also free to use
-       the recipe class to build recipes.
+    and install sequence. This object is interacted with by a Parser
+    (intended to popualte the recipe with content) and a Writer (intended
+    to write a recipe to file). The parsers and writers are located in
+    parsers.py, and writers.py, respectively. The user is also free to use
+    the recipe class to build recipes.
 
-       Parameters
-       ==========
-       recipe: the original recipe file, parsed by the subclass either
-               DockerParser or SingularityParser
-       layer: the count of the layer, for human readability
+    Parameters
+    ==========
+    recipe: the original recipe file, parsed by the subclass either
+            DockerParser or SingularityParser
+    layer: the count of the layer, for human readability
 
     """
 
@@ -41,10 +41,10 @@ class Recipe(object):
         self.source = recipe
 
     def __str__(self):
-        """ show the user the recipe object, along with the type. E.g.,
-       
-            [spython-recipe][source:Singularity]
-            [spython-recipe][source:Dockerfile]
+        """show the user the recipe object, along with the type. E.g.,
+
+        [spython-recipe][source:Singularity]
+        [spython-recipe][source:Dockerfile]
 
         """
         base = "[spython-recipe]"
@@ -54,12 +54,12 @@ class Recipe(object):
 
     def json(self):
         """return a dictionary version of the recipe, intended to be parsed
-           or printed as json.
+        or printed as json.
 
-           Returns: a dictionary of attributes including cmd, comments,
-                    entrypoint, environ, files, install, labels, ports,
-                    test, volumes, and workdir, organized by layer for
-                    multistage builds.
+        Returns: a dictionary of attributes including cmd, comments,
+                 entrypoint, environ, files, install, labels, ports,
+                 test, volumes, and workdir, organized by layer for
+                 multistage builds.
         """
         attributes = [
             "cmd",

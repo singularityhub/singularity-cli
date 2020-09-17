@@ -6,20 +6,20 @@
 
 
 def generate_image_commands():
-    """ The Image client holds the Singularity image command group, mainly
-        deprecated commands (image.import) and additional command helpers
-        that are commonly use but not provided by Singularity
+    """The Image client holds the Singularity image command group, mainly
+    deprecated commands (image.import) and additional command helpers
+    that are commonly use but not provided by Singularity
 
-        The levels of verbosity (debug and quiet) are passed from the main
-        client via the environment variable MESSAGELEVEL.
+    The levels of verbosity (debug and quiet) are passed from the main
+    client via the environment variable MESSAGELEVEL.
 
-        These commands are added to Client.image under main/__init__.py to 
-        expose subcommands:
+    These commands are added to Client.image under main/__init__.py to
+    expose subcommands:
 
-            Client.image.export
-            Client.image.imprt
-            Client.image.decompress
-            Client.image.create
+        Client.image.export
+        Client.image.imprt
+        Client.image.decompress
+        Client.image.create
 
     """
 
