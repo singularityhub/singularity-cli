@@ -15,6 +15,7 @@ def list_instances(
     return_json=False,
     quiet=False,
     sudo=False,
+    sudo_options=None,
     singularity_options=None,
 ):
     """list instances. For Singularity, this is provided as a command sub
@@ -53,7 +54,7 @@ def list_instances(
     if name is not None:
         cmd.append(name)
 
-    output = run_command(cmd, quiet=True, sudo=sudo)
+    output = run_command(cmd, quiet=True, sudo=sudo, sudo_options=sudo_options)
     instances = []
 
     # Success, we have instances

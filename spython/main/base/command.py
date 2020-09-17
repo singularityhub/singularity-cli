@@ -108,6 +108,7 @@ def run_command(
     quiet=None,
     return_result=False,
     sudo_options=None,
+    environ=None,
 ):
 
     """run_command is a wrapper for the global run_command, checking first
@@ -130,7 +131,12 @@ def run_command(
         quiet = self.quiet
 
     result = run_cmd(
-        cmd, sudo=sudo, capture=capture, quiet=quiet, sudo_options=sudo_options
+        cmd,
+        sudo=sudo,
+        capture=capture,
+        quiet=quiet,
+        sudo_options=sudo_options,
+        environ=environ,
     )
 
     # If one line is returned, squash dimension
