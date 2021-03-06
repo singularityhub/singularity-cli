@@ -96,7 +96,7 @@ test_spython: &test_spython
 
 jobs:
   test_singularity_python:
-    working_directory: ~/go/singularity
+    working_directory: ~/repo
     machine:
       image: ubuntu-2004:202008-01
     steps:
