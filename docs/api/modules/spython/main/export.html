@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
         <script src="../../../assets/jquery.js"></script>
         <script src="../../../assets/underscore.js"></script>
         <script src="../../../assets/doctools.js"></script>
-        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -173,15 +175,15 @@
 <span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;export will export an image, sudo must be used. If we have Singularity</span>
-<span class="sd">       versions after 3, export is replaced with building into a sandbox.</span>
+<span class="sd">    versions after 3, export is replaced with building into a sandbox.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       image_path: full path to image</span>
-<span class="sd">       pipe: export to pipe and not file (default, False)</span>
-<span class="sd">       singularity_options: a list of options to provide to the singularity client</span>
-<span class="sd">       output_file: if pipe=False, export tar to this file. If not specified, </span>
-<span class="sd">       will generate temporary directory.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    image_path: full path to image</span>
+<span class="sd">    pipe: export to pipe and not file (default, False)</span>
+<span class="sd">    singularity_options: a list of options to provide to the singularity client</span>
+<span class="sd">    output_file: if pipe=False, export tar to this file. If not specified,</span>
+<span class="sd">    will generate temporary directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
@@ -228,20 +230,20 @@
     <span class="n">command</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; the older deprecated function, running export for previous</span>
-<span class="sd">               versions of Singularity that support it</span>
+    <span class="sd">&quot;&quot;&quot;the older deprecated function, running export for previous</span>
+<span class="sd">        versions of Singularity that support it</span>
 
-<span class="sd">           USAGE: singularity [...] export [export options...] &lt;container path&gt;</span>
-<span class="sd">           Export will dump a tar stream of the container image contents to standard</span>
-<span class="sd">           out (stdout). </span>
-<span class="sd">           note: This command must be executed as root.</span>
-<span class="sd">           EXPORT OPTIONS:</span>
-<span class="sd">               -f/--file       Output to a file instead of a pipe</span>
-<span class="sd">                  --command    Replace the tar command (DEFAULT: &#39;tar cf - .&#39;)</span>
-<span class="sd">           EXAMPLES:</span>
-<span class="sd">               $ sudo singularity export /tmp/Debian.img &gt; /tmp/Debian.tar</span>
-<span class="sd">               $ sudo singularity export /tmp/Debian.img | gzip -9 &gt; /tmp/Debian.tar.gz</span>
-<span class="sd">               $ sudo singularity export -f Debian.tar /tmp/Debian.img</span>
+<span class="sd">    USAGE: singularity [...] export [export options...] &lt;container path&gt;</span>
+<span class="sd">    Export will dump a tar stream of the container image contents to standard</span>
+<span class="sd">    out (stdout).</span>
+<span class="sd">    note: This command must be executed as root.</span>
+<span class="sd">    EXPORT OPTIONS:</span>
+<span class="sd">        -f/--file       Output to a file instead of a pipe</span>
+<span class="sd">           --command    Replace the tar command (DEFAULT: &#39;tar cf - .&#39;)</span>
+<span class="sd">    EXAMPLES:</span>
+<span class="sd">        $ sudo singularity export /tmp/Debian.img &gt; /tmp/Debian.tar</span>
+<span class="sd">        $ sudo singularity export /tmp/Debian.img | gzip -9 &gt; /tmp/Debian.tar.gz</span>
+<span class="sd">        $ sudo singularity export -f Debian.tar /tmp/Debian.img</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sudo</span> <span class="o">=</span> <span class="kc">True</span>
@@ -283,11 +285,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -298,7 +308,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

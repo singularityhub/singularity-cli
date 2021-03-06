@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
         <script src="../../../../assets/jquery.js"></script>
         <script src="../../../../assets/underscore.js"></script>
         <script src="../../../../assets/doctools.js"></script>
-        <script src="../../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -158,40 +160,44 @@
 
 <div class="viewcode-block" id="Recipe"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe">[docs]</a><span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;a recipe includes an environment, labels, runscript or command,</span>
-<span class="sd">       and install sequence. This object is interacted with by a Parser </span>
-<span class="sd">       (intended to popualte the recipe with content) and a Writer (intended</span>
-<span class="sd">       to write a recipe to file). The parsers and writers are located in</span>
-<span class="sd">       parsers.py, and writers.py, respectively. The user is also free to use</span>
-<span class="sd">       the recipe class to build recipes.</span>
+<span class="sd">    and install sequence. This object is interacted with by a Parser</span>
+<span class="sd">    (intended to popualte the recipe with content) and a Writer (intended</span>
+<span class="sd">    to write a recipe to file). The parsers and writers are located in</span>
+<span class="sd">    parsers.py, and writers.py, respectively. The user is also free to use</span>
+<span class="sd">    the recipe class to build recipes.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       recipe: the original recipe file, parsed by the subclass either</span>
-<span class="sd">               DockerParser or SingularityParser</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    recipe: the original recipe file, parsed by the subclass either</span>
+<span class="sd">            DockerParser or SingularityParser</span>
+<span class="sd">    layer: the count of the layer, for human readability</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environ</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_files</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">install</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ports</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">volumes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">workdir</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromHeader</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">recipe</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; show the user the recipe object, along with the type. E.g.,</span>
-<span class="sd">       </span>
-<span class="sd">            [spython-recipe][source:Singularity]</span>
-<span class="sd">            [spython-recipe][source:Dockerfile]</span>
+        <span class="sd">&quot;&quot;&quot;show the user the recipe object, along with the type. E.g.,</span>
+
+<span class="sd">        [spython-recipe][source:Singularity]</span>
+<span class="sd">        [spython-recipe][source:Dockerfile]</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;[spython-recipe]&quot;</span>
@@ -201,11 +207,12 @@
 
 <div class="viewcode-block" id="Recipe.json"><a class="viewcode-back" href="../../../../source/spython.main.parse.html#spython.main.parse.recipe.Recipe.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return a dictionary version of the recipe, intended to be parsed</span>
-<span class="sd">           or printed as json.</span>
+<span class="sd">        or printed as json.</span>
 
-<span class="sd">           Returns: a dictionary of attributes including cmd, comments,</span>
-<span class="sd">                    entrypoint, environ, files, install, labels, ports,</span>
-<span class="sd">                    test, volumes, and workdir.</span>
+<span class="sd">        Returns: a dictionary of attributes including cmd, comments,</span>
+<span class="sd">                 entrypoint, environ, files, install, labels, ports,</span>
+<span class="sd">                 test, volumes, and workdir, organized by layer for</span>
+<span class="sd">                 multistage builds.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;cmd&quot;</span><span class="p">,</span>
@@ -213,6 +220,8 @@
             <span class="s2">&quot;entrypoint&quot;</span><span class="p">,</span>
             <span class="s2">&quot;environ&quot;</span><span class="p">,</span>
             <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;fromHeader&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;layer_files&quot;</span><span class="p">,</span>
             <span class="s2">&quot;install&quot;</span><span class="p">,</span>
             <span class="s2">&quot;labels&quot;</span><span class="p">,</span>
             <span class="s2">&quot;ports&quot;</span><span class="p">,</span>
@@ -244,11 +253,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -259,7 +276,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

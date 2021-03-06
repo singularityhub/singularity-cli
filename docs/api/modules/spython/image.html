@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../assets/documentation_options.js"></script>
         <script src="../../assets/jquery.js"></script>
         <script src="../../assets/underscore.js"></script>
         <script src="../../assets/doctools.js"></script>
-        <script src="../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -155,7 +157,6 @@
 
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">split_uri</span>
 
@@ -172,12 +173,12 @@
 
 <div class="viewcode-block" id="ImageBase.parse_image_name"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.ImageBase.parse_image_name">[docs]</a>    <span class="k">def</span> <span class="nf">parse_image_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            simply split the uri from the image. Singularity handles</span>
-<span class="sd">            parsing of registry, namespace, image.</span>
-<span class="sd">            </span>
-<span class="sd">            Parameters</span>
-<span class="sd">            ==========</span>
-<span class="sd">            image: the complete image uri to load (e.g., docker://ubuntu) </span>
+<span class="sd">        simply split the uri from the image. Singularity handles</span>
+<span class="sd">        parsing of registry, namespace, image.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        image: the complete image uri to load (e.g., docker://ubuntu)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image</span> <span class="o">=</span> <span class="n">image</span>
@@ -187,13 +188,13 @@
 <div class="viewcode-block" id="Image"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.Image">[docs]</a><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;An image here is an image file or a record.</span>
-<span class="sd">            The user can choose to load the image when starting the client, or</span>
-<span class="sd">            update the main client with an image. The image object is kept</span>
-<span class="sd">            with the main client to make running additional commands easier.</span>
+<span class="sd">        The user can choose to load the image when starting the client, or</span>
+<span class="sd">        update the main client with an image. The image object is kept</span>
+<span class="sd">        with the main client to make running additional commands easier.</span>
 
-<span class="sd">            Parameters</span>
-<span class="sd">            ==========</span>
-<span class="sd">            image: the image uri to parse (required)</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        image: the image uri to parse (required)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Image</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -201,13 +202,13 @@
 
 <div class="viewcode-block" id="Image.get_hash"><a class="viewcode-back" href="../../source/spython.image.html#spython.image.Image.get_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return an md5 hash of the file based on a criteria level. This</span>
-<span class="sd">           is intended to give the file a reasonable version. This only is</span>
-<span class="sd">           useful for actual image files.</span>
-<span class="sd">    </span>
-<span class="sd">           Parameters</span>
-<span class="sd">           ==========</span>
-<span class="sd">           image: the image path to get hash for (first priority). Second</span>
-<span class="sd">                  priority is image path saved with image object, if exists.</span>
+<span class="sd">        is intended to give the file a reasonable version. This only is</span>
+<span class="sd">        useful for actual image files.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ==========</span>
+<span class="sd">        image: the image path to get hash for (first priority). Second</span>
+<span class="sd">               priority is image path saved with image object, if exists.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">hasher</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
@@ -232,11 +233,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -247,7 +256,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

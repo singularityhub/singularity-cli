@@ -1,9 +1,7 @@
 
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -13,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="assets/documentation_options.js"></script>
         <script src="assets/jquery.js"></script>
         <script src="assets/underscore.js"></script>
         <script src="assets/doctools.js"></script>
-        <script src="assets/language_data.js"></script>
     
     <script type="text/javascript" src="assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -49,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Singularity Python API
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -76,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -90,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -128,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Index</li>
     
@@ -218,12 +219,14 @@
 </li>
       <li><a href="source/spython.utils.html#spython.utils.terminal.check_install">check_install() (in module spython.utils.terminal)</a>
 </li>
-      <li><a href="source/spython.main.base.html#spython.main.base.Client">Client (class in spython.main.base)</a>
+      <li><a href="source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.cleanup">cleanup() (spython.tests.test_instances.TestInstanceFuncs method)</a>
 </li>
-      <li><a href="source/spython.image.cmd.html#spython.image.cmd.utils.compress">compress() (in module spython.image.cmd.utils)</a>
+      <li><a href="source/spython.main.base.html#spython.main.base.Client">Client (class in spython.main.base)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/spython.image.cmd.html#spython.image.cmd.utils.compress">compress() (in module spython.image.cmd.utils)</a>
+</li>
       <li><a href="source/spython.logger.html#spython.logger.message.convert2boolean">convert2boolean() (in module spython.logger.message)</a>
 </li>
       <li><a href="source/spython.image.cmd.html#spython.image.cmd.create.create">create() (in module spython.image.cmd.create)</a>
@@ -532,6 +535,12 @@
 </li>
         <li><a href="source/spython.tests.html#module-spython.tests">spython.tests</a>
 </li>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_client">spython.tests.test_client</a>
+</li>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_instances">spython.tests.test_instances</a>
+</li>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_utils">spython.tests.test_utils</a>
+</li>
         <li><a href="source/spython.utils.html#module-spython.utils">spython.utils</a>
 </li>
         <li><a href="source/spython.utils.html#module-spython.utils.fileio">spython.utils.fileio</a>
@@ -826,8 +835,6 @@
         <li><a href="source/spython.logger.html#module-spython.logger.progress">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     spython.logger.spinner
 
@@ -842,6 +849,8 @@
         <li><a href="source/spython.main.html#module-spython.main">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     spython.main.apps
 
@@ -962,6 +971,27 @@
 </li>
       </ul></li>
       <li>
+    spython.tests.test_client
+
+      <ul>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    spython.tests.test_instances
+
+      <ul>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_instances">module</a>
+</li>
+      </ul></li>
+      <li>
+    spython.tests.test_utils
+
+      <ul>
+        <li><a href="source/spython.tests.html#module-spython.tests.test_utils">module</a>
+</li>
+      </ul></li>
+      <li>
     spython.utils
 
       <ul>
@@ -1016,6 +1046,52 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/spython.logger.html#spython.logger.message.SingularityMessage.table">table() (spython.logger.message.SingularityMessage method)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_build_from_docker">test_build_from_docker() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_check_get_singularity_version">test_check_get_singularity_version() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_check_get_singularity_version_info">test_check_get_singularity_version_info() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_check_install">test_check_install() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_decode">test_decode() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_docker_pull">test_docker_pull() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_execute">test_execute() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_execute_with_called_process_error">test_execute_with_called_process_error() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_execute_with_return_code">test_execute_with_return_code() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_export">test_export() (in module spython.tests.test_client)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_get_installdir">test_get_installdir() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_instances.test_has_no_instances">test_has_no_instances() (in module spython.tests.test_instances)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_client.test_inspect">test_inspect() (in module spython.tests.test_client)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_instances.test_instance_class">test_instance_class() (in module spython.tests.test_instances)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.test_instance_cmds">test_instance_cmds() (spython.tests.test_instances.TestInstanceFuncs method)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_remove_uri">test_remove_uri() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_ScopedEnvVar">test_ScopedEnvVar() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_split_uri">test_split_uri() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_write_bad_json">test_write_bad_json() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_write_json">test_write_json() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_utils.test_write_read_files">test_write_read_files() (in module spython.tests.test_utils)</a>
+</li>
+      <li><a href="source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs">TestInstanceFuncs (class in spython.tests.test_instances)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1084,11 +1160,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1099,7 +1183,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

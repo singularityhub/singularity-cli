@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
         <script src="../../../../assets/jquery.js"></script>
         <script src="../../../../assets/underscore.js"></script>
         <script src="../../../../assets/doctools.js"></script>
-        <script src="../../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -163,14 +165,14 @@
 
 <div class="viewcode-block" id="parse_table"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.iutils.parse_table">[docs]</a><span class="k">def</span> <span class="nf">parse_table</span><span class="p">(</span><span class="n">table_string</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">remove_rows</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;parse a table to json from a string, where a header is expected by default.</span>
-<span class="sd">       Return a jsonified table.</span>
+<span class="sd">    Return a jsonified table.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       table_string: the string table, ideally with a header</span>
-<span class="sd">       header: header of expected table, must match dimension (number columns)</span>
-<span class="sd">       remove_rows: an integer to indicate a number of rows to remove from top</span>
-<span class="sd">                    the default is 1 assuming we don&#39;t want the header</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    table_string: the string table, ideally with a header</span>
+<span class="sd">    header: header of expected table, must match dimension (number columns)</span>
+<span class="sd">    remove_rows: an integer to indicate a number of rows to remove from top</span>
+<span class="sd">                 the default is 1 assuming we don&#39;t want the header</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">table_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span> <span class="o">+</span> <span class="n">remove_rows</span> <span class="p">:]</span>
@@ -190,7 +192,7 @@
 
 <div class="viewcode-block" id="get"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.iutils.get">[docs]</a><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;get is a list for a single instance. It is assumed to be running,</span>
-<span class="sd">       and we need to look up the PID, etc.</span>
+<span class="sd">    and we need to look up the PID, etc.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
 
@@ -260,11 +262,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -275,7 +285,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

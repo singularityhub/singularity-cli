@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2020 Vanessa Sochat.
+# Copyright (C) 2017-2021 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -76,6 +76,7 @@ def list_instances(
 
         # Does the user want instance objects instead?
         listing = []
+
         if not return_json:
             for i in instances:
 
@@ -88,7 +89,7 @@ def list_instances(
                 new_instance = self.instance(
                     pid=i["pid"],
                     name=i["daemon_name"],
-                    image=i["container_image"],
+                    image=i.get("container_image", None),
                     start=False,
                 )
 

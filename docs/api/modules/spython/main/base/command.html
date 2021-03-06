@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
         <script src="../../../../assets/jquery.js"></script>
         <script src="../../../../assets/underscore.js"></script>
         <script src="../../../../assets/doctools.js"></script>
-        <script src="../../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
@@ -169,11 +171,11 @@
 
 <div class="viewcode-block" id="init_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.init_command">[docs]</a><span class="k">def</span> <span class="nf">init_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;return the initial Singularity command with any added flags.</span>
-<span class="sd">        </span>
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       action: the main action to perform (e.g., build)</span>
-<span class="sd">       flags: one or more additional singularity options</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    action: the main action to perform (e.g., build)</span>
+<span class="sd">    flags: one or more additional singularity options</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span> <span class="ow">or</span> <span class="p">[]</span>
 
@@ -191,20 +193,20 @@
 
 <div class="viewcode-block" id="generate_bind_list"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.generate_bind_list">[docs]</a><span class="k">def</span> <span class="nf">generate_bind_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bindlist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;generate bind string will take a single string or list of binds, and</span>
-<span class="sd">       return a list that can be added to an exec or run command. For example,</span>
-<span class="sd">       the following map as follows:</span>
+<span class="sd">     return a list that can be added to an exec or run command. For example,</span>
+<span class="sd">     the following map as follows:</span>
 
-<span class="sd">      [&#39;/host:/container&#39;, &#39;/both&#39;] --&gt; [&quot;--bind&quot;, &quot;/host:/container&quot;,&quot;--bind&quot;,&quot;/both&quot; ]</span>
-<span class="sd">      [&#39;/both&#39;]                     --&gt; [&quot;--bind&quot;, &quot;/both&quot;]</span>
-<span class="sd">      &#39;/host:container&#39;             --&gt; [&quot;--bind&quot;, &quot;/host:container&quot;]</span>
-<span class="sd">       None                         --&gt; []</span>
-<span class="sd"> </span>
-<span class="sd">       An empty bind or otherwise value of None should return an empty list.</span>
-<span class="sd">       The binds are also checked on the host.</span>
+<span class="sd">    [&#39;/host:/container&#39;, &#39;/both&#39;] --&gt; [&quot;--bind&quot;, &quot;/host:/container&quot;,&quot;--bind&quot;,&quot;/both&quot; ]</span>
+<span class="sd">    [&#39;/both&#39;]                     --&gt; [&quot;--bind&quot;, &quot;/both&quot;]</span>
+<span class="sd">    &#39;/host:container&#39;             --&gt; [&quot;--bind&quot;, &quot;/host:container&quot;]</span>
+<span class="sd">     None                         --&gt; []</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       bindlist: a string or list of bind mounts</span>
+<span class="sd">     An empty bind or otherwise value of None should return an empty list.</span>
+<span class="sd">     The binds are also checked on the host.</span>
+
+<span class="sd">     Parameters</span>
+<span class="sd">     ==========</span>
+<span class="sd">     bindlist: a string or list of bind mounts</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">binds</span> <span class="o">=</span> <span class="p">[]</span>
@@ -235,14 +237,14 @@
 
 <div class="viewcode-block" id="send_command"><a class="viewcode-back" href="../../../../source/spython.main.base.html#spython.main.base.command.send_command">[docs]</a><span class="k">def</span> <span class="nf">send_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;send command is a non interactive version of run_command, meaning</span>
-<span class="sd">       that we execute the command and return the return value, but don&#39;t</span>
-<span class="sd">       attempt to stream any content (text from the screen) back to the</span>
-<span class="sd">       user. This is useful for commands interacting with OCI bundles.</span>
+<span class="sd">    that we execute the command and return the return value, but don&#39;t</span>
+<span class="sd">    attempt to stream any content (text from the screen) back to the</span>
+<span class="sd">    user. This is useful for commands interacting with OCI bundles.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       cmd: the list of commands to send to the terminal</span>
-<span class="sd">       sudo: use sudo (or not)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    cmd: the list of commands to send to the terminal</span>
+<span class="sd">    sudo: use sudo (or not)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">sudo</span><span class="p">:</span>
@@ -261,21 +263,22 @@
     <span class="n">quiet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">sudo_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">environ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;run_command is a wrapper for the global run_command, checking first</span>
-<span class="sd">       for sudo and exiting on error if needed. The message is returned as</span>
-<span class="sd">       a list of lines for the calling function to parse, and stdout uses</span>
-<span class="sd">       the parent process so it appears for the user.</span>
+<span class="sd">    for sudo and exiting on error if needed. The message is returned as</span>
+<span class="sd">    a list of lines for the calling function to parse, and stdout uses</span>
+<span class="sd">    the parent process so it appears for the user.</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       cmd: the command to run</span>
-<span class="sd">       sudo: does the command require sudo?</span>
-<span class="sd">       quiet: if quiet set by function, overrides client setting.</span>
-<span class="sd">       return_result: return the result, if not successful (default False).</span>
-<span class="sd">       sudo_options: string or list of strings that will be passed as options to sudo</span>
-<span class="sd">       On success, returns result.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    cmd: the command to run</span>
+<span class="sd">    sudo: does the command require sudo?</span>
+<span class="sd">    quiet: if quiet set by function, overrides client setting.</span>
+<span class="sd">    return_result: return the result, if not successful (default False).</span>
+<span class="sd">    sudo_options: string or list of strings that will be passed as options to sudo</span>
+<span class="sd">    On success, returns result.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># First preference to function, then to client setting</span>
@@ -283,7 +286,12 @@
         <span class="n">quiet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">(</span>
-        <span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span> <span class="n">sudo_options</span><span class="o">=</span><span class="n">sudo_options</span>
+        <span class="n">cmd</span><span class="p">,</span>
+        <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span>
+        <span class="n">capture</span><span class="o">=</span><span class="n">capture</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">,</span>
+        <span class="n">sudo_options</span><span class="o">=</span><span class="n">sudo_options</span><span class="p">,</span>
+        <span class="n">environ</span><span class="o">=</span><span class="n">environ</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># If one line is returned, squash dimension</span>
@@ -311,11 +319,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -326,7 +342,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

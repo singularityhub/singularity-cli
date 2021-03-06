@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
         <script src="../assets/jquery.js"></script>
         <script src="../assets/underscore.js"></script>
         <script src="../assets/doctools.js"></script>
-        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="spython.main.parse package" href="spython.main.parse.html" />
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -77,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -118,6 +119,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -156,7 +158,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="spython.html">spython package</a> &raquo;</li>
         
@@ -223,7 +225,7 @@ The binds are also checked on the host.</p>
 
 <dl class="py function">
 <dt id="spython.main.base.command.run_command">
-<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.main.base.command.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.command.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command is a wrapper for the global run_command, checking first
 for sudo and exiting on error if needed. The message is returned as
 a list of lines for the calling function to parse, and stdout uses
@@ -319,7 +321,7 @@ passed (from a dictionary) to a list</p>
 <dl class="py class">
 <dt id="spython.main.base.generate.RobotNamer">
 <em class="property">class </em><code class="sig-prename descclassname">spython.main.base.generate.</code><code class="sig-name descname">RobotNamer</code><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py method">
 <dt id="spython.main.base.generate.RobotNamer.generate">
 <code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delim</span><span class="o">=</span><span class="default_value">'-'</span></em>, <em class="sig-param"><span class="n">length</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">chars</span><span class="o">=</span><span class="default_value">'0123456789'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/base/generate.html#RobotNamer.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.generate.RobotNamer.generate" title="Permalink to this definition">¶</a></dt>
@@ -429,7 +431,7 @@ return if yes, None if not.</p>
 <dl class="py class">
 <dt id="spython.main.base.Client">
 <em class="property">class </em><code class="sig-prename descclassname">spython.main.base.</code><code class="sig-name descname">Client</code><a class="reference internal" href="../modules/spython/main/base.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.base.Client" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="py attribute">
 <dt id="spython.main.base.Client.RobotNamer">
 <code class="sig-name descname">RobotNamer</code><em class="property"> = &lt;spython.main.base.generate.RobotNamer object&gt;</em><a class="headerlink" href="#spython.main.base.Client.RobotNamer" title="Permalink to this definition">¶</a></dt>
@@ -490,7 +492,7 @@ instead. Highly recommended :)</p></li>
 
 <dl class="py method">
 <dt id="spython.main.base.Client.execute">
-<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">contain</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bind</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">writable</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">contain</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bind</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stream</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">return_result</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>execute: send a command to a container</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -582,7 +584,7 @@ as it doesn’t make sense to call from a single instance</p>
 
 <dl class="py method">
 <dt id="spython.main.base.Client.instances">
-<code class="sig-name descname">instances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_json</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">instances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_json</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>list instances. For Singularity, this is provided as a command sub
 group.</p>
 <p>singularity instance.list</p>
@@ -741,11 +743,19 @@ directories within your container using bind mounts</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -756,7 +766,6 @@ directories within your container using bind mounts</p></li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
