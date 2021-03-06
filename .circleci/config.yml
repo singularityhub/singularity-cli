@@ -46,11 +46,11 @@ build_singularity: &install_singularity
       cd ~/go
       wget https://github.com/hpcng/singularity/releases/download/v3.7.1/singularity-3.7.1.tar.gz && \
       tar -xzvf singularity-3.7.1.tar.gz && \
-      cd singularity && \      
-      ./mconfig -v -p /usr/local
-      make -C ./builddir all
-      sudo make -C ./builddir install
-
+      cd singularity
+      ./mconfig -p /usr/local && \
+      make -C builddir && \
+      sudo make -C builddir install
+      
 install_spython: &install_spython
   name: install spython
   command: |-
@@ -96,11 +96,17 @@ jobs:
       image: ubuntu-2004:202008-01
     steps:
       - checkout
+      - restore_cache:
+          keys: v2-dependencies
       - run: *install_dependencies
       - run: *setup_environment
       - run: *update_go
       - run: *fetch_deb_deps
       - run: *install_singularity
       - run: *install_spython
+      - save_cache:
+          paths:
+            - ~/conda
+          key: v3-dependencies
       - run: *run_linter
       - run: *test_spython
