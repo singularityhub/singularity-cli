@@ -54,8 +54,7 @@ build_singularity: &install_singularity
 install_spython: &install_spython
   name: install spython
   command: |-
-      CONDA_PATH="$HOME/conda/Python3"
-      export PATH=$CONDA_PATH:/bin:$PATH
+      source "$BASH_ENV"
       pip uninstall spython --yes || echo "Not installed"
       python --version
       python setup.py install
@@ -83,16 +82,14 @@ install_dependencies: &install_dependencies
 run_linter: &run_linter
   name: run linter
   command: |-
-      CONDA_PATH="$HOME/conda/Python3"
-      export PATH=$CONDA_PATH/bin:$PATH
+      source "$BASH_ENV"
       cd ~/repo
       black --check spython
 
 test_spython: &test_spython
   name: Test Singularity Python
   command: |- 
-      CONDA_PATH="$HOME/conda/Python3"
-      export PATH=$CONDA_PATH/bin:$PATH
+      source "$BASH_ENV"
       pytest ~/repo/spython
 
 
