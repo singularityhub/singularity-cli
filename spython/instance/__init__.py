@@ -1,9 +1,10 @@
-# Copyright (C) 2017-2020 Vanessa Sochat.
+# Copyright (C) 2017-2021 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from spython.utils.fileio import read_file
 from spython.image import ImageBase
 import os
 
@@ -62,6 +63,20 @@ class Instance(ImageBase):
         """return the image uri (instance://) along with it's name"""
         return self.__str__()
 
+    # Logs
+
+    def read_logs_out(self):
+        """Read output log file, if it exists"""
+        if hasattr(self, "log_out_path"):
+            if os.path.exists(self.log_out_path):
+                return read_file(self.log_out_path)
+
+    def read_logs_err(self):
+        """Read error log file, if it exists"""
+        if hasattr(self, "log_err_path"):
+            if os.path.exists(self.log_err_path):
+                return read_file(self.log_err_path)
+
     # Metadata
 
     def _update_metadata(self, kwargs=None):
@@ -74,7 +89,7 @@ class Instance(ImageBase):
             kwargs = self._list(self.name, quiet=True, return_json=True)
 
         # Add acceptable arguments
-        for arg in ["pid", "name"]:
+        for arg in ["pid", "name", "ip_address", "log_err_path", "log_out_path", "img"]:
 
             # Skip over non-iterables:
             if arg in kwargs:

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
         <script src="../assets/jquery.js"></script>
         <script src="../assets/underscore.js"></script>
         <script src="../assets/doctools.js"></script>
-        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="spython.instance.cmd package" href="spython.instance.cmd.html" />
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -77,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +110,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +149,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="spython.html">spython package</a> &raquo;</li>
         
@@ -234,7 +236,7 @@ supply one.</p>
 <dl class="py attribute">
 <dt id="spython.instance.Instance.instance">
 <code class="sig-name descname">instance</code><a class="headerlink" href="#spython.instance.Instance.instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#spython.instance.Instance" title="spython.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Instance</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#spython.instance.Instance" title="spython.instance.Instance"><code class="xref py py-class docutils literal notranslate"><span class="pre">spython.instance.Instance</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
@@ -266,8 +268,20 @@ parsing of registry, namespace, image.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="spython.instance.Instance.read_logs_err">
+<code class="sig-name descname">read_logs_err</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.read_logs_err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.read_logs_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read error log file, if it exists</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="spython.instance.Instance.read_logs_out">
+<code class="sig-name descname">read_logs_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/instance.html#Instance.read_logs_out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.instance.Instance.read_logs_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read output log file, if it exists</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="spython.instance.Instance.run_command">
-<code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal. If
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
@@ -288,7 +302,7 @@ as output.</p></li>
 
 <dl class="py method">
 <dt id="spython.instance.Instance.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>start an instance. This is done by default when an instance is created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -309,7 +323,7 @@ as output.</p></li>
 
 <dl class="py method">
 <dt id="spython.instance.Instance.stop">
-<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.stop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.instance.Instance.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop an instance. This is done by default when an instance is created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -356,11 +370,19 @@ as output.</p></li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -371,7 +393,6 @@ as output.</p></li>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

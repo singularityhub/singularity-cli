@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
         <script src="../../../assets/jquery.js"></script>
         <script src="../../../assets/underscore.js"></script>
         <script src="../../../assets/doctools.js"></script>
-        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -149,7 +151,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.inspect</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -165,14 +167,14 @@
     <span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;inspect will show labels, defile, runscript, and tests for an image</span>
-<span class="sd">    </span>
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       image: path of image to inspect</span>
-<span class="sd">       json: print json instead of raw text (default True)</span>
-<span class="sd">       quiet: Don&#39;t print result to the screen (default True)</span>
-<span class="sd">       app: if defined, return help in context of an app</span>
-<span class="sd">       singularity_options: a list of options to provide to the singularity client</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    image: path of image to inspect</span>
+<span class="sd">    json: print json instead of raw text (default True)</span>
+<span class="sd">    quiet: Don&#39;t print result to the screen (default True)</span>
+<span class="sd">    app: if defined, return help in context of an app</span>
+<span class="sd">    singularity_options: a list of options to provide to the singularity client</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_install</span><span class="p">()</span>
@@ -223,11 +225,11 @@
 
 <div class="viewcode-block" id="parse_labels"><a class="viewcode-back" href="../../../source/spython.main.html#spython.main.inspect.parse_labels">[docs]</a><span class="k">def</span> <span class="nf">parse_labels</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;fix up the labels, meaning parse to json if needed, and return</span>
-<span class="sd">       original updated object</span>
+<span class="sd">    original updated object</span>
 
-<span class="sd">       Parameters</span>
-<span class="sd">       ==========</span>
-<span class="sd">       result: the json object to parse from inspect</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    result: the json object to parse from inspect</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">labels</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;labels&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
@@ -251,11 +253,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -266,7 +276,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

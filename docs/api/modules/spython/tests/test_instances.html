@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>spython.tests.test_instances &mdash; Singularity Python API 1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script src="../../../assets/jquery.js"></script>
+        <script src="../../../assets/underscore.js"></script>
+        <script src="../../../assets/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Singularity Python API</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>spython.tests.test_instances</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for spython.tests.test_instances</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+
+<span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
+
+<span class="c1"># This Source Code Form is subject to the terms of the</span>
+<span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
+<span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
+
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">spython.main</span> <span class="kn">import</span> <span class="n">Client</span>
+
+
+<div class="viewcode-block" id="test_instance_class"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.test_instance_class">[docs]</a><span class="k">def</span> <span class="nf">test_instance_class</span><span class="p">():</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s2">&quot;docker://ubuntu&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;instance://&quot;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;coolName&quot;</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="s2">&quot;docker://busybox:1.30.1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;instance://&quot;</span> <span class="o">+</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">assert</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span></div>
+
+
+<div class="viewcode-block" id="test_has_no_instances"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.test_has_no_instances">[docs]</a><span class="k">def</span> <span class="nf">test_has_no_instances</span><span class="p">():</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">instances</span> <span class="o">==</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="TestInstanceFuncs"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs">[docs]</a><span class="k">class</span> <span class="nc">TestInstanceFuncs</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="TestInstanceFuncs.cleanup"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.cleanup">[docs]</a>    <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span>
+        <span class="n">Client</span><span class="o">.</span><span class="n">instance_stopall</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestInstanceFuncs.test_instance_cmds"><a class="viewcode-back" href="../../../source/spython.tests.html#spython.tests.test_instances.TestInstanceFuncs.test_instance_cmds">[docs]</a>    <span class="k">def</span> <span class="nf">test_instance_cmds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docker_container</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">docker_container</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">myinstance</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">myinstance</span><span class="o">.</span><span class="n">get_uri</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;instance://&quot;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 2: List instances&quot;</span><span class="p">)</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">(</span><span class="n">return_json</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">dict</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 3: Commands to instances&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;hello</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 4: Return value from instance&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">myinstance</span><span class="p">,</span> <span class="s2">&quot;ls /&quot;</span><span class="p">,</span> <span class="n">return_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s2">&quot;tmp</span><span class="se">\n</span><span class="s2">usr</span><span class="se">\n</span><span class="s2">var&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;return_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;...Case 5: Stop instances&quot;</span><span class="p">)</span>
+        <span class="n">myinstance</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">instances</span> <span class="o">==</span> <span class="p">[]</span>
+        <span class="n">myinstance1</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">myinstance2</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">myinstance1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">myinstance2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="n">Client</span><span class="o">.</span><span class="n">instance_stopall</span><span class="p">()</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">instances</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">instances</span> <span class="o">==</span> <span class="p">[]</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

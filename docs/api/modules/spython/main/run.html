@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
         <script src="../../../assets/jquery.js"></script>
         <script src="../../../assets/underscore.js"></script>
         <script src="../../../assets/doctools.js"></script>
-        <script src="../../../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../../../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -48,7 +48,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -75,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +90,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -127,7 +129,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
@@ -149,7 +151,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.main.run</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -177,26 +179,26 @@
     <span class="n">return_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        run will run the container, with or withour arguments (which</span>
-<span class="sd">        should be provided in a list)</span>
-<span class="sd">    </span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ==========</span>
-<span class="sd">        image: full path to singularity image</span>
-<span class="sd">        args: args to include with the run </span>
-<span class="sd">        app: if not None, execute a command in context of an app</span>
-<span class="sd">        writable: This option makes the file system accessible as read/write</span>
-<span class="sd">        options: an optional list of options to provide to run.</span>
-<span class="sd">        singularity_options: a list of options to provide to the singularity client</span>
-<span class="sd">        contain: This option disables the automatic sharing of writable</span>
-<span class="sd">                 filesystems on your host</span>
-<span class="sd">        bind: list or single string of bind paths.</span>
-<span class="sd">              This option allows you to map directories on your host system to</span>
-<span class="sd">              directories within your container using bind mounts</span>
-<span class="sd">        stream: if True, return &lt;generator&gt; for the user to run</span>
-<span class="sd">        nv: if True, load Nvidia Drivers in runtime (default False)</span>
-<span class="sd">        return_result: if True, return entire json object with return code</span>
-<span class="sd">             and message result (default is False)</span>
+<span class="sd">    run will run the container, with or withour arguments (which</span>
+<span class="sd">    should be provided in a list)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    image: full path to singularity image</span>
+<span class="sd">    args: args to include with the run</span>
+<span class="sd">    app: if not None, execute a command in context of an app</span>
+<span class="sd">    writable: This option makes the file system accessible as read/write</span>
+<span class="sd">    options: an optional list of options to provide to run.</span>
+<span class="sd">    singularity_options: a list of options to provide to the singularity client</span>
+<span class="sd">    contain: This option disables the automatic sharing of writable</span>
+<span class="sd">             filesystems on your host</span>
+<span class="sd">    bind: list or single string of bind paths.</span>
+<span class="sd">          This option allows you to map directories on your host system to</span>
+<span class="sd">          directories within your container using bind mounts</span>
+<span class="sd">    stream: if True, return &lt;generator&gt; for the user to run</span>
+<span class="sd">    nv: if True, load Nvidia Drivers in runtime (default False)</span>
+<span class="sd">    return_result: if True, return entire json object with return code</span>
+<span class="sd">         and message result (default is False)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">check_install</span>
@@ -274,11 +276,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -289,7 +299,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

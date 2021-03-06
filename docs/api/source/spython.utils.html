@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
         <script src="../assets/jquery.js"></script>
         <script src="../assets/underscore.js"></script>
         <script src="../assets/doctools.js"></script>
-        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="&lt;no title&gt;" href="../changelog.html" />
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -77,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -111,6 +112,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -149,7 +151,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="spython.html">spython package</a> &raquo;</li>
         
@@ -179,7 +181,7 @@
 </div>
 <div class="section" id="module-spython.utils.fileio">
 <span id="spython-utils-fileio-module"></span><h2>spython.utils.fileio module<a class="headerlink" href="#module-spython.utils.fileio" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017-2020 Vanessa Sochat.</p>
+<p># Copyright (C) 2017-2021 Vanessa Sochat.</p>
 <p>This Source Code Form is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
@@ -223,7 +225,7 @@ and properly close the file</p>
 </div>
 <div class="section" id="module-spython.utils.terminal">
 <span id="spython-utils-terminal-module"></span><h2>spython.utils.terminal module<a class="headerlink" href="#module-spython.utils.terminal" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017-2020 Vanessa Sochat.</p>
+<p># Copyright (C) 2017-2021 Vanessa Sochat.</p>
 <p>This Source Code Form is subject to the terms of the
 Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
@@ -283,7 +285,7 @@ singularity –version […]. For Singularity 3.x, this means:
 
 <dl class="py function">
 <dt id="spython.utils.terminal.run_command">
-<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">spython.utils.terminal.</code><code class="sig-name descname">run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">capture</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">no_newline_regexp</span><span class="o">=</span><span class="default_value">'Progess'</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/utils/terminal.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.utils.terminal.run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>run_command uses subprocess to send a command to the terminal. If
 capture is True, we use the parent stdout, so the progress bar (and
 other commands of interest) are piped to the user. This means we
@@ -364,11 +366,19 @@ results.append(line)</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -379,7 +389,6 @@ results.append(line)</p>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

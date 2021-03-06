@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2020 Vanessa Sochat.
+# Copyright (C) 2017-2021 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -7,6 +7,7 @@
 
 from spython.logger import bot
 from spython.utils import run_command
+import json
 
 
 def list_instances(
@@ -21,10 +22,11 @@ def list_instances(
     """list instances. For Singularity, this is provided as a command sub
     group.
 
-    singularity instance.list
+    singularity instance list
 
     Return codes provided are different from standard linux:
     see https://github.com/singularityware/singularity/issues/1706
+    Since we expect json output, we don't support older versions of Singularity.
 
     Parameters
     ==========
@@ -38,15 +40,14 @@ def list_instances(
     255 -- Couldn't get UID
 
     """
-    from spython.instance.cmd.iutils import parse_table
     from spython.utils import check_install
 
     check_install()
 
-    subgroup = "instance.list"
+    subgroup = ["instance", "list", "--json"]
 
-    if "version 3" in self.version():
-        subgroup = ["instance", "list"]
+    if "version 3" not in self.version():
+        bot.exit("This version of Singularity Python does not support < 3.0.")
 
     cmd = self._init_command(subgroup, singularity_options)
 
@@ -61,34 +62,27 @@ def list_instances(
 
     if output["return_code"] == 0:
 
-        # Only print the table if we are returning json
-        if not quiet:
-            print("".join(output["message"]))
-
-        # Prepare json result from table
-        # Singularity after 3.5.2 has an added ipaddress
-        try:
-            header = ["daemon_name", "pid", "container_image"]
-            instances = parse_table(output["message"][0], header)
-        except:
-            header = ["daemon_name", "pid", "ip", "container_image"]
-            instances = parse_table(output["message"][0], header)
+        instances = json.loads(output["message"][0]).get("instances", {})
 
         # Does the user want instance objects instead?
         listing = []
+
         if not return_json:
             for i in instances:
 
                 # If the user has provided a name, only add instance matches
                 if name is not None:
-                    if name != i["daemon_name"]:
+                    if name != i["instance"]:
                         continue
 
                 # Otherwise, add instances to the listing
                 new_instance = self.instance(
                     pid=i["pid"],
-                    name=i["daemon_name"],
-                    image=i["container_image"],
+                    ip_address=i["ip"],
+                    name=i["instance"],
+                    log_err_path=i["logErrPath"],
+                    log_out_path=i["logOutPath"],
+                    image=i.get("img", None),
                     start=False,
                 )
 
@@ -105,9 +99,8 @@ def list_instances(
         bot.info("No instances found.")
 
     # If we are given a name, return just one
-    if name is not None and instances not in [None, []]:
-        if len(instances) == 1:
-            instances = instances[0]
+    if name is not None and instances and len(instances) == 1:
+        instances = instances[0]
 
     return instances
 

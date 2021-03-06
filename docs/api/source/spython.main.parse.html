@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,28 @@
   
 
   
+  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../assets/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../assets/documentation_options.js"></script>
         <script src="../assets/jquery.js"></script>
         <script src="../assets/underscore.js"></script>
         <script src="../assets/doctools.js"></script>
-        <script src="../assets/language_data.js"></script>
     
     <script type="text/javascript" src="../assets/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../assets/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="spython.utils package" href="spython.utils.html" />
@@ -50,7 +50,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> Singularity Python API
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
           
 
           
@@ -77,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -118,6 +119,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -156,7 +158,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="spython.html">spython package</a> &raquo;</li>
         
@@ -199,8 +201,8 @@
 <span id="spython-main-parse-recipe-module"></span><h2>spython.main.parse.recipe module<a class="headerlink" href="#module-spython.main.parse.recipe" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="spython.main.parse.recipe.Recipe">
-<em class="property">class </em><code class="sig-prename descclassname">spython.main.parse.recipe.</code><code class="sig-name descname">Recipe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipe</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">spython.main.parse.recipe.</code><code class="sig-name descname">Recipe</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipe</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">layer</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../modules/spython/main/parse/recipe.html#Recipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spython.main.parse.recipe.Recipe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>a recipe includes an environment, labels, runscript or command,
 and install sequence. This object is interacted with by a Parser
 (intended to popualte the recipe with content) and a Writer (intended
@@ -209,7 +211,10 @@ parsers.py, and writers.py, respectively. The user is also free to use
 the recipe class to build recipes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recipe</strong> (<em>the original recipe file, parsed by the subclass either</em>) – DockerParser or SingularityParser</p></li>
+<li><p><strong>layer</strong> (<em>the count of the layer, for human readability</em>)</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -219,7 +224,8 @@ the recipe class to build recipes.</p>
 or printed as json.</p>
 <dl class="simple">
 <dt>Returns: a dictionary of attributes including cmd, comments,</dt><dd><p>entrypoint, environ, files, install, labels, ports,
-test, volumes, and workdir.</p>
+test, volumes, and workdir, organized by layer for
+multistage builds.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -232,10 +238,6 @@ test, volumes, and workdir.</p>
 </div>
 <div class="section" id="module-spython.main.parse">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-spython.main.parse" title="Permalink to this headline">¶</a></h2>
-<p>Copyright (C) 2017-2020 Vanessa Sochat.</p>
-<p>This Source Code Form is subject to the terms of the
-Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
-with this file, You can obtain one at <a class="reference external" href="http://mozilla.org/MPL/2.0/">http://mozilla.org/MPL/2.0/</a>.</p>
 </div>
 </div>
 
@@ -259,11 +261,19 @@ with this file, You can obtain one at <a class="reference external" href="http:/
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Vanessa Sochat
+        
+        &copy; Copyright 2017-2021, Vanessa Sochat
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -274,7 +284,6 @@ with this file, You can obtain one at <a class="reference external" href="http:/
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
