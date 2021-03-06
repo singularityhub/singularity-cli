@@ -149,12 +149,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for spython.instance</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2017-2020 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
 <span class="c1"># with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</span>
 
+<span class="kn">from</span> <span class="nn">spython.utils.fileio</span> <span class="kn">import</span> <span class="n">read_file</span>
 <span class="kn">from</span> <span class="nn">spython.image</span> <span class="kn">import</span> <span class="n">ImageBase</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -213,6 +214,20 @@
         <span class="sd">&quot;&quot;&quot;return the image uri (instance://) along with it&#39;s name&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
 
+    <span class="c1"># Logs</span>
+
+<div class="viewcode-block" id="Instance.read_logs_out"><a class="viewcode-back" href="../../source/spython.instance.html#spython.instance.Instance.read_logs_out">[docs]</a>    <span class="k">def</span> <span class="nf">read_logs_out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read output log file, if it exists&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;log_out_path&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_out_path</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">read_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_out_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Instance.read_logs_err"><a class="viewcode-back" href="../../source/spython.instance.html#spython.instance.Instance.read_logs_err">[docs]</a>    <span class="k">def</span> <span class="nf">read_logs_err</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read error log file, if it exists&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;log_err_path&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_err_path</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">read_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_err_path</span><span class="p">)</span></div>
+
     <span class="c1"># Metadata</span>
 
     <span class="k">def</span> <span class="nf">_update_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -225,7 +240,7 @@
             <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_json</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Add acceptable arguments</span>
-        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;ip_address&quot;</span><span class="p">,</span> <span class="s2">&quot;log_err_path&quot;</span><span class="p">,</span> <span class="s2">&quot;log_out_path&quot;</span><span class="p">,</span> <span class="s2">&quot;img&quot;</span><span class="p">]:</span>
 
             <span class="c1"># Skip over non-iterables:</span>
             <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>

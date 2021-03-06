@@ -587,9 +587,10 @@ as it doesn’t make sense to call from a single instance</p>
 <code class="sig-name descname">instances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_json</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sudo_options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">singularity_options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spython.main.base.Client.instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>list instances. For Singularity, this is provided as a command sub
 group.</p>
-<p>singularity instance.list</p>
+<p>singularity instance list</p>
 <p>Return codes provided are different from standard linux:
-see <a class="reference external" href="https://github.com/singularityware/singularity/issues/1706">https://github.com/singularityware/singularity/issues/1706</a></p>
+see <a class="reference external" href="https://github.com/singularityware/singularity/issues/1706">https://github.com/singularityware/singularity/issues/1706</a>
+Since we expect json output, we don’t support older versions of Singularity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

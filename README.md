@@ -9,6 +9,10 @@ the [install instructions](https://singularityhub.github.io/singularity-cli/inst
 
 We provide a [Singularity](Singularity) recipe for you to use if more convenient, along with the [full modules docstring](https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base).
 
+As of version 0.1.0, we only support Singularity > 3.5.2. This is done to encourage using
+newer versions of Singularity with security fixes. If you want to use an older version of Singularity,
+you will need to use version 0.0.85 or earlier.
+
 ## License
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).

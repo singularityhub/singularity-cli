@@ -14,22 +14,17 @@ workflows:
               ignore: master
           name: "Latest Singularity - Python 3"
           run-linter: false
-          singularity: 3.5.0
+          singularity: 3.7.1
           singularity-3: true
       - run-spython-ci-tests:
           <<: *base_job
-          name: "Singularity 3.2.1 - Python 3"
-          singularity: 3.2.1
+          name: "Singularity 3.6.4 - Python 3"
+          singularity: 3.6.4
           run-linter: true # run linter once, must be Python 3
       - run-spython-ci-tests:
           <<: *base_job
-          name: "Singularity 3.1.0 - Python 3"
-          singularity: 3.1.0
-      - run-spython-ci-tests:
-          <<: *base_job
-          name: "Singularity 2 - Python 3"
-          singularity: 2.6.1
-          singularity-3: false
+          name: "Singularity 3.5.3 - Python 3"
+          singularity: 3.5.3
 
 waitforapt: &waitforapt
   name: Remove cloud init lock
