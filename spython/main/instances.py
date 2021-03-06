@@ -40,7 +40,6 @@ def list_instances(
     255 -- Couldn't get UID
 
     """
-    from spython.instance.cmd.iutils import parse_table
     from spython.utils import check_install
 
     check_install()
