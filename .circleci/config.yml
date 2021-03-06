@@ -1,51 +1,61 @@
-# CircleCI build config to test different versions of Singuarity
 version: 2.1
 
-orbs:
-  singularity: singularity/singularity@1.0.10
+# Modified from hpcng/singularity
 
-workflows:
-  version: 2
-  test:
-    jobs:
-      - run-spython-ci-tests: &base_job
-          filters:
-            branches:
-              ignore: master
-          name: "Latest Singularity - Python 3"
-          run-linter: false
-          singularity: 3.7.1
-          singularity-3: true
-      - run-spython-ci-tests:
-          <<: *base_job
-          name: "Singularity 3.6.4 - Python 3"
-          singularity: 3.6.4
-          run-linter: true # run linter once, must be Python 3
-      - run-spython-ci-tests:
-          <<: *base_job
-          name: "Singularity 3.5.3 - Python 3"
-          singularity: 3.5.3
+vm_defaults: &vm_defaults
+  working_directory: ~/repo
+  machine:
+    image: ubuntu-2004:202008-01
 
-waitforapt: &waitforapt
-  name: Remove cloud init lock
-  command: |
-      while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 10; done
-      while sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do echo 'Waiting for autoupdates to complete...'; sleep 10; done
-      echo 'Waiting for instance to really be ready...'
-      sleep 30
-      sudo rm -rf /var/lib/apt/lists/lock
-      sudo rm /var/lib/dpkg/lock && sudo dpkg --configure -a
+x-run:
+  setup_environment: &setup_environment
+    name: Setup environment
+    command: |-
+      echo 'set -x' >> $BASH_ENV
+      echo 'export GOPATH=$HOME/go'           >> $BASH_ENV
+      echo 'export GOROOT=/usr/local/go' >> $BASH_ENV
+      echo 'export GOBIN=$HOME/go/bin'        >> $BASH_ENV
+      echo 'export PATH=$GOBIN:$GOROOT/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin' >> $BASH_ENV
+      env | sed -e 's,^,ENV: ,' | sort
+      test -e $BASH_ENV && sed -e 's,^,BASH_ENV: ,' < $BASH_ENV
 
+  update_go: &update_go
+    name: Update Go to 1.14.9
+    working_directory: /tmp
+    command: |-
+      wget https://dl.google.com/go/go1.14.9.linux-amd64.tar.gz
+      sudo rm -rf $GOROOT
+      sudo tar -C /usr/local -xzf go1.14.9.linux-amd64.tar.gz
+      sudo ln -s $GOROOT/bin/go /usr/local/bin/go
 
-install_spython: &install_spython
-  name: install spython
-  command: |
-      pip uninstall spython --yes || echo "Not installed"
-      python --version
-      python setup.py install
+  fetch_deb_deps: &fetch_deb_deps
+    name: Fetch deps
+    working_directory: /tmp
+    command: |-
+      # https://discuss.circleci.com/t/could-not-get-lock-var-lib-apt-lists-lock/28337/4
+      sudo killall -9 apt-get || true && \
+      sudo apt-get update -y && \
+      sudo apt-get install -y build-essential squashfs-tools libseccomp-dev cryptsetup
 
-commands:
-  install_dependencies:
+  build_singularity: &install_singularity
+    name: Build Singularity
+    command: |-
+      cd ~/go
+      wget https://github.com/hpcng/singularity/releases/download/v3.7.1/singularity-3.7.1.tar.gz && \
+      tar -xzvf singularity-3.7.1.tar.gz && \
+      cd singularity && \      
+      ./mconfig -v -p /usr/local
+      make -C ./builddir all
+      sudo make -C ./builddir install
+
+  install_spython: &install_spython
+    name: install spython
+    command: |
+        pip uninstall spython --yes || echo "Not installed"
+        python --version
+        python setup.py install
+
+  install_dependencies: &install_dependencies
     steps:
       - run: |
           PYTHON_VERSION=3
@@ -65,56 +75,46 @@ commands:
           pip install --upgrade pytest
           pip install black || true
 
-run_linter: &run_linter
-  name: run linter
-  command: |
-      cd ~/repo
-      black --check spython
+  run_linter: &run_linter
+    name: run linter
+    command: |
+        cd ~/repo
+        black --check spython
 
-test_spython: &test_spython
-  name: Test Singularity Python
-  command: pytest ~/repo/spython
+  test_spython: &test_spython
+    name: Test Singularity Python
+    command: pytest ~/repo/spython
+
 
 jobs:
-  run-spython-ci-tests:
-    parameters:
-        run-linter:
-          type: boolean
-          default: false
-        singularity:
-          type: string
-          description: "Singularity version"
-        singularity-3:
-          type: boolean
-          description: "Set to true for singularity 3, false for singularity 2"
-          default: true
-    machine: true
-    working_directory: ~/repo
+  run_tests:
+    <<: *vm_defaults
     steps:
       - checkout
       - restore_cache:
-          keys: v2-dependencies
-      - install_dependencies
-      - run: *waitforapt
-      - when:
-          condition: << parameters.singularity-3 >>
-          steps:
-            - singularity/install-go:
-                go-version: "1.13"
-            - singularity/debian-install-3:
-                singularity-version: << parameters.singularity >>
-      - unless:
-          condition: << parameters.singularity-3 >>
-          steps:
-            - singularity/debian-install-2:
-                singularity-version: << parameters.singularity >>
-      - run: *install_spython
-      - save_cache:
-          paths:
-            - ~/conda
-          key: v2-dependencies
-      - when:
-          condition: << parameters.run-linter >>
-          steps:
-            - run: *run_linter
-      - run: *test_spython
+          keys: v3-dependencies
+      - run:
+          <<: *install_dependencies
+      - run:
+          <<: *setup_environment
+      - run:
+          <<: *update_go
+      - run:
+          <<: *fetch_deb_deps
+      - run:
+          <<: *install_singularity
+      - run:
+          <<: *install_spython
+      - run:
+          <<: *run_linter
+      - run:
+          <<: *test_spython
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - run_tests:
+          filters:
+            branches:
+              ignore: master
