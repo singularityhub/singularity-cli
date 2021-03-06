@@ -77,12 +77,12 @@ def list_instances(
 
                 # Otherwise, add instances to the listing
                 new_instance = self.instance(
-                    pid=i["pid"],
-                    ip_address=i["ip"],
-                    name=i["instance"],
-                    log_err_path=i["logErrPath"],
-                    log_out_path=i["logOutPath"],
-                    image=i.get("img", None),
+                    pid=i.get("pid"),
+                    ip_address=i.get("ip"),
+                    name=i.get("instance") or i.get("daemon_name"),
+                    log_err_path=i.get("logErrPath"),
+                    log_out_path=i.get("logOutPath"),
+                    image=i.get("img") or i.get("container_image"),
                     start=False,
                 )
 
