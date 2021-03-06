@@ -42,6 +42,7 @@ fetch_deb_deps: &fetch_deb_deps
 
 build_singularity: &install_singularity
   name: Build Singularity
+  working_directory: ~/go/singularity
   command: |-
       cd ~/go
       wget https://github.com/hpcng/singularity/releases/download/v3.7.1/singularity-3.7.1.tar.gz && \
