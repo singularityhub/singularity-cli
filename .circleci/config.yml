@@ -2,15 +2,18 @@ version: 2.1
 
 # Modified from hpcng/singularity
 
-vm_defaults: &vm_defaults
-  working_directory: ~/repo
-  machine:
-    image: ubuntu-2004:202008-01
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test_singularity_python:
+          filters:
+            branches:
+              ignore: master
 
-x-run:
-  setup_environment: &setup_environment
-    name: Setup environment
-    command: |-
+setup_environment: &setup_environment
+  name: Setup environment
+  command: |-
       echo 'set -x' >> $BASH_ENV
       echo 'export GOPATH=$HOME/go'           >> $BASH_ENV
       echo 'export GOROOT=/usr/local/go' >> $BASH_ENV
@@ -19,27 +22,27 @@ x-run:
       env | sed -e 's,^,ENV: ,' | sort
       test -e $BASH_ENV && sed -e 's,^,BASH_ENV: ,' < $BASH_ENV
 
-  update_go: &update_go
-    name: Update Go to 1.14.9
-    working_directory: /tmp
-    command: |-
+update_go: &update_go
+  name: Update Go to 1.14.9
+  working_directory: /tmp
+  command: |-
       wget https://dl.google.com/go/go1.14.9.linux-amd64.tar.gz
       sudo rm -rf $GOROOT
       sudo tar -C /usr/local -xzf go1.14.9.linux-amd64.tar.gz
       sudo ln -s $GOROOT/bin/go /usr/local/bin/go
 
-  fetch_deb_deps: &fetch_deb_deps
-    name: Fetch deps
-    working_directory: /tmp
-    command: |-
+fetch_deb_deps: &fetch_deb_deps
+  name: Fetch deps
+  working_directory: /tmp
+  command: |-
       # https://discuss.circleci.com/t/could-not-get-lock-var-lib-apt-lists-lock/28337/4
       sudo killall -9 apt-get || true && \
       sudo apt-get update -y && \
       sudo apt-get install -y build-essential squashfs-tools libseccomp-dev cryptsetup
 
-  build_singularity: &install_singularity
-    name: Build Singularity
-    command: |-
+build_singularity: &install_singularity
+  name: Build Singularity
+  command: |-
       cd ~/go
       wget https://github.com/hpcng/singularity/releases/download/v3.7.1/singularity-3.7.1.tar.gz && \
       tar -xzvf singularity-3.7.1.tar.gz && \
@@ -48,16 +51,16 @@ x-run:
       make -C ./builddir all
       sudo make -C ./builddir install
 
-  install_spython: &install_spython
-    name: install spython
-    command: |
+install_spython: &install_spython
+  name: install spython
+  command: |-
         pip uninstall spython --yes || echo "Not installed"
         python --version
         python setup.py install
 
-  install_dependencies: &install_dependencies
-    steps:
-      - run: |
+install_dependencies: &install_dependencies
+  name: install dependencies
+  command: |-
           PYTHON_VERSION=3
           CONDA_PATH="$HOME/conda/Python${PYTHON_VERSION}"
           echo 'export PATH="'"$CONDA_PATH"'/bin:$PATH"' >> "$BASH_ENV"
@@ -75,46 +78,29 @@ x-run:
           pip install --upgrade pytest
           pip install black || true
 
-  run_linter: &run_linter
-    name: run linter
-    command: |
-        cd ~/repo
-        black --check spython
+run_linter: &run_linter
+  name: run linter
+  command: |-
+      cd ~/repo
+      black --check spython
 
-  test_spython: &test_spython
-    name: Test Singularity Python
-    command: pytest ~/repo/spython
+test_spython: &test_spython
+  name: Test Singularity Python
+  command: pytest ~/repo/spython
 
 
 jobs:
-  run_tests:
-    <<: *vm_defaults
+  test_singularity_python:
+    working_directory: ~/go/singularity
+    machine:
+      image: ubuntu-2004:202008-01
     steps:
       - checkout
-      - restore_cache:
-          keys: v3-dependencies
-      - run:
-          <<: *install_dependencies
-      - run:
-          <<: *setup_environment
-      - run:
-          <<: *update_go
-      - run:
-          <<: *fetch_deb_deps
-      - run:
-          <<: *install_singularity
-      - run:
-          <<: *install_spython
-      - run:
-          <<: *run_linter
-      - run:
-          <<: *test_spython
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - run_tests:
-          filters:
-            branches:
-              ignore: master
+      - run: *install_dependencies
+      - run: *setup_environment
+      - run: *update_go
+      - run: *fetch_deb_deps
+      - run: *install_singularity
+      - run: *install_spython
+      - run: *run_linter
+      - run: *test_spython
