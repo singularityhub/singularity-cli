@@ -84,7 +84,7 @@ run_linter: &run_linter
   name: run linter
   command: |-
       CONDA_PATH="$HOME/conda/Python3"
-      export PATH=$CONDA_PATH:/bin:$PATH
+      export PATH=$CONDA_PATH/bin:$PATH
       cd ~/repo
       black --check spython
 
@@ -92,7 +92,7 @@ test_spython: &test_spython
   name: Test Singularity Python
   command: |- 
       CONDA_PATH="$HOME/conda/Python3"
-      export PATH=$CONDA_PATH:/bin:$PATH
+      export PATH=$CONDA_PATH/bin:$PATH
       pytest ~/repo/spython
 
 
