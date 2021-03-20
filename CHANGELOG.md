@@ -17,7 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
- - adding more verbosity to running commands (0.0.11)
+ - adding more verbosity to running commands (0.1.11)
  - log error paths are optional (0.1.1)
  - instance list doesn't always include container_image (0.1.0)
  - add sudo_options option to Instance.start/stop and Client.execute (0.0.85)

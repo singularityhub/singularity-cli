@@ -48,6 +48,8 @@ def execute(
     nv: if True, load Nvidia Drivers in runtime (default False)
     return_result: if True, return entire json object with return code
                    and message result not (default)
+    quiet: Do not print verbose output.
+    environ: extra environment to add.
     """
     from spython.utils import check_install
 
