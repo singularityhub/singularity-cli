@@ -55,6 +55,10 @@ def list_instances(
     if name is not None:
         cmd.append(name)
 
+    # Does the user want to see the command printed?
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
+
     output = run_command(cmd, quiet=True, sudo=sudo, sudo_options=sudo_options)
     instances = []
 
@@ -126,6 +130,11 @@ def stopall(self, sudo=False, quiet=True, singularity_options=None):
 
     cmd = self._init_command(subgroup, singularity_options)
     cmd = cmd + ["--all"]
+
+    # Does the user want to see the command printed?
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
+
     output = run_command(cmd, sudo=sudo, quiet=quiet)
 
     if output["return_code"] != 0:

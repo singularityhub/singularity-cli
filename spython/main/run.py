@@ -24,6 +24,7 @@ def run(
     options=None,
     singularity_options=None,
     return_result=False,
+    quiet=False,
 ):
     """
     run will run the container, with or withour arguments (which
@@ -46,13 +47,16 @@ def run(
     nv: if True, load Nvidia Drivers in runtime (default False)
     return_result: if True, return entire json object with return code
          and message result (default is False)
-
+    quiet: print the command to the user
     """
     from spython.utils import check_install
 
     check_install()
 
     cmd = self._init_command("run", singularity_options)
+
+    # Does the user want to see the command printed?
+    quiet = quiet or self.quiet
 
     # nv option leverages any GPU cards
     if nv:
@@ -92,6 +96,9 @@ def run(
         if not isinstance(args, list):
             args = args.split(" ")
         cmd = cmd + args
+
+    if not quiet:
+        bot.info(" ".join(cmd))
 
     if not stream:
         result = self._run_command(cmd, sudo=sudo, return_result=return_result)

@@ -109,6 +109,10 @@ def build(
 
     cmd = cmd + options + [image, recipe]
 
+    # Does the user want to see the command printed?
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
+
     if not stream:
         self._run_command(
             cmd,

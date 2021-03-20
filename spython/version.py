@@ -5,11 +5,11 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-__version__ = "0.1.1"
+__version__ = "0.1.11"
 AUTHOR = "Vanessa Sochat"
 AUTHOR_EMAIL = "vsochat@stanford.edu"
 NAME = "spython"
-PACKAGE_URL = "http://www.github.com/singularityhub/singularity-cli"
+PACKAGE_URL = "http://github.com/singularityhub/singularity-cli"
 KEYWORDS = "singularity python client (spython)"
 DESCRIPTION = "Command line python tool for working with singularity."
 LICENSE = "LICENSE"

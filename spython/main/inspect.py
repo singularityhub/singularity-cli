@@ -52,6 +52,11 @@ def inspect(
         cmd.append("--json")
 
     cmd.append(image)
+
+    # Does the user want to see the command printed?
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
+
     result = run_command(cmd, quiet=quiet)
 
     if result["return_code"] == 0:
