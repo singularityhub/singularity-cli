@@ -48,6 +48,8 @@ def execute(
     nv: if True, load Nvidia Drivers in runtime (default False)
     return_result: if True, return entire json object with return code
                    and message result not (default)
+    quiet: Do not print verbose output.
+    environ: extra environment to add.
     """
     from spython.utils import check_install
 
@@ -99,6 +101,10 @@ def execute(
 
         cmd = cmd + [image] + command
 
+        # Does the user want to see the command printed?
+        if not (quiet or self.quiet):
+            bot.info(" ".join(cmd))
+
         if not stream:
             return self._run_command(
                 cmd,
@@ -124,6 +130,7 @@ def shell(
     options=None,
     singularity_options=None,
     sudo=False,
+    quiet=True,
 ):
     """shell into a container. A user is advised to use singularity to do
     this directly, however this function is useful for supporting tools.
@@ -171,6 +178,10 @@ def shell(
     # Finally, add the image or uri
     cmd.append(image)
     singularity = which("singularity")
+
+    # Does the user want to see the command printed?
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
 
     if writable or sudo:
         os.execvp("sudo", ["sudo"] + cmd)
