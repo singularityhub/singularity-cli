@@ -19,6 +19,7 @@ def start(
     capture=False,
     singularity_options=None,
     environ=None,
+    quiet=True,
 ):
     """start an instance. This is done by default when an instance is created.
 
@@ -30,6 +31,7 @@ def start(
     capture: capture output, default is False. With True likely to hang.
     args: arguments to provide to the instance (supported Singularity 3.1+)
     singularity_options: a list of options to provide to the singularity client
+    quiet: Do not print verbose output.
     options: a list of tuples, each an option to give to the start command
              [("--bind", "/tmp"),...]
 
@@ -73,6 +75,10 @@ def start(
         if not isinstance(args, list):
             args = [args]
         cmd = cmd + args
+
+    # Print verbose output
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
 
     # Save the options and cmd, if the user wants to see them later
     self.options = options
