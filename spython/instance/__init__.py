@@ -10,7 +10,7 @@ import os
 
 
 class Instance(ImageBase):
-    def __init__(self, image, start=True, name=None, **kwargs):
+    def __init__(self, image, start=True, name=None, quiet=True, **kwargs):
         """An instance is an image running as an instance with services.
         This class has functions appended under cmd/__init__ and is
         instantiated when the user calls Client.
@@ -30,10 +30,11 @@ class Instance(ImageBase):
         self._update_metadata(kwargs)
         self.options = []
         self.cmd = []
+        self.quiet = quiet
 
         # Start the instance
         if start:
-            self.start(**kwargs)
+            self.start(quiet=quiet, **kwargs)
 
     # Unique resource identifier
 

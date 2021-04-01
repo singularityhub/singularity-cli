@@ -15,6 +15,7 @@ def stop(
     sudo_options=None,
     timeout=None,
     singularity_options=None,
+    quiet=True,
 ):
     """stop an instance. This is done by default when an instance is created.
 
@@ -23,6 +24,7 @@ def stop(
     name: a name for the instance
     sudo: if the user wants to run the command with sudo
     singularity_options: a list of options to provide to the singularity client
+    quiet: Do not print verbose output.
     timeout: forcebly kill non-stopped instance after the
              timeout specified in seconds
 
@@ -48,6 +50,10 @@ def stop(
     if name is not None:
         instance_name = name
     cmd = cmd + [instance_name]
+
+    # Print verbose output
+    if not (quiet or self.quiet):
+        bot.info(" ".join(cmd))
 
     output = run_command(cmd, sudo=sudo, sudo_options=sudo_options, quiet=True)
 
