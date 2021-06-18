@@ -97,7 +97,9 @@ def pull(
 
         # Option 3: A custom name we can predict (not commit/hash) and can also show
         else:
-            return final_image, stream_command(cmd, sudo=False)
+
+            # As of Singularity 3.x (at least 3.8) output goes to stderr
+            return final_image, stream_command(cmd, sudo=False, output_type="stderr")
 
     if os.path.exists(final_image) and not quiet:
         bot.info(final_image)
