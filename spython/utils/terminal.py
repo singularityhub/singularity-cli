@@ -110,7 +110,13 @@ def get_installdir():
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
-def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=None):
+def stream_command(
+    cmd,
+    no_newline_regexp="Progess",
+    sudo=False,
+    sudo_options=None,
+    output_type="stdout",
+):
     """stream a command (yield) back to the user, as each line is available.
 
     # Example usage:
@@ -127,14 +133,25 @@ def stream_command(cmd, no_newline_regexp="Progess", sudo=False, sudo_options=No
     sudo_options: string or list of strings that will be passed as options to sudo
 
     """
+    if output_type not in ["stdout", "stderr"]:
+        bot.exit("Invalid output type %s. Must be stderr or stdout." % output_type)
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
     process = subprocess.Popen(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
     )
-    for line in iter(process.stdout.readline, ""):
+
+    # Allow the runner to choose streaming output or error
+    stream = process.stdout.readline
+    if output_type == "stderr":
+        stream = process.stderr.readline
+
+    # Stream lines back to the caller
+    for line in iter(stream, ""):
         if not re.search(no_newline_regexp, line):
             yield line
+
+    # If there is an error, raise.
     process.stdout.close()
     return_code = process.wait()
     if return_code:

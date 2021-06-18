@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - choose output for stream_command (0.0.14)
  - adding support to pull from a url (0.1.13)
  - add more verbosity to instance start/stop (0.1.12)
  - adding more verbosity to running commands (0.1.11)
