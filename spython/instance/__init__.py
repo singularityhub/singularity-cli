@@ -28,7 +28,8 @@ class Instance(ImageBase):
 
         # Update metadats from arguments
         self._update_metadata(kwargs)
-        self.options = []
+        self.options = kwargs.get("options", [])
+        self.args = kwargs.get("args", [])
         self.cmd = []
         self.quiet = quiet
 
