@@ -63,6 +63,10 @@ def start(
 
     cmd = self._init_command(subgroup, singularity_options)
 
+    # Set options and args
+    args = args or self.args
+    options = options or self.options
+
     # Add options, if they are provided
     if not isinstance(options, list):
         options = [] if options is None else options.split(" ")
