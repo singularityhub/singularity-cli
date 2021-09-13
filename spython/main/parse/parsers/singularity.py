@@ -304,6 +304,8 @@ class SingularityParser(ParserBase):
         lines = self.lines[:]
         fromHeader = None
         stage = None
+        section = None
+        comments = []
 
         while lines:
 
@@ -314,8 +316,6 @@ class SingularityParser(ParserBase):
             # Bootstrap Line
             if re.search("bootstrap", line, re.IGNORECASE):
                 self._check_bootstrap(stripped)
-                section = None
-                comments = []
 
             # From Line
             elif re.search("from:", stripped, re.IGNORECASE):
