@@ -102,7 +102,7 @@ def get_singularity_version_info():
         version_string = version_string[len(prefix) :]
     elif "/" in version_string:  # Handle old stuff like "x.y.z-pull/123-0a5d"
         version_string = version_string.replace("/", "+", 1)
-    return semver.parse_version_info(version_string)
+    return semver.VersionInfo.parse(version_string)
 
 
 def get_installdir():
