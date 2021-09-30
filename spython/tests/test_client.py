@@ -43,12 +43,16 @@ def test_docker_pull(docker_container):
 def test_execute(docker_container):
     result = Client.execute(docker_container[1], "ls /")
     print(result)
+    if isinstance(result, list):
+        result = "".join(result)
     assert "tmp\nusr\nvar" in result
 
 
 def test_execute_with_return_code(docker_container):
     result = Client.execute(docker_container[1], "ls /", return_result=True)
     print(result)
+    if isinstance(result["message"], list):
+        result["message"] = "".join(result["message"])
     assert "tmp\nusr\nvar" in result["message"]
     assert result["return_code"] == 0
 
