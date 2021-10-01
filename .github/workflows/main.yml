@@ -52,4 +52,4 @@ jobs:
 
       - name: Run unit tests
         run: |
-          COLUMNS=256 python3 setup.py pytest
+          COLUMNS=256 pytest
