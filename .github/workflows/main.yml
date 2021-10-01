@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: eWaterCycle/setup-singularity@v6
+      - uses: eWaterCycle/setup-singularity@1631b12cf3878381179be0eab9624219bc12979e # v6 release
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
