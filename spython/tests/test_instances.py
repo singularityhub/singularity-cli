@@ -9,6 +9,15 @@
 import pytest
 from spython.main import Client
 
+# name instance based on Python version in case running in parallel
+import sys
+
+version_string = "%s_%s_%s" % (
+    sys.version_info[0],
+    sys.version_info[1],
+    sys.version_info[2],
+)
+
 
 def test_instance_class():
     instance = Client.instance("docker://ubuntu", start=False)
@@ -28,13 +37,10 @@ def test_has_no_instances():
 
 class TestInstanceFuncs(object):
     @pytest.fixture(autouse=True)
-    def cleanup(self):
-        yield
-        Client.instance_stopall()
-
     def test_instance_cmds(self, docker_container):
         image = docker_container[1]
-        myinstance = Client.instance(image)
+        instance_name = "instance1_" + version_string
+        myinstance = Client.instance(image, name=instance_name)
         assert myinstance.get_uri().startswith("instance://")
 
         print("...Case 2: List instances")
@@ -58,12 +64,13 @@ class TestInstanceFuncs(object):
         myinstance.stop()
         instances = Client.instances()
         assert instances == []
-        myinstance1 = Client.instance(image)
-        myinstance2 = Client.instance(image)
+        myinstance1 = Client.instance(image, name="instance1_" + version_string)
+        myinstance2 = Client.instance(image, name="instance2_" + version_string)
         assert myinstance1 is not None
         assert myinstance2 is not None
         instances = Client.instances()
         assert len(instances) == 2
-        Client.instance_stopall()
+        myinstance1.stop()
+        myinstance2.stop()
         instances = Client.instances()
         assert instances == []

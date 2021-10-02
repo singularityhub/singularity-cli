@@ -28,3 +28,29 @@ jobs:
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
           pyflakes spython/oci spython/image spython/instance spython/main
+
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: eWaterCycle/setup-singularity@1631b12cf3878381179be0eab9624219bc12979e # v6 release
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          sudo ln -s $SINGULARITY_ROOT/bin/singularity /usr/bin/
+          python -m pip install --upgrade pip
+          pip install pytest semver pytest-runner requests
+
+      - name: Run unit tests
+        run: |
+          pytest
