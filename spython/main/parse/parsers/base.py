@@ -155,6 +155,6 @@ class ParserBase(object):
         string: the string with replacements made
         """
         for key, value in args.items():
-            if re.search("\$(" + key + "|\{[^}]*\})", string):
-                string = re.sub("\$(" + key + "|\{[^}]*\})", value, string)
+            if re.search(r"\$(" + key + r"|\{[^}]*\})", string):
+                string = re.sub(r"\$(" + key + r"|\{[^}]*\})", value, string)
         return string
