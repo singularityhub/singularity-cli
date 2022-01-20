@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - adding support for SIF (oras pull) (0.1.18)
  - updating CI/tests and fixing deprecations (warnings) (0.1.17)
  - fixing bug with defining comments earlier (0.1.16)
  - ensure options and args from instance init are honored (0.1.15)

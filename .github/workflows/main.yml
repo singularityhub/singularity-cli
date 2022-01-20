@@ -38,8 +38,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: eWaterCycle/setup-singularity@1631b12cf3878381179be0eab9624219bc12979e # v6 release
-
+      - uses: eWaterCycle/setup-singularity@bebf1d6f54f9d2d159ac5c15385912dc39b23711 # v7 release
+        with:
+         singularity-version: 3.8.4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
