@@ -35,16 +35,14 @@ def test_export():
 def test_docker_pull(docker_container):
     tmp_path, container = docker_container
     print(container)
-    ext = "sif" if Client.version_info().major >= 3 else "simg"
-    assert container == str(tmp_path / ("busybox:1.30.1." + ext))
+    assert container == str(tmp_path / ("busybox:1.30.1.sif"))
     assert os.path.exists(container)
 
 
 def test_oras_pull(oras_container):
     tmp_path, container = oras_container
     print(container)
-    ext = "sif" if Client.version_info().major >= 3 else "simg"
-    assert container == str(tmp_path / ("github-ci:latest." + ext))
+    assert container == str(tmp_path / ("github-ci:latest.sif"))
     assert os.path.exists(container)
 
 
