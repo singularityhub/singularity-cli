@@ -44,7 +44,7 @@ def test_oras_pull(oras_container):
     tmp_path, container = oras_container
     print(container)
     ext = "sif" if Client.version_info().major >= 3 else "simg"
-    assert container == str(tmp_path / ("github-ci_latest." + ext))
+    assert container == str(tmp_path / ("github-ci:latest." + ext))
     assert os.path.exists(container)
 
 
