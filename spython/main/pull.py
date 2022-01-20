@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2021 Vanessa Sochat.
+# Copyright (C) 2017-2022 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -60,10 +60,8 @@ def pull(
         bot.exit("You must provide an image uri, or use client.load() first.")
 
     # Singularity Only supports shub, docker and library pull
-    if not re.search("^(shub|docker|library|https)://", image):
-        bot.exit(
-            "pull only valid for docker, https, shub and library. Use sregistry client."
-        )
+    if not re.search("^(shub|docker|library|https|oras)://", image):
+        bot.exit("pull only valid for docker, oras, https, shub and library.")
 
     # If we still don't have a custom name, base off of image uri.
     if name is None:

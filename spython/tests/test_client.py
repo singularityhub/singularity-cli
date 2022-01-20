@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Copyright (C) 2017-2021 Vanessa Sochat.
+# Copyright (C) 2017-2022 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -37,6 +37,14 @@ def test_docker_pull(docker_container):
     print(container)
     ext = "sif" if Client.version_info().major >= 3 else "simg"
     assert container == str(tmp_path / ("busybox:1.30.1." + ext))
+    assert os.path.exists(container)
+
+
+def test_oras_pull(oras_container):
+    tmp_path, container = oras_container
+    print(container)
+    ext = "sif" if Client.version_info().major >= 3 else "simg"
+    assert container == str(tmp_path / ("github-ci_latest." + ext))
     assert os.path.exists(container)
 
 
