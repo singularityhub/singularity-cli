@@ -23,7 +23,7 @@ def generate_image_commands():
 
     """
 
-    class ImageClient(object):
+    class ImageClient:
         group = "image"
 
     from spython.main.base.logger import println

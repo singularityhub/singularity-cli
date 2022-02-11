@@ -27,8 +27,11 @@ def test_data(installdir):  # pylint: disable=redefined-outer-name
 @pytest.fixture(scope="session")
 def oras_container(tmp_path_factory):
     folder = tmp_path_factory.mktemp("oras-img")
-    return folder, Client.pull(
-        "oras://ghcr.io/singularityhub/github-ci:latest", pull_folder=str(folder)
+    return (
+        folder,
+        Client.pull(
+            "oras://ghcr.io/singularityhub/github-ci:latest", pull_folder=str(folder)
+        ),
     )
 
 

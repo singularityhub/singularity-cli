@@ -11,7 +11,7 @@ from spython.logger import bot
 from spython.utils import write_file
 
 
-class WriterBase(object):
+class WriterBase:
     def __init__(self, recipe=None):
         """a writer base will take a recipe object (parser.base.Recipe) and
         provide helpers for writing to file.

@@ -35,7 +35,7 @@ def test_has_no_instances():
     assert instances == []
 
 
-class TestInstanceFuncs(object):
+class TestInstanceFuncs:
     @pytest.fixture(autouse=True)
     def test_instance_cmds(self, docker_container):
         image = docker_container[1]

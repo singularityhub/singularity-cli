@@ -14,7 +14,7 @@ from spython.utils import read_file
 from ..recipe import Recipe
 
 
-class ParserBase(object):
+class ParserBase:
     """a parser Base is intended to provide helper functions for a parser,
     namely to read lines in files, and otherwise interact with outputs.
     Input should be some recipe (text file to describe a container build)
@@ -155,6 +155,6 @@ class ParserBase(object):
         string: the string with replacements made
         """
         for key, value in args.items():
-            if re.search(r"\$(" + key + r"|\{[^}]*\})", string):
-                string = re.sub(r"\$(" + key + r"|\{[^}]*\})", value, string)
+            if re.search("(\$" + key + "|\$\{" + key + "\})", string):
+                string = re.sub("(\$" + key + "|\$\{" + key + "\})", value, string)
         return string

@@ -5,7 +5,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-class Recipe(object):
+class Recipe:
     """a recipe includes an environment, labels, runscript or command,
     and install sequence. This object is interacted with by a Parser
     (intended to popualte the recipe with content) and a Writer (intended

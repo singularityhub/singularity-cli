@@ -71,16 +71,16 @@ class DockerWriter(WriterBase):
         if parser.fromHeader is None:
             bot.exit("Dockerfile requires a fromHeader.")
 
-            # Parse the provided name
-            uri_regexes = [_reduced_uri, _default_uri, _docker_uri]
+        # Parse the provided name
+        uri_regexes = [_reduced_uri, _default_uri, _docker_uri]
 
-            for r in uri_regexes:
-                match = r.match(parser.fromHeader)
-                if match:
-                    break
+        for r in uri_regexes:
+            match = r.match(parser.fromHeader)
+            if match:
+                break
 
-            if not match:
-                bot.exit("FROM header %s not valid." % parser.fromHeader)
+        if not match:
+            bot.exit("FROM header %s not valid." % parser.fromHeader)
 
     def convert(self, runscript="/bin/bash", force=False):
         """convert is called by the parent class to convert the recipe object
