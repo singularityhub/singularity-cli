@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/singularityhub/singularity-cli.svg?branch=master)](https://travis-ci.org/singularityhub/singularity-cli)
 [![GitHub actions status](https://github.com/singularityhub/singularity-cli/workflows/spython-ci/badge.svg?branch=master)](https://github.com/singularityhub/singularity-cli/actions?query=branch%3Amaster+workflow%3Aspython-ci)
 
-Singularity Python (spython) is the Python API for working with <a href="sylabs.io/guides/latest/user-guide/" target="_blank">Singularity</a> containers. See
+Singularity Python (spython) is the Python API for working with <a href="https://sylabs.io/guides/latest/user-guide/" target="_blank">Singularity</a> containers. See
 the [documentation](https://singularityhub.github.io/singularity-cli) for installation and usage, and
 the [install instructions](https://singularityhub.github.io/singularity-cli/install) for a quick start.
 
