@@ -67,9 +67,6 @@ def build(
     # If no extra options
     options = options or []
 
-    if "version 3" in self.version():
-        ext = "sif"
-
     # Force the build if the image / sandbox exists
     if force:
         cmd.append("--force")

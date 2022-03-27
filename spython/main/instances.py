@@ -45,10 +45,6 @@ def list_instances(
     check_install()
 
     subgroup = ["instance", "list", "--json"]
-
-    if "version 3" not in self.version():
-        bot.exit("This version of Singularity Python does not support < 3.0.")
-
     cmd = self._init_command(subgroup, singularity_options)
 
     # If the user has provided a name, we want to see a particular instance

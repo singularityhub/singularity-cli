@@ -16,7 +16,6 @@ def get_client(quiet=False, debug=False):
     debug: turn on debugging mode
 
     """
-    from spython.utils import get_singularity_version
     from .base import Client as client
 
     client.quiet = quiet
@@ -31,25 +30,19 @@ def get_client(quiet=False, debug=False):
     from .instances import list_instances, stopall  # global instance commands
     from .run import run
     from .pull import pull
-    from .export import export, _export
+    from .export import export
 
     # Actions
     client.apps = apps
     client.build = build
     client.execute = execute
     client.export = export
-    client._export = _export
     client.help = helpcmd
     client.inspect = inspect
     client.instances = list_instances
     client.run = run
     client.shell = shell
     client.pull = pull
-
-    # Command Groups, Images
-    from spython.image.cmd import generate_image_commands  # deprecated
-
-    client.image = generate_image_commands()
 
     # Commands Groups, Instances
     from spython.instance.cmd import (
@@ -61,24 +54,22 @@ def get_client(quiet=False, debug=False):
     client.instance.version = client.version
 
     # Commands Groups, OCI (Singularity version 3 and up)
-    if "version 3" in get_singularity_version():
-        from spython.oci.cmd import generate_oci_commands
+    from spython.oci.cmd import generate_oci_commands
 
-        client.oci = generate_oci_commands()()  # first () runs function, second
-        # initializes OciImage class
-        client.oci.debug = client.debug
-        client.oci.quiet = client.quiet
-        client.oci.OciImage.quiet = client.quiet
-        client.oci.OciImage.debug = client.debug
+    client.oci = generate_oci_commands()()  # first () runs function, second
+    # initializes OciImage class
+    client.oci.debug = client.debug
+    client.oci.quiet = client.quiet
+    client.oci.OciImage.quiet = client.quiet
+    client.oci.OciImage.debug = client.debug
 
     # Initialize
     cli = client()
 
     # Pass on verbosity
-    for subclient in [cli.image, cli.instance]:
-        subclient.debug = cli.debug
-        subclient.quiet = cli.quiet
-        subclient.version = cli.version
+    cli.instance.debug = cli.debug
+    cli.instance.quiet = cli.quiet
+    cli.instance.version = cli.version
 
     return cli
 

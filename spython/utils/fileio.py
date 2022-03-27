@@ -49,7 +49,8 @@ def write_file(filename, content, mode="w"):
 
 
 def write_json(json_obj, filename, mode="w", print_pretty=True):
-    """write_json will (optionally,pretty print) a json object to file
+    """
+    write_json will (optionally,pretty print) a json object to file
     :param json_obj: the dict to print to json
     :param filename: the output file to write to
     :param pretty_print: if True, will use nicer formatting
@@ -63,7 +64,8 @@ def write_json(json_obj, filename, mode="w", print_pretty=True):
 
 
 def read_file(filename, mode="r", readlines=True):
-    """write_file will open a file, "filename" and write content, "content"
+    """
+    write_file will open a file, "filename" and write content, "content"
     and properly close the file
     """
     with open(filename, mode) as filey:
@@ -75,7 +77,8 @@ def read_file(filename, mode="r", readlines=True):
 
 
 def read_json(filename, mode="r"):
-    """read_json reads in a json file and returns
+    """
+    read_json reads in a json file and returns
     the data structure as dict.
     """
     with open(filename, mode) as filey:

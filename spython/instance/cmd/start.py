@@ -56,12 +56,7 @@ def start(
 
         image = self._image
 
-    # Derive subgroup command based on singularity version
-    subgroup = "instance.start"
-    if "version 3" in self.version():
-        subgroup = ["instance", "start"]
-
-    cmd = self._init_command(subgroup, singularity_options)
+    cmd = self._init_command(["instance", "start"], singularity_options)
 
     # Set options and args
     args = args or self.args
