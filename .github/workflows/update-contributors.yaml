@@ -68,4 +68,4 @@ jobs:
         if: ${{ env.OPEN_PULL_REQUEST == '1' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_BRANCH: "main"
+          PULL_REQUEST_BRANCH: "master"
