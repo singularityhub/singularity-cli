@@ -27,7 +27,7 @@ jobs:
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
-          pyflakes spython/oci spython/image spython/instance spython/main
+          pyflakes spython/oci spython/image.py spython/instance spython/main
 
   pytest:
     runs-on: ubuntu-latest
