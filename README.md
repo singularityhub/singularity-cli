@@ -13,9 +13,25 @@ As of version 0.1.0, we only support Singularity > 3.5.2. This is done to encour
 newer versions of Singularity with security fixes. If you want to use an older version of Singularity,
 you will need to use version 0.0.85 or earlier.
 
+## 😁️ Contributors 😁️
+
+We use the [all-contributors](https://github.com/all-contributors/all-contributors) 
+tool to generate a contributors graphic below.
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+ 
+
 ## License
 
 This code is licensed under the MPL 2.0 [LICENSE](LICENSE).
 
 ## Help and Contribution
+
 Please contribute to the package, or post feedback and questions as <a href="https://github.com/singularityhub/singularity-cli" target="_blank">issues</a>. For points that require discussion of the larger group, please use the <a href="https://groups.google.com/a/lbl.gov/forum/#!forum/singularity" target="_blank">Singularity List</a>
