@@ -72,7 +72,7 @@ def pull(
 
         # Regression Singularity 3.* onward, PULLFOLDER not honored
         # https://github.com/sylabs/singularity/issues/2788
-        if ("version 3" in self.version()) or ('apptainer' in self.version()):
+        if ("version 3" in self.version()) or ("apptainer" in self.version()):
             name = final_image
             pull_folder = None  # Don't use pull_folder
     else:
