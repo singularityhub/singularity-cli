@@ -11,16 +11,148 @@
     "commitConvention": "none",
     "contributors": [
         {
-            "login": "vsoch",
-            "name": "Vanessasaurus",
+            "login": "Flamefire",
+            "name": "Flamefire",
             "contributions": [
                 "code"
             ],
-            "profile": "https://vsoch.github.io",
+            "profile": "https://github.com/Flamefire",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/309017?v=4"
+            ]
+        },
+        {
+            "login": "kinow",
+            "name": "kinow",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/kinow",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/304786?v=4"
+            ]
+        },
+        {
+            "login": "tschoonj",
+            "name": "tschoonj",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/tschoonj",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/65736?v=4"
+            ]
+        },
+        {
+            "login": "al3x609",
+            "name": "al3x609",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/al3x609",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/4086644?v=4"
+            ]
+        },
+        {
+            "login": "mobiusklein",
+            "name": "mobiusklein",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/mobiusklein",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/1426041?v=4"
+            ]
+        },
+        {
+            "login": "MarDiehl",
+            "name": "MarDiehl",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/MarDiehl",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/6196733?v=4"
+            ]
+        },
+        {
+            "login": "shnizzedy",
+            "name": "shnizzedy",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/shnizzedy",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/5974438?v=4"
+            ]
+        },
+        {
+            "login": "wkpalan",
+            "name": "wkpalan",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/wkpalan",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/6353590?v=4"
+            ]
+        },
+        {
+            "login": "cceyda",
+            "name": "cceyda",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/cceyda",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/15624271?v=4"
+            ]
+        },
+        {
+            "login": "neumann-nico",
+            "name": "neumann-nico",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/neumann-nico",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/33637944?v=4"
+            ]
+        },
+        {
+            "login": "vsoch",
+            "name": "vsoch",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/vsoch",
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/814322?v=4"
             ]
+        },
+        {
+            "login": "pierlauro",
+            "name": "pierlauro",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/pierlauro",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/6776431?v=4"
+            ]
+        },
+        {
+            "login": "biosugar0",
+            "name": "biosugar0",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/biosugar0",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/18737819?v=4"
+            ]
         }
-    ]
+    ],
     "contributorsPerLine": 7
 }
