@@ -20,7 +20,7 @@ def setEnvVar(name, value):
         os.environ[name] = value
 
 
-class ScopedEnvVar(object):
+class ScopedEnvVar:
     """Temporarly change an environment variable
 
     Usage:
