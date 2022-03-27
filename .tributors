@@ -1,1 +1,76 @@
-{}
+{
+    "vsoch": {
+        "name": "Vanessasaurus",
+        "bio": "I'm the Vanessasaurus!",
+        "blog": "https://vsoch.github.io"
+    },
+    "Flamefire": {
+        "name": "Alexander Grund",
+        "blog": "https://github.com/Flamefire"
+    },
+    "pierlauro": {
+        "name": "Pierlauro Sciarelli",
+        "bio": "Computer Scientist",
+        "blog": "https://github.com/pierlauro",
+        "orcid": "0000-0002-3046-2869"
+    },
+    "al3x609": {
+        "name": "Alex Bernal",
+        "bio": "DevOps HPC Engineer -\r\nSuper computing laboratory - Industrial University of Santander.",
+        "blog": "https://github.com/al3x609"
+    },
+    "wkpalan": {
+        "name": "Kokulapalan (Gokul) Wimalanathan",
+        "bio": "Genomics Data Scientist with experience in Bioinformatics, cloud computing, and HPC environments",
+        "blog": "http://www.bioinformapping.com/"
+    },
+    "tschoonj": {
+        "name": "Tom Schoonjans",
+        "email": "Tom.Schoonjans@genomicsplc.com",
+        "bio": "I'm a software engineer working @genomicsplc, and am passionate about developing quality open source software.",
+        "blog": "tschoonj.github.io",
+        "orcid": "0000-0002-3919-3546",
+        "affiliation": "Rosalind Franklin Institute"
+    },
+    "biosugar0": {
+        "name": "Yuto Kimura",
+        "email": "biosugar0@gmail.com",
+        "bio": " SRE",
+        "blog": "https://www.biosugar0.com/"
+    },
+    "kinow": {
+        "name": "Bruno P. Kinoshita",
+        "bio": "From Casa Verde, São Paulo . Now in CBD, Auckland .",
+        "blog": "https://kinoshita.eti.br"
+    },
+    "cceyda": {
+        "name": "Ceyda Cinarel",
+        "bio": "AI researcher & engineer~\r\nall things NLP\r\n🤖 generative models\r\n★ like trying out new libraries & tools\r\n♥ Python ",
+        "blog": "cceyda.github.io/blog/"
+    },
+    "shnizzedy": {
+        "name": "Jon Clucas",
+        "email": "jon.clucas@childmind.org",
+        "bio": "Associate Software Developer in the Computational Neuroimaging Lab at the @ChildMindInstitute. they/them / he/him",
+        "blog": "http://matter.childmind.org/jon-clucas.html",
+        "orcid": "0000-0001-7590-5806",
+        "affiliation": "Child Mind Institute"
+    },
+    "mobiusklein": {
+        "name": "Joshua Klein",
+        "email": "mobiusklein@gmail.com",
+        "blog": "https://github.com/mobiusklein"
+    },
+    "MarDiehl": {
+        "name": "Martin Diehl",
+        "email": "martin.diehl@kuleuven.be",
+        "bio": "Materials Science, Fortran, Python, DAMASK, open source",
+        "blog": "https://martin-diehl.net"
+    },
+    "neumann-nico": {
+        "name": "Nico Neumann",
+        "bio": "Software Engineer",
+        "blog": "https://www.linkedin.com/in/neumann-nico/",
+        "orcid": "0000-0003-3094-6238"
+    }
+}
