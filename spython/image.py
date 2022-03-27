@@ -10,7 +10,7 @@ from spython.logger import bot
 from spython.utils import split_uri
 
 
-class ImageBase(object):
+class ImageBase:
     def __str__(self):
         protocol = getattr(self, "protocol", None)
         if protocol:

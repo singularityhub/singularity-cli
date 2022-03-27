@@ -38,13 +38,7 @@ def inspect(
     if app:
         cmd = cmd + ["--app", app]
 
-    options = ["e", "d", "l", "r", "hf", "t"]
-
-    # After Singularity 3.0, helpfile was changed to H from
-
-    if "version 3" in self.version():
-        options = ["e", "d", "l", "r", "H", "t"]
-
+    options = ["e", "d", "l", "r", "H", "t"]
     for x in options:
         cmd.append("-%s" % x)
 

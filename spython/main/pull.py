@@ -16,7 +16,7 @@ def pull(
     image=None,
     name=None,
     pull_folder="",
-    ext=None,
+    ext="sif",
     force=False,
     capture=False,
     stream=False,
@@ -48,9 +48,6 @@ def pull(
     # Quiet is honored if set by the client, or user
     quiet = quiet or self.quiet
 
-    if not ext:
-        ext = "sif" if "version 3" in self.version() else "simg"
-
     # No image provided, default to use the client's loaded image
     if image is None:
         image = self._get_uri()
@@ -72,9 +69,8 @@ def pull(
 
         # Regression Singularity 3.* onward, PULLFOLDER not honored
         # https://github.com/sylabs/singularity/issues/2788
-        if "version 3" in self.version():
-            name = final_image
-            pull_folder = None  # Don't use pull_folder
+        name = final_image
+        pull_folder = None  # Don't use pull_folder
     else:
         final_image = name
 

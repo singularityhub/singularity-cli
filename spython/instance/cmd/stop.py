@@ -36,12 +36,9 @@ def stop(
 
     check_install()
 
-    subgroup = "instance.stop"
-
-    if "version 3" in self.version():
-        subgroup = ["instance", "stop"]
-        if timeout:
-            subgroup += ["-t", str(timeout)]
+    subgroup = ["instance", "stop"]
+    if timeout:
+        subgroup += ["-t", str(timeout)]
 
     cmd = self._init_command(subgroup, singularity_options)
 
