@@ -14,7 +14,7 @@ def init_level(self, quiet=False):
 
     Parameters
     ==========
-    quiet: boolean if True, set to quiet. Gets overriden by environment
+    quiet: boolean if True, set to quiet. Gets overridden by environment
            setting, and only exists to define default
 
     """

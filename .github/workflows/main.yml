@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Check Spelling
+        uses: crate-ci/typos@592b36d23c62cb378f6097a292bc902ee73f93ef # version 1.0.4
+        with:
+          files: ./spython ./.docs ./README.md
+
       - name: Setup black linter
         run: conda create --quiet --name black pyflakes
 

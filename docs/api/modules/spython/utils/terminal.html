@@ -1,69 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>spython.utils.terminal &mdash; Singularity Python API 1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../assets/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../assets/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../assets/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../assets/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../assets/documentation_options.js"></script>
         <script src="../../../assets/jquery.js"></script>
         <script src="../../../assets/underscore.js"></script>
         <script src="../../../assets/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../assets/js/theme.js"></script>
-
-    
+    <script src="../../../assets/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
-          
-
-          
+            <a href="../../../index.html" class="icon icon-home"> Singularity Python API
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,87 +36,39 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../source/spython.html">spython package</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">Singularity Python API</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>spython.utils.terminal</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for spython.utils.terminal</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
+<span class="sd"># Copyright (C) 2017-2022 Vanessa Sochat.</span>
 
 <span class="sd">This Source Code Form is subject to the terms of the</span>
 <span class="sd">Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -184,7 +101,7 @@
     <span class="k">return</span> <span class="n">cmd</span>
 
 
-<div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s2">&quot;singularity&quot;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="check_install"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.check_install">[docs]</a><span class="k">def</span> <span class="nf">check_install</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s2">&quot;singularity&quot;</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;check_install will attempt to run the singularity command, and</span>
 <span class="sd">    return True if installed. The command line utils will not run</span>
 <span class="sd">    without this check.</span>
@@ -209,14 +126,14 @@
     <span class="k">return</span> <span class="n">found</span></div>
 
 
-<div class="viewcode-block" id="which"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.which">[docs]</a><span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s2">&quot;singularity&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="which"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.which">[docs]</a><span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">software</span><span class="o">=</span><span class="s2">&quot;singularity&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;which returns the full path to where software is installed.&quot;&quot;&quot;</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;which&quot;</span><span class="p">,</span> <span class="n">software</span><span class="p">]</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
+<div class="viewcode-block" id="get_singularity_version"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_singularity_version">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get the full singularity client version as reported by</span>
 <span class="sd">    singularity --version [...]. For Singularity 3.x, this means:</span>
 <span class="sd">    &quot;singularity version 3.0.1-1&quot;</span>
@@ -235,17 +152,17 @@
     <span class="k">return</span> <span class="n">version</span></div>
 
 
-<div class="viewcode-block" id="get_userhome"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_userhome">[docs]</a><span class="k">def</span> <span class="nf">get_userhome</span><span class="p">():</span>
+<div class="viewcode-block" id="get_userhome"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_userhome">[docs]</a><span class="k">def</span> <span class="nf">get_userhome</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get the user home based on the effective uid&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwuid</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">())[</span><span class="mi">5</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="get_username"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_username">[docs]</a><span class="k">def</span> <span class="nf">get_username</span><span class="p">():</span>
+<div class="viewcode-block" id="get_username"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_username">[docs]</a><span class="k">def</span> <span class="nf">get_username</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get the user name based on the effective uid&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">pwd</span><span class="o">.</span><span class="n">getpwuid</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="get_singularity_version_info"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_singularity_version_info">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version_info</span><span class="p">():</span>
+<div class="viewcode-block" id="get_singularity_version_info"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_singularity_version_info">[docs]</a><span class="k">def</span> <span class="nf">get_singularity_version_info</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get the full singularity client version as a semantic version&quot; &quot;&quot;&quot;</span>
     <span class="n">version_string</span> <span class="o">=</span> <span class="n">get_singularity_version</span><span class="p">()</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;singularity version &quot;</span>
@@ -253,15 +170,21 @@
         <span class="n">version_string</span> <span class="o">=</span> <span class="n">version_string</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="p">:]</span>
     <span class="k">elif</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">version_string</span><span class="p">:</span>  <span class="c1"># Handle old stuff like &quot;x.y.z-pull/123-0a5d&quot;</span>
         <span class="n">version_string</span> <span class="o">=</span> <span class="n">version_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">semver</span><span class="o">.</span><span class="n">parse_version_info</span><span class="p">(</span><span class="n">version_string</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">semver</span><span class="o">.</span><span class="n">VersionInfo</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">version_string</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
+<div class="viewcode-block" id="get_installdir"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.get_installdir">[docs]</a><span class="k">def</span> <span class="nf">get_installdir</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;get_installdir returns the installation directory of the application&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span></div>
 
 
-<div class="viewcode-block" id="stream_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.stream_command">[docs]</a><span class="k">def</span> <span class="nf">stream_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sudo_options</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="stream_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.stream_command">[docs]</a><span class="k">def</span> <span class="nf">stream_command</span><span class="p">(</span>
+    <span class="n">cmd</span><span class="p">,</span>
+    <span class="n">no_newline_regexp</span><span class="o">=</span><span class="s2">&quot;Progess&quot;</span><span class="p">,</span>
+    <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sudo_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;stdout&quot;</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;stream a command (yield) back to the user, as each line is available.</span>
 
 <span class="sd">    # Example usage:</span>
@@ -278,14 +201,25 @@
 <span class="sd">    sudo_options: string or list of strings that will be passed as options to sudo</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stdout&quot;</span><span class="p">,</span> <span class="s2">&quot;stderr&quot;</span><span class="p">]:</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Invalid output type </span><span class="si">%s</span><span class="s2">. Must be stderr or stdout.&quot;</span> <span class="o">%</span> <span class="n">output_type</span><span class="p">)</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">_process_sudo_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="p">,</span> <span class="n">sudo_options</span><span class="p">)</span>
 
     <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
         <span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+
+    <span class="c1"># Allow the runner to choose streaming output or error</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;stderr&quot;</span><span class="p">:</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">readline</span>
+
+    <span class="c1"># Stream lines back to the caller</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">no_newline_regexp</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">line</span>
+
+    <span class="c1"># If there is an error, raise.</span>
     <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">return_code</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">return_code</span><span class="p">:</span>
@@ -293,7 +227,7 @@
         <span class="k">raise</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span><span class="p">(</span><span class="n">return_code</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span>
+<div class="viewcode-block" id="run_command"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.run_command">[docs]</a><span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span>
     <span class="n">cmd</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">capture</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -355,7 +289,7 @@
 <span class="c1">################################################################################</span>
 
 
-<div class="viewcode-block" id="format_container_name"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.format_container_name">[docs]</a><span class="k">def</span> <span class="nf">format_container_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">special_characters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="format_container_name"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.format_container_name">[docs]</a><span class="k">def</span> <span class="nf">format_container_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">special_characters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;format_container_name will take a name supplied by the user,</span>
 <span class="sd">    remove all special characters (except for those defined by &quot;special-characters&quot;</span>
 <span class="sd">    and return the new image name.</span>
@@ -365,7 +299,7 @@
     <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">special_characters</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="split_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.split_uri">[docs]</a><span class="k">def</span> <span class="nf">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+<div class="viewcode-block" id="split_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.split_uri">[docs]</a><span class="k">def</span> <span class="nf">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Split the uri of a container into the protocol and image part</span>
 
 <span class="sd">    An empty protocol is returned if none found.</span>
@@ -380,55 +314,36 @@
     <span class="k">return</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.instance.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_uri"><a class="viewcode-back" href="../../../source/spython.utils.html#spython.utils.terminal.remove_uri">[docs]</a><span class="k">def</span> <span class="nf">remove_uri</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;remove_uri will remove docker:// or shub:// or library:// from the uri&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">split_uri</span><span class="p">(</span><span class="n">container</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2017-2021, Vanessa Sochat
-
-    </p>
+    <p>&#169; Copyright 2017-2021, Vanessa Sochat.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

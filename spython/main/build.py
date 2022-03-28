@@ -42,7 +42,7 @@ def build(
 
     recipe: the path to the recipe file (or source to build from). If not
                defined, we look for "Singularity" file in $PWD
-    image: the image to build (if None, will use arbitary name
+    image: the image to build (if None, will use arbitrary name
     isolated: if True, run build with --isolated flag
     sandbox: if True, create a writable sandbox
     writable: if True, use writable ext3 (sandbox takes preference)

@@ -1,69 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>spython.main &mdash; Singularity Python API 1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../assets/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../../assets/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../assets/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../assets/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../assets/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../assets/documentation_options.js"></script>
         <script src="../../assets/jquery.js"></script>
         <script src="../../assets/underscore.js"></script>
         <script src="../../assets/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../assets/js/theme.js"></script>
-
-    
+    <script src="../../assets/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
-          
-
-          
+            <a href="../../index.html" class="icon icon-home"> Singularity Python API
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,85 +36,37 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../source/spython.html">spython package</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">Singularity Python API</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-        
       <li>spython.main</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for spython.main</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2022 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -167,7 +84,6 @@
 <span class="sd">    debug: turn on debugging mode</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">spython.utils</span> <span class="kn">import</span> <span class="n">get_singularity_version</span>
     <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Client</span> <span class="k">as</span> <span class="n">client</span>
 
     <span class="n">client</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span>
@@ -182,25 +98,19 @@
     <span class="kn">from</span> <span class="nn">.instances</span> <span class="kn">import</span> <span class="n">list_instances</span><span class="p">,</span> <span class="n">stopall</span>  <span class="c1"># global instance commands</span>
     <span class="kn">from</span> <span class="nn">.run</span> <span class="kn">import</span> <span class="n">run</span>
     <span class="kn">from</span> <span class="nn">.pull</span> <span class="kn">import</span> <span class="n">pull</span>
-    <span class="kn">from</span> <span class="nn">.export</span> <span class="kn">import</span> <span class="n">export</span><span class="p">,</span> <span class="n">_export</span>
+    <span class="kn">from</span> <span class="nn">.export</span> <span class="kn">import</span> <span class="n">export</span>
 
     <span class="c1"># Actions</span>
     <span class="n">client</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">apps</span>
     <span class="n">client</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="n">build</span>
     <span class="n">client</span><span class="o">.</span><span class="n">execute</span> <span class="o">=</span> <span class="n">execute</span>
     <span class="n">client</span><span class="o">.</span><span class="n">export</span> <span class="o">=</span> <span class="n">export</span>
-    <span class="n">client</span><span class="o">.</span><span class="n">_export</span> <span class="o">=</span> <span class="n">_export</span>
     <span class="n">client</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">helpcmd</span>
     <span class="n">client</span><span class="o">.</span><span class="n">inspect</span> <span class="o">=</span> <span class="n">inspect</span>
     <span class="n">client</span><span class="o">.</span><span class="n">instances</span> <span class="o">=</span> <span class="n">list_instances</span>
     <span class="n">client</span><span class="o">.</span><span class="n">run</span> <span class="o">=</span> <span class="n">run</span>
     <span class="n">client</span><span class="o">.</span><span class="n">shell</span> <span class="o">=</span> <span class="n">shell</span>
     <span class="n">client</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">pull</span>
-
-    <span class="c1"># Command Groups, Images</span>
-    <span class="kn">from</span> <span class="nn">spython.image.cmd</span> <span class="kn">import</span> <span class="n">generate_image_commands</span>  <span class="c1"># deprecated</span>
-
-    <span class="n">client</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">generate_image_commands</span><span class="p">()</span>
 
     <span class="c1"># Commands Groups, Instances</span>
     <span class="kn">from</span> <span class="nn">spython.instance.cmd</span> <span class="kn">import</span> <span class="p">(</span>
@@ -212,24 +122,22 @@
     <span class="n">client</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">version</span>
 
     <span class="c1"># Commands Groups, OCI (Singularity version 3 and up)</span>
-    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="n">get_singularity_version</span><span class="p">():</span>
-        <span class="kn">from</span> <span class="nn">spython.oci.cmd</span> <span class="kn">import</span> <span class="n">generate_oci_commands</span>
+    <span class="kn">from</span> <span class="nn">spython.oci.cmd</span> <span class="kn">import</span> <span class="n">generate_oci_commands</span>
 
-        <span class="n">client</span><span class="o">.</span><span class="n">oci</span> <span class="o">=</span> <span class="n">generate_oci_commands</span><span class="p">()()</span>  <span class="c1"># first () runs function, second</span>
-        <span class="c1"># initializes OciImage class</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
-        <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">oci</span> <span class="o">=</span> <span class="n">generate_oci_commands</span><span class="p">()()</span>  <span class="c1"># first () runs function, second</span>
+    <span class="c1"># initializes OciImage class</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">quiet</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">oci</span><span class="o">.</span><span class="n">OciImage</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">debug</span>
 
     <span class="c1"># Initialize</span>
     <span class="n">cli</span> <span class="o">=</span> <span class="n">client</span><span class="p">()</span>
 
     <span class="c1"># Pass on verbosity</span>
-    <span class="k">for</span> <span class="n">subclient</span> <span class="ow">in</span> <span class="p">[</span><span class="n">cli</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="p">]:</span>
-        <span class="n">subclient</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">debug</span>
-        <span class="n">subclient</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">quiet</span>
-        <span class="n">subclient</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">version</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">debug</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">quiet</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">version</span>
 
     <span class="k">return</span> <span class="n">cli</span></div>
 
@@ -238,49 +146,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2017-2021, Vanessa Sochat
-
-    </p>
+    <p>&#169; Copyright 2017-2021, Vanessa Sochat.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
