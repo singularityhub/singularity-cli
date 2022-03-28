@@ -20,7 +20,7 @@ class RobotNamer:
         "dinosaur",
         "boopy",
         "lovely",
-        "carniverous",
+        "carnivorous",
         "hanky",
         "loopy",
         "doopy",

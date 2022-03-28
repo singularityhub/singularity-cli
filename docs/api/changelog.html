@@ -1,70 +1,35 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>&lt;no title&gt; &mdash; Singularity Python API 1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="assets/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="assets/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="assets/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="assets/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="assets/documentation_options.js"></script>
         <script src="assets/jquery.js"></script>
         <script src="assets/underscore.js"></script>
         <script src="assets/doctools.js"></script>
-    
-    <script type="text/javascript" src="assets/js/theme.js"></script>
-
-    
+    <script src="assets/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="spython.utils package" href="source/spython.utils.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
-          
-
-          
+            <a href="index.html" class="icon icon-home"> Singularity Python API
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -72,85 +37,35 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="source/spython.html">spython package</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Singularity Python API</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>&lt;no title&gt;</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="_sources/changelog.md.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <p># CHANGELOG</p>
 <p>This is a manually generated log to track changes to the repository for each release.
 Each section should include general headers such as <strong>Implemented enhancements</strong>
@@ -159,157 +74,143 @@ represented by the pull requests that fixed them.
 Critical items to know are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>renamed commands</p></li>
-<li><p>deprecated / removed commands</p></li>
-<li><p>changed defaults</p></li>
-<li><p>backward incompatible changes (recipe or image file format?)</p></li>
-<li><p>migration guidance (how to convert images?)</p></li>
-<li><p>changed behaviour (recipe sections work differently)</p></li>
+<li>renamed commands</li>
+<li>deprecated / removed commands</li>
+<li>changed defaults</li>
+<li>backward incompatible changes (recipe or image file format?)</li>
+<li>migration guidance (how to convert images?)</li>
+<li>changed behaviour (recipe sections work differently)</li>
 </ul>
 </div></blockquote>
 <p>The client here will eventually be released as “spython” (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.</p>
-<dl>
+<dl class="docutils">
 <dt>## [master](<a class="reference external" href="https://github.com/singularityhub/singularity-cli/tree/master">https://github.com/singularityhub/singularity-cli/tree/master</a>)</dt><dd><ul class="simple">
-<li><p>instance list doesn’t always include container_image (0.1.0)</p></li>
-<li><p>add sudo_options option to Instance.start/stop and Client.execute (0.0.85)
-- add environ option to Instance.start and Client.execute for passing env variables</p></li>
-<li><p>Small bugfix for docker writer and adding pyflakes for unused imports (0.0.84)</p></li>
-<li><p>Adding support for multistage build parsing (0.0.83)</p></li>
-<li><p>Singularity Python does not yet support multistage builds (0.0.82)</p></li>
-<li><p>stream command should print to stdout given CalledProcessError (0.0.81)</p></li>
-<li><p>USER regular expression should check for USER at start of line (0.0.80)</p></li>
-<li><p>add singularity options parameters to send to singularity (0.0.79)</p></li>
-<li><p>add support for library:// urls (0.0.78)</p></li>
-<li><p>instance stop with timeout argument (0.0.77)</p></li>
-<li><p>instance list includes ip address (0.0.76)</p></li>
-<li><p>export lines aren’t ignored from environment, but replaced (0.0.75)</p></li>
-<li><p>instance logging functions for Singularity 3.5 and up (0.0.74)</p></li>
-<li><p>add sudo_options option to spython.main.Client.build (0.0.73)</p></li>
-<li><p>list of options and writable added to shell, execute, and run (0.0.72)</p></li>
-<li><p>client is not honoring quiet for pull (0.0.71)</p></li>
-<li><p>removing debugging line in pull (0.0.70)</p></li>
-<li><p>adding quiet argument to build to override client (0.0.69)</p></li>
-<li><p>adding additional options to build to support singularity-compose (0.0.68)</p></li>
-<li><p>client should support shell (0.0.67)</p></li>
-<li><p>adding test for entrypoint + cmd and fixing testing requirements (0.0.66)</p></li>
-<li><p>fixing bug that inspect does not honor quiet (0.0.65)</p></li>
-<li><p>refactor recipe parsers, writers, and base (0.0.64)
-- paths for files, add, copy, will not be expanded as it adds hardcoded paths</p></li>
-<li><p>oci state fixes and added Client.version_info() (0.0.63)</p></li>
-<li><p>fix crash in some error conditions (0.0.62)
-- more OCI commands accept sudo parameter</p></li>
-<li><p>working directory, the last one defined, should be added to runscript (0.0.61)</p></li>
-<li><p>adding deprecation message for image.export (0.0.60)
-- adding –force option to build</p></li>
-<li><p>fixing warning for files, only relevant for sources (0.0.59)</p></li>
-<li><p>deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
-- export command added back, points to build given Singularity 3.x+</p></li>
-<li><p>print but with logger, should be println (0.0.57)</p></li>
-<li><p>Fixing bug with instance not having name when not started (0.0.56)
-- instance start has been moved to non-private</p></li>
-<li><p>Added ability for exec and run to return the full output and message (0.0.55)</p></li>
+<li>version checks removed to support Singularity 3.x and above (0.2.0)</li>
+<li>adding support for SIF (oras pull) (0.1.18)</li>
+<li>updating CI/tests and fixing deprecations (warnings) (0.1.17)</li>
+<li>fixing bug with defining comments earlier (0.1.16)</li>
+<li>ensure options and args from instance init are honored (0.1.15)</li>
+<li>choose output for stream_command (0.1.14)</li>
+<li>adding support to pull from a url (0.1.13)</li>
+<li>add more verbosity to instance start/stop (0.1.12)</li>
+<li>adding more verbosity to running commands (0.1.11)</li>
+<li>log error paths are optional (0.1.1)</li>
+<li>instance list doesn’t always include container_image (0.1.0)</li>
+<li>add sudo_options option to Instance.start/stop and Client.execute (0.0.85)
+- add environ option to Instance.start and Client.execute for passing env variables</li>
+<li>Small bugfix for docker writer and adding pyflakes for unused imports (0.0.84)</li>
+<li>Adding support for multistage build parsing (0.0.83)</li>
+<li>Singularity Python does not yet support multistage builds (0.0.82)</li>
+<li>stream command should print to stdout given CalledProcessError (0.0.81)</li>
+<li>USER regular expression should check for USER at start of line (0.0.80)</li>
+<li>add singularity options parameters to send to singularity (0.0.79)</li>
+<li>add support for library:// urls (0.0.78)</li>
+<li>instance stop with timeout argument (0.0.77)</li>
+<li>instance list includes ip address (0.0.76)</li>
+<li>export lines aren’t ignored from environment, but replaced (0.0.75)</li>
+<li>instance logging functions for Singularity 3.5 and up (0.0.74)</li>
+<li>add sudo_options option to spython.main.Client.build (0.0.73)</li>
+<li>list of options and writable added to shell, execute, and run (0.0.72)</li>
+<li>client is not honoring quiet for pull (0.0.71)</li>
+<li>removing debugging line in pull (0.0.70)</li>
+<li>adding quiet argument to build to override client (0.0.69)</li>
+<li>adding additional options to build to support singularity-compose (0.0.68)</li>
+<li>client should support shell (0.0.67)</li>
+<li>adding test for entrypoint + cmd and fixing testing requirements (0.0.66)</li>
+<li>fixing bug that inspect does not honor quiet (0.0.65)</li>
+<li>refactor recipe parsers, writers, and base (0.0.64)
+- paths for files, add, copy, will not be expanded as it adds hardcoded paths</li>
+<li>oci state fixes and added Client.version_info() (0.0.63)</li>
+<li>fix crash in some error conditions (0.0.62)
+- more OCI commands accept sudo parameter</li>
+<li>working directory, the last one defined, should be added to runscript (0.0.61)</li>
+<li>adding deprecation message for image.export (0.0.60)
+- adding –force option to build</li>
+<li>fixing warning for files, only relevant for sources (0.0.59)</li>
+<li>deprecating pulling by commit or hash, not supported for Singularity (0.0.58)
+- export command added back, points to build given Singularity 3.x+</li>
+<li>print but with logger, should be println (0.0.57)</li>
+<li>Fixing bug with instance not having name when not started (0.0.56)
+- instance start has been moved to non-private</li>
+<li>Added ability for exec and run to return the full output and message (0.0.55)</li>
 </ul>
 <blockquote>
 <div><ul class="simple">
-<li><p>By default, oci commands (pause, resume, kill) return the return value</p></li>
+<li>By default, oci commands (pause, resume, kill) return the return value</li>
 </ul>
 </div></blockquote>
 <ul class="simple">
-<li><p>Added support and tests for OCI image command group (0.0.54)
+<li>Added support and tests for OCI image command group (0.0.54)
 - client now has version() function to call get_singularity_version
-- added return_result (boolean) to client run_command function.</p></li>
-<li><p>adding testing for 3.1.0 with Singularity Orbs (0.0.53)
-- inspect returns parsed json on success, or full message / return code otherwise</p></li>
-<li><p>instance stop all missing check for Singularity V3.+ (0.0.52)</p></li>
-<li><p>fixing bug with instances list, name not taken into account (0.0.51)</p></li>
-<li><p>additional of args to instance start commands (0.0.50)</p></li>
-<li><p>continued lines should not be split in docker.py recipe parser (_setup) (0.0.49)</p></li>
-<li><p>COPY command should honor src src dest (and not reverse) (0.0.48)</p></li>
-<li><p>adding support for instance list (0.0.47)</p></li>
-<li><p>ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)</p></li>
-<li><p>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
-- Adding DockerRecipe, SingularityRecipe “load” action to load file</p></li>
-<li><p>issue #64 bug with hanging instances (0.0.44)</p></li>
-<li><p>flexible error printing given command to terminal fails (0.0.43)</p></li>
-<li><p>adding name_by_commit and name_by_hash to pull (0.0.42)</p></li>
-<li><p>adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)</p></li>
-<li><p>fixing bug in shell.py, cli should be client (0.0.40)</p></li>
-<li><p>remove uri function should only right strip to support relative paths (0.0.39)</p></li>
-<li><p>adjusting container build to use correct Github branch (vault/release-2.5)</p></li>
-<li><p>adding support and documentation for container instances (0.0.38)</p></li>
-<li><p>fixing bug with recipe Dockerfile conversion (0.0.37)</p></li>
-<li><p>typo in pypi PACKAGE_URL (0.0.36)</p></li>
-<li><p>respecting Client “quiet” attribute in run_command  (0.0.34/0.0.35)</p></li>
-<li><p>adding missing import of tempfile in image.export (0.0.33)</p></li>
-<li><p>bug with Client.version() (0.0.32)</p></li>
-<li><p>fixing bugs with import, export, image commands (0.0.31)</p></li>
-<li><p>adding tests for client (0.0.30)</p></li>
-<li><p>bug in Dockerfile fromHeader variable fix (0.0.29)</p></li>
-<li><p>Dockerfile from “as level” removed (0.0.28)
-- fixed ENV parser to handle statements like A=B C=D</p></li>
-<li><p>adding ability to stream command executed to console (0.0.25)</p></li>
-<li><p>fixing import bug with recipe parsers in python 2.7 (0.0.24)</p></li>
-<li><p>addition of docker and singularity recipe parsers (0.0.22)</p></li>
-<li><p>adding bind argument to exec and run (0.0.21)</p></li>
-<li><p>generating basic api documentation (sphinx) (0.0.2)</p></li>
-<li><p>adding changelog, and original code for client  (0.0.1)</p></li>
+- added return_result (boolean) to client run_command function.</li>
+<li>adding testing for 3.1.0 with Singularity Orbs (0.0.53)
+- inspect returns parsed json on success, or full message / return code otherwise</li>
+<li>instance stop all missing check for Singularity V3.+ (0.0.52)</li>
+<li>fixing bug with instances list, name not taken into account (0.0.51)</li>
+<li>additional of args to instance start commands (0.0.50)</li>
+<li>continued lines should not be split in docker.py recipe parser (_setup) (0.0.49)</li>
+<li>COPY command should honor src src dest (and not reverse) (0.0.48)</li>
+<li>adding support for instance list (0.0.47)</li>
+<li>ENV variables in Dockerfile can be empty (like unsetting) (0.0.46)</li>
+<li>COPY can handle multiple sources to one destination for Dockerfile parser (0.0.45)
+- Adding DockerRecipe, SingularityRecipe “load” action to load file</li>
+<li>issue #64 bug with hanging instances (0.0.44)</li>
+<li>flexible error printing given command to terminal fails (0.0.43)</li>
+<li>adding name_by_commit and name_by_hash to pull (0.0.42)</li>
+<li>adding nvidia flag as nv argument (with default False) to run/exec (0.0.41)</li>
+<li>fixing bug in shell.py, cli should be client (0.0.40)</li>
+<li>remove uri function should only right strip to support relative paths (0.0.39)</li>
+<li>adjusting container build to use correct Github branch (vault/release-2.5)</li>
+<li>adding support and documentation for container instances (0.0.38)</li>
+<li>fixing bug with recipe Dockerfile conversion (0.0.37)</li>
+<li>typo in pypi PACKAGE_URL (0.0.36)</li>
+<li>respecting Client “quiet” attribute in run_command  (0.0.34/0.0.35)</li>
+<li>adding missing import of tempfile in image.export (0.0.33)</li>
+<li>bug with Client.version() (0.0.32)</li>
+<li>fixing bugs with import, export, image commands (0.0.31)</li>
+<li>adding tests for client (0.0.30)</li>
+<li>bug in Dockerfile fromHeader variable fix (0.0.29)</li>
+<li>Dockerfile from “as level” removed (0.0.28)
+- fixed ENV parser to handle statements like A=B C=D</li>
+<li>adding ability to stream command executed to console (0.0.25)</li>
+<li>fixing import bug with recipe parsers in python 2.7 (0.0.24)</li>
+<li>addition of docker and singularity recipe parsers (0.0.22)</li>
+<li>adding bind argument to exec and run (0.0.21)</li>
+<li>generating basic api documentation (sphinx) (0.0.2)</li>
+<li>adding changelog, and original code for client  (0.0.1)</li>
 </ul>
 </dd>
 </dl>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="source/spython.utils.html" class="btn btn-neutral float-left" title="spython.utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="source/spython.utils.html" class="btn btn-neutral float-left" title="spython.utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2017-2021, Vanessa Sochat
-
-    </p>
+    <p>&#169; Copyright 2017-2021, Vanessa Sochat.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

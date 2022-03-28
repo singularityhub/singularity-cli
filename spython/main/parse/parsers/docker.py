@@ -22,7 +22,7 @@ class DockerParser(ParserBase):
 
         Parameters
         ==========
-        filename: the Dockerfile to parse. If not defined, deafults to
+        filename: the Dockerfile to parse. If not defined, defaults to
                   Dockerfile assumed to be in the $PWD.
         load: whether to load the recipe file (default True)
 

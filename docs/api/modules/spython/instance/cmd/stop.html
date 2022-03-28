@@ -1,69 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>spython.instance.cmd.stop &mdash; Singularity Python API 1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
-
-  
-  
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../../assets/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../assets/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../assets/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../assets/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../assets/documentation_options.js"></script>
         <script src="../../../../assets/jquery.js"></script>
         <script src="../../../../assets/underscore.js"></script>
         <script src="../../../../assets/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../../assets/js/theme.js"></script>
-
-    
+    <script src="../../../../assets/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> Singularity Python API
-          
-
-          
+            <a href="../../../../index.html" class="icon icon-home"> Singularity Python API
           </a>
-
-          
-            
-            
               <div class="version">
                 0.0
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,89 +36,39 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../source/spython.html">spython package</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">Singularity Python API</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
-        
           <li><a href="../../instance.html">spython.instance</a> &raquo;</li>
-        
           <li><a href="../cmd.html">spython.instance.cmd</a> &raquo;</li>
-        
       <li>spython.instance.cmd.stop</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for spython.instance.cmd.stop</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2017-2021 Vanessa Sochat.</span>
+<span></span><span class="c1"># Copyright (C) 2017-2022 Vanessa Sochat.</span>
 
 <span class="c1"># This Source Code Form is subject to the terms of the</span>
 <span class="c1"># Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed</span>
@@ -163,13 +78,14 @@
 <span class="kn">from</span> <span class="nn">spython.logger</span> <span class="kn">import</span> <span class="n">bot</span>
 
 
-<div class="viewcode-block" id="stop"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.stop">[docs]</a><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span>
+<div class="viewcode-block" id="stop"><a class="viewcode-back" href="../../../../source/spython.instance.cmd.html#spython.instance.cmd.stop.stop">[docs]</a><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">sudo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">sudo_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">singularity_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;stop an instance. This is done by default when an instance is created.</span>
 
@@ -178,6 +94,7 @@
 <span class="sd">    name: a name for the instance</span>
 <span class="sd">    sudo: if the user wants to run the command with sudo</span>
 <span class="sd">    singularity_options: a list of options to provide to the singularity client</span>
+<span class="sd">    quiet: Do not print verbose output.</span>
 <span class="sd">    timeout: forcebly kill non-stopped instance after the</span>
 <span class="sd">             timeout specified in seconds</span>
 
@@ -189,12 +106,9 @@
 
     <span class="n">check_install</span><span class="p">()</span>
 
-    <span class="n">subgroup</span> <span class="o">=</span> <span class="s2">&quot;instance.stop&quot;</span>
-
-    <span class="k">if</span> <span class="s2">&quot;version 3&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">():</span>
-        <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">timeout</span><span class="p">:</span>
-            <span class="n">subgroup</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeout</span><span class="p">)]</span>
+    <span class="n">subgroup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">timeout</span><span class="p">:</span>
+        <span class="n">subgroup</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">timeout</span><span class="p">)]</span>
 
     <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_command</span><span class="p">(</span><span class="n">subgroup</span><span class="p">,</span> <span class="n">singularity_options</span><span class="p">)</span>
 
@@ -203,6 +117,10 @@
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">instance_name</span> <span class="o">=</span> <span class="n">name</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">+</span> <span class="p">[</span><span class="n">instance_name</span><span class="p">]</span>
+
+    <span class="c1"># Print verbose output</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">quiet</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">):</span>
+        <span class="n">bot</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
 
     <span class="n">output</span> <span class="o">=</span> <span class="n">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">sudo</span><span class="o">=</span><span class="n">sudo</span><span class="p">,</span> <span class="n">sudo_options</span><span class="o">=</span><span class="n">sudo_options</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -215,49 +133,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        
-        &copy; Copyright 2017-2021, Vanessa Sochat
-
-    </p>
+    <p>&#169; Copyright 2017-2021, Vanessa Sochat.</p>
   </div>
-    
-    
-    
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -21,7 +21,7 @@ def setEnvVar(name, value):
 
 
 class ScopedEnvVar:
-    """Temporarly change an environment variable
+    """Temporarily change an environment variable
 
     Usage:
         with ScopedEnvVar("FOO", "bar"):

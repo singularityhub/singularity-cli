@@ -17,6 +17,16 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - version checks removed to support Singularity 3.x and above (0.2.0)
+ - adding support for SIF (oras pull) (0.1.18)
+ - updating CI/tests and fixing deprecations (warnings) (0.1.17)
+ - fixing bug with defining comments earlier (0.1.16)
+ - ensure options and args from instance init are honored (0.1.15)
+ - choose output for stream_command (0.1.14)
+ - adding support to pull from a url (0.1.13)
+ - add more verbosity to instance start/stop (0.1.12)
+ - adding more verbosity to running commands (0.1.11)
+ - log error paths are optional (0.1.1)
  - instance list doesn't always include container_image (0.1.0)
  - add sudo_options option to Instance.start/stop and Client.execute (0.0.85)
    - add environ option to Instance.start and Client.execute for passing env variables
