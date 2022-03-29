@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - parser bugfixes, arg from Docker not properly parsed (0.2.1)
  - version checks removed to support Singularity 3.x and above (0.2.0)
  - adding support for SIF (oras pull) (0.1.18)
  - updating CI/tests and fixing deprecations (warnings) (0.1.17)
