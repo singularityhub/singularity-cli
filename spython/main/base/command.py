@@ -15,7 +15,8 @@ import os
 
 
 def init_command(self, action, flags=None):
-    """return the initial Singularity command with any added flags.
+    """
+    Return the initial Singularity command with any added flags.
 
     Parameters
     ==========
@@ -37,7 +38,8 @@ def init_command(self, action, flags=None):
 
 
 def generate_bind_list(self, bindlist=None):
-    """generate bind string will take a single string or list of binds, and
+    """
+    Generate bind string will take a single string or list of binds, and
      return a list that can be added to an exec or run command. For example,
      the following map as follows:
 
@@ -81,7 +83,8 @@ def generate_bind_list(self, bindlist=None):
 
 
 def send_command(self, cmd, sudo=False, stderr=None, stdout=None):
-    """send command is a non interactive version of run_command, meaning
+    """
+    Send command is a non interactive version of run_command, meaning
     that we execute the command and return the return value, but don't
     attempt to stream any content (text from the screen) back to the
     user. This is useful for commands interacting with OCI bundles.
@@ -112,7 +115,8 @@ def run_command(
     background=False,
 ):
 
-    """run_command is a wrapper for the global run_command, checking first
+    """
+    Run_command is a wrapper for the global run_command, checking first
     for sudo and exiting on error if needed. The message is returned as
     a list of lines for the calling function to parse, and stdout uses
     the parent process so it appears for the user.

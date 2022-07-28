@@ -209,10 +209,8 @@ def run_command(
     if background:
         subprocess.Popen(cmd, env=environ)
         return
-    else:
-        process = subprocess.Popen(
-            cmd, stderr=subprocess.PIPE, stdout=stdout, env=environ
-        )
+
+    process = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=stdout, env=environ)
 
     lines = []
     found_match = False
