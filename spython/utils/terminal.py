@@ -27,14 +27,15 @@ def _process_sudo_cmd(cmd, sudo, sudo_options):
     if sudo and sudo_options is not None:
         if isinstance(sudo_options, str):
             sudo_options = shlex.split(sudo_options)
-        cmd = ["sudo"] + sudo_options + cmd
+        cmd = ["sudo", "-E"] + sudo_options + cmd
     elif sudo:
-        cmd = ["sudo"] + cmd
-    return cmd
+        cmd = ["sudo", "-E"] + cmd
+    return [x for x in cmd if x]
 
 
 def check_install(software="singularity", quiet=True):
-    """check_install will attempt to run the singularity command, and
+    """
+    check_install will attempt to run the singularity command, and
     return True if installed. The command line utils will not run
     without this check.
     """
@@ -66,7 +67,8 @@ def which(software="singularity"):
 
 
 def get_singularity_version():
-    """get the full singularity client version as reported by
+    """
+    get the full singularity client version as reported by
     singularity --version [...]. For Singularity 3.x, this means:
     "singularity version 3.0.1-1"
     """
@@ -85,17 +87,23 @@ def get_singularity_version():
 
 
 def get_userhome():
-    """get the user home based on the effective uid"""
+    """
+    Get the user home based on the effective uid
+    """
     return pwd.getpwuid(os.getuid())[5]
 
 
 def get_username():
-    """get the user name based on the effective uid"""
+    """
+    Get the user name based on the effective uid
+    """
     return pwd.getpwuid(os.getuid())[0]
 
 
 def get_singularity_version_info():
-    """get the full singularity client version as a semantic version" """
+    """
+    Get the full singularity client version as a semantic version"
+    """
     version_string = get_singularity_version()
     prefix = "singularity version "
     if version_string.startswith(prefix):
@@ -106,7 +114,9 @@ def get_singularity_version_info():
 
 
 def get_installdir():
-    """get_installdir returns the installation directory of the application"""
+    """
+    Get_installdir returns the installation directory of the application
+    """
     return os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
@@ -117,7 +127,8 @@ def stream_command(
     sudo_options=None,
     output_type="stdout",
 ):
-    """stream a command (yield) back to the user, as each line is available.
+    """
+    Stream a command (yield) back to the user, as each line is available.
 
     # Example usage:
     results = []
@@ -167,9 +178,11 @@ def run_command(
     quiet=False,
     sudo_options=None,
     environ=None,
+    background=False,
 ):
 
-    """run_command uses subprocess to send a command to the terminal. If
+    """
+    run_command uses subprocess to send a command to the terminal. If
     capture is True, we use the parent stdout, so the progress bar (and
     other commands of interest) are piped to the user. This means we
     don't return the output to parse.
@@ -184,6 +197,7 @@ def run_command(
              option can print a progress bar, but won't return the lines
              as output.
     sudo_options: string or list of strings that will be passed as options to sudo
+    background: run in background and don't try to get output.
     """
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
@@ -192,8 +206,14 @@ def run_command(
         stdout = subprocess.PIPE
 
     # Use the parent stdout and stderr
+    if background:
+        subprocess.Popen(cmd, env=environ)
+        return
+    else:
+        process = subprocess.Popen(
+            cmd, stderr=subprocess.PIPE, stdout=stdout, env=environ
+        )
 
-    process = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=stdout, env=environ)
     lines = []
     found_match = False
 
@@ -222,7 +242,8 @@ def run_command(
 
 
 def format_container_name(name, special_characters=None):
-    """format_container_name will take a name supplied by the user,
+    """
+    format_container_name will take a name supplied by the user,
     remove all special characters (except for those defined by "special-characters"
     and return the new image name.
     """
@@ -232,7 +253,8 @@ def format_container_name(name, special_characters=None):
 
 
 def split_uri(container):
-    """Split the uri of a container into the protocol and image part
+    """
+    Split the uri of a container into the protocol and image part
 
     An empty protocol is returned if none found.
     A trailing slash is removed from the image part.
@@ -247,5 +269,7 @@ def split_uri(container):
 
 
 def remove_uri(container):
-    """remove_uri will remove docker:// or shub:// or library:// from the uri"""
+    """
+    remove_uri will remove docker:// or shub:// or library:// from the uri
+    """
     return split_uri(container)[1]

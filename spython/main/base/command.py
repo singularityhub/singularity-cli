@@ -109,6 +109,7 @@ def run_command(
     return_result=False,
     sudo_options=None,
     environ=None,
+    background=False,
 ):
 
     """run_command is a wrapper for the global run_command, checking first
@@ -124,7 +125,7 @@ def run_command(
     return_result: return the result, if not successful (default False).
     sudo_options: string or list of strings that will be passed as options to sudo
     On success, returns result.
-
+    background: run the instance in the background (just Popen)
     """
     # First preference to function, then to client setting
     if quiet is None:
@@ -137,7 +138,11 @@ def run_command(
         quiet=quiet,
         sudo_options=sudo_options,
         environ=environ,
+        background=background,
     )
+
+    if background:
+        return
 
     # If one line is returned, squash dimension
     if len(result["message"]) == 1:
