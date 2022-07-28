@@ -25,6 +25,7 @@ def run(
     singularity_options=None,
     return_result=False,
     quiet=False,
+    background=False,
 ):
     """
     run will run the container, with or withour arguments (which
@@ -100,7 +101,10 @@ def run(
     if not quiet:
         bot.info(" ".join(cmd))
 
-    if not stream:
+    if background:
+        return self._run_command(cmd, sudo=sudo, background=True)
+
+    elif not stream:
         result = self._run_command(cmd, sudo=sudo, return_result=return_result)
     else:
         return stream_command(cmd, sudo=sudo)

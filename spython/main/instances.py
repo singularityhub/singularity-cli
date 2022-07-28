@@ -19,7 +19,8 @@ def list_instances(
     sudo_options=None,
     singularity_options=None,
 ):
-    """list instances. For Singularity, this is provided as a command sub
+    """
+    List instances. For Singularity, this is provided as a command sub
     group.
 
     singularity instance list
@@ -106,7 +107,8 @@ def list_instances(
 
 
 def stopall(self, sudo=False, quiet=True, singularity_options=None):
-    """stop ALL instances. This command is only added to the command group
+    """
+    Stop ALL instances. This command is only added to the command group
     as it doesn't make sense to call from a single instance
 
     Parameters

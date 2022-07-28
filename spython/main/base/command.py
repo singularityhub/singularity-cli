@@ -15,7 +15,8 @@ import os
 
 
 def init_command(self, action, flags=None):
-    """return the initial Singularity command with any added flags.
+    """
+    Return the initial Singularity command with any added flags.
 
     Parameters
     ==========
@@ -37,7 +38,8 @@ def init_command(self, action, flags=None):
 
 
 def generate_bind_list(self, bindlist=None):
-    """generate bind string will take a single string or list of binds, and
+    """
+    Generate bind string will take a single string or list of binds, and
      return a list that can be added to an exec or run command. For example,
      the following map as follows:
 
@@ -81,7 +83,8 @@ def generate_bind_list(self, bindlist=None):
 
 
 def send_command(self, cmd, sudo=False, stderr=None, stdout=None):
-    """send command is a non interactive version of run_command, meaning
+    """
+    Send command is a non interactive version of run_command, meaning
     that we execute the command and return the return value, but don't
     attempt to stream any content (text from the screen) back to the
     user. This is useful for commands interacting with OCI bundles.
@@ -109,9 +112,11 @@ def run_command(
     return_result=False,
     sudo_options=None,
     environ=None,
+    background=False,
 ):
 
-    """run_command is a wrapper for the global run_command, checking first
+    """
+    Run_command is a wrapper for the global run_command, checking first
     for sudo and exiting on error if needed. The message is returned as
     a list of lines for the calling function to parse, and stdout uses
     the parent process so it appears for the user.
@@ -124,7 +129,7 @@ def run_command(
     return_result: return the result, if not successful (default False).
     sudo_options: string or list of strings that will be passed as options to sudo
     On success, returns result.
-
+    background: run the instance in the background (just Popen)
     """
     # First preference to function, then to client setting
     if quiet is None:
@@ -137,7 +142,11 @@ def run_command(
         quiet=quiet,
         sudo_options=sudo_options,
         environ=environ,
+        background=background,
     )
+
+    if background:
+        return
 
     # If one line is returned, squash dimension
     if len(result["message"]) == 1:
