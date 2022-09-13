@@ -425,6 +425,8 @@ class DockerParser(ParserBase):
         """
         # Save the last working directory to add to the runscript
         workdir = self._setup("WORKDIR", line)
+        workdir_mkdir = "mkdir -p %s" % ("".join(workdir))
+        self.recipe[self.active_layer].install.append(workdir_mkdir)
         workdir_cd = "cd %s" % ("".join(workdir))
         self.recipe[self.active_layer].install.append(workdir_cd)
         self.recipe[self.active_layer].workdir = workdir[0]
