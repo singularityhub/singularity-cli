@@ -27,8 +27,7 @@ def prepare_client(image):
     """prepare a client to embed in a shell with recipe parsers and writers."""
     # The client will announce itself (backend/database) unless it's get
     from spython.main import get_client
-    from spython.main.parse import parsers
-    from spython.main.parse import writers
+    from spython.main.parse import parsers, writers
 
     client = get_client()
 

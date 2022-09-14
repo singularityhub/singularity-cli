@@ -5,8 +5,8 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import json as jsonp
-from spython.logger import bot
 
+from spython.logger import bot
 from spython.utils import check_install, run_command
 
 

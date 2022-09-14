@@ -5,12 +5,13 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import abc
-from copy import deepcopy
 import os
 import re
+from copy import deepcopy
 
 from spython.logger import bot
 from spython.utils import read_file
+
 from ..recipe import Recipe
 
 

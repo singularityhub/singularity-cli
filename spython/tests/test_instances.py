@@ -6,11 +6,12 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import pytest
-from spython.main import Client
-
 # name instance based on Python version in case running in parallel
 import sys
+
+import pytest
+
+from spython.main import Client
 
 version_string = "%s_%s_%s" % (
     sys.version_info[0],

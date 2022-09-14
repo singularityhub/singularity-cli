@@ -1,7 +1,5 @@
-from .fileio import mkdir_p, write_file, write_json, read_file, read_json
-
+from .fileio import mkdir_p, read_file, read_json, write_file, write_json
 from .misc import ScopedEnvVar
-
 from .terminal import (
     check_install,
     format_container_name,
@@ -12,7 +10,7 @@ from .terminal import (
     get_username,
     remove_uri,
     run_command,
-    stream_command,
     split_uri,
+    stream_command,
     which,
 )

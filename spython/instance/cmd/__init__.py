@@ -13,16 +13,16 @@ def generate_instance_commands():
     """
     from spython.instance import Instance
 
+    # run_command uses run_cmd, but wraps to catch error
+    from spython.main.base.command import init_command, run_command
+    from spython.main.base.generate import RobotNamer
     from spython.main.base.logger import println
     from spython.main.instances import list_instances
     from spython.utils import run_command as run_cmd
 
-    # run_command uses run_cmd, but wraps to catch error
-    from spython.main.base.command import init_command, run_command
-    from spython.main.base.generate import RobotNamer
+    from .logs import _logs, error_logs, output_logs
     from .start import start
     from .stop import stop
-    from .logs import error_logs, output_logs, _logs
 
     Instance.RobotNamer = RobotNamer()
     Instance._init_command = init_command

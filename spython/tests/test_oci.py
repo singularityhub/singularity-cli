@@ -6,14 +6,15 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.utils import get_installdir
-from spython.main.base.generate import RobotNamer
-from spython.main import Client
-import shutil
 import os
+import shutil
+
 import pytest
 from semver import VersionInfo
 
+from spython.main import Client
+from spython.main.base.generate import RobotNamer
+from spython.utils import get_installdir
 
 pytestmark = pytest.mark.skipif(
     Client.version_info() < VersionInfo(3, 0, 0),

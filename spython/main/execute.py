@@ -5,10 +5,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
+import os
+
 from spython.logger import bot
 from spython.utils import stream_command, which
-
-import os
 
 
 def execute(

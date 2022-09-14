@@ -6,8 +6,10 @@
 
 import os
 import sys
-from .spinner import Spinner
+
 from spython.logger import decodeUtf8String
+
+from .spinner import Spinner
 
 ABORT = -5
 CRITICAL = -4

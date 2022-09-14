@@ -1,6 +1,8 @@
-from glob import glob
 import os
+from glob import glob
+
 import pytest
+
 from spython.main import Client
 from spython.utils import get_installdir
 

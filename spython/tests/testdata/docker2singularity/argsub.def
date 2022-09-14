@@ -24,6 +24,7 @@ apt-get install -y wget python3-pip
 
 python3 -m pip install --upgrade pip
 
+mkdir -p /workspace
 cd /workspace
 python3 -m pip install -r /workspace/requirements.txt and &&\
 rm /workspace/requirements.txt

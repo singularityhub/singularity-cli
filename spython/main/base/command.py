@@ -5,13 +5,12 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.utils import run_command as run_cmd
-
-from spython.logger import bot
-
+import os
 import subprocess
 import sys
-import os
+
+from spython.logger import bot
+from spython.utils import run_command as run_cmd
 
 
 def init_command(self, action, flags=None):

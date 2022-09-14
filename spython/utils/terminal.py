@@ -11,12 +11,13 @@ with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 import os
 import pwd
 import re
-import semver
-from spython.logger import bot
-from spython.logger import decodeUtf8String
+import shlex
 import subprocess
 import sys
-import shlex
+
+import semver
+
+from spython.logger import bot, decodeUtf8String
 
 ################################################################################
 # Local commands and requests

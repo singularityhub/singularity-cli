@@ -6,8 +6,8 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from glob import glob
 import os
+from glob import glob
 
 
 def read_file(file):
@@ -43,6 +43,11 @@ def test_docker2singularity(test_data, tmp_path):
     for dockerfile, recipe in test_data["d2s"]:
         parser = DockerParser(dockerfile)
         writer = SingularityWriter(parser.recipe)
+        if not writer.convert().strip("\n") == read_file(recipe):
+            import IPython
+
+            IPython.embed()
+
         assert writer.convert().strip("\n") == read_file(recipe)
 
 

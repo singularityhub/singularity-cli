@@ -39,7 +39,7 @@ def start(
     singularity [...] instance.start [...] <container path> <instance name>
 
     """
-    from spython.utils import run_command, check_install
+    from spython.utils import check_install, run_command
 
     check_install()
 

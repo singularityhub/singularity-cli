@@ -8,8 +8,8 @@
 
 
 import argparse
-import sys
 import os
+import sys
 
 
 def get_parser():
