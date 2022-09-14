@@ -22,23 +22,26 @@ tool to generate a contributors graphic below.
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/Flamefire"><img src="https://avatars.githubusercontent.com/u/309017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Flamefire</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=Flamefire" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/kinow"><img src="https://avatars.githubusercontent.com/u/304786?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kinow</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=kinow" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tschoonj"><img src="https://avatars.githubusercontent.com/u/65736?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tschoonj</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tschoonj" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/al3x609"><img src="https://avatars.githubusercontent.com/u/4086644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>al3x609</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=al3x609" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/mobiusklein"><img src="https://avatars.githubusercontent.com/u/1426041?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mobiusklein</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=mobiusklein" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/MarDiehl"><img src="https://avatars.githubusercontent.com/u/6196733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MarDiehl</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=MarDiehl" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/shnizzedy"><img src="https://avatars.githubusercontent.com/u/5974438?v=4?s=100" width="100px;" alt=""/><br /><sub><b>shnizzedy</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=shnizzedy" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/wkpalan"><img src="https://avatars.githubusercontent.com/u/6353590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wkpalan</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=wkpalan" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/cceyda"><img src="https://avatars.githubusercontent.com/u/15624271?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cceyda</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=cceyda" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/neumann-nico"><img src="https://avatars.githubusercontent.com/u/33637944?v=4?s=100" width="100px;" alt=""/><br /><sub><b>neumann-nico</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=neumann-nico" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/vsoch"><img src="https://avatars.githubusercontent.com/u/814322?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vsoch</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=vsoch" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/pierlauro"><img src="https://avatars.githubusercontent.com/u/6776431?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pierlauro</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=pierlauro" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/biosugar0"><img src="https://avatars.githubusercontent.com/u/18737819?v=4?s=100" width="100px;" alt=""/><br /><sub><b>biosugar0</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=biosugar0" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/Flamefire"><img src="https://avatars.githubusercontent.com/u/309017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Flamefire</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=Flamefire" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/kinow"><img src="https://avatars.githubusercontent.com/u/304786?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kinow</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=kinow" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/tschoonj"><img src="https://avatars.githubusercontent.com/u/65736?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tschoonj</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tschoonj" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/al3x609"><img src="https://avatars.githubusercontent.com/u/4086644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>al3x609</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=al3x609" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/mobiusklein"><img src="https://avatars.githubusercontent.com/u/1426041?v=4?s=100" width="100px;" alt=""/><br /><sub><b>mobiusklein</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=mobiusklein" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/MarDiehl"><img src="https://avatars.githubusercontent.com/u/6196733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>MarDiehl</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=MarDiehl" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/shnizzedy"><img src="https://avatars.githubusercontent.com/u/5974438?v=4?s=100" width="100px;" alt=""/><br /><sub><b>shnizzedy</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=shnizzedy" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://github.com/wkpalan"><img src="https://avatars.githubusercontent.com/u/6353590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>wkpalan</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=wkpalan" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/cceyda"><img src="https://avatars.githubusercontent.com/u/15624271?v=4?s=100" width="100px;" alt=""/><br /><sub><b>cceyda</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=cceyda" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/neumann-nico"><img src="https://avatars.githubusercontent.com/u/33637944?v=4?s=100" width="100px;" alt=""/><br /><sub><b>neumann-nico</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=neumann-nico" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/vsoch"><img src="https://avatars.githubusercontent.com/u/814322?v=4?s=100" width="100px;" alt=""/><br /><sub><b>vsoch</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=vsoch" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/pierlauro"><img src="https://avatars.githubusercontent.com/u/6776431?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pierlauro</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=pierlauro" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/biosugar0"><img src="https://avatars.githubusercontent.com/u/18737819?v=4?s=100" width="100px;" alt=""/><br /><sub><b>biosugar0</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=biosugar0" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/tcpan"><img src="https://avatars.githubusercontent.com/u/938025?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tony Pan</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tcpan" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
