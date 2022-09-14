@@ -152,6 +152,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/18737819?v=4"
             ]
+        },
+        {
+            "login": "tcpan",
+            "name": "Tony Pan",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/tcpan",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/938025?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7

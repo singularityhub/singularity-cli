@@ -72,5 +72,9 @@
         "bio": "Software Engineer",
         "blog": "https://www.linkedin.com/in/neumann-nico/",
         "orcid": "0000-0003-3094-6238"
+    },
+    "tcpan": {
+        "name": "Tony Pan",
+        "blog": "https://github.com/tcpan"
     }
 }
