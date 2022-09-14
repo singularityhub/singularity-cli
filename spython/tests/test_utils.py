@@ -7,8 +7,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import os
+
 import pytest
 from semver import VersionInfo
+
 from spython.utils import ScopedEnvVar
 
 
@@ -41,6 +43,7 @@ def test_write_bad_json(tmp_path):
 
 def test_write_json(tmp_path):
     import json
+
     from spython.utils import write_json
 
     good_json = {"Wakkawakkawakka": [True, "2", 3]}

@@ -14,9 +14,9 @@ from spython.utils import (
 
 from .command import generate_bind_list, init_command, run_command
 from .flags import parse_verbosity
-from .sutils import get_uri, load, setenv, get_filename
-from .logger import println, init_level
 from .generate import RobotNamer
+from .logger import init_level, println
+from .sutils import get_filename, get_uri, load, setenv
 
 
 class Client:

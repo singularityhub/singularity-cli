@@ -6,6 +6,7 @@
 
 
 import os
+
 from spython.logger import decodeUtf8String
 
 

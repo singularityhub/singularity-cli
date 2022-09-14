@@ -6,6 +6,7 @@
 
 import hashlib
 import os
+
 from spython.logger import bot
 from spython.utils import split_uri
 

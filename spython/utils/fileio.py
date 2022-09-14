@@ -9,11 +9,11 @@ with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 """
 
 import errno
-import os
 import json
-from spython.logger import bot
+import os
 import sys
 
+from spython.logger import bot
 
 ################################################################################
 ## FOLDER OPERATIONS ###########################################################

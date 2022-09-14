@@ -6,12 +6,14 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import os
+import shutil
+from subprocess import CalledProcessError
+
+import pytest
+
 from spython.main import Client
 from spython.utils import write_file
-import shutil
-import os
-import pytest
-from subprocess import CalledProcessError
 
 
 def test_build_from_docker(tmp_path):

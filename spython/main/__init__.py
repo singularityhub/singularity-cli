@@ -25,12 +25,12 @@ def get_client(quiet=False, debug=False):
     from .apps import apps
     from .build import build
     from .execute import execute, shell
+    from .export import export
     from .help import helpcmd
     from .inspect import inspect
     from .instances import list_instances, stopall  # global instance commands
-    from .run import run
     from .pull import pull
-    from .export import export
+    from .run import run
 
     # Actions
     client.apps = apps

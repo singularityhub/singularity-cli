@@ -5,10 +5,11 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.utils import get_userhome, get_username
-from spython.logger import bot
-import platform
 import os
+import platform
+
+from spython.logger import bot
+from spython.utils import get_userhome, get_username
 
 
 def error_logs(self, print_logs=False):

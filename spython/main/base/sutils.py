@@ -8,9 +8,10 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from spython.logger import bot
 import os
 import re
+
+from spython.logger import bot
 
 
 def load(self, image=None):

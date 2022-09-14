@@ -4,15 +4,14 @@
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from spython.main.parse.writers import get_writer
-from spython.main.parse.parsers import get_parser
+import json
+import os
+import sys
 
 from spython.logger import bot
+from spython.main.parse.parsers import get_parser
+from spython.main.parse.writers import get_writer
 from spython.utils import write_file, write_json
-
-import json
-import sys
-import os
 
 
 def main(args, options, parser):

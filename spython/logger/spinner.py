@@ -6,8 +6,8 @@
 
 
 import sys
-import time
 import threading
+import time
 from random import choice
 
 
