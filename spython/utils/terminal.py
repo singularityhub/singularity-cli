@@ -25,12 +25,15 @@ from spython.logger import bot, decodeUtf8String
 
 
 def _process_sudo_cmd(cmd, sudo, sudo_options):
+    """
+    Process the sudo command and honor adding environment (or not)
+    """
     if sudo and sudo_options is not None:
         if isinstance(sudo_options, str):
             sudo_options = shlex.split(sudo_options)
-        cmd = ["sudo", "-E"] + sudo_options + cmd
+        cmd = ["sudo"] + sudo_options + cmd
     elif sudo:
-        cmd = ["sudo", "-E"] + cmd
+        cmd = ["sudo"] + cmd
     return [x for x in cmd if x]
 
 
