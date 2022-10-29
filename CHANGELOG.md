@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - add comment out of STOPSIGNAL (0.2.14)
  - sudo `-E` flag should not be provided by default (0.2.13)
  - WORKDIR should create container for Singularity converter (0.2.12)
  - support for background process with client run (0.2.11)
