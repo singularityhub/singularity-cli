@@ -414,6 +414,15 @@ class DockerParser(ParserBase):
             self.recipe[self.active_layer].ports += ports
         return self._comment("# %s" % line)
 
+    def _stopsignal(self, line):
+        """Again, just add to metadata, and comment in install.
+
+        Parameters
+        ==========
+        line: the line from the recipe file to parse STOPSIGNAL
+        """
+        return self._comment("# %s" % line)
+
     # Working Directory
 
     def _workdir(self, line):
@@ -528,6 +537,7 @@ class DockerParser(ParserBase):
             "MAINTAINER": self._label,
             "VOLUME": self._volume,
             "LABEL": self._label,
+            "STOPSIGNAL": self._stopsignal,
         }
 
         # If it's a command line, return correct function
