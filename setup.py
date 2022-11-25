@@ -65,7 +65,7 @@ PACKAGE_URL = lookup["PACKAGE_URL"]
 KEYWORDS = lookup["KEYWORDS"]
 DESCRIPTION = lookup["DESCRIPTION"]
 LICENSE = lookup["LICENSE"]
-with open("README.md") as readme:
+with open("README.md", encoding="utf-8") as readme:
     LONG_DESCRIPTION = readme.read()
 
 ##########################################################################################
