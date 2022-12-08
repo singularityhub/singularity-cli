@@ -43,11 +43,6 @@ def test_docker2singularity(test_data, tmp_path):
     for dockerfile, recipe in test_data["d2s"]:
         parser = DockerParser(dockerfile)
         writer = SingularityWriter(parser.recipe)
-        if not writer.convert().strip("\n") == read_file(recipe):
-            import IPython
-
-            IPython.embed()
-
         assert writer.convert().strip("\n") == read_file(recipe)
 
 
