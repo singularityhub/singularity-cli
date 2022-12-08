@@ -71,59 +71,27 @@
         {
             "destination": "/dev/pts",
             "type": "devpts",
-            "source": "devpts",
-            "options": [
-                "nosuid",
-                "noexec",
-                "newinstance",
-                "ptmxmode=0666",
-                "mode=0620",
-                "gid=5"
-            ]
+            "source": "devpts"
         },
         {
             "destination": "/dev/shm",
             "type": "tmpfs",
-            "source": "shm",
-            "options": [
-                "nosuid",
-                "noexec",
-                "nodev",
-                "mode=1777",
-                "size=65536k"
-            ]
+            "source": "shm"
         },
         {
             "destination": "/dev/mqueue",
             "type": "mqueue",
-            "source": "mqueue",
-            "options": [
-                "nosuid",
-                "noexec",
-                "nodev"
-            ]
+            "source": "mqueue"
         },
         {
             "destination": "/sys",
             "type": "sysfs",
-            "source": "sysfs",
-            "options": [
-                "nosuid",
-                "noexec",
-                "nodev"
-            ]
+            "source": "sysfs"
         },
         {
             "destination": "/sys/fs/cgroup",
             "type": "cgroup",
-            "source": "cgroup",
-            "options": [
-                "nosuid",
-                "noexec",
-                "nodev",
-                "relatime",
-                "ro"
-            ]
+            "source": "cgroup"
         }
     ],
     "linux": {
