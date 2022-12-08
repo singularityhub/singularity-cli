@@ -81,7 +81,7 @@ def parse_labels(result):
     labels = result["attributes"].get("labels") or {}
     try:
         labels = jsonp.loads(labels)
-    except:
+    except Exception:
         pass
 
     result["attributes"]["labels"] = labels

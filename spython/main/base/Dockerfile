@@ -2,7 +2,7 @@ FROM continuumio/miniconda3
 
 #########################################
 # The Robot Namer
-# 
+#
 # docker build -t vanessa/robotname .
 # docker run vanessa/robotname
 #########################################

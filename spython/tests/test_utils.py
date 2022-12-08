@@ -9,13 +9,14 @@
 import os
 
 import pytest
-from semver import VersionInfo
 
 from spython.utils import ScopedEnvVar
 
 
 def test_write_read_files(tmp_path):
-    """test_write_read_files will test the functions write_file and read_file"""
+    """
+    test_write_read_files will test the functions write_file and read_file
+    """
     print("Testing utils.write_file...")
     from spython.utils import write_file
 
@@ -77,31 +78,6 @@ def test_check_get_singularity_version():
     with ScopedEnvVar("SPYTHON_SINGULARITY_VERSION", "3.0"):
         version = get_singularity_version()
     assert version == "3.0"
-
-
-def test_check_get_singularity_version_info():
-    """Check that the version_info is correct"""
-    from spython.utils import get_singularity_version_info
-
-    with ScopedEnvVar("SPYTHON_SINGULARITY_VERSION", "2.3.1"):
-        version = get_singularity_version_info()
-    assert version == VersionInfo(2, 3, 1)
-    assert version > VersionInfo(2, 3, 0)
-    assert version < VersionInfo(3, 0, 0)
-
-    with ScopedEnvVar("SPYTHON_SINGULARITY_VERSION", "singularity version 3.2.1-1"):
-        version = get_singularity_version_info()
-    assert version == VersionInfo(3, 2, 1, "1")
-    assert version > VersionInfo(2, 0, 0)
-    assert version < VersionInfo(3, 3, 0)
-    assert version > VersionInfo(3, 2, 0)
-    assert version < VersionInfo(3, 2, 1)
-
-    with ScopedEnvVar("SPYTHON_SINGULARITY_VERSION", "2.6.1-pull/124.1d068a7"):
-        version = get_singularity_version_info()
-    assert version == VersionInfo(2, 6, 1, "pull", "124.1d068a7")
-    assert version > VersionInfo(2, 6, 0)
-    assert version < VersionInfo(2, 7, 0)
 
 
 def test_get_installdir():

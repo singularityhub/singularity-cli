@@ -31,7 +31,7 @@ to create a container from something called a "bundle"
 A bundle is just a folder on your computer with the contents of an operating system,
 libraries, and software, along with a configuration file (config.json). The
 configuration file conforms to this "runtime specification," and generally
- describes permissions, binds, environment, and other runtime variables for the 
+ describes permissions, binds, environment, and other runtime variables for the
 container.
 
 ## Why do we have this specification?
@@ -41,7 +41,7 @@ terms for generating and interacting with containers. What does this mean in
 practice? We can have tools and infrastructure (for example, Kubernetes, a container
 orchestration system) that know how to interact with many different kinds of containers.
 How? Because they implement the OCI specification, and the communication is standardized.
- 
+
 # Usage
 
 ## Install
@@ -63,7 +63,7 @@ Now that you are familiar with the idea of a bundle, let's:
  - add a config.json template there
  - create an OCI Image with the Singularity Python client
 
-We will do these steps before all of the "Create" examples below. 
+We will do these steps before all of the "Create" examples below.
 First, open up an ipython shell. You can use `spython shell` to get one
 loaded with a client.
 
@@ -82,7 +82,7 @@ from spython.utils import get_installdir
 config = "%s/oci/config.json" % get_installdir()
 
 # Let's now build a bundle into /tmp/bundle
-image = client.build("docker://busybox:1.30.1", 
+image = client.build("docker://busybox:1.30.1",
                      image='/tmp/bundle',
                      sandbox=True,
                      sudo=False)
@@ -129,10 +129,10 @@ and with "mycontainer" set as the container_id. If you are in ipython and press 
 you will see all the expected functions.
 
 ```bash
-attach()           execute()          mount()            resume()            
- container_id       get_container_id() OciImage           RobotNamer          
- create()           get_uri()          parse_image_name() run()              
- delete()           kill()             remove_uri()       run_command()  
+attach()           execute()          mount()            resume()
+ container_id       get_container_id() OciImage           RobotNamer
+ create()           get_uri()          parse_image_name() run()
+ delete()           kill()             remove_uri()       run_command()
 ```
 
 It's created off the bat! And further, the container id you defined is stored
@@ -165,7 +165,7 @@ image.sudo
 True
 ```
 
-By default, if you don't provide a bundle directory it won't be created. 
+By default, if you don't provide a bundle directory it won't be created.
 
 ```python
 $ image = client.oci.OciImage(container_id='figbars')
@@ -187,10 +187,10 @@ after typing "image." to see the options:
 
 ```python
 In [39]: image.
- attach()           debug              get_uri()          parse_image_name()  
- bundle             delete()           kill()             quiet               
+ attach()           debug              get_uri()          parse_image_name()
+ bundle             delete()           kill()             quiet
  container_id       execute()          mount()            remove_uri()       >
- create()           get_container_id() OciImage           resume()    
+ create()           get_container_id() OciImage           resume()
 ```
 
 Give everything a test!  For example, try executing a command to your image:
@@ -239,7 +239,7 @@ image.delete()
 
 ## Create
 
-Let's discuss another option for create - one that also starts from our 
+Let's discuss another option for create - one that also starts from our
 bundle folder, but instead just uses the client to interact with it (without directly creating an instance). Here is how to create it:
 
 ```python
@@ -262,7 +262,7 @@ when we asked for the `image.state()`.
 ```
 
 Notice that the status is "created." If you wanted to get this result again with
-the client: 
+the client:
 
 
 ```bash

@@ -51,7 +51,7 @@ build_singularity: &install_singularity
       ./mconfig -p /usr/local && \
       make -C builddir && \
       sudo make -C builddir install
-      
+
 install_spython: &install_spython
   name: install spython
   command: |-
@@ -90,7 +90,7 @@ run_linter: &run_linter
 
 test_spython: &test_spython
   name: Test Singularity Python
-  command: |- 
+  command: |-
       export PATH=~/conda/Python3/bin:$PATH
       pytest ~/repo/spython
 

@@ -357,7 +357,7 @@ class SingularityParser(ParserBase):
         line = line.split("#", 1)[0].strip()
 
         # Is there a section name?
-        parts = [l.strip() for l in line.split(" ") if l]
+        parts = [word.strip() for word in line.split(" ") if word]
         section = re.sub(r"[%]|(\s+)", "", parts[0]).lower()
 
         # Is there a named layer?

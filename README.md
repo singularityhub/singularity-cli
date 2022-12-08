@@ -7,6 +7,8 @@ Singularity Python (spython) is the Python API for working with <a href="https:/
 the [documentation](https://singularityhub.github.io/singularity-cli) for installation and usage, and
 the [install instructions](https://singularityhub.github.io/singularity-cli/install) for a quick start.
 
+**This action does not support Singularity 2.x! It won't work and we no longer support it.**
+
 We provide a [Singularity](Singularity) recipe for you to use if more convenient, along with the [full modules docstring](https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base).
 
 As of version 0.1.0, we only support Singularity > 3.5.2. This is done to encourage using
@@ -15,7 +17,7 @@ you will need to use version 0.0.85 or earlier.
 
 ## 😁️ Contributors 😁️
 
-We use the [all-contributors](https://github.com/all-contributors/all-contributors) 
+We use the [all-contributors](https://github.com/all-contributors/all-contributors)
 tool to generate a contributors graphic below.
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -49,7 +51,7 @@ tool to generate a contributors graphic below.
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
- 
+
 
 ## License
 

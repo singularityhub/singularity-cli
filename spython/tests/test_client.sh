@@ -17,7 +17,7 @@ echo "Testing help commands..."
 # Test help for all commands
 for command in recipe shell;
     do
-    runTest 0 $output spython $command --help 
+    runTest 0 $output spython $command --help
 done
 
 echo "#### Testing recipe auto generation"

@@ -28,7 +28,7 @@ have created, you can find based on the name (shown later in the documentation).
 After Singularity 3.0, the instances command subgroup changed so that the original
 call to interact with instances might have looked like "instances.list". After 3.0,
 the [instances subgroup](https://github.com/sylabs/singularity/blob/master/CHANGELOG.md#v300---20181008)
-changed to be of the format "instances list." Singularity Python determines this 
+changed to be of the format "instances list." Singularity Python determines this
 automatically by looking at your Singularity version, however if you want to control
 the final command that is used (for one reason or another) you can also export
 the environment variable:
@@ -53,7 +53,7 @@ loads it for you!
 ```bash
 $ spython shell
 
-Python 3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 18:10:19) 
+Python 3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 18:10:19)
 Type 'copyright', 'credits' or 'license' for more information
 IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
 
@@ -68,7 +68,7 @@ the following sections.
 
 ## Create an Instance
 
-Running this command is equivalent to creating an instance from the 
+Running this command is equivalent to creating an instance from the
 command line, meaning that we "start" it. This means that an image is required.
 Let's say that we have a local image, `ubuntu.simg`
 
@@ -78,7 +78,7 @@ $ myinstance = Client.instance('ubuntu.simg')
 ```
 
 Optionally you can define other arguments! Just specify them as options. You can
-split options into a list, where each entry is either a single flag, or a flag 
+split options into a list, where each entry is either a single flag, or a flag
 that is also given a value (the following item in the list). Below, let's create
 some trivial directory, and try creating arguments to bind it to `/opt` in the instance.
 
@@ -281,7 +281,7 @@ $ Client.instances(name='creamy', quiet=True)
   'pid': '15051'}]
 ```
 
-If you ask to return an object (discussed further in the next section) 
+If you ask to return an object (discussed further in the next section)
 you can inspect it! For example:
 
 ```python

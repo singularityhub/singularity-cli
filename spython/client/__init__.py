@@ -164,7 +164,7 @@ def main():
     try:
         # We capture all primary arguments, and take secondary to pass on
         args, options = parser.parse_known_args()
-    except:
+    except Exception:
         sys.exit(0)
 
     # The main function

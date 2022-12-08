@@ -10,16 +10,10 @@ import os
 import shutil
 
 import pytest
-from semver import VersionInfo
 
 from spython.main import Client
 from spython.main.base.generate import RobotNamer
 from spython.utils import get_installdir
-
-pytestmark = pytest.mark.skipif(
-    Client.version_info() < VersionInfo(3, 0, 0),
-    reason="OCI command group introduced in singularity 3",
-)
 
 
 @pytest.fixture
@@ -65,12 +59,7 @@ def test_oci(sandbox):  # pylint: disable=redefined-outer-name
     )
 
     print(result)
-    print(Client.version_info())
-
-    if Client.version_info() >= VersionInfo(3, 2, 0, "1"):
-        assert result["return_code"] == 255
-    else:
-        assert "bin" in result
+    assert "bin" in result
 
     print("...Case 4. Start container return value 0.")
     state = Client.oci.start(container_id, sudo=True)
@@ -93,10 +82,9 @@ def test_oci(sandbox):  # pylint: disable=redefined-outer-name
     assert state == 0
 
     # State was still reported as running
-    if Client.version_info() >= VersionInfo(3, 2, 0, "1"):
-        print("...check status of paused bundle.")
-        state = Client.oci.state(container_id, sudo=True)
-        assert state["status"] == "paused"
+    print("...check status of paused bundle.")
+    state = Client.oci.state(container_id, sudo=True)
+    assert state["status"] == "paused"
 
     print("...Case 8. Resume paused container return value 0.")
     state = Client.oci.resume(container_id, sudo=True)

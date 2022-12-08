@@ -8,11 +8,11 @@ toc: false
 
 This section focuses on commands to interact with containers, the base and core of
 using Singularity. The client and examples below will show you how to
-integrate Singularity into your scientific Python applications. 
+integrate Singularity into your scientific Python applications.
 
 
  - [Scripts](#scripts) how to load the client from scratch in your Python script
- - [Shell](#shell) gives you an interactive python shell with a client 
+ - [Shell](#shell) gives you an interactive python shell with a client
 
 From within python, you can then use the following functions to control Singularity:
 
@@ -41,11 +41,11 @@ from spython.main import Client
 You will find the actions that you are familiar with, along with a few extra:
 
 ```python
-> Client. [TAB}                         
-                Client.apps          Client.execute       Client.load          Client.run           
-                Client.build         Client.help          Client.println       Client.version       
-                Client.check_install Client.image         Client.pull                               
-                Client.debug         Client.inspect       Client.quiet    
+> Client. [TAB}
+                Client.apps          Client.execute       Client.load          Client.run
+                Client.build         Client.help          Client.println       Client.version
+                Client.check_install Client.image         Client.pull
+                Client.debug         Client.inspect       Client.quiet
 ```
 
 To get going with a Singularity image, just load it. It can be a file, or a uri to
@@ -57,7 +57,7 @@ docker://vsoch/hello-world
 ```
 
 But who wants to do this every time? I certainly don't. If you want an easier way to
-interact with the client, just use the python shell, discussed next. 
+interact with the client, just use the python shell, discussed next.
 
 <hr>
 
@@ -66,7 +66,7 @@ If you want to jump right in you can start a python shell (`shell`) to have a cl
 
 ```python
 > spython shell
-Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
+Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06)
 Type "copyright", "credits" or "license" for more information.
 
 IPython 5.1.0 -- An enhanced Interactive Python.
@@ -83,7 +83,7 @@ The client is imported as client
  [Singularity-Python]
 ```
 
-At this point, you might want to load an image. An image can be a file, or a unique 
+At this point, you might want to load an image. An image can be a file, or a unique
 resource identifier (uri).
 
 ```python
@@ -94,12 +94,12 @@ docker://vsoch/hello-world
 > [Singularity-Python][docker://vsoch/hello-world]
 ```
 
-Notice about how the client shows the image is present. 
+Notice about how the client shows the image is present.
 You can also shell in with an image "preloaded" and ready to interact with.
 
 ```python
 spython shell docker://ubuntu
-Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06) 
+Python 3.5.2 |Anaconda 4.2.0 (64-bit)| (default, Jul  2 2016, 17:53:06)
 Type "copyright", "credits" or "license" for more information.
 
 IPython 5.1.0 -- An enhanced Interactive Python.
@@ -200,20 +200,20 @@ If you didn't load the image, just specify it instead. here is an example of
 building a sandbox (which requires sudo):
 
 ```python
-> client.build('docker://debian:buster-slim', 'debian/', sandbox=True, sudo=True) 
+> client.build('docker://debian:buster-slim', 'debian/', sandbox=True, sudo=True)
 ```
 
 If you want to provide additional options, you can do so with `options`:
 
 ```python
-> client.build('docker://debian:buster-slim', 'debian/', sandbox=True, options=["--fakeroot"]) 
+> client.build('docker://debian:buster-slim', 'debian/', sandbox=True, options=["--fakeroot"])
 ```
 
 <hr>
 
 ## Pull
 If you are using Singularity to pull (and not the Singularity Global Client) the Singularity Python
-provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go! 
+provides a wrapper around that. We start with a shell with a client that has the `docker://ubuntu` image loaded and ready to go!
 [Here is a video](https://asciinema.org/a/162164?speed=2) of the example below if you want to watch instead of read.
 
 ```python
@@ -223,7 +223,7 @@ spython shell docker://ubuntu
 > client.pull()
 2.4.2-development.g706e90e
 singularity pull --name vsoch-hello-world.simg shub://vsoch/hello-world
-Progress |===================================| 100.0% 
+Progress |===================================| 100.0%
 Done. Container is at: /home/vanessa/Documents/Dropbox/Code/sregistry/singularity-cli/vsoch-hello-world.simg
 vsoch-hello-world.simg
 > 'vsoch-hello-world.simg'
@@ -241,7 +241,7 @@ and/or a custom pull folder to dump it:
 client.pull(pull_folder='/tmp')
 2.4.2-development.g706e90e
 singularity pull --name vsoch-hello-world.simg shub://vsoch/hello-world
-Progress |===================================| 100.0% 
+Progress |===================================| 100.0%
 Done. Container is at: /tmp/vsoch-hello-world.simg
 /tmp/vsoch-hello-world.simg
 > '/tmp/vsoch-hello-world.simg'
@@ -276,7 +276,7 @@ Building Singularity FS image...
 
 Finally, the pull command supports generating an iterator! This means that you
 can have a generator to return to some webby view to return the lines one by one to
-the user. 
+the user.
 
 ```python
 
@@ -343,7 +343,7 @@ Inspect will give us a json output of an image metadata. Let's load the shell wi
 and also give it an image.
 
 ```python
-spython shell GodloveD-lolcow-master-latest.simg 
+spython shell GodloveD-lolcow-master-latest.simg
 GodloveD-lolcow-master-latest.simg
 ```
 
@@ -415,7 +415,7 @@ From: ubuntu:16.04
     export LC_ALL=C
     export PATH=/usr/games:$PATH
 
-#!/bin/sh 
+#!/bin/sh
 
     fortune | cowsay | lolcat
 {
@@ -437,7 +437,7 @@ client.inspect('/home/vanessa/Desktop/image.simg')
 Running is pretty intuitive. Just load an image into the client:
 
 ```bash
-spython shell GodloveD-lolcow-master-latest.simg 
+spython shell GodloveD-lolcow-master-latest.simg
 ```
 and then run it!
 
@@ -483,7 +483,7 @@ An `execute` maps to the Singularity `exec` and is like a run, but with a specif
 Again, let's start with an image loaded in the client Python shell.
 
 ```python
-spython shell /home/vanessa/Desktop/image.simg 
+spython shell /home/vanessa/Desktop/image.simg
 /home/vanessa/Desktop/image.simg
 ```
 Now let's try a basic `ls`. Note that the command is given as a list.
@@ -641,31 +641,31 @@ GLOBAL OPTIONS:
     -x|--sh-debug Print shell wrapper debugging information
 
 GENERAL COMMANDS:
-    help       Show additional help for a command or container                  
-    selftest   Run some self tests for singularity install                      
+    help       Show additional help for a command or container
+    selftest   Run some self tests for singularity install
 
 CONTAINER USAGE COMMANDS:
-    exec       Execute a command within container                               
-    run        Launch a runscript within container                              
-    shell      Run a Bourne shell within container                              
-    test       Launch a testscript within container                             
+    exec       Execute a command within container
+    run        Launch a runscript within container
+    shell      Run a Bourne shell within container
+    test       Launch a testscript within container
 
 CONTAINER MANAGEMENT COMMANDS:
-    apps       List available apps within a container                           
-    bootstrap  *Deprecated* use build instead                                   
-    build      Build a new Singularity container                                
-    check      Perform container lint checks                                    
-    inspect    Display container's metadata                                     
-    mount      Mount a Singularity container image                              
-    pull       Pull a Singularity/Docker container to $PWD                      
-    siflist    list data object descriptors of a SIF container image            
-    sign       Sign a group of data objects in container                        
+    apps       List available apps within a container
+    bootstrap  *Deprecated* use build instead
+    build      Build a new Singularity container
+    check      Perform container lint checks
+    inspect    Display container's metadata
+    mount      Mount a Singularity container image
+    pull       Pull a Singularity/Docker container to $PWD
+    siflist    list data object descriptors of a SIF container image
+    sign       Sign a group of data objects in container
     verify     Verify the crypto signature of group of data objects in container
 
 COMMAND GROUPS:
-    capability User's capabilities management command group                     
-    image      Container image command group                                    
-    instance   Persistent instance command group                                
+    capability User's capabilities management command group
+    image      Container image command group
+    instance   Persistent instance command group
 
 
 CONTAINER USAGE OPTIONS:
@@ -683,13 +683,13 @@ or ask for a specific command:
 2.4.2-development.g706e90e
 USAGE: singularity [...] bootstrap <container path> <definition file>
 ******************************************************************************
-NOTICE: The bootstrap command is deprecated and will be removed in a later 
-        release. bootstrap now uses the build command to create a writable 
+NOTICE: The bootstrap command is deprecated and will be removed in a later
+        release. bootstrap now uses the build command to create a writable
         container via the following syntax:
 
 > singularity build -w container.img recipe.def
 
-        You should update your usage accordingly. 
+        You should update your usage accordingly.
 ******************************************************************************
 
 ```
@@ -734,7 +734,7 @@ for line in puller:
 ```
 ```
 lines
-Out[22]: 
+Out[22]:
 [...
  'Singularity container built: ./godlovedc-lolcow.simg\n',
  'Cleaning up...\n',

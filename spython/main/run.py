@@ -120,6 +120,6 @@ def run(
 
         try:
             result = json.loads(result)
-        except:
+        except Exception:
             pass
         return result

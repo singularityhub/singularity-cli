@@ -20,18 +20,12 @@ jobs:
       - name: Setup black linter
         run: conda create --quiet --name black pyflakes
 
-      - name: Lint python code with black
-        run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate black
-          pip install black
-          black --check spython
-
-      - name: Check unused imports with pyflakes
-        run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate black
-          pyflakes spython/oci spython/image.py spython/instance spython/main
+    - name: Lint and format Python code
+      run: |
+        export PATH="/usr/share/miniconda/bin:$PATH"
+        source activate black
+        pip install -r .github/dev-requirements.txt
+        pre-commit run --all-files
 
   pytest:
     runs-on: ubuntu-latest

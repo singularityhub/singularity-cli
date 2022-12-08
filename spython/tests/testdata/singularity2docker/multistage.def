@@ -8,7 +8,7 @@ Stage: devel
   export HOME="/root"
   cd /root
   touch hello
-  
+
 # Install binary into final image
 Bootstrap: docker
 From: alpine:3.9

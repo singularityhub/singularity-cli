@@ -1,8 +1,8 @@
 # CHANGELOG
 
-This is a manually generated log to track changes to the repository for each release. 
-Each section should include general headers such as **Implemented enhancements** 
-and **Merged pull requests**. All closed issued and bug fixes should be 
+This is a manually generated log to track changes to the repository for each release.
+Each section should include general headers such as **Implemented enhancements**
+and **Merged pull requests**. All closed issued and bug fixes should be
 represented by the pull requests that fixed them.
 Critical items to know are:
 
@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - dropping support for Singularity 2.x (0.3.0)
  - add comment out of STOPSIGNAL (0.2.14)
  - sudo `-E` flag should not be provided by default (0.2.13)
  - WORKDIR should create container for Singularity converter (0.2.12)
