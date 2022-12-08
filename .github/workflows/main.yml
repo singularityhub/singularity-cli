@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: eWaterCycle/setup-singularity@bebf1d6f54f9d2d159ac5c15385912dc39b23711 # v7 release
         with:
-          singularity_version: 3.7.1
+          singularity-version: 3.7.1
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
