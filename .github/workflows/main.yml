@@ -48,4 +48,4 @@ jobs:
           pip install pytest semver pytest-runner requests
 
       - name: Run unit tests
-        run: pytest
+        run: pytest -xs spython/tests/test*.py
