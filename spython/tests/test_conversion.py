@@ -43,7 +43,8 @@ def test_docker2singularity(test_data, tmp_path):
     for dockerfile, recipe in test_data["d2s"]:
         parser = DockerParser(dockerfile)
         writer = SingularityWriter(parser.recipe)
-        assert writer.convert().strip("\n") == read_file(recipe)
+        result = read_file(recipe).strip()
+        assert writer.convert().replace("\n", "") == result.replace("\n", "")
 
 
 def test_singularity2docker(test_data, tmp_path):

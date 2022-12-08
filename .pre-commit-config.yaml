@@ -6,8 +6,6 @@ repos:
       - id: check-added-large-files
       - id: check-case-conflict
       - id: check-docstring-first
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
       - id: mixed-line-ending
 
   - repo: local
