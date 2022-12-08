@@ -6,11 +6,7 @@
 
 
 from spython.logger import bot
-from spython.utils import (
-    check_install,
-    get_singularity_version,
-    get_singularity_version_info,
-)
+from spython.utils import check_install, get_singularity_version
 
 from .command import generate_bind_list, init_command, run_command
 from .flags import parse_verbosity
@@ -31,21 +27,22 @@ class Client:
         return self.__str__()
 
     def __init__(self):
-        """the base client for singularity, will have commands added to it.
+        """
+        The base client for singularity, will have commands added to it.
         upon init, store verbosity requested in environment MESSAGELEVEL.
         """
         self._init_level()
 
     def version(self):
-        """Shortcut to get_singularity_version, takes no arguments."""
+        """
+        Shortcut to get_singularity_version, takes no arguments.
+        """
         return get_singularity_version()
 
-    def version_info(self):
-        """Shortcut to get_singularity_version_info, takes no arguments."""
-        return get_singularity_version_info()
-
     def _check_install(self):
-        """ensure that singularity is installed, and exit if not."""
+        """
+        Ensure that singularity is installed, and exit if not.
+        """
         if check_install() is not True:
             bot.exit("Cannot find Singularity! Is it installed?")
 

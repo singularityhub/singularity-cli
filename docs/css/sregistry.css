@@ -77,15 +77,15 @@ a:hover { text-decoration: underline; }
   .btn + .btn { margin-top: 1rem; margin-left: 0; } }
 
 .next-button {
-  color: #999; 
-  border-radius:50px; 
-  float:right; 
+  color: #999;
+  border-radius:50px;
+  float:right;
   padding: 15px 15px 10px 13px
 }
 
-.next-button:hover, 
-.next-button:active, 
-.next-button:focus, 
+.next-button:hover,
+.next-button:active,
+.next-button:focus,
 .previous-button:active,
 .previous-button:focus,
 .previous-button:hover {
@@ -93,9 +93,9 @@ a:hover { text-decoration: underline; }
 }
 
 .previous-button {
-  color: #999; 
-  border-radius:50px; 
-  float:left; 
+  color: #999;
+  border-radius:50px;
+  float:left;
   padding: 15px 15px 10px 13px;
 }
 
@@ -198,8 +198,8 @@ a:hover { text-decoration: underline; }
 	background: #fff;
 	top: 10px;
 	left: 16%;
-	box-shadow: 
-		0 10px 0 #fff, 
+	box-shadow:
+		0 10px 0 #fff,
 		0 20px 0 #fff;
 }
 
@@ -289,10 +289,10 @@ a:hover { text-decoration: underline; }
 	display: none;
 }
 
-/* 
+/*
 When a submenu is openend, we will hide all li siblings.
 For that we give a class to the parent menu called "dl-subview".
-We also hide the submenu link. 
+We also hide the submenu link.
 The opened submenu will get the class "dl-subviewopen".
 All this is done for any sub-level being entered.
 */
@@ -1049,9 +1049,9 @@ a.accordion-toggle, a.accordion-collapsed {
 }
 
 .sidebar-logo {
-  max-width:180px; 
+  max-width:180px;
   margin-top:8px;
-  padding-left:0px; 
+  padding-left:0px;
   margin-bottom:20px;
 }
 

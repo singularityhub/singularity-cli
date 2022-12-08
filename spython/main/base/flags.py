@@ -16,31 +16,31 @@ GLOBAL OPTIONS:
     -x|--sh-debug Print shell wrapper debugging information
 
 GENERAL COMMANDS:
-    help       Show additional help for a command or container                  
-    selftest   Run some self tests for singularity install                      
+    help       Show additional help for a command or container
+    selftest   Run some self tests for singularity install
 
 CONTAINER USAGE COMMANDS:
-    exec       Execute a command within container                               
-    run        Launch a runscript within container                              
-    shell      Run a Bourne shell within container                              
-    test       Launch a testscript within container                             
+    exec       Execute a command within container
+    run        Launch a runscript within container
+    shell      Run a Bourne shell within container
+    test       Launch a testscript within container
 
 CONTAINER MANAGEMENT COMMANDS:
-    apps       List available apps within a container                           
-    bootstrap  *Deprecated* use build instead                                   
-    build      Build a new Singularity container                                
-    check      Perform container lint checks                                    
-    inspect    Display container's metadata                                     
-    mount      Mount a Singularity container image                              
-    pull       Pull a Singularity/Docker container to $PWD                      
-    siflist    list data object descriptors of a SIF container image            
-    sign       Sign a group of data objects in container                        
+    apps       List available apps within a container
+    bootstrap  *Deprecated* use build instead
+    build      Build a new Singularity container
+    check      Perform container lint checks
+    inspect    Display container's metadata
+    mount      Mount a Singularity container image
+    pull       Pull a Singularity/Docker container to $PWD
+    siflist    list data object descriptors of a SIF container image
+    sign       Sign a group of data objects in container
     verify     Verify the crypto signature of group of data objects in container
 
 COMMAND GROUPS:
-    capability User's capabilities management command group                     
-    image      Container image command group                                    
-    instance   Persistent instance command group                                
+    capability User's capabilities management command group
+    image      Container image command group
+    instance   Persistent instance command group
 
 """
 

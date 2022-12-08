@@ -18,3 +18,4 @@ Stage: final
 exec /bin/bash "$@"
 %startscript
 exec /bin/bash "$@"
+

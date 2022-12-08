@@ -13,7 +13,7 @@ help you to convert between Singularity and Docker recipes. First, let's
 define what these things are:
 
  - a *Recipe* is a base class that holds general variables and instructions for a container recipe (e.g., environment, labels, install steps).
- - a *parser* is a class that knows how to read in a special recipe type (e.g., Dockerfile) and parse it into the Recipe class. 
+ - a *parser* is a class that knows how to read in a special recipe type (e.g., Dockerfile) and parse it into the Recipe class.
  - a *writer* is a class that knows how to use a filled in Recipe to write a special recipe type (e.g., Singularity) with the content.
 
 Now we can answer what kind of things might you want to do:
@@ -29,9 +29,9 @@ it otherwise.
 
 # Command Line Client
 
-You don't need to interact with Python to use the converter! It's sometimes 
+You don't need to interact with Python to use the converter! It's sometimes
 much easier to use the command line and spit something out into the terminal,
-for quick visual inspection or piping into an output file. If you use the 
+for quick visual inspection or piping into an output file. If you use the
 `spython` utility, you can see your options available:
 
 
@@ -124,7 +124,7 @@ exec /bin/sh "$@"
 Finally, you can ask for help and print with more verbosity! Just ask for `--debug`
 
 ```bash
-$ spython --debug recipe Dockerfile 
+$ spython --debug recipe Dockerfile
 DEBUG Logging level DEBUG
 DEBUG Singularity Python Version: 0.0.63
 DEBUG [in]  FROM python:3.5.1
@@ -222,7 +222,7 @@ HEALTHCHECK true
 # Parsers
 
 Your first interaction will be with a parser, all of which are defined at
-`spython.main.parse.parsers`. If you know the parser you want directly, you 
+`spython.main.parse.parsers`. If you know the parser you want directly, you
 can import it:
 
 ```python
@@ -237,7 +237,7 @@ DockerParser = get_parser('docker')
 # spython.main.parse.parsers.docker.DockerParser
 ```
 
-then give it a Dockerfile to munch on. 
+then give it a Dockerfile to munch on.
 
 ```python
 parser=DockerParser('Dockerfile')
@@ -257,8 +257,8 @@ and the second named `runner`. You can inspect each of these recipes by indexing
 the dictionary. E.g., here is how to look at the .json output as we did previously:
 
 ```python
-parser.recipe['runner'].json()                                                                                                             
-Out[6]: 
+parser.recipe['runner'].json()
+Out[6]:
 {'fromHeader': 'ubuntu:20.04 ',
  'layer_files': {'builder': [['/build_thirdparty/usr/', '/usr/'],
    ['/build${PROJ_INSTALL_PREFIX}/share/proj/',
@@ -283,7 +283,7 @@ Out[6]:
 ```
 
 Notice in the above that we have a section called `layer_files` that a writer knows
-how to parse into a `%files` section from the previous layer. 
+how to parse into a `%files` section from the previous layer.
 All of these fields are attributes of the recipe, so you could change or otherwise
 interact with them. For example, here we are adding an entrypoint.
 
@@ -295,7 +295,7 @@ or if you don't want to, you can skip automatic parsing. Here we inspect a singl
 empty recipe layer:
 
 ```python
-parser = DockerParser('Dockerfile', load=False) parser.recipe                                                                                                                             
+parser = DockerParser('Dockerfile', load=False) parser.recipe
 {'spython-base': [spython-recipe][source:/home/vanessa/Desktop/Code/singularity-cli/Dockerfile]}
 
 parser.recipe['spython-base'].json()
@@ -315,8 +315,8 @@ SingularityParser = get_parser("Singularity")
 parser = SingularityParser("Singularity")
 ```
 ```python
-parser.recipe['spython-base'].json()                                                                                                      
-Out[21]: 
+parser.recipe['spython-base'].json()
+Out[21]:
 {'cmd': 'exec /opt/conda/bin/spython "$@"',
  'fromHeader': 'continuumio/miniconda3',
  'install': ['apt-get update && apt-get install -y git',

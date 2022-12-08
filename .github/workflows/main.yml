@@ -4,14 +4,13 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches_ignore: []
+  pull_request: []
 
 jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Check Spelling
         uses: crate-ci/typos@592b36d23c62cb378f6097a292bc902ee73f93ef # version 1.0.4
@@ -21,18 +20,12 @@ jobs:
       - name: Setup black linter
         run: conda create --quiet --name black pyflakes
 
-      - name: Lint python code with black
+      - name: Lint and format Python code
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
-          pip install black
-          black --check spython
-
-      - name: Check unused imports with pyflakes
-        run: |
-          export PATH="/usr/share/miniconda/bin:$PATH"
-          source activate black
-          pyflakes spython/oci spython/image.py spython/instance spython/main
+          pip install -r .github/dev-requirements.txt
+          pre-commit run --all-files
 
   pytest:
     runs-on: ubuntu-latest
@@ -42,21 +35,17 @@ jobs:
         python-version: [3.7, 3.8, 3.9]
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: eWaterCycle/setup-singularity@bebf1d6f54f9d2d159ac5c15385912dc39b23711 # v7 release
-        with:
-         singularity-version: 3.8.4
+      - uses: actions/checkout@v3
+      - uses: singularityhub/install-singularity@main
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
-          sudo ln -s $SINGULARITY_ROOT/bin/singularity /usr/bin/
           python -m pip install --upgrade pip
           pip install pytest semver pytest-runner requests
 
       - name: Run unit tests
-        run: |
-          pytest
+        run: pytest -xs spython/tests/test*.py

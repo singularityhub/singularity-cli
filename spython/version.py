@@ -5,7 +5,7 @@
 # with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-__version__ = "0.2.14"
+__version__ = "0.3.0"
 AUTHOR = "Vanessa Sochat"
 AUTHOR_EMAIL = "vsoch@users.noreply.github.com"
 NAME = "spython"
@@ -14,6 +14,5 @@ KEYWORDS = "singularity python client (spython)"
 DESCRIPTION = "Command line python tool for working with singularity."
 LICENSE = "LICENSE"
 
-INSTALL_REQUIRES = (("semver", {"min_version": "2.8.1"}),)
-
+INSTALL_REQUIRES = ()
 TESTS_REQUIRES = (("pytest", {"min_version": "4.6.2"}),)

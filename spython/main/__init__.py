@@ -45,9 +45,9 @@ def get_client(quiet=False, debug=False):
     client.pull = pull
 
     # Commands Groups, Instances
-    from spython.instance.cmd import (
+    from spython.instance.cmd import (  # instance level commands
         generate_instance_commands,
-    )  # instance level commands
+    )
 
     client.instance = generate_instance_commands()
     client.instance_stopall = stopall

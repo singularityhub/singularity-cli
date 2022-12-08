@@ -42,7 +42,7 @@ def prepare_client(image):
 
 def ipython(image):
     """give the user an ipython shell"""
-    client = prepare_client(image)  # pylint: disable=unused-variable
+    client = prepare_client(image)  # noqa
 
     try:
         from IPython import embed

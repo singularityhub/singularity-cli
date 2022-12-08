@@ -1,6 +1,6 @@
 # Robot Generator
 
-This folder contains a (sub-application) for a robot name generator. 
+This folder contains a (sub-application) for a robot name generator.
 
 ## Docker
 It's built on Docker Hub, so you can run as:
@@ -29,7 +29,7 @@ doopy-soup-7712
 phat-pancake-4952
 wobbly-kitty-3213
 lovely-mango-1987
-milky-poo-7960  
+milky-poo-7960
 ```
 
 ## Singularity

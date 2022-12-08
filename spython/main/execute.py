@@ -6,9 +6,10 @@
 
 
 import os
+import shutil
 
 from spython.logger import bot
-from spython.utils import stream_command, which
+from spython.utils import stream_command
 
 
 def execute(
@@ -177,7 +178,9 @@ def shell(
 
     # Finally, add the image or uri
     cmd.append(image)
-    singularity = which("singularity")
+    singularity = shutil.which("singularity")
+    if not singularity:
+        raise ValueError("Cannot find singularity executable.")
 
     # Does the user want to see the command printed?
     if not (quiet or self.quiet):

@@ -15,13 +15,7 @@ import shlex
 import subprocess
 import sys
 
-import semver
-
 from spython.logger import bot, decodeUtf8String
-
-################################################################################
-# Local commands and requests
-################################################################################
 
 
 def _process_sudo_cmd(cmd, sudo, sudo_options):
@@ -49,7 +43,7 @@ def check_install(software="singularity", quiet=True):
 
     try:
         version = run_command(cmd, quiet=True)
-    except:  # FileNotFoundError
+    except Exception:  # FileNotFoundError
         return found
 
     if version is not None:
@@ -63,13 +57,6 @@ def check_install(software="singularity", quiet=True):
     return found
 
 
-def which(software="singularity"):
-    """which returns the full path to where software is installed."""
-    cmd = ["which", software]
-    result = run_command(cmd, quiet=True)["message"][0]
-    return result.strip("\n")
-
-
 def get_singularity_version():
     """
     get the full singularity client version as reported by
@@ -80,7 +67,7 @@ def get_singularity_version():
     if version == "":
         try:
             version = run_command(["singularity", "--version"], quiet=True)
-        except:  # FileNotFoundError
+        except Exception:  # FileNotFoundError
             return version
 
         if version["return_code"] == 0:
@@ -102,19 +89,6 @@ def get_username():
     Get the user name based on the effective uid
     """
     return pwd.getpwuid(os.getuid())[0]
-
-
-def get_singularity_version_info():
-    """
-    Get the full singularity client version as a semantic version"
-    """
-    version_string = get_singularity_version()
-    prefix = "singularity version "
-    if version_string.startswith(prefix):
-        version_string = version_string[len(prefix) :]
-    elif "/" in version_string:  # Handle old stuff like "x.y.z-pull/123-0a5d"
-        version_string = version_string.replace("/", "+", 1)
-    return semver.VersionInfo.parse(version_string)
 
 
 def get_installdir():
@@ -236,11 +210,6 @@ def run_command(
     output = {"message": lines, "return_code": process.returncode}
 
     return output
-
-
-################################################################################
-# Parsing and Formatting
-################################################################################
 
 
 def format_container_name(name, special_characters=None):

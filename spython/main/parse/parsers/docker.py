@@ -256,7 +256,7 @@ class DockerParser(ParserBase):
                     continue
 
                 # Remove the --from from the line
-                line = " ".join([l for l in line.split(" ")[1:] if l])
+                line = " ".join([word for word in line.split(" ")[1:] if word])
 
             values = line.split(" ")
             topath = values.pop()
@@ -466,7 +466,7 @@ class DockerParser(ParserBase):
         """
         try:
             line = json.loads(line)
-        except:  # json.JSONDecodeError
+        except Exception:
             pass
         return line
 
