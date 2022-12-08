@@ -4,11 +4,7 @@
         "terminal": true,
         "user": {
             "uid": 1,
-            "gid": 1,
-            "additionalGids": [
-                5,
-                6
-            ]
+            "gid": 1
         },
         "args": [
             "sh"
@@ -42,18 +38,6 @@
                 "CAP_NET_BIND_SERVICE"
             ]
         },
-        "rlimits": [
-            {
-                "type": "RLIMIT_CORE",
-                "hard": 1024,
-                "soft": 1024
-            },
-            {
-                "type": "RLIMIT_NOFILE",
-                "hard": 1024,
-                "soft": 1024
-            }
-        ],
         "oomScoreAdj": 100,
         "noNewPrivileges": true
     },
