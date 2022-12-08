@@ -20,12 +20,12 @@ jobs:
       - name: Setup black linter
         run: conda create --quiet --name black pyflakes
 
-    - name: Lint and format Python code
-      run: |
-        export PATH="/usr/share/miniconda/bin:$PATH"
-        source activate black
-        pip install -r .github/dev-requirements.txt
-        pre-commit run --all-files
+      - name: Lint and format Python code
+        run: |
+          export PATH="/usr/share/miniconda/bin:$PATH"
+          source activate black
+          pip install -r .github/dev-requirements.txt
+          pre-commit run --all-files
 
   pytest:
     runs-on: ubuntu-latest
