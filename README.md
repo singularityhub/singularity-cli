@@ -7,7 +7,7 @@ Singularity Python (spython) is the Python API for working with <a href="https:/
 the [documentation](https://singularityhub.github.io/singularity-cli) for installation and usage, and
 the [install instructions](https://singularityhub.github.io/singularity-cli/install) for a quick start.
 
-**This action does not support Singularity 2.x! It won't work and we no longer support it.**
+**This library does not support Singularity 2.x! It won't work and we no longer support it.**
 
 We provide a [Singularity](Singularity) recipe for you to use if more convenient, along with the [full modules docstring](https://singularityhub.github.io/singularity-cli/api/source/spython.main.base.html#module-spython.main.base).
 
