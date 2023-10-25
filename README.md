@@ -43,6 +43,9 @@ tool to generate a contributors graphic below.
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/biosugar0"><img src="https://avatars.githubusercontent.com/u/18737819?v=4?s=100" width="100px;" alt="biosugar0"/><br /><sub><b>biosugar0</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=biosugar0" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tcpan"><img src="https://avatars.githubusercontent.com/u/938025?v=4?s=100" width="100px;" alt="Tony Pan"/><br /><sub><b>Tony Pan</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tcpan" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tjgalvin"><img src="https://avatars.githubusercontent.com/u/10543142?v=4?s=100" width="100px;" alt="tjgalvin"/><br /><sub><b>tjgalvin</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tjgalvin" title="Code">💻</a></td>
+    </tr>
   </tbody>
 </table>
 
