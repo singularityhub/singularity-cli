@@ -122,12 +122,14 @@ def stream_command(
     sudo_options: string or list of strings that will be passed as options to sudo
 
     """
-    if output_type not in ["stdout", "stderr"]:
+    if output_type not in ["stdout", "stderr", "both"]:
         bot.exit("Invalid output type %s. Must be stderr or stdout." % output_type)
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
+    stderr_pipe = subprocess.STDOUT if output_type == "both" else subprocess.PIPE
+
     process = subprocess.Popen(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True
+        cmd, stdout=subprocess.PIPE, stderr=stderr_pipe, universal_newlines=True
     )
 
     # Allow the runner to choose streaming output or error

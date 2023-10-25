@@ -29,6 +29,7 @@ def execute(
     sudo_options=None,
     quiet=True,
     environ=None,
+    stream_type="stdout"
 ):
     """execute: send a command to a container
 
@@ -51,6 +52,7 @@ def execute(
                    and message result not (default)
     quiet: Do not print verbose output.
     environ: extra environment to add.
+    stream_type: Sets which output stream from the singularity command should be return. Values are 'stdout', 'stderr', 'both'. 
     """
     from spython.utils import check_install
 
@@ -115,7 +117,7 @@ def execute(
                 quiet=quiet,
                 environ=environ,
             )
-        return stream_command(cmd, sudo=sudo, sudo_options=sudo_options)
+        return stream_command(cmd, sudo=sudo, sudo_options=sudo_options, output_type=stream_type)
 
     bot.exit("Please include a command (list) to execute.")
 
