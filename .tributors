@@ -22,7 +22,9 @@
     "wkpalan": {
         "name": "Kokulapalan (Gokul) Wimalanathan",
         "bio": "Genomics Data Scientist with experience in Bioinformatics, cloud computing, and HPC environments",
-        "blog": "http://www.bioinformapping.com/"
+        "blog": "http://www.bioinformapping.com/",
+        "orcid": "0000-0001-7811-935X",
+        "affiliation": "University of Colombo Faculty of Science"
     },
     "tschoonj": {
         "name": "Tom Schoonjans",
@@ -76,5 +78,9 @@
     "tcpan": {
         "name": "Tony Pan",
         "blog": "https://github.com/tcpan"
+    },
+    "tjgalvin": {
+        "name": "tjgalvin",
+        "blog": "https://github.com/tjgalvin"
     }
 }

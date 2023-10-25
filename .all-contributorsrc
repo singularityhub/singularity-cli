@@ -163,6 +163,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/938025?v=4"
             ]
+        },
+        {
+            "login": "tjgalvin",
+            "name": "tjgalvin",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/tjgalvin",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/10543142?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7
