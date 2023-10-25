@@ -19,7 +19,6 @@ def export(
     sudo=False,
     singularity_options=None,
 ):
-
     """export will export an image, sudo must be used. Since we have Singularity
     versions after 3, export is replaced with building into a sandbox.
 

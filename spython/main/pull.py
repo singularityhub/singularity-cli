@@ -24,7 +24,6 @@ def pull(
     quiet=False,
     singularity_options=None,
 ):
-
     """pull will pull a singularity hub or Docker image
 
     Parameters
@@ -92,7 +91,6 @@ def pull(
 
         # Option 3: A custom name we can predict (not commit/hash) and can also show
         else:
-
             # As of Singularity 3.x (at least 3.8) output goes to stderr
             return final_image, stream_command(cmd, sudo=False, output_type="stderr")
 

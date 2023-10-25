@@ -63,7 +63,6 @@ def list_instances(
     # Success, we have instances
 
     if output["return_code"] == 0:
-
         instances = json.loads(output["message"][0]).get("instances", {})
 
         # Does the user want instance objects instead?
@@ -71,7 +70,6 @@ def list_instances(
 
         if not return_json:
             for i in instances:
-
                 # If the user has provided a name, only add instance matches
                 if name is not None:
                     if name != i["instance"]:

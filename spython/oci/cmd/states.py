@@ -11,7 +11,6 @@ import json
 def state(
     self, container_id=None, sudo=None, sync_socket=None, singularity_options=None
 ):
-
     """get the state of an OciImage, if it exists. The optional states that
     can be returned are created, running, stopped or (not existing).
 
@@ -47,7 +46,6 @@ def state(
     result = self._run_command(cmd, sudo=sudo, quiet=True)
 
     if result is not None:
-
         # If successful, a string is returned to parse
         if isinstance(result, str):
             return json.loads(result)
@@ -56,7 +54,6 @@ def state(
 def _state_command(
     self, container_id=None, command="start", sudo=None, singularity_options=None
 ):
-
     """A generic state command to wrap pause, resume, kill, etc., where the
     only difference is the command. This function will be unwrapped if the
     child functions get more complicated (with additional arguments).
@@ -90,7 +87,6 @@ def _state_command(
 
 
 def start(self, container_id=None, sudo=None, singularity_options=None):
-
     """start a previously invoked OciImage, if it exists.
 
     Equivalent command line example:
@@ -112,7 +108,6 @@ def start(self, container_id=None, sudo=None, singularity_options=None):
 
 
 def kill(self, container_id=None, sudo=None, signal=None, singularity_options=None):
-
     """stop (kill) a started OciImage container, if it exists
 
     Equivalent command line example:

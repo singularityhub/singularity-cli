@@ -93,7 +93,6 @@ class Instance(ImageBase):
 
         # Add acceptable arguments
         for arg in ["pid", "name", "ip_address", "log_err_path", "log_out_path", "img"]:
-
             # Skip over non-iterables:
             if arg in kwargs:
                 setattr(self, arg, kwargs[arg])

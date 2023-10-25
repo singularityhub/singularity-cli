@@ -74,7 +74,6 @@ def main(args, options, parser):
         force = True
 
     if args.json:
-
         if outfile is not None:
             if not os.path.exists(outfile):
                 if force:
@@ -85,7 +84,6 @@ def main(args, options, parser):
             print(json.dumps(recipeParser.recipe.json(), indent=4))
 
     else:
-
         # Do the conversion
         recipeWriter = writer(recipeParser.recipe)
         result = recipeWriter.convert(runscript=entrypoint, force=force)

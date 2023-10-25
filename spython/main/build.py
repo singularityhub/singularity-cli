@@ -31,7 +31,6 @@ def build(
     sudo_options=None,
     singularity_options=None,
 ):
-
     """build a singularity image, optionally for an isolated build
     (requires sudo). If you specify to stream, expect the image name
     and an iterator to be returned.
