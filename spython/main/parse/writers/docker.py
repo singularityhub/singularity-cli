@@ -45,7 +45,6 @@ _default_uri = re.compile(
 
 
 class DockerWriter(WriterBase):
-
     name = "docker"
 
     def __init__(self, recipe=None):  # pylint: disable=useless-super-delegation
@@ -161,7 +160,6 @@ def write_lines(label, lines):
     result = []
     continued = False
     for line in lines:
-
         # Skip comments and empty lines
         if line.strip() == "" or line.strip().startswith("#"):
             continue

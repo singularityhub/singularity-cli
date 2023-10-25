@@ -23,7 +23,6 @@ class Recipe:
     """
 
     def __init__(self, recipe=None, layer=1):
-
         self.cmd = None
         self.comments = []
         self.entrypoint = None

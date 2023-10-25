@@ -123,7 +123,9 @@ def stream_command(
 
     """
     if output_type not in ["stdout", "stderr", "both"]:
-        bot.exit("Invalid output type %s. Must be stderr, stdout or both." % output_type)
+        bot.exit(
+            "Invalid output type %s. Must be stderr, stdout or both." % output_type
+        )
     cmd = _process_sudo_cmd(cmd, sudo, sudo_options)
 
     stderr_pipe = subprocess.STDOUT if output_type == "both" else subprocess.PIPE
@@ -160,7 +162,6 @@ def run_command(
     environ=None,
     background=False,
 ):
-
     """
     run_command uses subprocess to send a command to the terminal. If
     capture is True, we use the parent stdout, so the progress bar (and

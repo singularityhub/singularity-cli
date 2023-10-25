@@ -66,7 +66,6 @@ def generate_bind_list(self, bindlist=None):
         bindlist = bindlist.split(" ")
 
     for bind in bindlist:
-
         # Still cannot be None
         if bind:
             bot.debug("Adding bind %s" % bind)
@@ -113,7 +112,6 @@ def run_command(
     environ=None,
     background=False,
 ):
-
     """
     Run_command is a wrapper for the global run_command, checking first
     for sudo and exiting on error if needed. The message is returned as

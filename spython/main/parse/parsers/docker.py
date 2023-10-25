@@ -14,7 +14,6 @@ from .base import ParserBase
 
 
 class DockerParser(ParserBase):
-
     name = "docker"
 
     def __init__(self, filename="Dockerfile", load=True):
@@ -49,7 +48,6 @@ class DockerParser(ParserBase):
         previous = None
 
         for line in self.lines:
-
             parser = self._get_mapping(line, parser, previous)
 
             # Parse it, if appropriate
@@ -147,7 +145,6 @@ class DockerParser(ParserBase):
 
         # Try to extract arguments from the line
         for arg in line:
-
             # An undefined arg cannot be used
             if "=" not in arg:
                 bot.warning(
@@ -197,7 +194,6 @@ class DockerParser(ParserBase):
         exports = []
 
         for env in envlist:
-
             pieces = re.split("( |\\\".*?\\\"|'.*?')", env)
             pieces = [p for p in pieces if p.strip()]
 
@@ -205,7 +201,6 @@ class DockerParser(ParserBase):
                 current = pieces.pop(0)
 
                 if current.endswith("="):
-
                     # Case 1: ['A='] --> A=
                     nextone = ""
 
@@ -243,7 +238,6 @@ class DockerParser(ParserBase):
         lines = self._setup("COPY", lines)
 
         for line in lines:
-
             # Take into account multistage builds
             layer = None
             if line.startswith("--from"):

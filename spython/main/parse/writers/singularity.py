@@ -13,7 +13,6 @@ from .base import WriterBase
 
 
 class SingularityWriter(WriterBase):
-
     name = "singularity"
 
     def __init__(self, recipe=None):  # pylint: disable=useless-super-delegation
@@ -52,7 +51,6 @@ class SingularityWriter(WriterBase):
 
         # Write each layer to new file
         for stage, parser in self.recipe.items():
-
             # Set the first and active stage
             self.stage = stage
 
@@ -111,9 +109,7 @@ class SingularityWriter(WriterBase):
 
         # Only look at Docker if not enforcing default
         if not force:
-
             if self.recipe[self.stage].entrypoint is not None:
-
                 # The provided entrypoint can be a string or a list
                 if isinstance(self.recipe[self.stage].entrypoint, list):
                     entrypoint = " ".join(self.recipe[self.stage].entrypoint)

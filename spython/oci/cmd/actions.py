@@ -19,7 +19,6 @@ def run(
     singularity_options=None,
     log_format="kubernetes",
 ):
-
     """run is a wrapper to create, start, attach, and delete a container.
 
     Equivalent command line example:
@@ -57,7 +56,6 @@ def create(
     log_format="kubernetes",
     singularity_options=None,
 ):
-
     """use the client to create a container from a bundle directory. The bundle
     directory should have a config.json. You must be the root user to
     create a runtime.
@@ -104,7 +102,6 @@ def _run(
     log_format="kubernetes",
     singularity_options=None,
 ):
-
     """_run is the base function for run and create, the only difference
     between the two being that run does not have an option for sync_socket.
 

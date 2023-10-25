@@ -13,7 +13,6 @@ import sys
 
 
 def get_parser():
-
     parser = argparse.ArgumentParser(
         description="Singularity Client",
         formatter_class=argparse.RawTextHelpFormatter,
@@ -147,7 +146,6 @@ def version():
 
 
 def main():
-
     parser = get_parser()
 
     def print_help(return_code=0):

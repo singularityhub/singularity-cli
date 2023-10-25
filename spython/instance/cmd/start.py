@@ -49,7 +49,6 @@ def start(
 
     # If an image isn't provided, we have an initialized instance
     if image is None:
-
         # Not having this means it was called as a command, without an image
         if not hasattr(self, "_image"):
             bot.exit("Please provide an image, or create an Instance first.")

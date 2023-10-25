@@ -75,7 +75,6 @@ with open("README.md") as readme:
 
 
 if __name__ == "__main__":
-
     INSTALL_REQUIRES = get_requirements(lookup)
     TESTS_REQUIRES = get_requirements(lookup)
 

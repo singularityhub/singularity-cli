@@ -48,7 +48,6 @@ def test_docker2singularity(test_data, tmp_path):
 
 
 def test_singularity2docker(test_data, tmp_path):
-
     print("Testing spython conversion from singularity2docker")
     from spython.main.parse.parsers import SingularityParser
     from spython.main.parse.writers import DockerWriter

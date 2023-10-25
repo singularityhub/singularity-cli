@@ -13,7 +13,6 @@ from .base import ParserBase
 
 
 class SingularityParser(ParserBase):
-
     name = "singularity"
 
     def __init__(self, filename="Singularity", load=True):
@@ -51,7 +50,6 @@ class SingularityParser(ParserBase):
         bot.warning("SETUP is error prone, please check output.")
 
         for line in lines:
-
             # For all lines, replace rootfs with actual root /
             line = re.sub("[$]{?SINGULARITY_ROOTFS}?", "", "$SINGULARITY_ROOTFS")
 
@@ -171,7 +169,6 @@ class SingularityParser(ParserBase):
 
         # Multiple line runscript needs multiple lines written to script
         if len(lines) > 1:
-
             bot.warning("More than one line detected for runscript!")
             bot.warning("These will be echoed into a single script to call.")
             self._write_script("/entrypoint.sh", lines)
@@ -257,7 +254,6 @@ class SingularityParser(ParserBase):
         members = []
 
         while True:
-
             if not lines:
                 break
             next_line = lines[0]
@@ -278,7 +274,6 @@ class SingularityParser(ParserBase):
 
         # Add the list to the config
         if members and section is not None:
-
             # Get the correct parsing function
             parser = self._get_mapping(section)
 
@@ -309,7 +304,6 @@ class SingularityParser(ParserBase):
         comments = []
 
         while lines:
-
             # Clean up white trailing/leading space
             line = lines.pop(0)
             stripped = line.strip()

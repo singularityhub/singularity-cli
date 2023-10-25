@@ -9,7 +9,6 @@ from spython.logger import bot
 
 
 class OciImage(ImageBase):
-
     # Default functions of client don't use sudo
     sudo = False
 

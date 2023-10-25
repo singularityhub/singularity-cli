@@ -64,20 +64,25 @@ def test_execute_with_return_code(docker_container):
     assert "tmp\nusr\nvar" in result["message"]
     assert result["return_code"] == 0
 
+
 def test_execute_with_stream(docker_container):
     output = Client.execute(docker_container[1], "ls /", stream=True)
     message = "".join(list(output))
     assert "tmp\nusr\nvar" in message
-    
-    output = Client.execute(docker_container[1], "ls /", stream=True, stream_type="both")
+
+    output = Client.execute(
+        docker_container[1], "ls /", stream=True, stream_type="both"
+    )
     message = "".join(list(output))
     assert "tmp\nusr\nvar" in message
-    
+
     # ls / should be successful, so there will be no stderr
-    output = Client.execute(docker_container[1], "ls /", stream=True, stream_type="stderr")
+    output = Client.execute(
+        docker_container[1], "ls /", stream=True, stream_type="stderr"
+    )
     message = "".join(list(output))
     assert "tmp\nusr\nvar" not in message
-    
+
 
 @pytest.mark.parametrize("return_code", [True, False])
 def test_execute_with_called_process_error(

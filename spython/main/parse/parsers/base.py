@@ -48,7 +48,6 @@ class ParserBase:
         self.recipe = {"spython-base": Recipe(self.filename)}
 
         if self.filename:
-
             # Read in the raw lines of the file
             self.lines = read_file(self.filename)
 
@@ -69,7 +68,6 @@ class ParserBase:
         attempting parsing.
         """
         if self.filename is not None:
-
             # Does the recipe provided exist?
             if not os.path.exists(self.filename):
                 bot.exit("Cannot find %s, is the path correct?" % self.filename)
