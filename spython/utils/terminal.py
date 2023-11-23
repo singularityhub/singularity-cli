@@ -148,7 +148,10 @@ def stream_command(
     process.stdout.close()
     return_code = process.wait()
     if return_code:
-        print(process.stderr.read(), file=sys.stderr)
+        # Some situations may return process without an attached stderr object
+        # to read from
+        if process.stderr:
+            print(process.stderr.read(), file=sys.stderr)
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
