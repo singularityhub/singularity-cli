@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - added check to enbsure stderr exists upon a non-zero return code when streaming (0.3.2)
  - exposed the stream type option, and ability to capture both stdout and stderr when stream=True (0.3.1)
  - dropping support for Singularity 2.x (0.3.0)
  - add comment out of STOPSIGNAL (0.2.14)
