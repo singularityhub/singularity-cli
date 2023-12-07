@@ -128,11 +128,6 @@ def run_command(
     On success, returns result.
     background: run the instance in the background (just Popen)
     """
-    print("HERE")
-    import IPython
-
-    IPython.embed()
-
     # First preference to function, then to client setting
     if quiet is None:
         quiet = self.quiet
