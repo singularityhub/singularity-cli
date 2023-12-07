@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2022 Vanessa Sochat.
+# Copyright (C) 2017-2024 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -128,6 +128,11 @@ def run_command(
     On success, returns result.
     background: run the instance in the background (just Popen)
     """
+    print("HERE")
+    import IPython
+
+    IPython.embed()
+
     # First preference to function, then to client setting
     if quiet is None:
         quiet = self.quiet
