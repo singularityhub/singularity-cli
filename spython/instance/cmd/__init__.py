@@ -1,4 +1,4 @@
-# Copyright (C) 2017-2022 Vanessa Sochat.
+# Copyright (C) 2017-2024 Vanessa Sochat.
 
 # This Source Code Form is subject to the terms of the
 # Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed
@@ -18,7 +18,6 @@ def generate_instance_commands():
     from spython.main.base.generate import RobotNamer
     from spython.main.base.logger import println
     from spython.main.instances import list_instances
-    from spython.utils import run_command as run_cmd
 
     from .logs import _logs, error_logs, output_logs
     from .start import start
@@ -26,8 +25,7 @@ def generate_instance_commands():
 
     Instance.RobotNamer = RobotNamer()
     Instance._init_command = init_command
-    Instance.run_command = run_cmd
-    Instance._run_command = run_command
+    Instance.run_command = run_command
     Instance._list = list_instances  # list command is used to get metadata
     Instance._println = println
     Instance.start = start  # intended to be called on init, not by user
