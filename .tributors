@@ -82,5 +82,9 @@
     "tjgalvin": {
         "name": "tjgalvin",
         "blog": "https://github.com/tjgalvin"
+    },
+    "EricDeveaud": {
+        "name": "Eric Deveaud",
+        "blog": "http://www.pasteur.fr/ip/easysite/pasteur/fr/recherche/Centre-Informatique-pour-la-Biologie"
     }
 }
