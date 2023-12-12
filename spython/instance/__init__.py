@@ -47,7 +47,10 @@ class Instance(ImageBase):
         # If no name provided, use robot name
         if name is None:
             name = self.RobotNamer.generate()
-        self.name = name.replace("-", "_")
+        # dash allowed in instance name.
+        # authorizedChars = `^[a-zA-Z0-9._-]+$` from instance_linux.go
+        #self.name = name.replace("-", "_")
+        self.name = name
 
     def parse_image_name(self, image):
         """
