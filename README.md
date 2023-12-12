@@ -45,6 +45,7 @@ tool to generate a contributors graphic below.
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tjgalvin"><img src="https://avatars.githubusercontent.com/u/10543142?v=4?s=100" width="100px;" alt="tjgalvin"/><br /><sub><b>tjgalvin</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=tjgalvin" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.pasteur.fr/ip/easysite/pasteur/fr/recherche/Centre-Informatique-pour-la-Biologie"><img src="https://avatars.githubusercontent.com/u/6849075?v=4?s=100" width="100px;" alt="Eric Deveaud"/><br /><sub><b>Eric Deveaud</b></sub></a><br /><a href="https://github.com/singularityhub/singularity-cli/commits?author=EricDeveaud" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
