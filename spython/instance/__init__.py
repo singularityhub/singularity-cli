@@ -49,7 +49,7 @@ class Instance(ImageBase):
             name = self.RobotNamer.generate()
         # dash allowed in instance name.
         # authorizedChars = `^[a-zA-Z0-9._-]+$` from instance_linux.go
-        #self.name = name.replace("-", "_")
+        # self.name = name.replace("-", "_")
         self.name = name
 
     def parse_image_name(self, image):
