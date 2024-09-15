@@ -26,6 +26,7 @@ def run(
     return_result=False,
     quiet=False,
     background=False,
+    stream_type="stdout",
 ):
     """
     run will run the container, with or withour arguments (which
@@ -49,6 +50,7 @@ def run(
     return_result: if True, return entire json object with return code
          and message result (default is False)
     quiet: print the command to the user
+    stream_type: Sets which output stream from the singularity command should be return. Values are 'stdout', 'stderr', 'both'.
     """
     from spython.utils import check_install
 
@@ -107,7 +109,7 @@ def run(
     elif not stream:
         result = self._run_command(cmd, sudo=sudo, return_result=return_result)
     else:
-        return stream_command(cmd, sudo=sudo)
+        return stream_command(cmd, sudo=sudo, output_type=stream_type)
 
     # If the user wants the raw result object
     if return_result:

@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - add stream_type to 'run' command like in 'exec' (0.3.14)
  - do not modify user provided instance name when generating new instance (0.3.13)
  - bug with instance.run_command (0.3.12)
  - added check to enbsure stderr exists upon a non-zero return code when streaming (0.3.11)
