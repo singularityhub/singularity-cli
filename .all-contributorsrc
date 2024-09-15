@@ -185,6 +185,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/6849075?v=4"
             ]
+        },
+        {
+            "login": "pustoshilov-d",
+            "name": "Dmitry Pustoshilov",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://github.com/pustoshilov-d",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/22946517?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7

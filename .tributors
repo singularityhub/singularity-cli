@@ -86,5 +86,11 @@
     "EricDeveaud": {
         "name": "Eric Deveaud",
         "blog": "http://www.pasteur.fr/ip/easysite/pasteur/fr/recherche/Centre-Informatique-pour-la-Biologie"
+    },
+    "pustoshilov-d": {
+        "name": "Dmitry Pustoshilov",
+        "email": "pustoshilov.d@gmail.com",
+        "bio": "𝑳𝒊𝒇𝒆 & 𝑫𝒂𝒕𝒂 𝑺𝒄𝒊𝒆𝒏𝒕𝒊𝒔𝒕, open to work",
+        "blog": "https://github.com/pustoshilov-d"
     }
 }
