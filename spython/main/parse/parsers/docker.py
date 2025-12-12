@@ -332,7 +332,8 @@ class DockerParser(ParserBase):
         """
         file_name = os.path.basename(url)
         download_path = "%s/%s" % (dest, file_name)
-        command = "curl %s -o %s" % (url, download_path)
+        curl_flags = "-L --retry 1 --fail --show-error"
+        command = "curl %s %s -o %s" % (curl_flags, url, download_path)
         self.recipe[self.active_layer].install.append(command)
 
     def _parse_archive(self, targz, dest):
