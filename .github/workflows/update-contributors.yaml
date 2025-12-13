@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+
+permissions:
+  contents: write
+  
 jobs:
   Update:
     name: Generate
