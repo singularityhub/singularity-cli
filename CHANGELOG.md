@@ -17,6 +17,7 @@ The client here will eventually be released as "spython" (and eventually to
 singularity on pypi), and the versions here will coincide with these releases.
 
 ## [master](https://github.com/singularityhub/singularity-cli/tree/master)
+ - make curl requests failsafe against redirects, improved error on fail (0.3.15)
  - add stream_type to 'run' command like in 'exec' (0.3.14)
  - do not modify user provided instance name when generating new instance (0.3.13)
  - bug with instance.run_command (0.3.12)
