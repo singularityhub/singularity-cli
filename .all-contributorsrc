@@ -196,6 +196,17 @@
             "avatar_url": [
                 "https://avatars.githubusercontent.com/u/22946517?v=4"
             ]
+        },
+        {
+            "login": "m-jahn",
+            "name": "Michael Jahn",
+            "contributions": [
+                "code"
+            ],
+            "profile": "https://m-jahn.github.io/",
+            "avatar_url": [
+                "https://avatars.githubusercontent.com/u/32667667?v=4"
+            ]
         }
     ],
     "contributorsPerLine": 7
