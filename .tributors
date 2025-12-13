@@ -6,7 +6,9 @@
     },
     "Flamefire": {
         "name": "Alexander Grund",
-        "blog": "https://github.com/Flamefire"
+        "blog": "https://github.com/Flamefire",
+        "orcid": "0000-0002-7196-8452",
+        "affiliation": "Technische Universität Dresden"
     },
     "pierlauro": {
         "name": "Pierlauro Sciarelli",
@@ -43,7 +45,9 @@
     "kinow": {
         "name": "Bruno P. Kinoshita",
         "bio": "From Casa Verde, São Paulo . Now in CBD, Auckland .",
-        "blog": "https://kinoshita.eti.br"
+        "blog": "https://kinoshita.eti.br",
+        "orcid": "0000-0001-8250-4074",
+        "affiliation": "Barcelona Supercomputing Center"
     },
     "cceyda": {
         "name": "Ceyda Cinarel",
@@ -67,7 +71,9 @@
         "name": "Martin Diehl",
         "email": "martin.diehl@kuleuven.be",
         "bio": "Materials Science, Fortran, Python, DAMASK, open source",
-        "blog": "https://martin-diehl.net"
+        "blog": "https://martin-diehl.net",
+        "orcid": "0000-0002-3738-7363",
+        "affiliation": "KU Leuven"
     },
     "neumann-nico": {
         "name": "Nico Neumann",
@@ -77,7 +83,9 @@
     },
     "tcpan": {
         "name": "Tony Pan",
-        "blog": "https://github.com/tcpan"
+        "blog": "https://github.com/tcpan",
+        "email": "tcpan@emory.edu",
+        "orcid": "0009-0003-2185-8938"
     },
     "tjgalvin": {
         "name": "tjgalvin",
@@ -92,5 +100,13 @@
         "email": "pustoshilov.d@gmail.com",
         "bio": "𝑳𝒊𝒇𝒆 & 𝑫𝒂𝒕𝒂 𝑺𝒄𝒊𝒆𝒏𝒕𝒊𝒔𝒕, open to work",
         "blog": "https://github.com/pustoshilov-d"
+    },
+    "m-jahn": {
+        "name": "Michael Jahn",
+        "email": "jahn@mpusp.mpg.de",
+        "bio": "Bioinformatics researcher @MPUSP - Max Planck Unit for the Science of Pathogens. Postdoc at Science For Life Lab, Stockholm. PhD from University of Leipzig.",
+        "blog": "https://m-jahn.github.io/",
+        "orcid": "0000-0002-3913-153X",
+        "affiliation": "KTH Royal Institute of Technology"
     }
 }
